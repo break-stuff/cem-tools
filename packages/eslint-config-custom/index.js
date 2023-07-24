@@ -1,6 +1,15 @@
 module.exports = {
-  extends: ["next", "turbo", "prettier"],
-  rules: {
-    "@next/next/no-html-link-for-pages": "off",
+  env: {
+    browser: false,
+    es2019: true,
   },
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+  overrides: [],
+  parser: "@typescript-eslint/parser",
+  parserOptions: {
+    ecmaVersion: "latest",
+    sourceType: "module",
+  },
+  plugins: ["@typescript-eslint"],
+  rules: {},
 };
