@@ -46,6 +46,7 @@ function saveCustomDataFiles(
 
 function getCustomHtmlDataFileContents(tags: Tag[]) {
   return `{
+      "$schema": "https://raw.githubusercontent.com/microsoft/vscode/master/extensions/html-language-features/server/src/htmlTags.schema.json",
       "version": 1.1,
       "tags": ${JSON.stringify(tags)}
     }`;
@@ -56,6 +57,7 @@ function getCustomCssDataFileContents(
   parts: VsCssProperty[]
 ) {
   return `{
+      "$schema": "https://raw.githubusercontent.com/microsoft/vscode/master/extensions/css-language-features/server/src/data/browsers.schema.json",
       "version": 1.1,
       "properties": ${JSON.stringify(properties)},
       "pseudoElements": ${JSON.stringify(parts)}

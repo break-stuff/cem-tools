@@ -1,0 +1,97 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { has } from "utilities";
+import * as schema from "custom-elements-manifest/schema";
+
+export function getSlotsTemplate(slots?: schema.Slot[], label = 'Slots'): string {
+  return has(slots)
+    ? `\n\n### **${label}:**\n ${getSlotDocs(slots!)}`
+    : "";
+}
+
+export function getEventsTemplate(events?: schema.Event[],label = 'Events'): string {
+  return has(events)
+    ? `\n\n### **${label}:**\n ${getEventDocs(events!)}`
+    : "";
+}
+
+export function getCssPropsTemplate(
+  cssProperties?: schema.CssCustomProperty[],
+  label = 'CSS Properties'
+): string {
+  return has(cssProperties)
+    ? `\n\n### **${label}:**\n ${getCssPropertyDocs(
+        cssProperties!
+      )}`
+    : "";
+}
+
+export function getPartsTemplate(
+  cssParts?: schema.CssPart[],
+  label = 'CSS Parts'
+): string {
+  return has(cssParts)
+    ? `\n\n### **${label}:**\n ${getCssPartsDocs(cssParts!)}`
+    : "";
+}
+
+export function getMethodsTemplate(
+  methods?: schema.ClassMethod[],
+  label = 'Methods'
+): string {
+  return has(methods)
+    ? `\n\n### **${label}:**\n ${getMethodDocs(methods!)}`
+    : "";
+}
+
+function getEventDocs(events: schema.Event[]) {
+  return events
+    ?.map((event) => `- **${event.name}** - ${event.description}`)
+    .join("\n");
+}
+
+function getCssPropertyDocs(properties: schema.CssCustomProperty[]) {
+  return properties
+    ?.map(
+      (prop) =>
+        `- **${prop.name}** - ${prop.description} _(default: ${prop.default})_`
+    )
+    .join("\n");
+}
+
+function getCssPartsDocs(parts: schema.CssPart[]) {
+  return parts
+    ?.map((part) => `- **${part.name}** - ${part.description}`)
+    .join("\n");
+}
+
+function getSlotDocs(slots: schema.Slot[]) {
+  return slots
+    ?.map(
+      (slot) =>
+        `- ${slot.name ? `**${slot.name}**` : "_default_"} - ${
+          slot.description
+        }`
+    )
+    .join("\n");
+}
+
+function getMethodDocs(methods: schema.ClassMethod[]) {
+  return methods
+    ?.map(
+      (method) =>
+        `- **${method.name}${getParameters(method.parameters)}${
+          method.return ? `: _${method.return.type?.text}_` : ""
+        }** - ${method.description}`
+    )
+    .join("\n");
+}
+
+function getParameters(parameters?: schema.Parameter[]): string {
+  return parameters
+    ? "(" +
+        parameters
+          .map((x) => `${x.name + (x?.type?.text ? `: _${x?.type?.text}_` : "")}`)
+          .join(", ") +
+        ")"
+    : "()";
+}

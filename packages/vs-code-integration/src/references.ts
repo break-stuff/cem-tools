@@ -1,5 +1,7 @@
+import { Reference } from "./types";
+import * as schema from 'custom-elements-manifest/schema';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Declaration, Reference } from "./cem-schema";
 const componentReferences: { [key: string]: Reference[] } = {};
 
 export function setComponentReferences(ts: any, node: any, moduleDoc: any) {
@@ -39,8 +41,8 @@ function updateReferences(references: Reference[], node: any, moduleDoc: any) {
   }
 
   const className: string = node.name.getText();
-  const component: Declaration = moduleDoc?.declarations?.find(
-    (dec: Declaration) => dec.name === className
+  const component: schema.Declaration = moduleDoc?.declarations?.find(
+    (dec: schema.Declaration) => dec.name === className
   );
 
   componentReferences[component.name] = references as Reference[];
