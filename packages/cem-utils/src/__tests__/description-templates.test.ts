@@ -6,14 +6,14 @@ import {
   getPartsTemplate,
   getSlotsTemplate,
 } from "../description-templates.js";
-import { config, component } from "./test-data.js";
+import { component } from "./test-data.js";
 
 describe("getSlotsTemplate", () => {
   test("given a component with slots, it should return a formatted string", () => {
     // Arrange
 
     // Act
-    const result = getSlotsTemplate(config, component.slots)?.trim();
+    const result = getSlotsTemplate(component.slots)?.trim();
 
     // Assert
     expect(result.startsWith("### **Slots:**")).toBe(true);
@@ -24,8 +24,7 @@ describe("getSlotsTemplate", () => {
     // Arrange
 
     // Act
-    const slotConfig = { ...config, slotDocs: false };
-    const result = getSlotsTemplate(slotConfig, component.slots);
+    const result = getSlotsTemplate(component.slots, false);
 
     // Assert
     expect(result).toBe("");
@@ -35,7 +34,7 @@ describe("getSlotsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getSlotsTemplate(config, undefined);
+    const result = getSlotsTemplate(undefined);
 
     // Assert
     expect(result).toBe("");
@@ -45,7 +44,7 @@ describe("getSlotsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getSlotsTemplate(config, []);
+    const result = getSlotsTemplate([]);
 
     // Assert
     expect(result).toBe("");
@@ -57,7 +56,7 @@ describe("getEventsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getEventsTemplate(config, component.events)?.trim();
+    const result = getEventsTemplate(component.events)?.trim();
 
     // Assert
     expect(result.startsWith("### **Events:**")).toBe(true);
@@ -68,8 +67,7 @@ describe("getEventsTemplate", () => {
     // Arrange
 
     // Act
-    const eventConfig = { ...config, eventDocs: false };
-    const result = getEventsTemplate(eventConfig, component.events);
+    const result = getEventsTemplate(component.events, false);
 
     // Assert
     expect(result).toBe("");
@@ -79,7 +77,7 @@ describe("getEventsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getEventsTemplate(config, undefined);
+    const result = getEventsTemplate(undefined);
 
     // Assert
     expect(result).toBe("");
@@ -89,7 +87,7 @@ describe("getEventsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getEventsTemplate(config, []);
+    const result = getEventsTemplate([]);
 
     // Assert
     expect(result).toBe("");
@@ -101,7 +99,7 @@ describe("getCssPropsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getCssPropsTemplate(config, component.cssProperties)?.trim();
+    const result = getCssPropsTemplate(component.cssProperties)?.trim();
 
     // Assert
     expect(result.startsWith("### **CSS Properties:**")).toBe(true);
@@ -112,8 +110,7 @@ describe("getCssPropsTemplate", () => {
     // Arrange
 
     // Act
-    const propConfig = { ...config, cssPropertiesDocs: false };
-    const result = getCssPropsTemplate(propConfig, component.cssProperties);
+    const result = getCssPropsTemplate(component.cssProperties, false);
 
     // Assert
     expect(result).toBe("");
@@ -123,7 +120,7 @@ describe("getCssPropsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getCssPropsTemplate(config, undefined);
+    const result = getCssPropsTemplate(undefined);
 
     // Assert
     expect(result).toBe("");
@@ -133,7 +130,7 @@ describe("getCssPropsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getCssPropsTemplate(config, []);
+    const result = getCssPropsTemplate([]);
 
     // Assert
     expect(result).toBe("");
@@ -145,7 +142,7 @@ describe("getPartsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getPartsTemplate(config, component.cssParts)?.trim();
+    const result = getPartsTemplate(component.cssParts)?.trim();
 
     // Assert
     expect(result.startsWith("### **CSS Parts:**")).toBe(true);
@@ -156,8 +153,7 @@ describe("getPartsTemplate", () => {
     // Arrange
 
     // Act
-    const partConfig = { ...config, cssPartsDocs: false };
-    const result = getPartsTemplate(partConfig, component.cssParts);
+    const result = getPartsTemplate(component.cssParts, false);
 
     // Assert
     expect(result).toBe("");
@@ -167,7 +163,7 @@ describe("getPartsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getPartsTemplate(config, undefined);
+    const result = getPartsTemplate(undefined);
 
     // Assert
     expect(result).toBe("");
@@ -177,7 +173,7 @@ describe("getPartsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getPartsTemplate(config, []);
+    const result = getPartsTemplate([]);
 
     // Assert
     expect(result).toBe("");
@@ -190,7 +186,7 @@ describe("getMethodsTemplate", () => {
 
     // Act
     const methods = getMethods(component);
-    const result = getMethodsTemplate(config, methods)?.trim();    
+    const result = getMethodsTemplate(methods)?.trim();    
 console.log(result);
 
     // Assert
@@ -202,9 +198,8 @@ console.log(result);
     // Arrange
 
     // Act
-    const methodConfig = { ...config, methodDocs: false };
     const methods = getMethods(component);
-    const result = getMethodsTemplate(methodConfig, methods)?.trim();    
+    const result = getMethodsTemplate(methods, false)?.trim();    
 
     // Assert
     expect(result).toBe("");
@@ -214,7 +209,7 @@ console.log(result);
     // Arrange
 
     // Act
-    const result = getMethodsTemplate(config, undefined)?.trim();    
+    const result = getMethodsTemplate(undefined)?.trim();    
 
     // Assert
     expect(result).toBe("");
@@ -224,7 +219,7 @@ console.log(result);
     // Arrange
 
     // Act
-    const result = getMethodsTemplate(config, [])?.trim();    
+    const result = getMethodsTemplate([])?.trim();    
 
     // Assert
     expect(result).toBe("");

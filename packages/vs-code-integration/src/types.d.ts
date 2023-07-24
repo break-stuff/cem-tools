@@ -1,4 +1,5 @@
 import { BaseConfiguration } from "configurations";
+import { CEM } from "cem-utils";
 
 
 export interface Options extends BaseConfiguration {
@@ -44,4 +45,8 @@ interface Value {
 interface Reference {
   name: string;
   url: string;
+}
+
+export interface CemAnalyzerParams {
+  customElementsManifest: CEM;
 }

@@ -9,7 +9,7 @@ export function getDescription(
 ) {
   return (
     (descriptionSrc
-      ? component[descriptionSrc]
+      ? (component as any)[descriptionSrc]
       : component.summary || component.description
     )?.replace(/\\n/g, "\n") || ""
   );

@@ -2,43 +2,48 @@
 import { has } from "utilities";
 import * as schema from "custom-elements-manifest/schema";
 
-export function getSlotsTemplate(slots?: schema.Slot[], label = 'Slots'): string {
-  return has(slots)
-    ? `\n\n### **${label}:**\n ${getSlotDocs(slots!)}`
-    : "";
+export function getSlotsTemplate(
+  slots?: schema.Slot[],
+  hide?: boolean,
+  label = "Slots"
+): string {
+  return has(slots) && !hide ? `\n\n### **${label}:**\n ${getSlotDocs(slots!)}` : "";
 }
 
-export function getEventsTemplate(events?: schema.Event[],label = 'Events'): string {
-  return has(events)
-    ? `\n\n### **${label}:**\n ${getEventDocs(events!)}`
-    : "";
+export function getEventsTemplate(
+  events?: schema.Event[],
+  hide?: boolean,
+  label = "Events"
+): string {
+  return has(events) && !hide ? `\n\n### **${label}:**\n ${getEventDocs(events!)}` : "";
 }
 
 export function getCssPropsTemplate(
   cssProperties?: schema.CssCustomProperty[],
-  label = 'CSS Properties'
+  hide?: boolean,
+  label = "CSS Properties"
 ): string {
-  return has(cssProperties)
-    ? `\n\n### **${label}:**\n ${getCssPropertyDocs(
-        cssProperties!
-      )}`
+  return has(cssProperties) && !hide
+    ? `\n\n### **${label}:**\n ${getCssPropertyDocs(cssProperties!)}`
     : "";
 }
 
 export function getPartsTemplate(
   cssParts?: schema.CssPart[],
-  label = 'CSS Parts'
+  hide?: boolean,
+  label = "CSS Parts"
 ): string {
-  return has(cssParts)
+  return has(cssParts) && !hide
     ? `\n\n### **${label}:**\n ${getCssPartsDocs(cssParts!)}`
     : "";
 }
 
 export function getMethodsTemplate(
   methods?: schema.ClassMethod[],
-  label = 'Methods'
+  hide?: boolean,
+  label = "Methods"
 ): string {
-  return has(methods)
+  return has(methods) && !hide
     ? `\n\n### **${label}:**\n ${getMethodDocs(methods!)}`
     : "";
 }
@@ -90,7 +95,9 @@ function getParameters(parameters?: schema.Parameter[]): string {
   return parameters
     ? "(" +
         parameters
-          .map((x) => `${x.name + (x?.type?.text ? `: _${x?.type?.text}_` : "")}`)
+          .map(
+            (x) => `${x.name + (x?.type?.text ? `: _${x?.type?.text}_` : "")}`
+          )
           .join(", ") +
         ")"
     : "()";

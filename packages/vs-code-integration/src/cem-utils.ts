@@ -1,6 +1,7 @@
-import { getComponents, getSlotsTemplate } from "cem-utils";
-import { TagAttribute, Value, VsCssProperty } from "./types";
+import { CEM, Component, getComponents, getCssPropsTemplate, getDescription, getEventsTemplate, getMethods, getMethodsTemplate, getPartsTemplate, getSlotsTemplate } from "cem-utils";
+import { CssValue, TagAttribute, Value, VsCssProperty } from "./types";
 import * as schema from 'custom-elements-manifest/schema';
+import { toKebabCase } from "utilities";
 
 export function getCssPropertyList(
   customElementsManifest: schema.Package
@@ -9,7 +10,7 @@ export function getCssPropertyList(
   return (
     components?.map((component) => {
       return (
-        (component as schema.CustomElementDeclaration).cssProperties?.map(
+        (component as Component).cssProperties?.map(
           (prop) => {
             return {
               name: prop.name,
@@ -28,7 +29,7 @@ export function getCssPartList(customElementsManifest: schema.Package) {
   return (
     components?.map((component) => {
       return (
-        (component as schema.CustomElementDeclaration).cssParts?.map((prop) => {
+        (component as Component).cssParts?.map((prop) => {
           return {
             name: `::part(${prop.name})`,
             description: prop.description,
@@ -83,10 +84,10 @@ function getCssNameValue(value: string) {
   return !value ? "" : value.startsWith("--") ? `var(${value})` : value;
 }
 
-export function getTagList(customElementsManifest: schema.Package) {
+export function getTagList(customElementsManifest: CEM) {
   const components = getComponents(customElementsManifest);
   return components.map((comp) => {
-    const component  = comp as schema.CustomElementDeclaration;
+    const component  = comp as Component
     const slots = getSlotsTemplate(component?.slots);
     const events = getEventsTemplate(component?.events);
     const cssProps = getCssPropsTemplate(component?.cssProperties);

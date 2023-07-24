@@ -1,27 +1,7 @@
-import { CustomElementsManifest, Member, Options } from "../../../types";
+import * as schema from "custom-elements-manifest/schema";
+import { Component, CEM } from "../types";
 
-export const config: Options = {
-  outdir: "./",
-  htmlFileName: "vscode.html-custom-data.json",
-  cssFileName: "vscode.css-custom-data.json",
-  exclude: [],
-  descriptionSrc: undefined,
-  slotDocs: true,
-  eventDocs: true,
-  cssPropertiesDocs: true,
-  cssPartsDocs: true,
-  methodDocs: true,
-  labels: {
-    slots: "Slots",
-    events: "Events",
-    cssProperties: "CSS Properties",
-    cssParts: "CSS Parts",
-    methods: "Methods",
-  },
-  cssSets: [],
-};
-
-export const methods: Member[] = [
+export const methods: schema.ClassMethod[] = [
   {
     kind: "method",
     name: "handleDocumentKeyDown",
@@ -51,7 +31,7 @@ export const methods: Member[] = [
   },
 ];
 
-export const component = {
+export const component: Component = {
   kind: "class",
   description:
     '\nRadio groups are used to group multiple radios or radio buttons so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).\n\nUse it like this:\n```html\n<radio-group value="2" size="3">\n  <span slot="label">My Label</span>\n  <radio-button value="1">Option 1</radio-button>\n  <radio-button value="2">Option 2</radio-button>\n  <radio-button value="3">Option 3</radio-button>\n</radio-group>\n```',
@@ -134,6 +114,9 @@ export const component = {
   ],
   events: [
     {
+      type: {
+        text: "Event",
+      },
       description: "some description for custom-event",
       name: "custom-event",
     },
@@ -182,7 +165,7 @@ export const component = {
   customElement: true,
 };
 
-export const customElementsManifest: CustomElementsManifest = {
+export const customElementsManifest: CEM = {
   schemaVersion: "1.0.0",
   readme: "",
   modules: [
