@@ -13,7 +13,7 @@ export function generateCustomData(params: Options = {}) {
       console.log(
         "[vs-code-custom-data-generator] - Generating config files..."
       );
-      generateCustomDataFile(customElementsManifest);
+      generateCustomDataFile(customElementsManifest, params);
       greenConsoleLog(
         "[vs-code-custom-data-generator] - File generation complete."
       );

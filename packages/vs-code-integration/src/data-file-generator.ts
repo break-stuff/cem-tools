@@ -1,44 +1,46 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { createOutdir, saveFile } from "cem-utils/integrations.js";
-import { getCssPartList, getCssPropertyList, getTagList, config } from "cem-utils/cem-utilities.js";
-import { CustomElementsManifest, Options, Tag, VsCssProperty } from "../../types";
+import { createOutDir, saveFile } from "integrations";
+import { getCssPartList, getCssPropertyList, getTagList } from "./cem-utils";
+import { Options, Tag, VsCssProperty } from "./types";
+import { CEM } from "cem-utils";
 
 export function generateCustomDataFile(
-  customElementsManifest: CustomElementsManifest
+  customElementsManifest: CEM,
+  options: Options
 ) {
-  const htmlTags = config.htmlFileName
+  const htmlTags = options.htmlFileName
     ? getTagList(customElementsManifest)
     : [];
-  const cssProperties = config.cssFileName
-    ? getCssPropertyList(customElementsManifest)
+  const cssProperties = options.cssFileName
+    ? getCssPropertyList(customElementsManifest, options.cssSets)
     : [];
-  const cssParts = config.cssFileName
+  const cssParts = options.cssFileName
     ? getCssPartList(customElementsManifest)
     : [];
 
-  saveCustomDataFiles(config, htmlTags, cssProperties, cssParts);
+  saveCustomDataFiles(options, htmlTags, cssProperties, cssParts);
 }
 
 function saveCustomDataFiles(
-  config: Options,
+  options: Options,
   tags: Tag[],
   cssProperties: VsCssProperty[],
   cssParts: VsCssProperty[]
 ) {
-  createOutdir(config.outdir!);
+  createOutDir(options.outdir!);
 
-  if (config.htmlFileName) {
+  if (options.htmlFileName) {
     saveFile(
-      config.outdir!,
-      config.htmlFileName!,
+      options.outdir!,
+      options.htmlFileName!,
       getCustomHtmlDataFileContents(tags)
     );
   }
 
-  if (config.cssFileName) {
+  if (options.cssFileName) {
     saveFile(
-      config.outdir!,
-      config.cssFileName!,
+      options.outdir!,
+      options.cssFileName!,
       getCustomCssDataFileContents(cssProperties, cssParts)
     );
   }

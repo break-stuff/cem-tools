@@ -16,8 +16,7 @@ export function saveFile(
 ) {
   fs.writeFileSync(
     path.join(outDir, fileName),
-    prettier.format(contents, { parser }),
-    
+    prettier.format(contents, { parser })
   );
 }
 

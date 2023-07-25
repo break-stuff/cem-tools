@@ -1,30 +1,49 @@
-import { CEM, Component, getComponents, getCssPropsTemplate, getDescription, getEventsTemplate, getMethods, getMethodsTemplate, getPartsTemplate, getSlotsTemplate } from "cem-utils";
-import { CssValue, TagAttribute, Value, VsCssProperty } from "./types";
-import * as schema from 'custom-elements-manifest/schema';
+import {
+  CEM,
+  Component,
+  getAttributeValueOptions,
+  getComponents,
+  getCssPropsTemplate,
+  getDescription,
+  getEventsTemplate,
+  getMethods,
+  getMethodsTemplate,
+  getPartsTemplate,
+  getSlotsTemplate,
+} from "cem-utils";
+import {
+  CssSet,
+  CssValue,
+  Reference,
+  Tag,
+  TagAttribute,
+  Value,
+  VsCssProperty,
+} from "./types";
+import * as schema from "custom-elements-manifest/schema";
 import { toKebabCase } from "utilities";
 
 export function getCssPropertyList(
-  customElementsManifest: schema.Package
+  customElementsManifest: CEM,
+  cssSets?: CssSet[]
 ): VsCssProperty[] {
   const components = getComponents(customElementsManifest);
   return (
     components?.map((component) => {
       return (
-        (component as Component).cssProperties?.map(
-          (prop) => {
-            return {
-              name: prop.name,
-              description: prop.description,
-              values: getCssPropertyValues(prop?.type?.text),
-            };
-          }
-        ) || []
+        (component as Component).cssProperties?.map((prop) => {
+          return {
+            name: prop.name,
+            description: prop.description,
+            values: getCssPropertyValues(prop?.type?.text, cssSets),
+          };
+        }) || []
       );
     }) || []
   ).flat();
 }
 
-export function getCssPartList(customElementsManifest: schema.Package) {
+export function getCssPartList(customElementsManifest: CEM) {
   const components = getComponents(customElementsManifest);
   return (
     components?.map((component) => {
@@ -40,22 +59,25 @@ export function getCssPartList(customElementsManifest: schema.Package) {
   ).flat();
 }
 
-export function getCssPropertyValues(value?: string): CssValue[] {
+export function getCssPropertyValues(
+  value?: string,
+  cssSets?: CssSet[]
+): CssValue[] {
   if (!value) {
     return [];
   }
 
   if (value.trim().startsWith("set")) {
-    return getValueSet(value);
+    return getValueSet(value, cssSets);
   }
 
   return getCssValues(value);
 }
 
-export function getValueSet(value: string): CssValue[] {
+export function getValueSet(value: string, cssSets?: CssSet[]): CssValue[] {
   const setName = value.split(":")[1];
   const valueSet =
-    config.cssSets?.find((x) => x.name.trim() === setName)?.values || [];
+    cssSets?.find((x) => x.name.trim() === setName)?.values || [];
 
   return valueSet.map((x) => {
     if (typeof x === "string") {
@@ -84,10 +106,13 @@ function getCssNameValue(value: string) {
   return !value ? "" : value.startsWith("--") ? `var(${value})` : value;
 }
 
-export function getTagList(customElementsManifest: CEM) {
+export function getTagList(
+  customElementsManifest: CEM,
+  referenceGenerator?: (name: string, tag?: string) => Reference[]
+): Tag[] {
   const components = getComponents(customElementsManifest);
   return components.map((comp) => {
-    const component  = comp as Component
+    const component = comp as Component;
     const slots = getSlotsTemplate(component?.slots);
     const events = getEventsTemplate(component?.events);
     const cssProps = getCssPropsTemplate(component?.cssProperties);
@@ -105,12 +130,14 @@ export function getTagList(customElementsManifest: CEM) {
         cssProps +
         parts,
       attributes: getComponentAttributes(component),
-      references: getReferencesByComponent(component.name),
+      references: referenceGenerator
+        ? referenceGenerator(component.name, component.tagName)
+        : [],
     };
   });
 }
 
-export function getComponentAttributes(component: schema.CustomElementDeclaration) {
+export function getComponentAttributes(component: Component) {
   const attributes: TagAttribute[] = [];
   component?.attributes?.forEach((attr) => {
     const existingAttr = attributes.find(
@@ -130,11 +157,13 @@ export function getComponentAttributes(component: schema.CustomElementDeclaratio
   return attributes;
 }
 
-export function getAttributeValues(options: string[]): Value[] {
-  return options?.map((option) => {
-    return {
-      name: option,
-    };
-  }
-  ) || [];
+export function getAttributeValues(attr: schema.Attribute): Value[] {
+  const options = getAttributeValueOptions(attr);
+  return (
+    options?.map((option) => {
+      return {
+        name: option,
+      };
+    }) || []
+  );
 }
