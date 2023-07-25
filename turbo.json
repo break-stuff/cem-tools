@@ -12,6 +12,8 @@
     "dev": {
       "cache": false
     },   
-    "test": {}
+    "test": {
+      "cache": false
+    }
   }
 }

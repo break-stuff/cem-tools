@@ -15,6 +15,7 @@
     "eslint-config-custom": "*",
     "integrations": "*",
     "testing-config": "*",
+    "ts-jest": "^29.0.3",
     "tsconfig": "*",
     "typescript": "^4.5.2",
     "utilities": "*"
