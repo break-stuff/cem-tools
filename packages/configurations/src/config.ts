@@ -10,15 +10,15 @@ export interface BaseConfiguration {
   /** The property name from the component object constructed by the CEM Analyzer */
   descriptionSrc?: "description" | "summary";
   /** Displays the slot section of the element description */
-  slotDocs?: boolean;
+  hideSlotDocs?: boolean;
   /** Displays the event section of the element description */
-  eventDocs?: boolean;
+  hideEventDocs?: boolean;
   /** Displays the CSS custom properties section of the element description */
-  cssPropertiesDocs?: boolean;
+  hideCssPropertiesDocs?: boolean;
   /** Displays the CSS parts section of the element description */
-  cssPartsDocs?: boolean;
+  hideCssPartsDocs?: boolean;
   /** Displays the methods section of the element description */
-  methodDocs?: boolean;
+  hideMethodDocs?: boolean;
   /** Overrides the default section labels in the component description */
   labels?: DescriptionLabels;
 }
@@ -38,11 +38,11 @@ export const baseConfig: BaseConfiguration = {
   cssFileName: "vscode.css-custom-data.json",
   exclude: [],
   descriptionSrc: undefined,
-  slotDocs: true,
-  eventDocs: true,
-  cssPropertiesDocs: true,
-  cssPartsDocs: true,
-  methodDocs: true,
+  hideSlotDocs: false,
+  hideEventDocs: false,
+  hideCssPropertiesDocs: false,
+  hideCssPartsDocs: false,
+  hideMethodDocs: false,
   labels: {
     slots: 'Slots',
     events: 'Events',

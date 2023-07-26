@@ -1,10 +1,10 @@
 import { Options, CemAnalyzerParams } from "./types";
 import { updateConfig } from "configurations";
-import { generateCustomDataFile } from "./data-file-generator";
+import { generateCustomElementDataFiles } from "./data-file-generator";
 import { greenConsoleLog } from "integrations";
 
 
-export function generateCustomData(params: Options = {}) {
+export function customElementVsCodePlugin(params: Options = {}) {
   updateConfig(params);
 
   return {
@@ -13,7 +13,7 @@ export function generateCustomData(params: Options = {}) {
       console.log(
         "[vs-code-custom-data-generator] - Generating config files..."
       );
-      generateCustomDataFile(customElementsManifest, params);
+      generateCustomElementDataFiles(customElementsManifest, params);
       greenConsoleLog(
         "[vs-code-custom-data-generator] - File generation complete."
       );

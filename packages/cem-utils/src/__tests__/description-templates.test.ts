@@ -20,11 +20,11 @@ describe("getSlotsTemplate", () => {
     expect(result.endsWith("label")).toBe(true);
   });
 
-  test("given a configuration where `slotDocs` is `false`, it should return an empty string", () => {
+  test("given a configuration where `hideSlotDocs` is `true`, it should return an empty string", () => {
     // Arrange
 
     // Act
-    const result = getSlotsTemplate(component.slots, false);
+    const result = getSlotsTemplate(component.slots, true);
 
     // Assert
     expect(result).toBe("");
@@ -63,11 +63,11 @@ describe("getEventsTemplate", () => {
     expect(result.endsWith("typed-custom-event")).toBe(true);
   });
 
-  test("given a configuration where `eventDocs` is `false`, it should return an empty string", () => {
+  test("given a configuration where `hideEventDocs` is `true`, it should return an empty string", () => {
     // Arrange
 
     // Act
-    const result = getEventsTemplate(component.events, false);
+    const result = getEventsTemplate(component.events, true);
 
     // Assert
     expect(result).toBe("");
@@ -106,11 +106,11 @@ describe("getCssPropsTemplate", () => {
     expect(result.endsWith("_(default: red)_")).toBe(true);
   });
 
-  test("given a configuration where `eventDocs` is `false`, it should return an empty string", () => {
+  test("given a configuration where `hideEventDocs` is `true`, it should return an empty string", () => {
     // Arrange
 
     // Act
-    const result = getCssPropsTemplate(component.cssProperties, false);
+    const result = getCssPropsTemplate(component.cssProperties, true);
 
     // Assert
     expect(result).toBe("");
@@ -149,11 +149,11 @@ describe("getPartsTemplate", () => {
     expect(result.endsWith("bar")).toBe(true);
   });
 
-  test("given a configuration where `cssPartsDocs` is `false`, it should return an empty string", () => {
+  test("given a configuration where `hideCssPartsDocs` is `true`, it should return an empty string", () => {
     // Arrange
 
     // Act
-    const result = getPartsTemplate(component.cssParts, false);
+    const result = getPartsTemplate(component.cssParts, true);
 
     // Assert
     expect(result).toBe("");
@@ -187,19 +187,18 @@ describe("getMethodsTemplate", () => {
     // Act
     const methods = getMethods(component);
     const result = getMethodsTemplate(methods)?.trim();    
-console.log(result);
 
     // Assert
     expect(result.startsWith("### **Methods:**")).toBe(true);
     expect(result.endsWith("dialog")).toBe(true);
   });
 
-  test("given a configuration where `methodDocs` is `false`, it should return an empty string", () => {
+  test("given a configuration where `hideMethodDocs` is `true`, it should return an empty string", () => {
     // Arrange
 
     // Act
     const methods = getMethods(component);
-    const result = getMethodsTemplate(methods, false)?.trim();    
+    const result = getMethodsTemplate(methods, true)?.trim();    
 
     // Assert
     expect(result).toBe("");

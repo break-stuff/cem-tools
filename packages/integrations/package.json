@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint \"**/*.ts*\"",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
   },
   "devDependencies": {
     "eslint": "^7.32.0",

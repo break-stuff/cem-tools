@@ -4,7 +4,7 @@ import { getCssPartList, getCssPropertyList, getTagList } from "./cem-utils";
 import { Options, Tag, VsCssProperty } from "./types";
 import { CEM } from "cem-utils";
 
-export function generateCustomDataFile(
+export function generateCustomElementDataFiles(
   customElementsManifest: CEM,
   options: Options
 ) {
