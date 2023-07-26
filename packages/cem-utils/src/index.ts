@@ -1,3 +1,3 @@
 export * from "./cem-utilities";
 export * from "./description-templates";
-export * from "./types";
+export type { CEM, Component } from "./types";

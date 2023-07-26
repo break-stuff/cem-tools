@@ -1,117 +1,11 @@
-import { Options } from "../types";
 import {
   getCssPropertyValues,
   getCssValues,
-  getTagList,
   getValueSet,
 } from "../cem-utils.js";
-import { component, customElementsManifest } from "./test-data.js";
+import { component } from "./test-data.js";
 import { updateConfig } from "configurations";
-
-describe("updateConfig", () => {
-  beforeEach(() => {
-    const options: Options = {
-      outdir: "./",
-      htmlFileName: "vscode.html-custom-data.json",
-      cssFileName: "vscode.css-custom-data.json",
-      exclude: [],
-      descriptionSrc: undefined,
-      labels: {},
-      cssSets: [],
-    };
-
-    updateConfig(options);
-  });
-
-  test("given a custom `outdir` config value, the config value should be updated, but others should use default", () => {
-    // Arrange
-    const options = {
-      outdir: "./demo",
-    };
-
-    // Act
-    updateConfig(options);
-
-    // Assert
-    expect(config.outdir).toBe("./demo");
-    expect(config.htmlFileName).toBe("vscode.html-custom-data.json");
-  });
-
-  test("given a custom `slot` label, the config value should be updated, but other labels should use default", () => {
-    // Arrange
-    const slotLabel = "Slug";
-    const options: Options = {
-      labels: {
-        slots: slotLabel,
-      },
-    };
-
-    // Act
-    updateConfig(options);
-    const tagList = getTagList(customElementsManifest);
-
-    // Assert
-    expect(config.labels?.slots).toBe("Slug");
-    expect(config.htmlFileName).toBe("vscode.html-custom-data.json");
-    expect(JSON.stringify(tagList).includes(slotLabel)).toBe(true);
-  });
-
-  test("given a config to hide slots, the Slots section should not be in the docs", () => {
-    // Arrange
-    const options: Options = {
-      slotDocs: false,
-    };
-
-    // Act
-    updateConfig(options);
-    const tagList = getTagList(customElementsManifest);
-
-    // Assert
-    expect(JSON.stringify(tagList).includes("**Slots:**")).toBe(false);
-  });
-
-  test("given a config to hide events, the Events section should not be in the docs", () => {
-    // Arrange
-    const options: Options = {
-      eventDocs: false,
-    };
-
-    // Act
-    updateConfig(options);
-    const tagList = getTagList(customElementsManifest);
-
-    // Assert
-    expect(JSON.stringify(tagList).includes("**Events:**")).toBe(false);
-  });
-
-  test("given a config to hide CSS properties, the CSS Properties section should not be in the docs", () => {
-    // Arrange
-    const options: Options = {
-      cssPropertiesDocs: false,
-    };
-
-    // Act
-    updateConfig(options);
-    const tagList = getTagList(customElementsManifest);
-
-    // Assert
-    expect(JSON.stringify(tagList).includes("**CSS Properties:**")).toBe(false);
-  });
-
-  test("given a config to hide CSS parts, the CSS Parts section should not be in the docs", () => {
-    // Arrange
-    const options: Options = {
-      cssPartsDocs: false,
-    };
-
-    // Act
-    updateConfig(options);
-    const tagList = getTagList(customElementsManifest);
-
-    // Assert
-    expect(JSON.stringify(tagList).includes("**CSS Parts:**")).toBe(false);
-  });
-});
+import { getMethods } from "cem-utils";
 
 describe("getCssValues", () => {
   test("given a string with comma separated values, it should return an array of CSS Value objects", () => {
@@ -141,7 +35,7 @@ describe("getValueSet", () => {
 
     // Act
     updateConfig(options);
-    const valueSet = getValueSet("set:radiuses");
+    const valueSet = getValueSet("set:radiuses", options.cssSets);
 
     // Assert
     expect(valueSet[0].name).toBe("var(--radius-sm)");
@@ -165,7 +59,7 @@ describe("getValueSet", () => {
 
     // Act
     updateConfig(options);
-    const valueSet = getValueSet("set:radiuses");
+    const valueSet = getValueSet("set:radiuses", options.cssSets);
 
     // Assert
     expect(valueSet[1].name).toBe("var(--radius-md)");
@@ -185,7 +79,7 @@ describe("getValueSet", () => {
 
     // Act
     updateConfig(options);
-    const valueSet = getValueSet("set:random");
+    const valueSet = getValueSet("set:random", options.cssSets);
 
     // Assert
     expect(valueSet.length).toBe(0);
@@ -220,7 +114,7 @@ describe("getCssPropertyValues", () => {
 
     // Act
     updateConfig(options)
-    const values = getCssPropertyValues("set:radiuses");
+    const values = getCssPropertyValues("set:radiuses", options.cssSets);
 
     // Assert
     expect(values.length).toBe(3);

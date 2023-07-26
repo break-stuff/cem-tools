@@ -30,6 +30,7 @@
     "cem-utils": "*",
     "configurations": "*", 
     "eslint": "^8.32.0",
+    "test-config": "*",
     "ts-jest": "^29.0.3"
   },
   "dependencies": {
