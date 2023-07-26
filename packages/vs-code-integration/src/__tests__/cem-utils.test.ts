@@ -2,7 +2,7 @@ import {
   getCssPropertyValues,
   getCssValues,
   getValueSet,
-} from "../cem-utils.js";
+} from "../cem-utilities.js";
 import { component } from "./test-data.js";
 import { updateConfig } from "configurations";
 import { getMethods } from "cem-utils";

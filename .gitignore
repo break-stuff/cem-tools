@@ -34,4 +34,4 @@ yarn-error.log*
 .turbo
 
 # prjects
-packages/*/dist
+dist
