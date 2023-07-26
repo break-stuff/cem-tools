@@ -8,7 +8,6 @@
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "node",
-    "outDir": "dist",
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2019"

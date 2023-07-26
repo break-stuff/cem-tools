@@ -1,5 +1,4 @@
-import { generateWebTypes } from "../../index.js";
-import 
+import { customElementVsCodePlugin }  from "custom-element-vs-code-integration";
 
 export default {
   /** Globs to analyze */
@@ -15,5 +14,5 @@ export default {
   /** Output CEM path to `package.json`, defaults to true */
   packagejson: true,
   /** Provide custom plugins */
-  plugins: [generateWebTypes()],
+  plugins: [customElementVsCodePlugin()],
 };

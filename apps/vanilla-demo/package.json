@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@custom-elements-manifest/analyzer": "^0.6.6"
+    "@custom-elements-manifest/analyzer": "^0.6.6",
+    "custom-element-vs-code-integration": "*"
   },
   "keywords": [],
   "author": "",

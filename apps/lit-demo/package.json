@@ -24,7 +24,8 @@
     "@web/dev-server": "^0.1.28",
     "concurrently": "^5.3.0",
     "tslib": "^2.3.1",
-    "typescript": "^4.5.2"
+    "typescript": "^4.5.2",
+    "custom-element-vs-code-integration": "*"
   },
   "customElements": "custom-elements.json",
   "web-types": "web-types.json"

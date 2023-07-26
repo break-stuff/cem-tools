@@ -4,6 +4,7 @@
 node_modules
 .pnp
 .pnp.js
+dist
 
 # testing
 coverage
@@ -31,3 +32,6 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# prjects
+packages/*/dist

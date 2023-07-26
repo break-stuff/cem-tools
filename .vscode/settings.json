@@ -1,0 +1,5 @@
+{
+  "html.customData": ["./apps/lit-demo/vscode.html-custom-data.json"],
+  "css.customData": ["./apps/lit-demo/vscode.css-custom-data.json"],
+  "cSpell.words": ["Outdir"]
+}

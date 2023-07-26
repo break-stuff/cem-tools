@@ -31,7 +31,8 @@
     "configurations": "*", 
     "eslint": "^8.32.0",
     "test-config": "*",
-    "ts-jest": "^29.0.3"
+    "ts-jest": "^29.0.3",
+    "tsconfig": "*"
   },
   "dependencies": {
     "prettier": "^2.7.1",

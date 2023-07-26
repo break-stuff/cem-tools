@@ -1,4 +1,4 @@
-import { generateCustomData } from "../../index.js";
+import { customElementVsCodePlugin }  from "custom-element-vs-code-integration";
 
 export default {
   /** Globs to analyze */
@@ -16,5 +16,5 @@ export default {
   /** Enable special handling for litelement */
   litelement: true,
   /** Provide custom plugins */
-  plugins: [generateCustomData()],
+  plugins: [customElementVsCodePlugin()],
 };
