@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+  <div id="demo"></div>
+  <radio-group></radio-group>
+  
+  <script type="module">
+    import { html, render } from 'lit';
+    import '../dist/src/radio-group.js';
+
+    const title = 'Hello owc World!';
+    render(
+      html`
+        <radio-group .title=${title} va>
+          some light-dom
+        </radio-group>
+        <radio-group size="2">
+          <radio-button ></radio-button>
+        </radio-group>
+      `,
+      document.querySelector('#demo')
+    );
+  </script>
+</body>
+</html>

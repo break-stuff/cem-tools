@@ -1,0 +1,31 @@
+{
+  "name": "lit-demo",
+  "description": "Webcomponent radio-group following open-wc recommendations",
+  "license": "MIT",
+  "author": "test",
+  "version": "0.0.0",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "exports": {
+    ".": "./dist/src/index.js",
+    "./radio-group.js": "./dist/src/radio-group.js"
+  },
+  "scripts": {
+    "analyze": "cem analyze",
+    "start": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wds\"",
+    "build": "tsc && npm run analyze -- --exclude dist",
+    "prepublish": "tsc && npm run analyze -- --exclude dist"
+  },
+  "dependencies": {
+    "lit": "^2.0.2"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.6.6",
+    "@web/dev-server": "^0.1.28",
+    "concurrently": "^5.3.0",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.2"
+  },
+  "customElements": "custom-elements.json",
+  "web-types": "web-types.json"
+}

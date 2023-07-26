@@ -1,0 +1,3 @@
+radio-group::part(radio-label) {
+    --border-radius: ;
+}
