@@ -1,5 +1,5 @@
 import { removeQuoteWrappers } from "utilities";
-import type * as schema from "custom-elements-manifest/schema";
+import type * as schema from "custom-elements-manifest";
 import { CEM, Component } from "./types";
 
 const EXCLUDED_TYPES = ["string", "boolean", "undefined", "number", "null"];

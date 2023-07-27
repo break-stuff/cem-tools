@@ -1,4 +1,4 @@
-import * as schema from "custom-elements-manifest/schema";
+import * as schema from "custom-elements-manifest";
 
 /**
  * CEM TYPES

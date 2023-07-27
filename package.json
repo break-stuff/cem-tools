@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "workspaces": [
-    "apps/*",
-    "packages/*"
+    "demo/*",
+    "packages/*",
+    "tools/*"
   ],
   "scripts": {
     "build": "turbo run build",
