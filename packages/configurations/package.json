@@ -1,9 +1,10 @@
 {
   "name": "configurations",
   "version": "0.0.0",
-  "main": "./index.ts",
-  "types": "./index.ts",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "lint": "eslint \"**/*.ts*\""

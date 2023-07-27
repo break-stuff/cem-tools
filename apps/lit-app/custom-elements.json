@@ -27,12 +27,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "dist/assets/index-4f49a94d.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/radio-button/RadioButton.ts",
       "declarations": [
         {
@@ -53,7 +47,8 @@
                 "text": "string"
               },
               "default": "\"\"",
-              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked."
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+              "attribute": "value"
             },
             {
               "kind": "field",
@@ -61,11 +56,27 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Disables the radio button"
+              "description": "Disables the radio button",
+              "attribute": "disabled"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+              "fieldName": "value"
             },
             {
-              "kind": "method",
-              "name": "render"
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the radio button",
+              "fieldName": "disabled"
             }
           ],
           "superclass": {
@@ -149,7 +160,8 @@
                 "text": "string"
               },
               "default": "\"\"",
-              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked."
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+              "attribute": "value"
             },
             {
               "kind": "field",
@@ -157,7 +169,8 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Disables the radio button"
+              "description": "Disables the radio button",
+              "attribute": "disabled"
             },
             {
               "kind": "field",
@@ -166,7 +179,8 @@
                 "text": "1 | 2 | 3 | 4"
               },
               "default": "1",
-              "description": "This will control the size of radio buttons"
+              "description": "This will control the size of radio buttons",
+              "attribute": "size"
             },
             {
               "kind": "field",
@@ -175,7 +189,8 @@
                 "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
               },
               "default": "'primary'",
-              "description": "This is a test for sting values"
+              "description": "This is a test for sting values",
+              "attribute": "variants"
             },
             {
               "kind": "field",
@@ -183,7 +198,8 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "This is a camel-case attribute"
+              "description": "This is a camel-case attribute",
+              "attribute": "my-attribute"
             },
             {
               "kind": "method",
@@ -213,10 +229,6 @@
                 }
               ],
               "description": "This is a test method with parameters"
-            },
-            {
-              "kind": "method",
-              "name": "render"
             },
             {
               "type": {
@@ -253,6 +265,51 @@
               },
               "description": "some description for typed-custom-event",
               "name": "typed-custom-event"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+              "fieldName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the radio button",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "1 | 2 | 3 | 4"
+              },
+              "default": "1",
+              "description": "This will control the size of radio buttons",
+              "fieldName": "size"
+            },
+            {
+              "name": "variants",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+              },
+              "default": "'primary'",
+              "description": "This is a test for sting values",
+              "fieldName": "variants"
+            },
+            {
+              "name": "my-attribute",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "This is a camel-case attribute",
+              "fieldName": "myAttribute"
             }
           ],
           "superclass": {

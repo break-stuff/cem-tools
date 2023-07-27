@@ -1,11 +1,12 @@
 {
   "name": "cem-utils",
   "version": "0.0.0",
-  "main": "./index.ts",
-  "types": "./index.ts",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && cp src/types.d.ts dist/types.d.ts || copy src/types.d.ts dist/types.d.ts",
     "lint": "eslint \"**/*.ts*\"",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },

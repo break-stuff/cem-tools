@@ -7,7 +7,7 @@ export function customElementVsCodePlugin(params: Options = {}) {
   updateConfig(params);
 
   return {
-    name: "cem-plugin-vs-code-custom-data-generator",
+    name: "custom-element-vs-code-integration",
     packageLinkPhase({ customElementsManifest }: CemAnalyzerParams) {
       console.log(
         "[vs-code-custom-data-generator] - Generating config files..."

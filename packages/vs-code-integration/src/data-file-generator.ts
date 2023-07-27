@@ -1,13 +1,20 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { createOutDir, saveFile } from "integrations";
-import { getCssPartList, getCssPropertyList, getTagList } from "./cem-utilities.js";
+import {
+  getCssPartList,
+  getCssPropertyList,
+  getTagList,
+} from "./cem-utilities.js";
 import type { Options, Tag, VsCssProperty } from "./types";
 import type { CEM } from "cem-utils";
+import { updateConfig } from "configurations";
 
 export function generateCustomElementDataFiles(
   customElementsManifest: CEM,
   options: Options
 ) {
+  options = updateConfig(options);
+
   const htmlTags = options.htmlFileName
     ? getTagList(customElementsManifest)
     : [];

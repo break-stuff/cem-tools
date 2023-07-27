@@ -29,5 +29,5 @@ export interface CEM extends schema.Package {
   /**
    * An array of the modules this package contains.
    */
-  modules: Array<Module>;
+  modules: Array<CustomModule>;
 }
