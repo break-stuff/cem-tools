@@ -1,1 +1,1 @@
-export * from './src/utilities';
+export * from './src/utilities.js';

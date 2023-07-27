@@ -1,6 +1,5 @@
+import type { CEM, Component } from "cem-utils";
 import {
-  CEM,
-  Component,
   getAttributeValueOptions,
   getComponents,
   getCssPropsTemplate,
@@ -20,7 +19,7 @@ import type {
   Value,
   VsCssProperty,
 } from "./types";
-import * as schema from "custom-elements-manifest/schema";
+import type * as schema from "custom-elements-manifest/schema";
 import { toKebabCase } from "utilities";
 
 export function getCssPropertyList(

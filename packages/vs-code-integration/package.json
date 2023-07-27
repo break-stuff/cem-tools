@@ -27,16 +27,16 @@
     "@types/prettier": "^2.6.4",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
-    "cem-utils": "*",
-    "configurations": "*", 
     "eslint": "^8.32.0",
     "test-config": "*",
     "ts-jest": "^29.0.3",
     "tsconfig": "*"
   },
   "dependencies": {
+    "configurations": "*", 
     "prettier": "^2.7.1",
-    "cem-utils": "*"
+    "cem-utils": "*",
+    "integrations": "*"
   },
   "keywords": [
     "custom elements",

@@ -1,5 +1,5 @@
-import { Reference } from "./types";
-import * as schema from 'custom-elements-manifest/schema';
+import type { Reference } from "./types";
+import type * as schema from 'custom-elements-manifest/schema';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const componentReferences: { [key: string]: Reference[] } = {};
