@@ -11,7 +11,7 @@ import {
   getPartsTemplate,
   getSlotsTemplate,
 } from "cem-utils";
-import {
+import type {
   CssSet,
   CssValue,
   Reference,

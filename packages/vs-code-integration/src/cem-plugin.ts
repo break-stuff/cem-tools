@@ -1,8 +1,7 @@
-import { Options, CemAnalyzerParams } from "./types";
+import type { Options, CemAnalyzerParams } from "./types";
 import { updateConfig } from "configurations";
-import { generateCustomElementDataFiles } from "./data-file-generator";
+import { generateCustomElementDataFiles } from "./data-file-generator.js";
 import { greenConsoleLog } from "integrations";
-
 
 export function customElementVsCodePlugin(params: Options = {}) {
   updateConfig(params);
