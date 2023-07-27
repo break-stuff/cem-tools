@@ -1,0 +1,287 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioGroup",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "./radio-group/RadioGroup"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RadioButton",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "./radio-button/RadioButton"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio-button/RadioButton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "RadioButton",
+          "slots": [
+            {
+              "description": "add text here to label your radio button",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked."
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the radio button"
+            },
+            {
+              "kind": "method",
+              "name": "render"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "radio-button",
+          "summary": "Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\\n\\nUse it like this:\\n```html\\n<radio-button value=\"1\" disabled>Your label</radio-button>\\n```",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioButton",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "src/radio-button/RadioButton.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio-button/radio-button.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "radio-button",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "/src/radio-button/RadioButton.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio-group/RadioGroup.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "\nRadio groups are used to group multiple radios or radio buttons so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).\n\nUse it like this:\n```html\n<radio-group value=\"2\" size=\"3\">\n  <span slot=\"label\">My Label</span>\n  <radio-button value=\"1\">Option 1</radio-button>\n  <radio-button value=\"2\">Option 2</radio-button>\n  <radio-button value=\"3\">Option 3</radio-button>\n</radio-group>\n```",
+          "name": "RadioGroup",
+          "cssProperties": [
+            {
+              "type": {
+                "text": "set:radiuses"
+              },
+              "description": "Controls the border radius of the radio buttons",
+              "name": "--border-radius"
+            },
+            {
+              "description": "Controls the color of bar",
+              "name": "--background-color",
+              "default": "red"
+            }
+          ],
+          "cssParts": [
+            {
+              "description": "Applies custom styles the radio group label",
+              "name": "radio-label"
+            }
+          ],
+          "slots": [
+            {
+              "description": "add radio buttons to the `default` slot to create options to your radio group",
+              "name": ""
+            },
+            {
+              "description": "placeholder for the radio group label",
+              "name": "label"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked."
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the radio button"
+            },
+            {
+              "kind": "field",
+              "name": "size",
+              "type": {
+                "text": "1 | 2 | 3 | 4"
+              },
+              "default": "1",
+              "description": "This will control the size of radio buttons"
+            },
+            {
+              "kind": "field",
+              "name": "variants",
+              "type": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+              },
+              "default": "'primary'",
+              "description": "This is a test for sting values"
+            },
+            {
+              "kind": "field",
+              "name": "myAttribute",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "This is a camel-case attribute"
+            },
+            {
+              "kind": "method",
+              "name": "validate",
+              "description": "Validated the radio inputs"
+            },
+            {
+              "kind": "method",
+              "name": "checkStatus",
+              "return": {
+                "type": {
+                  "text": "string"
+                }
+              },
+              "parameters": [
+                {
+                  "name": "value",
+                  "type": {
+                    "text": "string"
+                  }
+                },
+                {
+                  "name": "message",
+                  "type": {
+                    "text": "string"
+                  }
+                }
+              ],
+              "description": "This is a test method with parameters"
+            },
+            {
+              "kind": "method",
+              "name": "render"
+            },
+            {
+              "type": {
+                "text": "boolean"
+              },
+              "description": "this toggles some unseen feature",
+              "name": "prop1",
+              "kind": "field"
+            },
+            {
+              "type": {
+                "text": "number"
+              },
+              "description": "this will adjust thr width of the unit",
+              "name": "prop2",
+              "kind": "field"
+            }
+          ],
+          "events": [
+            {
+              "description": "some description for custom-event",
+              "name": "custom-event"
+            },
+            {
+              "type": {
+                "text": "Event"
+              },
+              "description": "some description for typed-event",
+              "name": "typed-event"
+            },
+            {
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "some description for typed-custom-event",
+              "name": "typed-custom-event"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "radio-group",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioGroup",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "src/radio-group/RadioGroup.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio-group/radio-group.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "radio-group",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "/src/radio-group/RadioGroup.js"
+          }
+        }
+      ]
+    }
+  ]
+}
