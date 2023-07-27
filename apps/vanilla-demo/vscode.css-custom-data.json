@@ -1,6 +1,26 @@
 {
   "$schema": "https://raw.githubusercontent.com/microsoft/vscode/master/extensions/css-language-features/server/src/data/browsers.schema.json",
   "version": 1.1,
-  "properties": [],
-  "pseudoElements": []
+  "properties": [
+    {
+      "name": "--border-radius",
+      "description": "Controls the border radius of the radio buttons",
+      "values": [
+        { "name": "var(--radius-sm)" },
+        { "name": "var(--radius-md)" },
+        { "name": "var(--radius-lg)" }
+      ]
+    },
+    {
+      "name": "--background-color",
+      "description": "Controls the color of bar",
+      "values": []
+    }
+  ],
+  "pseudoElements": [
+    {
+      "name": "::part(radio-label)",
+      "description": "Applies custom styles the radio group label"
+    }
+  ]
 }
