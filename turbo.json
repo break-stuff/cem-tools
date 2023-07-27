@@ -3,6 +3,7 @@
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {
     "analyze": {
+      "dependsOn": ["^build"],
       "cache": false
     },
     "build": {
