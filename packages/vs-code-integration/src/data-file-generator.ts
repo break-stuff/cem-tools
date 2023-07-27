@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { createOutDir, saveFile } from "integrations";
+import { createOutDir, logRed, saveFile } from "integrations";
 import {
   getCssPartList,
   getCssPropertyList,
   getTagList,
 } from "./cem-utilities.js";
 import type { Options, Tag, VsCssProperty } from "./types";
-import type { CEM } from "cem-utils";
+import { getComponents, type CEM, Component } from "cem-utils";
 import { updateConfig } from "configurations";
 
 export function generateCustomElementDataFiles(
@@ -14,16 +14,20 @@ export function generateCustomElementDataFiles(
   options: Options
 ) {
   options = updateConfig(options);
+  const components = getComponents(customElementsManifest, options.exclude) as Component[];
 
-  const htmlTags = options.htmlFileName
-    ? getTagList(customElementsManifest)
-    : [];
+  if (!components.length) {
+    logRed(
+      "[custom-element-vs-code-integration] - No components found."
+    );
+    return;
+  }
+
+  const htmlTags = options.htmlFileName ? getTagList(components) : [];
   const cssProperties = options.cssFileName
-    ? getCssPropertyList(customElementsManifest, options.cssSets)
+    ? getCssPropertyList(components, options.cssSets)
     : [];
-  const cssParts = options.cssFileName
-    ? getCssPartList(customElementsManifest)
-    : [];
+  const cssParts = options.cssFileName ? getCssPartList(components) : [];
 
   saveCustomDataFiles(options, htmlTags, cssProperties, cssParts);
 }

@@ -1,7 +1,6 @@
-import type { CEM, Component } from "cem-utils";
+import type { Component } from "cem-utils";
 import {
   getAttributeValueOptions,
-  getComponents,
   getCssPropsTemplate,
   getDescription,
   getEventsTemplate,
@@ -23,10 +22,9 @@ import type * as schema from "custom-elements-manifest/schema";
 import { toKebabCase } from "utilities";
 
 export function getCssPropertyList(
-  customElementsManifest: CEM,
+  components: Component[],
   cssSets?: CssSet[]
 ): VsCssProperty[] {
-  const components = getComponents(customElementsManifest);
   return (
     components?.map((component) => {
       return (
@@ -42,8 +40,7 @@ export function getCssPropertyList(
   ).flat();
 }
 
-export function getCssPartList(customElementsManifest: CEM) {
-  const components = getComponents(customElementsManifest);
+export function getCssPartList(components: Component[]) {
   return (
     components?.map((component) => {
       return (
@@ -106,11 +103,10 @@ function getCssNameValue(value: string) {
 }
 
 export function getTagList(
-  customElementsManifest: CEM,
+  components?: Component[],
   referenceGenerator?: (name: string, tag?: string) => Reference[]
 ): Tag[] {
-  const components = getComponents(customElementsManifest);
-  return components.map((comp) => {
+  return components?.map((comp) => {
     const component = comp as Component;
     const slots = getSlotsTemplate(component?.slots);
     const events = getEventsTemplate(component?.events);
@@ -133,7 +129,7 @@ export function getTagList(
         ? referenceGenerator(component.name, component.tagName)
         : [],
     };
-  });
+  }) || [];
 }
 
 export function getComponentAttributes(component: Component) {
