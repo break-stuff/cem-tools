@@ -294,6 +294,9 @@ export const customElementsManifest: CEM = {
           ],
           events: [
             {
+              type: {
+                text: "Event",
+              },
               description: "some description for custom-event",
               name: "custom-event",
             },

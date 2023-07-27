@@ -171,26 +171,12 @@ export const customElementsManifest: CEM = {
   modules: [
     {
       kind: "javascript-module",
-      path: "demo/radio-button.js",
+      path: "radio-button.js",
       declarations: [
         {
           kind: "class",
           description: "",
           name: "Radio",
-          cssProperties: [
-            {
-              type: {
-                text: "--radius-sm|--radius-md|--radius-lg",
-              },
-              description: "Controls the border radius of the radio buttons",
-              name: "--border-radius",
-            },
-            {
-              description: "Controls the color of bar",
-              name: "--background-color",
-              default: "red",
-            },
-          ],
           slots: [
             {
               description: "add text here to label your radio button",
@@ -229,14 +215,14 @@ export const customElementsManifest: CEM = {
           name: "radio-button",
           declaration: {
             name: "Radio",
-            module: "demo/radio-button.js",
+            module: "radio-button.js",
           },
         },
       ],
     },
     {
       kind: "javascript-module",
-      path: "demo/radio-group.js",
+      path: "radio-group.js",
       declarations: [
         {
           kind: "class",
@@ -246,7 +232,7 @@ export const customElementsManifest: CEM = {
           cssProperties: [
             {
               type: {
-                text: "set:radiuses",
+                text: "--radius-sm|--radius-md|--radius-lg",
               },
               description: "Controls the border radius of the radio buttons",
               name: "--border-radius",
@@ -259,8 +245,8 @@ export const customElementsManifest: CEM = {
           ],
           cssParts: [
             {
-              description: "Styles the color of bar",
-              name: "bar",
+              description: "Applies custom styles the radio group label",
+              name: "radio-label",
             },
           ],
           slots: [
@@ -294,6 +280,9 @@ export const customElementsManifest: CEM = {
           ],
           events: [
             {
+              type: {
+                text: "Event",
+              },
               description: "some description for custom-event",
               name: "custom-event",
             },
@@ -329,10 +318,17 @@ export const customElementsManifest: CEM = {
             },
             {
               type: {
-                text: "1,2,3,4",
+                text: "1|2|3|4",
               },
               description: "This will control the size of radio buttons",
               name: "size",
+            },
+            {
+              type: {
+                text: "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'",
+              },
+              description: "This is a test for sting values",
+              name: "variants",
             },
           ],
           superclass: {
@@ -348,7 +344,7 @@ export const customElementsManifest: CEM = {
           name: "radio-group",
           declaration: {
             name: "RadioGroup",
-            module: "demo/radio-group.js",
+            module: "radio-group.js",
           },
         },
       ],

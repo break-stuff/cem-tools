@@ -23,7 +23,7 @@ export function generateCustomElementDataFiles(
     return;
   }
 
-  const htmlTags = options.htmlFileName ? getTagList(components) : [];
+  const htmlTags = options.htmlFileName ? getTagList(components, options.referencesTemplate) : [];
   const cssProperties = options.cssFileName
     ? getCssPropertyList(components, options.cssSets)
     : [];

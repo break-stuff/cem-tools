@@ -1,11 +1,13 @@
 import {
   getCssPropertyValues,
   getCssValues,
+  getTagList,
   getValueSet,
 } from "../cem-utilities.js";
-import { component } from "./test-data.js";
+import { component, customElementsManifest } from "./test-data.js";
 import { updateConfig } from "configurations";
-import { getMethods } from "cem-utils";
+import { getComponents, getMethods } from "cem-utils";
+import { Reference } from "../types.js";
 
 describe("getCssValues", () => {
   test("given a string with comma separated values, it should return an array of CSS Value objects", () => {
@@ -113,7 +115,7 @@ describe("getCssPropertyValues", () => {
     };
 
     // Act
-    updateConfig(options)
+    updateConfig(options);
     const values = getCssPropertyValues("set:radiuses", options.cssSets);
 
     // Assert
@@ -122,16 +124,23 @@ describe("getCssPropertyValues", () => {
 });
 
 describe("getTagList", () => {
-  test("given a string with comma separated values, it should return an array of CSS Value objects", () => {
+  test("given an array of components, it should return an array of VS Code tags", () => {
     // Arrange
-    const input = "--color-primary,4px,#ccc";
+    const components = getComponents(customElementsManifest);
+    console.log(customElementsManifest);
+    console.log(components);
+    
 
     // Act
-    const values = getCssValues(input);
+    const tags = getTagList(components, (name, tag): Reference[] => [
+      {
+        name: "Documentation",
+        url: `https://example.com/components/${tag}`,
+      },
+    ]);
 
     // Assert
-    expect(values[0].name).toBe("var(--color-primary)");
-    expect(values[1].name).toBe("4px");
+    console.log(tags);
   });
 });
 

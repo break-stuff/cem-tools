@@ -24,8 +24,7 @@ export function getComponents(
     customElementsManifest.modules?.map((mod) =>
       mod?.declarations?.filter(
         (dec) =>
-          exclude &&
-          !exclude.includes(dec.name) &&
+          !exclude?.includes(dec.name) &&
           ((dec as Component).customElement || (dec as Component).tagName)
       ) || []
     ) || []

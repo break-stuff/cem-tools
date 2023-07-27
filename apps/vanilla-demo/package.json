@@ -4,8 +4,7 @@
   "description": "",
   "main": "radio-button.js",
   "scripts": {
-    "analyze": "cem analyze",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "analyze": "cem analyze"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.6",

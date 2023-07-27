@@ -104,7 +104,7 @@ function getCssNameValue(value: string) {
 
 export function getTagList(
   components?: Component[],
-  referenceGenerator?: (name: string, tag?: string) => Reference[]
+  referenceTemplate?: (name: string, tag?: string) => Reference[]
 ): Tag[] {
   return components?.map((comp) => {
     const component = comp as Component;
@@ -125,8 +125,8 @@ export function getTagList(
         cssProps +
         parts,
       attributes: getComponentAttributes(component),
-      references: referenceGenerator
-        ? referenceGenerator(component.name, component.tagName)
+      references: referenceTemplate
+        ? referenceTemplate(component.name, component.tagName)
         : [],
     };
   }) || [];

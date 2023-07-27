@@ -5,6 +5,8 @@ import { CEM } from "cem-utils";
 export interface Options extends BaseConfiguration {
   /** Creates reusable CSS values for consistency in components */
   cssSets?: CssSet[];
+  /** Used to create an array of links within the component info bubble */
+  referencesTemplate?: (name: string, tag?: string) => Reference[];
 }
 
 export interface CssSet {
