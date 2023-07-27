@@ -1,5 +1,6 @@
 import { removeQuoteWrappers } from "utilities";
 import type * as schema from "custom-elements-manifest/schema";
+import { CEM, Component } from "./types";
 
 const EXCLUDED_TYPES = ["string", "boolean", "undefined", "number", "null"];
 
@@ -16,20 +17,19 @@ export function getDescription(
 }
 
 export function getComponents(
-  customElementsManifest: schema.Package,
+  customElementsManifest: CEM,
   exclude?: string[]
-) {
-  return customElementsManifest.modules
-    ?.map((mod) =>
+): Component[] {
+  return (
+    customElementsManifest.modules?.map((mod) =>
       mod?.declarations?.filter(
         (dec) =>
           exclude &&
           !exclude.includes(dec.name) &&
-          ((dec as schema.CustomElementDeclaration).customElement ||
-            (dec as schema.CustomElementDeclaration).tagName)
-      )
-    )
-    .flat();
+          ((dec as Component).customElement || (dec as Component).tagName)
+      ) || []
+    ) || []
+  ).flat() as Component[];
 }
 
 export function getAttributeValueOptions(attr: schema.Attribute): string[] {
@@ -41,7 +41,7 @@ export function getAttributeValueOptions(attr: schema.Attribute): string[] {
         .map((type) => removeQuoteWrappers(type));
 }
 
-export function getMethods(component: schema.CustomElementDeclaration) {
+export function getMethods(component: Component) {
   return component.members?.filter(
     (member) =>
       member.kind === "method" &&
