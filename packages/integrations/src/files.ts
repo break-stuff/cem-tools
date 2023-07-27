@@ -19,7 +19,3 @@ export function saveFile(
     prettier.format(contents, { parser })
   );
 }
-
-export function greenConsoleLog(message: string) {
-  console.log("\u001b[" + 32 + "m" + message + "\u001b[0m");
-}
