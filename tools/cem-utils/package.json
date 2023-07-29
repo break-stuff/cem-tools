@@ -1,10 +1,11 @@
 {
   "name": "cem-utils",
   "version": "0.0.0",
-  "main": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./index.ts",
+  "types": "./index.ts",
   "license": "MIT",
   "type": "module",
+  "private": true,
   "scripts": {
     "build": "tsc && cp src/types.d.ts dist/types.d.ts || copy src/types.d.ts dist/types.d.ts",
     "lint": "eslint \"**/*.ts*\"",
@@ -14,11 +15,13 @@
     "custom-elements-manifest": "2.0.0",
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
-    "integrations": "*",
     "testing-config": "*",
     "ts-jest": "^29.0.3",
     "tsconfig": "*",
-    "typescript": "^4.5.2",
+    "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "integrations": "*",
     "utilities": "*"
   }
 }

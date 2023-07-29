@@ -1,5 +1,5 @@
-import { BaseConfiguration } from "configurations";
-import { CEM } from "cem-utils";
+import { BaseConfiguration } from "../../../tools/configurations";
+import { CEM } from "../../../tools/cem-utils";
 
 
 export interface Options extends BaseConfiguration {

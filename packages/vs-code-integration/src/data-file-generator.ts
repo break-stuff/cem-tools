@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { createOutDir, logRed, saveFile } from "integrations";
+import { createOutDir, logRed, saveFile } from "../../../tools/integrations";
 import {
   getCssPartList,
   getCssPropertyList,
   getTagList,
 } from "./cem-utilities.js";
 import type { Options, Tag, VsCssProperty } from "./types";
-import { getComponents, type CEM, Component } from "cem-utils";
-import { updateConfig } from "configurations";
+import { getComponents, type CEM, Component } from "../../../tools/cem-utils";
+import { updateConfig } from "../../../tools/configurations";
 
-export function generateCustomElementDataFiles(
+export function generateVsCodeCustomElementData(
   customElementsManifest: CEM,
   options: Options
 ) {
@@ -59,7 +59,7 @@ function saveCustomDataFiles(
 
 function getCustomHtmlDataFileContents(tags: Tag[]) {
   return `{
-      "$schema": "https://raw.githubusercontent.com/microsoft/vscode/master/extensions/html-language-features/server/src/htmlTags.schema.json",
+      "$schema": "https://raw.githubusercontent.com/microsoft/vscode-html-languageservice/main/docs/customData.schema.json",
       "version": 1.1,
       "tags": ${JSON.stringify(tags)}
     }`;
@@ -70,7 +70,7 @@ function getCustomCssDataFileContents(
   parts: VsCssProperty[]
 ) {
   return `{
-      "$schema": "https://raw.githubusercontent.com/microsoft/vscode/master/extensions/css-language-features/server/src/data/browsers.schema.json",
+      "$schema": "https://raw.githubusercontent.com/microsoft/vscode-css-languageservice/main/docs/customData.schema.json",
       "version": 1.1,
       "properties": ${JSON.stringify(properties)},
       "pseudoElements": ${JSON.stringify(parts)}

@@ -7,7 +7,7 @@ export interface BaseConfiguration {
   cssFileName?: string | null;
   /** Class names of any components you would like to exclude from the custom data */
   exclude?: string[];
-  /** The property name from the component object constructed by the CEM Analyzer */
+  /** The property name from the component object that you would like to use for the description of your component */
   descriptionSrc?: "description" | "summary";
   /** Displays the slot section of the element description */
   hideSlotDocs?: boolean;
@@ -31,7 +31,6 @@ export interface DescriptionLabels {
   methods?: string;
 }
 
-
 export const baseConfig: BaseConfiguration = {
   outdir: "./",
   htmlFileName: "vscode.html-custom-data.json",
@@ -44,15 +43,15 @@ export const baseConfig: BaseConfiguration = {
   hideCssPartsDocs: false,
   hideMethodDocs: false,
   labels: {
-    slots: 'Slots',
-    events: 'Events',
-    cssProperties: 'CSS Properties',
-    cssParts: 'CSS Parts',
-    methods: 'Methods',
+    slots: "Slots",
+    events: "Events",
+    cssProperties: "CSS Properties",
+    cssParts: "CSS Parts",
+    methods: "Methods",
   },
-}
+};
 
-type ExtendedConfiguration = BaseConfiguration & {[key: string]: any};
+type ExtendedConfiguration = BaseConfiguration & { [key: string]: any };
 
 export function updateConfig(params: ExtendedConfiguration) {
   const config = { ...baseConfig, ...params };

@@ -127,20 +127,23 @@ describe("getTagList", () => {
   test("given an array of components, it should return an array of VS Code tags", () => {
     // Arrange
     const components = getComponents(customElementsManifest);
-    console.log(customElementsManifest);
-    console.log(components);
-    
 
     // Act
-    const tags = getTagList(components, (name, tag): Reference[] => [
-      {
-        name: "Documentation",
-        url: `https://example.com/components/${tag}`,
-      },
-    ]);
+    const tags =
+      getTagList(components, (name, tag): Reference[] => [
+        {
+          name: "Documentation",
+          url: `https://example.com/components/${tag}`,
+        },
+      ]);
+      const references = tags[0].references;
+      const reference = references ? references[0] : undefined;
 
     // Assert
-    console.log(tags);
+    expect(reference?.name).toBe("Documentation");
+    expect(reference?.url).toBe(
+      "https://example.com/components/radio-button"
+    );
   });
 });
 

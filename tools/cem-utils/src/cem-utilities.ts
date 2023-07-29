@@ -1,4 +1,4 @@
-import { removeQuoteWrappers } from "utilities";
+import { removeQuoteWrappers } from "../../utilities";
 import type * as schema from "custom-elements-manifest";
 import { CEM, Component } from "./types";
 

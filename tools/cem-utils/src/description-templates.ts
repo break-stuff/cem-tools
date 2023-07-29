@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { has } from "utilities";
+import { has } from "../../utilities";
 import type * as schema from "custom-elements-manifest";
 
 export function getSlotsTemplate(

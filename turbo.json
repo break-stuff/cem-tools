@@ -10,13 +10,17 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
+    "deploy": {
+      "dependsOn": ["^build"]
+    },
     "lint": {
       "outputs": []
     },
     "dev": {
       "cache": false
-    },   
+    },
     "test": {
+      "dependsOn": ["^build"],
       "cache": false
     }
   }

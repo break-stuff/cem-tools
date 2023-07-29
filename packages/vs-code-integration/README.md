@@ -1,4 +1,4 @@
-# Custom Element VS Code Integration
+# Custom Element (Web Component) VS Code Integration
 
 This is a plugin automatically generates a custom data config file for [VS Code](https://code.visualstudio.com/) using the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
 
@@ -8,29 +8,46 @@ This config enables VS Code to display autocomplete and contextual information a
 
 ## Usage
 
-### Pre-installation
+This package includes two ways to generate the custom data config file - calling a function in your build pipeline or as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
+
+### Install
+
+```bash
+npm i -D custom-element-vs-code-integration
+```
+
+### Build Pipeline
+
+```js
+import { generateVsCodeCustomElementData } from "custom-element-vs-code-integration";
+import manifest from "./path/to/custom-elements.json";
+
+const options = {...};
+
+generateVsCodeCustomElementData(manifest, options);
+```
+
+### CEM Analyzer
+
+#### Pre-installation
 
 Ensure the following steps have been taken in your component library prior to using this plugin:
 
 - Install and set up the [Custom Elements Manifest Analyzer](https://custom-elements-manifest.open-wc.org/analyzer/getting-started/)
 - Create a [config file](https://custom-elements-manifest.open-wc.org/analyzer/config/#config-file)
 
-### Install
-
-```bash
-npm i -D cem-plugin-vs-code-custom-data-generator
-```
-
-### Import
+#### Import
 
 ```js
 // custom-elements-manifest.config.js
 
-import { generateCustomData } from "custom-element-vs-code-integration";
+import { customElementVsCodePlugin } from "custom-element-vs-code-integration";
+
+const options = {...};
 
 export default {
   plugins: [
-    generateCustomData()
+    customElementVsCodePlugin(options)
   ],
 };
 ```
@@ -41,12 +58,8 @@ If you don't have it already, add a VS Code settings folder and file at the root
 
 ```json
 {
-  "html.customData": [
-    "./vscode.html-custom-data.json"
-  ],
-  "css.customData": [
-      "./vscode.css-custom-data.json"
-    ]
+  "html.customData": ["./vscode.html-custom-data.json"],
+  "css.customData": ["./vscode.css-custom-data.json"]
 }
 ```
 
@@ -81,19 +94,19 @@ The configuration has the following optional parameters:
   cssFileName?: string | null;
   /** Class names of any components you would like to exclude from the custom data */
   exclude?: string[];
-  /** The property name from the component object constructed by the CEM Analyzer */
+  /** The property name from the component object that you would like to use for the description of your component */
   descriptionSrc?: "description" | "summary" | string;
   /** Displays the slot section of the element description */
-  slotDocs?: boolean;
+  hideSlotDocs?: boolean;
   /** Displays the event section of the element description */
-  eventDocs?: boolean;
+  hideEventDocs?: boolean;
   /** Displays the CSS custom properties section of the element description */
-  cssPropertiesDocs?: boolean;
+  hideCssPropertiesDocs?: boolean;
   /** Displays the CSS parts section of the element description */
-  cssPartsDocs?: boolean;
-  /** Overrides the default section labels in the component description */
+  hideCssPartsDocs?: boolean;
   /** Displays the methods section of the element description */
-  methodDocs?: boolean;
+  hideMethodDocs?: boolean;
+  /** Overrides the default section labels in the component description */
   labels?: {
     slots?: string;
     events?: string;
@@ -103,69 +116,70 @@ The configuration has the following optional parameters:
   };
   /** Creates reusable CSS values for consistency in components */
   cssSets?: CssSet[];
+  /** Used to create an array of links within the component info bubble */
+  referencesTemplate?: (name: string, tag?: string) => Reference[];
 }
 ```
 
+### Sample Config
+
 ```js
-// custom-elements-manifest.config.js
+{
+  /** Output directory to write the React wrappers to - default is the root of the project */
+  outdir: "dist",
 
-import { generateCustomData } from "cem-plugin-vs-code-custom-data-generator";
+  /** Name of the file with you component's custom HTML data */
+  htmlFileName: "my-library.html-custom-data.json",
 
-export default {
-  plugins: [
-    generateCustomData({
-      /** Output directory to write the React wrappers to - default is the root of the project */
-      outdir: 'dist',
+  /** Name of the file with you component's custom CSS data */
+  cssFileName: "my-library.css-custom-data.json",
 
-      /** Name of the file with you component's custom HTML data */
-      htmlFileName: 'my-library.html-custom-data.json',
-      
-      /** Name of the file with you component's custom CSS data */
-      cssFileName: 'my-library.css-custom-data.json',
+  /** class names of any components you would like to exclude from the custom data */
+  exclude: ["MyInternalElement"],
 
-      /** class names of any components you would like to exclude from the custom data */
-      exclude: ['MyInternalElement'],
+  /** The property name from the component object that you would like to use for the description of your component */
+  descriptionSrc: "description",
 
-      /** The property name from the component object constructed by the CEM Analyzer */
-      descriptionSrc: "description",
+  /** Displays the slot section of the element description */
+  slotDocs: true,
 
-      /** Displays the slot section of the element description */
-      slotDocs: true,
+  /** Displays the event section of the element description */
+  eventDocs: true,
 
-      /** Displays the event section of the element description */
-      eventDocs: true,
+  /** Displays the CSS custom properties section of the element description */
+  cssPropertiesDocs: true,
 
-      /** Displays the CSS custom properties section of the element description */
-      cssPropertiesDocs: true,
+  /** Displays the CSS parts section of the element description */
+  cssPartsDocs: true,
 
-      /** Displays the CSS parts section of the element description */
-      cssPartsDocs: true,
+  /** Displays the methods section of the element description */
+  methodDocs: true,
 
-      /** Displays the methods section of the element description */
-      methodDocs: true,
-
-      /** Overrides the default section labels in the component description */
-      labels: {
-        slots: "Slot Section",
-        events: "Custom Events",
-        cssProperties: "CSS Variables",
-        cssParts: "Style Hooks",
-        methods: "Functions"
-      },
-      /** Creates reusable CSS values for consistency in components */
-      cssSets: [
-        {
-          name: "radiuses",
-          values: [
-            { name: "--radius-sm", description: '2px' },
-            { name: "--radius-md", description: '4px' },
-            { name: "--radius-lg", description: '8px' },
-          ],
-        },
+  /** Overrides the default section labels in the component description */
+  labels: {
+    slots: "Slot Section",
+    events: "Custom Events",
+    cssProperties: "CSS Variables",
+    cssParts: "Style Hooks",
+    methods: "Functions",
+  },
+  /** Creates reusable CSS values for consistency in components */
+  cssSets: [
+    {
+      name: "radiuses",
+      values: [
+        { name: "--radius-sm", description: "2px" },
+        { name: "--radius-md", description: "4px" },
+        { name: "--radius-lg", description: "8px" },
       ],
-    }),
+    },
   ],
-};
+  /** Used to create an array of links within the component info bubble */
+  referencesTemplate: (name: string, tag?: string) => [{
+    name: 'Documentation',
+    url: `https://example.com/components/${tag}`
+  }]
+}
 ```
 
 ## Example
@@ -196,7 +210,7 @@ Here is a basic example of a component configuration using jsDoc:
  * @attribute {string} value - The value of the selected radio
  * @attribute {1,2,3,4} size - This will control the size of radio buttons
  *
- * @csspart bar - Styles the color of bar
+ * @csspart bar - Styles the bar element
  *
  * @slot - add radio buttons to the `default` slot to create options to your radio group
  * @slot label - placeholder for the radio group label
@@ -210,9 +224,6 @@ Here is a basic example of a component configuration using jsDoc:
  * @fires custom-event - some description for custom-event
  * @fires {Event} typed-event - some description for typed-event
  * @event {CustomEvent} typed-custom-event - some description for typed-custom-event
- *
- * @reference Documentation - https://my-site.com/docs
- * @reference MDN - https://developer.mozilla.org/en-US/
  *
  */
 class RadioGroup extends HTMLElement {}
@@ -230,7 +241,6 @@ If you would like to exclude the HTML or CSS output, you can do so by setting th
 | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `@summary` / description | This provides the description for the custom element when autocomplete is used or the element is hovered. If no summary is provided, it will fall back to the `description` if it is available.                                         |
 | `@attr` / `@attribute`   | This will provide descriptions for each attribute. If you use union types in TypeScript or in the description, these will display as autocomplete options. Values can also be defined in the jsDoc using comma or pipe delimited values |
-| `@reference`             | This is a custom tag for this plugin. It creates reference links at the bottom of the information bubble. Multiple references are supported.                                                                                            |
 
 The `@summary` and `@attr` / `@attribute` descriptions have limited markdown support and enable you to style text, create links, and add code snippets.
 
@@ -330,7 +340,7 @@ These values can be added in your component's jsDoc. The `var()` wrapper will be
 /**
  *
  * @cssprop {--radius-sm|--radius-md|--radius-lg} --border-radius - Controls the border radius of the component
- * 
+ *
  */
 ```
 
@@ -352,20 +362,14 @@ export default {
         {
           name: "radiuses",
           values: [
-            { name: "--radius-sm", description: '2px' },
-            { name: "--radius-md", description: '4px' },
-            { name: "--radius-lg", description: '8px' },
+            { name: "--radius-sm", description: "2px" },
+            { name: "--radius-md", description: "4px" },
+            { name: "--radius-lg", description: "8px" },
           ],
         },
         {
           name: "spacing",
-          values: [
-            '2px',
-            '4px',
-            '8px',
-            '12px',
-            '16px'
-          ],
+          values: ["2px", "4px", "8px", "12px", "16px"],
         },
       ],
     }),
@@ -379,7 +383,7 @@ Once they are defined, you can reference them in your components jsDoc by prefix
 /**
  *
  * @cssprop {set:radiuses} --border-radius - Controls the border radius of the component
- * 
+ *
  */
 ```
 
@@ -393,8 +397,42 @@ Developers will also receive autocomplete for defined CSS parts.
 /**
  *
  * @csspart radio-label - Applies custom styles the radio group label
- * 
+ *
  */
 ```
 
 ![css custom property autocomplete from vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/css_part.gif?raw=true)
+
+## References
+
+At the bottom of each component info popup there is a place where you can set a list of links. The options provide a hook that will allow you to add your own links to the popup. A popular usage is linking to documentation. This is especially nice if you have versioned documentation, so you provide developers with contextual help by linking them directly to the version of the documentation they are using.
+
+```ts
+const options = {
+  ...
+  referencesTemplate: (name, tag) => [{
+    name: 'Documentation',
+    url: `https://example.com/${version}/components/${tag}`
+  }]
+}
+```
+
+Another capability is adding conditional documentation based on the component.
+
+```ts
+const options = {
+  ...
+  referencesTemplate: (name, tag) => {
+    references = [];
+
+    if(name = 'MyInput') {
+      references.push({
+        name: 'MDN',
+        url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input'
+      });
+    }
+
+    return references;
+  }
+}
+```

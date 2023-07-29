@@ -1,4 +1,4 @@
-import type { Component } from "cem-utils";
+import type { Component } from "../../../tools/cem-utils";
 import {
   getAttributeValueOptions,
   getCssPropsTemplate,
@@ -8,7 +8,7 @@ import {
   getMethodsTemplate,
   getPartsTemplate,
   getSlotsTemplate,
-} from "cem-utils";
+} from "../../../tools/cem-utils";
 import type {
   CssSet,
   CssValue,
@@ -19,7 +19,7 @@ import type {
   VsCssProperty,
 } from "./types";
 import type * as schema from "custom-elements-manifest/schema";
-import { toKebabCase } from "utilities";
+import { toKebabCase } from "../../../tools/utilities";
 
 export function getCssPropertyList(
   components: Component[],

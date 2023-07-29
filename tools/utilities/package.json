@@ -1,10 +1,11 @@
 {
   "name": "utilities",
   "version": "0.0.0",
-  "main": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./index.ts",
+  "types": "./index.ts",
   "type": "module",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "build": "tsc",
     "lint": "eslint \"**/*.ts*\"",
