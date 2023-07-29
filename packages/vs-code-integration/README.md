@@ -351,28 +351,20 @@ You can define reusable CSS values to simplify your efforts and provide greater 
 First, define your sets in the config. Values can be an object array with a name and optional description or they can be a simple string array.
 
 ```js
-// custom-elements-manifest.config.js
-
-import { generateCustomData } from "cem-plugin-vs-code-custom-data-generator";
-
-export default {
-  plugins: [
-    generateCustomData({
-      cssSets: [
-        {
-          name: "radiuses",
-          values: [
-            { name: "--radius-sm", description: "2px" },
-            { name: "--radius-md", description: "4px" },
-            { name: "--radius-lg", description: "8px" },
-          ],
-        },
-        {
-          name: "spacing",
-          values: ["2px", "4px", "8px", "12px", "16px"],
-        },
+const options = {
+  cssSets: [
+    {
+      name: "radiuses",
+      values: [
+        { name: "--radius-sm", description: "2px" },
+        { name: "--radius-md", description: "4px" },
+        { name: "--radius-lg", description: "8px" },
       ],
-    }),
+    },
+    {
+      name: "spacing",
+      values: ["2px", "4px", "8px", "12px", "16px"],
+    },
   ],
 };
 ```
