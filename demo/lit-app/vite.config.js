@@ -1,0 +1,3 @@
+import "./build";
+
+export default {};

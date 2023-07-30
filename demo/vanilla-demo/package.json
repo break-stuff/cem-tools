@@ -8,11 +8,12 @@
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.6",
-    "custom-element-vs-code-integration": "*"
+    "custom-element-vs-code-integration": "*",
+    "custom-element-jet-brains-integration": "*"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "web-types": "web-types.json",
+  "web-types": "./web-types.json",
   "customElements": "custom-elements.json"
 }

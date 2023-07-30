@@ -1,8 +1,9 @@
-import { customElementVsCodePlugin }  from "custom-element-vs-code-integration";
+import { customElementVsCodePlugin } from "custom-element-vs-code-integration";
+import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integration";
 
 export default {
   /** Globs to analyze */
-  globs: ['*.js'],
+  globs: ["*.js"],
   /** Directory to output CEM to */
   outdir: "./",
   /** Run in dev mode, provides extra logging */
@@ -14,5 +15,5 @@ export default {
   /** Output CEM path to `package.json`, defaults to true */
   packagejson: true,
   /** Provide custom plugins */
-  plugins: [customElementVsCodePlugin()],
+  plugins: [customElementVsCodePlugin(), customElementJetBrainsPlugin()],
 };

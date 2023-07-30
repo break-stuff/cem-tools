@@ -1,8 +1,9 @@
-import { customElementVsCodePlugin }  from "custom-element-vs-code-integration";
+import { customElementVsCodePlugin } from "custom-element-vs-code-integration";
+import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integration";
 
 export default {
   /** Globs to analyze */
-  globs: ['src/**/*.ts'],
+  globs: ["src/**/*.ts"],
   /** Directory to output CEM to */
   outdir: "./",
   /** Run in dev mode, provides extra logging */
@@ -16,5 +17,5 @@ export default {
   /** Enable special handling for litelement */
   litelement: true,
   /** Provide custom plugins */
-  plugins: [customElementVsCodePlugin()],
+  plugins: [customElementVsCodePlugin(), customElementJetBrainsPlugin()],
 };
