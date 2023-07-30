@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/microsoft/vscode/master/extensions/css-language-features/server/src/data/browsers.schema.json",
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode-css-languageservice/main/docs/customData.schema.json",
   "version": 1.1,
   "properties": [
     {

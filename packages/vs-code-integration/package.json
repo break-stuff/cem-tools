@@ -2,7 +2,7 @@
   "name": "custom-element-vs-code-integration",
   "version": "1.0.0-alpha.6",
   "description": "Tools for integrating web components into VS Code",
-  "main": "index.cjs",
+  "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
   "type": "module",
@@ -13,8 +13,8 @@
     "/dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --dts --minify --format cjs,esm",
-    "deploy": "npm run build && npm publish --workspaces",
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "deploy": "npm run build && npm publish",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
   },
   "author": "",

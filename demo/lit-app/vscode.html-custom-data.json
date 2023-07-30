@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/microsoft/vscode/master/extensions/html-language-features/server/src/htmlTags.schema.json",
+  "$schema": "https://raw.githubusercontent.com/microsoft/vscode-html-languageservice/main/docs/customData.schema.json",
   "version": 1.1,
   "tags": [
     {
