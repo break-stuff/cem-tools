@@ -15,7 +15,7 @@ import {
   Component,
   getComponentDetailsTemplate,
 } from "../../../tools/cem-utils";
-import * as schema from "custom-elements-manifest/schema";
+import type * as schema from "custom-elements-manifest/schema";
 import {
   getComponentAttributes,
   getCssPartList,
@@ -103,11 +103,11 @@ export function generateJetBrainsWebTypes(
 }
 
 export function getOptions(options: Options) {
+  options = updateConfig(options);
   options.webTypesFileName =
     options.webTypesFileName === undefined
       ? "web-types.json"
       : options.webTypesFileName;
-  options = updateConfig(options);
 
   return options;
 }

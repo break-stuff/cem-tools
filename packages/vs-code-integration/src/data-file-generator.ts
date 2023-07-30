@@ -34,6 +34,7 @@ export function generateVsCodeCustomElementData(
 }
 
 export function getOptions(options: Options) {
+  options = updateConfig(options);
   options.htmlFileName =
     options.htmlFileName === undefined
       ? "vscode.html-custom-data.json"
@@ -42,7 +43,6 @@ export function getOptions(options: Options) {
     options.cssFileName === undefined
       ? "vscode.css-custom-data.json"
       : options.cssFileName;
-  options = updateConfig(options);
 
   return options;
 }
