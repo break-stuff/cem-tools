@@ -33,7 +33,7 @@ export function generateVsCodeCustomElementData(
   saveCustomDataFiles(options, htmlTags, cssProperties, cssParts);
 }
 
-function getOptions(options: Options) {
+export function getOptions(options: Options) {
   options.htmlFileName =
     options.htmlFileName === undefined
       ? "vscode.html-custom-data.json"

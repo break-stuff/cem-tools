@@ -14,7 +14,7 @@
   "scripts": {
     "build": "tsup src/index.ts --dts --minify --format cjs,esm",
     "deploy": "npm run build && npm publish --workspaces",
-    "test": "jest"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
   },
   "repository": {
     "type": "git",

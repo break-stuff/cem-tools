@@ -1,6 +1,6 @@
-import { CustomElementsManifest } from "../../types";
+import type { CEM } from "../../../../tools/cem-utils";
 
-export const customElementsManifest: CustomElementsManifest = {
+export const customElementsManifest: CEM = {
   schemaVersion: "1.0.0",
   readme: "",
   modules: [
@@ -129,6 +129,9 @@ export const customElementsManifest: CustomElementsManifest = {
           ],
           events: [
             {
+              type: {
+                text: "Event",
+              },
               description: "some description for custom-event",
               name: "custom-event",
             },

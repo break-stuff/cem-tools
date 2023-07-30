@@ -8,6 +8,7 @@ import { component, customElementsManifest } from "./test-data.js";
 import { updateConfig } from "configurations";
 import { getComponents, getMethods } from "cem-utils";
 import { Reference } from "../types.js";
+import { getOptions } from "../data-file-generator.js";
 
 describe("getCssValues", () => {
   test("given a string with comma separated values, it should return an array of CSS Value objects", () => {
@@ -127,15 +128,18 @@ describe("getTagList", () => {
   test("given an array of components, it should return an array of VS Code tags", () => {
     // Arrange
     const components = getComponents(customElementsManifest);
-
-    // Act
-    const tags =
-      getTagList(components, (name, tag): Reference[] => [
+    const options = getOptions({
+      referencesTemplate: (name, tag): Reference[] => [
         {
           name: "Documentation",
           url: `https://example.com/components/${tag}`,
         },
-      ]);
+      ]
+    });
+
+    // Act
+    const tags =
+      getTagList(components, options);
       const references = tags[0].references;
       const reference = references ? references[0] : undefined;
 

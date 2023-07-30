@@ -102,7 +102,7 @@ export function generateJetBrainsWebTypes(
   saveWebTypeFile(elements, cssProperties, cssParts, options);
 }
 
-function getOptions(options: Options) {
+export function getOptions(options: Options) {
   options.webTypesFileName =
     options.webTypesFileName === undefined
       ? "web-types.json"
