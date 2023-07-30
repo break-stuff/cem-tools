@@ -1,8 +1,11 @@
-import { BaseConfiguration } from "../../../tools/configurations";
-import { CEM } from "../../../tools/cem-utils";
+import type { BaseOptions } from "../../../tools/configurations";
+import type { CEM } from "../../../tools/cem-utils";
 
-
-export interface Options extends BaseConfiguration {
+export interface Options extends BaseOptions {
+  /** Name of the file with you component's custom HTML data */
+  htmlFileName?: string | null;
+  /** Name of the file with you component's custom CSS data */
+  cssFileName?: string | null;
   /** Creates reusable CSS values for consistency in components */
   cssSets?: CssSet[];
   /** Used to create an array of links within the component info bubble */

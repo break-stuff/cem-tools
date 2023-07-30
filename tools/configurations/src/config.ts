@@ -1,10 +1,6 @@
-export interface BaseConfiguration {
+export interface BaseOptions {
   /** Path to output directory */
   outdir?: string;
-  /** Name of the file with you component's custom HTML data */
-  htmlFileName?: string | null;
-  /** Name of the file with you component's custom CSS data */
-  cssFileName?: string | null;
   /** Class names of any components you would like to exclude from the custom data */
   exclude?: string[];
   /** The property name from the component object that you would like to use for the description of your component */
@@ -31,10 +27,8 @@ export interface DescriptionLabels {
   methods?: string;
 }
 
-export const baseConfig: BaseConfiguration = {
+export const baseConfig: BaseOptions = {
   outdir: "./",
-  htmlFileName: "vscode.html-custom-data.json",
-  cssFileName: "vscode.css-custom-data.json",
   exclude: [],
   descriptionSrc: undefined,
   hideSlotDocs: false,
@@ -51,7 +45,7 @@ export const baseConfig: BaseConfiguration = {
   },
 };
 
-type ExtendedConfiguration = BaseConfiguration & { [key: string]: any };
+type ExtendedConfiguration = BaseOptions & { [key: string]: any };
 
 export function updateConfig(params: ExtendedConfiguration) {
   const config = { ...baseConfig, ...params };

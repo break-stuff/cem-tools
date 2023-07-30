@@ -1,0 +1,59 @@
+{
+  "name": "custom-element-jet-brains-integration",
+  "version": "1.0.0-alpha.0",
+  "description": "A custom elements manifest analyzer plugin to generate configuration files for web component integration with JetBrains IDEs",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "types.d.ts",
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --dts --minify --format cjs,esm",
+    "deploy": "npm run build && npm publish --workspaces",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/break-stuff/cem-plugin-jet-brains-ide-integration.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/break-stuff/cem-plugin-jet-brains-ide-integration/issues"
+  },
+  "homepage": "https://github.com/break-stuff/cem-plugin-jet-brains-ide-integration#readme",
+  "dependencies": {
+    "prettier": "^2.8.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.2.3",
+    "@types/node": "^18.11.9",
+    "ts-jest": "^29.0.3"
+  },
+  "keywords": [
+    "custom elements",
+    "custom-elements",
+    "custom elements manifest",
+    "custom-elements-manifest",
+    "web components",
+    "web-components",
+    "components",
+    "JetBrains",
+    "jet brains",
+    "phpstorm",
+    "webstorm",
+    "intellij",
+    "rider",
+    "fleet",
+    "pycharm",
+    "rubymine",
+    "autocomplete",
+    "intellisense",
+    "web components autocomplete",
+    "web components intellisense"
+  ]
+}

@@ -13,23 +13,38 @@ export function generateVsCodeCustomElementData(
   customElementsManifest: CEM,
   options: Options
 ) {
-  options = updateConfig(options);
-  const components = getComponents(customElementsManifest, options.exclude) as Component[];
+  options = getOptions(options);
+  const components = getComponents(
+    customElementsManifest,
+    options.exclude
+  ) as Component[];
 
   if (!components.length) {
-    logRed(
-      "[custom-element-vs-code-integration] - No components found."
-    );
+    logRed("[custom-element-vs-code-integration] - No components found.");
     return;
   }
 
-  const htmlTags = options.htmlFileName ? getTagList(components, options.referencesTemplate) : [];
+  const htmlTags = options.htmlFileName ? getTagList(components, options) : [];
   const cssProperties = options.cssFileName
     ? getCssPropertyList(components, options.cssSets)
     : [];
   const cssParts = options.cssFileName ? getCssPartList(components) : [];
 
   saveCustomDataFiles(options, htmlTags, cssProperties, cssParts);
+}
+
+function getOptions(options: Options) {
+  options.htmlFileName =
+    options.htmlFileName === undefined
+      ? "vscode.html-custom-data.json"
+      : options.htmlFileName;
+  options.cssFileName =
+    options.cssFileName === undefined
+      ? "vscode.css-custom-data.json"
+      : options.cssFileName;
+  options = updateConfig(options);
+
+  return options;
 }
 
 function saveCustomDataFiles(

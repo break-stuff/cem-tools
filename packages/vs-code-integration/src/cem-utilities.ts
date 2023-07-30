@@ -1,18 +1,12 @@
 import type { Component } from "../../../tools/cem-utils";
 import {
   getAttributeValueOptions,
-  getCssPropsTemplate,
-  getDescription,
-  getEventsTemplate,
-  getMethods,
-  getMethodsTemplate,
-  getPartsTemplate,
-  getSlotsTemplate,
+  getComponentDetailsTemplate,
 } from "../../../tools/cem-utils";
 import type {
   CssSet,
   CssValue,
-  Reference,
+  Options,
   Tag,
   TagAttribute,
   Value,
@@ -102,34 +96,19 @@ function getCssNameValue(value: string) {
   return !value ? "" : value.startsWith("--") ? `var(${value})` : value;
 }
 
-export function getTagList(
-  components?: Component[],
-  referenceTemplate?: (name: string, tag?: string) => Reference[]
-): Tag[] {
-  return components?.map((comp) => {
-    const component = comp as Component;
-    const slots = getSlotsTemplate(component?.slots);
-    const events = getEventsTemplate(component?.events);
-    const cssProps = getCssPropsTemplate(component?.cssProperties);
-    const parts = getPartsTemplate(component?.cssParts);
-    const methods = getMethodsTemplate(getMethods(component));
-
-    return {
-      name: component.tagName || toKebabCase(component.name),
-      description:
-        getDescription(component) +
-        "\n\n\n---\n\n\n" +
-        events +
-        methods +
-        slots +
-        cssProps +
-        parts,
-      attributes: getComponentAttributes(component),
-      references: referenceTemplate
-        ? referenceTemplate(component.name, component.tagName)
-        : [],
-    };
-  }) || [];
+export function getTagList(components: Component[], options: Options): Tag[] {
+  return (
+    components?.map((component) => {
+      return {
+        name: component.tagName || toKebabCase(component.name),
+        description: getComponentDetailsTemplate(component, options!),
+        attributes: getComponentAttributes(component),
+        references: options?.referencesTemplate
+          ? options.referencesTemplate(component.name, component.tagName)
+          : [],
+      };
+    }) || []
+  );
 }
 
 export function getComponentAttributes(component: Component) {

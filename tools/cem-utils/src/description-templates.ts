@@ -1,6 +1,50 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { has } from "../../utilities";
 import type * as schema from "custom-elements-manifest";
+import { Component } from "./types";
+import { BaseOptions } from "../../configurations";
+import { getDescription, getMethods } from "./cem-utilities";
+
+export function getComponentDetailsTemplate(
+  component: Component,
+  options: BaseOptions,
+) {
+  const slots = getSlotsTemplate(
+    component?.slots,
+    options?.hideSlotDocs,
+    options?.labels?.slots
+  );
+  const events = getEventsTemplate(
+    component?.events,
+    options?.hideEventDocs,
+    options?.labels?.events
+  );
+  const cssProps = getCssPropsTemplate(
+    component?.cssProperties,
+    options?.hideCssPropertiesDocs,
+    options?.labels?.cssProperties
+  );
+  const parts = getPartsTemplate(
+    component?.cssParts,
+    options?.hideCssPartsDocs,
+    options?.labels?.cssParts
+  );
+  const methods = getMethodsTemplate(
+    getMethods(component),
+    options?.hideMethodDocs,
+    options?.labels?.methods
+  );
+
+  return (
+    getDescription(component, options?.descriptionSrc) +
+    "\n\n\n---\n\n\n" +
+    events +
+    methods +
+    slots +
+    cssProps +
+    parts
+  );
+}
 
 export function getSlotsTemplate(
   slots?: schema.Slot[],

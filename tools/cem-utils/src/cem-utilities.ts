@@ -1,6 +1,7 @@
 import { removeQuoteWrappers } from "../../utilities";
 import type * as schema from "custom-elements-manifest";
-import { CEM, Component } from "./types";
+import type { CEM, Component } from "./types";
+import type { BaseOptions } from "../../configurations";
 
 const EXCLUDED_TYPES = ["string", "boolean", "undefined", "number", "null"];
 
@@ -21,12 +22,13 @@ export function getComponents(
   exclude?: string[]
 ): Component[] {
   return (
-    customElementsManifest.modules?.map((mod) =>
-      mod?.declarations?.filter(
-        (dec) =>
-          !exclude?.includes(dec.name) &&
-          ((dec as Component).customElement || (dec as Component).tagName)
-      ) || []
+    customElementsManifest.modules?.map(
+      (mod) =>
+        mod?.declarations?.filter(
+          (dec) =>
+            !exclude?.includes(dec.name) &&
+            ((dec as Component).customElement || (dec as Component).tagName)
+        ) || []
     ) || []
   ).flat() as Component[];
 }
