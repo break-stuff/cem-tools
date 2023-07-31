@@ -1,6 +1,6 @@
 {
   "name": "custom-element-vs-code-integration",
-  "version": "1.0.0-alpha.6",
+  "version": "1.0.0-beta.0",
   "description": "Tools for integrating web components into VS Code",
   "main": "index.js",
   "module": "index.js",
@@ -19,8 +19,8 @@
   },
   "author": "",
   "license": "MIT",
-  "repository": "https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator",
-  "homepage": "https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator",
+  "repository": "https://github.com/break-stuff/cem-tools",
+  "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/vs-code-integration",
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.3",
     "@types/jest": "^29.2.3",
