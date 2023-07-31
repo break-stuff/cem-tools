@@ -10,6 +10,7 @@
   "scripts": {
     "build": "turbo run build",
     "deploy:vs-code": "turbo run deploy --filter=custom-element-vs-code-integration",
+    "deploy:vs-brains": "turbo run deploy --filter=custom-element-jet-brains-integration",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

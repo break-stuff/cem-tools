@@ -22,7 +22,6 @@
               "value": { "type": "boolean | undefined" }
             }
           ],
-          "events": [],
           "js": {
             "properties": [
               {
@@ -35,7 +34,8 @@
                 "description": "Disables the radio button",
                 "value": { "type": "boolean | undefined" }
               }
-            ]
+            ],
+            "events": []
           }
         },
         {
