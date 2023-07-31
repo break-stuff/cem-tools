@@ -1,6 +1,6 @@
 # Custom Element (Web Component) VS Code Integration
 
-This is a plugin automatically generates a custom data config file for [VS Code](https://code.visualstudio.com/) using the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
+This package generates custom data config file for [VS Code](https://code.visualstudio.com/) using the Custom Element Manifest.
 
 This config enables VS Code to display autocomplete and contextual information about your custom elements.
 
@@ -29,7 +29,7 @@ generateVsCodeCustomElementData(manifest, options);
 
 ### CEM Analyzer
 
-#### Pre-installation
+#### Set-up
 
 Ensure the following steps have been taken in your component library prior to using this plugin:
 
@@ -141,19 +141,19 @@ The configuration has the following optional parameters:
   descriptionSrc: "description",
 
   /** Displays the slot section of the element description */
-  slotDocs: true,
+  hideSlotDocs: false,
 
   /** Displays the event section of the element description */
-  eventDocs: true,
+  hideEventDocs: false,
 
   /** Displays the CSS custom properties section of the element description */
-  cssPropertiesDocs: true,
+  hideCssPropertiesDocs: false,
 
   /** Displays the CSS parts section of the element description */
-  cssPartsDocs: true,
+  hideCssPartsDocs: false,
 
   /** Displays the methods section of the element description */
-  methodDocs: true,
+  hideMethodDocs: true,
 
   /** Overrides the default section labels in the component description */
   labels: {

@@ -1,8 +1,6 @@
-# cem-plugin-jet-brains-ide-integration
+# Custom Element (Web Component) JetBrains Integration
 
-A custom elements manifest analyzer plugin to generate configuration files for web component integration with JetBrains IDEs
-
-This is a plugin automatically generates a `web-types.json` file for [JetBrains IDEs](https://www.jetbrains.com/) using the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
+This package generates custom `web-types.json` config file for the [JetBrains IDEs](https://www.jetbrains.com/) using the Custom Element Manifest.
 
 This config enables JetBrains IDEs to display autocomplete and contextual information about your custom elements.
 
@@ -10,28 +8,47 @@ This config enables JetBrains IDEs to display autocomplete and contextual inform
 
 ## Usage
 
-### Pre-installation
+This package includes two ways to generate the custom data config file - calling a function in your build pipeline or as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
+
+### Install
+
+```bash
+npm i -D custom-element-jet-brains-integration
+```
+
+### Build Pipeline
+
+```js
+import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integration";
+import manifest from "./path/to/custom-elements.json";
+
+const options = {...};
+
+customElementJetBrainsPlugin(manifest, options);
+```
+
+### CEM Analyzer
+
+#### Set-up
 
 Ensure the following steps have been taken in your component library prior to using this plugin:
 
 - Install and set up the [Custom Elements Manifest Analyzer](https://custom-elements-manifest.open-wc.org/analyzer/getting-started/)
 - Create a [config file](https://custom-elements-manifest.open-wc.org/analyzer/config/#config-file)
 
-### Install
-
-```bash
-npm i -D cem-plugin-jet-brains-ide-integration
-```
-
 ### Import
 
 ```js
 // custom-elements-manifest.config.js
 
-import { generateWebTypes } from "cem-plugin-jet-brains-ide-integration";
+import { customElementJetBrainsPlugin } from "cem-plugin-jet-brains-ide-integration";
+
+const options = {...};
 
 export default {
-  plugins: [generateWebTypes()],
+  plugins: [
+    customElementJetBrainsPlugin(options)
+  ],
 };
 ```
 
@@ -39,7 +56,7 @@ export default {
 
 Once the file has been generated, the IDE should automatically pick it up and you should see your information displayed in the IDE!
 
-If you are deploying your library for others to use, it will also be automatically discovered and integrated by the IDE. No user involvement necessary!
+If you are deploying your library for others to use, your `package.json` will also be updated with a reference to the generated `web-types.json` file so it will be automatically discovered and integrated by the IDE into their experience. No user involvement necessary!
 
 ## Configuration
 
@@ -57,13 +74,15 @@ export interface Options {
   /** The property name from the component object constructed by the CEM Analyzer */
   descriptionSrc?: "description" | "summary";
   /** Displays the slot section of the element description */
-  slotDocs?: boolean;
+  hideSlotDocs?: boolean;
   /** Displays the event section of the element description */
-  eventDocs?: boolean;
+  hideEventDocs?: boolean;
   /** Displays the CSS custom properties section of the element description */
-  cssPropertiesDocs?: boolean;
+  hideCssPropertiesDocs?: boolean;
   /** Displays the CSS parts section of the element description */
-  cssPartsDocs?: boolean;
+  hideCssPartsDocs?: boolean;
+  /** Displays the methods section of the element description */
+  hideMethodDocs?: boolean;
   /** Excludes any custom element documentation */
   excludeHtml?: boolean;
   /** Excludes any custom CSS documentation */
@@ -75,6 +94,8 @@ export interface Options {
     cssProperties?: string;
     cssParts?: string;
   };
+  /** Used to create links within the component info bubble */
+  referencesTemplate?: (name: string, tag?: string) => Reference;
 }
 ```
 
@@ -83,49 +104,53 @@ export interface Options {
 
 import { generateWebTypes } from "cem-plugin-jet-brains-ide-integration";
 
-export default {
-  plugins: [
-    generateWebTypes({
-      /** Output directory to write the React wrappers to - default is the root of the project */
-      outdir: 'dist',
+const options = {
+  /** Path to output directory */
+  outdir: 'dist',
 
-      /** Name of the file for your custom data */
-      webTypesFileName?: string | null;
+  /** Name of the file for your custom data */
+  webTypesFileName?: string | null;
 
+  /** class names of any components you would like to exclude from the custom data */
+  exclude: ['MyInternalElement'],
 
-      /** class names of any components you would like to exclude from the custom data */
-      exclude: ['MyInternalElement'],
+  /** The property name from the component object constructed by the CEM Analyzer */
+  descriptionSrc: "description",
 
-      /** The property name from the component object constructed by the CEM Analyzer */
-      descriptionSrc: "description",
+  /** Displays the slot section of the element description */
+  hideSlotDocs: false,
 
-      /** Displays the slot section of the element description */
-      slotDocs: true,
+  /** Displays the event section of the element description */
+  hideEventDocs: false,
 
-      /** Displays the event section of the element description */
-      eventDocs: true,
+  /** Displays the CSS custom properties section of the element description */
+  hideCssPropertiesDocs: false,
 
-      /** Displays the CSS custom properties section of the element description */
-      cssPropertiesDocs: true,
+  /** Displays the CSS parts section of the element description */
+  hideCssPartsDocs: false,
 
-      /** Displays the CSS parts section of the element description */
-      cssPartsDocs: true,
+  /** Displays the methods section of the element description */
+  hideMethodDocs: true,
 
-      /** Excludes any custom element documentation */
-      excludeHtml: false,
+  /** Excludes any custom element documentation */
+  excludeHtml: false,
 
-      /** Excludes any custom CSS documentation */
-      excludeCss: true,
+  /** Excludes any custom CSS documentation */
+  excludeCss: true,
 
-      /** Overrides the default section labels in the component description */
-      labels: {
-        slots: "Slot Section",
-        events: "Custom Events",
-        cssProperties: "CSS Variables",
-        cssParts: "Style Hooks"
-      },
-    }),
-  ],
+  /** Overrides the default section labels in the component description */
+  labels: {
+    slots: "Slot Section",
+    events: "Custom Events",
+    cssProperties: "CSS Variables",
+    cssParts: "Style Hooks"
+  },
+  /** Used to create an array of links within the component info bubble */
+  referencesTemplate?: (name: string, tag?: string) => {
+    name: 'Documentation',
+    url: `https://example.com/components/${tag}`
+  };
+
 };
 ```
 
@@ -186,7 +211,7 @@ class RadioGroup extends HTMLElement {}
 | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `@summary` / description | This provides the description for the custom element when autocomplete is used or the element is hovered. If no summary is provided, it will fall back to the `description` if it is available.                                         |
 | `@attr` / `@attribute`   | This will provide descriptions for each attribute. If you use union types in TypeScript or in the description, these will display as autocomplete options. Values can also be defined in the jsDoc using comma or pipe delimited values |
-| `@reference`             | This is a custom tag for this plugin. It creates a reference link at the bottom of the information bubble. If multiple references are present, only the first one will be used.                                                                                            |
+| `@reference`             | This is a custom tag for this plugin. It creates a reference link at the bottom of the information bubble. If multiple references are present, only the first one will be used.                                                         |
 
 The `@summary` and `@attr` / `@attribute` descriptions have limited markdown support and enable you to style text, create links, and add code snippets.
 
@@ -300,3 +325,17 @@ Developers will also receive autocomplete for defined CSS parts.
 ```
 
 <!-- ![css custom property autocomplete from vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/css_part.gif?raw=true) -->
+
+## References
+
+At the bottom of each component info popup there is a place where you can set reference link. The options provide a hook that will allow you to add your own link to the popup. A popular usage is linking to documentation. This is especially nice if you have versioned documentation, so you provide developers with contextual help by linking them directly to the version of the documentation they are using.
+
+```ts
+const options = {
+  ...
+  referencesTemplate: (name, tag) => {
+    name: 'Documentation',
+    url: `https://example.com/${version}/components/${tag}`
+  }
+}
+```
