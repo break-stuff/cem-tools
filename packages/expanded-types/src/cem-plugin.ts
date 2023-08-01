@@ -1,12 +1,19 @@
 import path from "path";
+import fs from "fs";
 import type { Component } from "../../../tools/cem-utils";
+
+export interface Options {
+  propertyName?: string;
+}
 
 const aliasTypes: any = {};
 let currentFilename = "";
 let typeChecker: any;
+let options: any;
 
-export function expandTypesPlugin(tc: any, options: any) {
+export function expandTypesPlugin(tc: any, op: Options = { propertyName: "expandedType" }) {
   typeChecker = tc;
+  options = op;
 
   return {
     name: "expand-types-plugin",
@@ -15,11 +22,11 @@ export function expandTypesPlugin(tc: any, options: any) {
   };
 }
 
-export function getTsProgram(ts: any, globs: string[]) {
+export function getTsProgram(ts: any, globs: string[], configName: string) {
   const configFile = ts.findConfigFile(
     process.cwd(),
     ts.sys.fileExists,
-    "tsconfig.json"
+    configName
   );
   const { config } = ts.readConfigFile(configFile, ts.sys.readFile);
   return ts.createProgram(globs, config);
@@ -77,7 +84,6 @@ function collectPhase({ ts, node }: any) {
     setEnumTypes(node, currentFilename);
   } else if (node.kind === ts.SyntaxKind.TypeAliasDeclaration) {
     if (node.type.kind === ts.SyntaxKind.UnionType) {
-      console.log("__COMPLEX_UNION_TYPES__", node.name.getText(), node.type.kind);
       setBasicUnionTypes(node, currentFilename);
     } else if (
       node.type.kind === ts.SyntaxKind.TypeOperator ||
@@ -102,7 +108,6 @@ function setBasicUnionTypes(node: any, currentFilename: string) {
   const unionTypes = node.type.types
     .map((type: any) => type.getText())
     .join(" | ");
-  console.log("__UNION_TYPES__", unionTypes);
   aliasTypes[currentFilename][name] = unionTypes;
 }
 
@@ -128,7 +133,6 @@ function setComplexUnionTypes(
 function analyzePhase({ ts, node, moduleDoc, context }: any) {
   if (node.kind === ts.SyntaxKind.SourceFile) {
     currentFilename = path.resolve(node.fileName);
-    return;
   }
 
   if (node.kind !== ts.SyntaxKind.ClassDeclaration) {
@@ -161,30 +165,24 @@ function getTypedMembers(component: Component) {
 }
 
 function getTypeValue(item: any, context: any) {
-  // Is the type imported?
   const importedType = context?.imports?.find(
     (i: any) => i.name === item.type?.text
   );
-  console.log("__IMPORTED_TYPE__", importedType);
   
   if (!importedType) {
     return getExpandedType(currentFilename, item.type.text);
   }
-
-  // Resolve the import's path based on the current file's location
+  
   let resolvedPath = path.resolve(
     path.dirname(currentFilename),
     importedType.importPath
   );
 
-  console.log("__RESOLVED_PATH__", resolvedPath);
-
-  // Imports without an extension won't have a match, so let's look for a TypeScript file
-  if (!aliasTypes[resolvedPath] && aliasTypes[resolvedPath + ".d.ts"]) {
-    resolvedPath += ".d.ts";
+  if (!aliasTypes[resolvedPath] && aliasTypes[resolvedPath + ".ts"]) {
+    resolvedPath += ".ts";
   }
 
-  getExpandedType(resolvedPath, importedType.name);
+  return getExpandedType(resolvedPath, importedType.name);
 }
 
 function updateExpandedTypes(component: Component, context: any) {
@@ -192,9 +190,8 @@ function updateExpandedTypes(component: Component, context: any) {
 
   typedMembers.forEach((member) => {
     const typeValue = getTypeValue(member, context);
-    console.log("__TYPE_VALUE__", member.name, typeValue);
     if (typeValue !== member.type.text) {
-      member.rawType = {
+      member[options.propertyName] = {
         text: typeValue,
       };
     }

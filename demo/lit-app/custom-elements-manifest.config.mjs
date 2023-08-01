@@ -21,7 +21,7 @@ export default {
   litelement: true,
 
   overrideModuleCreation: ({ts, globs}) => {
-    const program = getTsProgram(ts, globs);
+    const program = getTsProgram(ts, globs, 'tsconfig.json');
     typeChecker = program.getTypeChecker();
     return program.getSourceFiles().filter(sf => globs.find(glob => sf.fileName.includes(glob)));
   },
