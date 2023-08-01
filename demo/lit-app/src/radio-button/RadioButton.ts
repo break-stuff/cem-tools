@@ -18,6 +18,9 @@ export class RadioButton extends LitElement {
   /** Disables the radio button */
   @property({ type: Boolean }) disabled?: boolean;
 
+  /** A lookup type for example */
+  @property() type?: HTMLAnchorElement["type"];
+
   render() {
     return html`
       <h2>Hello world!</h2>

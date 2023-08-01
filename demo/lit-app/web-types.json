@@ -7,38 +7,6 @@
     "html": {
       "elements": [
         {
-          "name": "radio-button",
-          "description": "Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\n\nUse it like this:\n```html\n<radio-button value=\"1\" disabled>Your label</radio-button>\n```\n\n\n---\n\n\n\n\n### **Slots:**\n - _default_ - add text here to label your radio button",
-          "doc-url": "",
-          "attributes": [
-            {
-              "name": "value",
-              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "value": { "type": "string" }
-            },
-            {
-              "name": "disabled",
-              "description": "Disables the radio button",
-              "value": { "type": "boolean | undefined" }
-            }
-          ],
-          "js": {
-            "properties": [
-              {
-                "name": "value",
-                "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-                "value": { "type": "string" }
-              },
-              {
-                "name": "disabled",
-                "description": "Disables the radio button",
-                "value": { "type": "boolean | undefined" }
-              }
-            ],
-            "events": []
-          }
-        },
-        {
           "name": "radio-group",
           "description": "\nRadio groups are used to group multiple radios or radio buttons so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).\n\nUse it like this:\n```html\n<radio-group value=\"2\" size=\"3\">\n  <span slot=\"label\">My Label</span>\n  <radio-button value=\"1\">Option 1</radio-button>\n  <radio-button value=\"2\">Option 2</radio-button>\n  <radio-button value=\"3\">Option 3</radio-button>\n</radio-group>\n```\n\n\n---\n\n\n\n\n### **Events:**\n - **custom-event** - some description for custom-event\n- **typed-event** - some description for typed-event\n- **typed-custom-event** - some description for typed-custom-event\n\n### **Methods:**\n - **validate()** - Validated the radio inputs\n- **checkStatus(value: _string_, message: _string_): _string_** - This is a test method with parameters\n\n### **Slots:**\n - _default_ - add radio buttons to the `default` slot to create options to your radio group\n- **label** - placeholder for the radio group label\n\n### **CSS Properties:**\n - **--border-radius** - Controls the border radius of the radio buttons _(default: undefined)_\n- **--background-color** - Controls the color of bar _(default: red)_\n\n### **CSS Parts:**\n - **radio-label** - Applies custom styles the radio group label",
           "doc-url": "",
@@ -61,9 +29,12 @@
             {
               "name": "variants",
               "description": "This is a test for sting values",
-              "value": {
-                "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
-              }
+              "value": { "type": "Variants" }
+            },
+            {
+              "name": "test",
+              "description": "This is a test for sting values",
+              "value": { "type": "Test" }
             },
             {
               "name": "my-attribute",
@@ -91,9 +62,12 @@
               {
                 "name": "variants",
                 "description": "This is a test for sting values",
-                "value": {
-                  "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
-                }
+                "value": { "type": "Variants" }
+              },
+              {
+                "name": "test",
+                "description": "This is a test for sting values",
+                "value": { "type": "Test" }
               },
               {
                 "name": "my-attribute",
@@ -115,6 +89,48 @@
                 "description": "some description for typed-custom-event"
               }
             ]
+          }
+        },
+        {
+          "name": "radio-button",
+          "description": "Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\n\nUse it like this:\n```html\n<radio-button value=\"1\" disabled>Your label</radio-button>\n```\n\n\n---\n\n\n\n\n### **Slots:**\n - _default_ - add text here to label your radio button",
+          "doc-url": "",
+          "attributes": [
+            {
+              "name": "value",
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+              "value": { "type": "string" }
+            },
+            {
+              "name": "disabled",
+              "description": "Disables the radio button",
+              "value": { "type": "boolean | undefined" }
+            },
+            {
+              "name": "type",
+              "description": "A lookup type for example",
+              "value": { "type": "HTMLAnchorElement[\"type\"] | undefined" }
+            }
+          ],
+          "js": {
+            "properties": [
+              {
+                "name": "value",
+                "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+                "value": { "type": "string" }
+              },
+              {
+                "name": "disabled",
+                "description": "Disables the radio button",
+                "value": { "type": "boolean | undefined" }
+              },
+              {
+                "name": "type",
+                "description": "A lookup type for example",
+                "value": { "type": "HTMLAnchorElement[\"type\"] | undefined" }
+              }
+            ],
+            "events": []
           }
         }
       ]

@@ -4,119 +4,7 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "src/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioGroup",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "./radio-group/RadioGroup"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "./radio-button/RadioButton"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/radio-button/RadioButton.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "RadioButton",
-          "slots": [
-            {
-              "description": "add text here to label your radio button",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "attribute": "value"
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Disables the radio button",
-              "attribute": "disabled"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "fieldName": "value"
-            },
-            {
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Disables the radio button",
-              "fieldName": "disabled"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "radio-button",
-          "summary": "Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\\n\\nUse it like this:\\n```html\\n<radio-button value=\"1\" disabled>Your label</radio-button>\\n```",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "src/radio-button/RadioButton.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/radio-button/radio-button.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "radio-button",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "/src/radio-button/RadioButton.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/radio-group/RadioGroup.ts",
+      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts",
       "declarations": [
         {
           "kind": "class",
@@ -186,11 +74,25 @@
               "kind": "field",
               "name": "variants",
               "type": {
-                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+                "text": "Variants"
               },
               "default": "'primary'",
               "description": "This is a test for sting values",
-              "attribute": "variants"
+              "attribute": "variants",
+              "rawType": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "test",
+              "type": {
+                "text": "Test"
+              },
+              "default": "'value1'",
+              "description": "This is a test for sting values",
+              "attribute": "test",
+              "rawType": {}
             },
             {
               "kind": "field",
@@ -297,11 +199,24 @@
             {
               "name": "variants",
               "type": {
-                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+                "text": "Variants"
               },
               "default": "'primary'",
               "description": "This is a test for sting values",
-              "fieldName": "variants"
+              "fieldName": "variants",
+              "rawType": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+              }
+            },
+            {
+              "name": "test",
+              "type": {
+                "text": "Test"
+              },
+              "default": "'value1'",
+              "description": "This is a test for sting values",
+              "fieldName": "test",
+              "rawType": {}
             },
             {
               "name": "my-attribute",
@@ -326,7 +241,136 @@
           "name": "RadioGroup",
           "declaration": {
             "name": "RadioGroup",
-            "module": "src/radio-group/RadioGroup.ts"
+            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "RadioButton",
+          "slots": [
+            {
+              "description": "add text here to label your radio button",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the radio button",
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "type",
+              "type": {
+                "text": "HTMLAnchorElement[\"type\"] | undefined"
+              },
+              "description": "A lookup type for example",
+              "attribute": "type"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+              "fieldName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the radio button",
+              "fieldName": "disabled"
+            },
+            {
+              "name": "type",
+              "type": {
+                "text": "HTMLAnchorElement[\"type\"] | undefined"
+              },
+              "description": "A lookup type for example",
+              "fieldName": "type"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "radio-button",
+          "summary": "Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\\n\\nUse it like this:\\n```html\\n<radio-button value=\"1\" disabled>Your label</radio-button>\\n```",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioButton",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioGroup",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "./radio-group/RadioGroup"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RadioButton",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "./radio-button/RadioButton"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio-button/radio-button.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "radio-button",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "/src/radio-button/RadioButton.js"
           }
         }
       ]

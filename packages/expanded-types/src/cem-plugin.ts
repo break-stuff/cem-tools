@@ -1,19 +1,28 @@
 import path from "path";
-import type { CEM, Component } from "../../../tools/cem-utils";
+import type { Component } from "../../../tools/cem-utils";
 
 const aliasTypes: any = {};
 let currentFilename = "";
 let typeChecker: any;
 
-export function getTypeChecker(ts: any, globs: string[]) {
+export function expandTypesPlugin(tc: any, options: any) {
+  typeChecker = tc;
+
+  return {
+    name: "expand-types-plugin",
+    collectPhase,
+    analyzePhase,
+  };
+}
+
+export function getTsProgram(ts: any, globs: string[]) {
   const configFile = ts.findConfigFile(
     process.cwd(),
     ts.sys.fileExists,
     "tsconfig.json"
   );
   const { config } = ts.readConfigFile(configFile, ts.sys.readFile);
-  const program = ts.createProgram(globs, config);
-  return program.getTypeChecker();
+  return ts.createProgram(globs, config);
 }
 
 function getExpandedType(fileName: string, typeName: string): string {
@@ -60,36 +69,23 @@ function getObjectTypes(fileName: string, typeName: string) {
   return typeName;
 }
 
-export function expandTypesPlugin(tc: any, options: any) {
-  typeChecker = tc;
-
-  return {
-    name: "expand-types-plugin",
-    collectPhase,
-    analyzePhase,
-  };
-}
-
 function collectPhase({ ts, node }: any) {
   if (node.kind === ts.SyntaxKind.SourceFile) {
-    initFileMetadata(currentFilename, node.fileName);
+    currentFilename = path.resolve(node.fileName);
+    aliasTypes[currentFilename] = {};
   } else if (node.kind === ts.SyntaxKind.EnumDeclaration) {
     setEnumTypes(node, currentFilename);
   } else if (node.kind === ts.SyntaxKind.TypeAliasDeclaration) {
     if (node.type.kind === ts.SyntaxKind.UnionType) {
+      console.log("__COMPLEX_UNION_TYPES__", node.name.getText(), node.type.kind);
       setBasicUnionTypes(node, currentFilename);
     } else if (
       node.type.kind === ts.SyntaxKind.TypeOperator ||
       node.type.kind === ts.SyntaxKind.IndexedAccessType
     ) {
-      setComplexUnionTypes(node, currentFilename, typeChecker);
+      setComplexUnionTypes(node, currentFilename);
     }
   }
-}
-
-function initFileMetadata(currentFilename: string, fileName: string) {
-  currentFilename = path.resolve(fileName);
-  aliasTypes[currentFilename] = {};
 }
 
 function setEnumTypes(node: any, currentFilename: string) {
@@ -106,13 +102,13 @@ function setBasicUnionTypes(node: any, currentFilename: string) {
   const unionTypes = node.type.types
     .map((type: any) => type.getText())
     .join(" | ");
+  console.log("__UNION_TYPES__", unionTypes);
   aliasTypes[currentFilename][name] = unionTypes;
 }
 
 function setComplexUnionTypes(
   node: any,
   currentFilename: string,
-  typeChecker: any
 ) {
   const name = node.name.getText();
   const resolvedTypes = typeChecker.getDeclaredTypeOfSymbol(
@@ -169,6 +165,8 @@ function getTypeValue(item: any, context: any) {
   const importedType = context?.imports?.find(
     (i: any) => i.name === item.type?.text
   );
+  console.log("__IMPORTED_TYPE__", importedType);
+  
   if (!importedType) {
     return getExpandedType(currentFilename, item.type.text);
   }
@@ -179,9 +177,11 @@ function getTypeValue(item: any, context: any) {
     importedType.importPath
   );
 
+  console.log("__RESOLVED_PATH__", resolvedPath);
+
   // Imports without an extension won't have a match, so let's look for a TypeScript file
-  if (!aliasTypes[resolvedPath] && aliasTypes[resolvedPath + ".ts"]) {
-    resolvedPath += ".ts";
+  if (!aliasTypes[resolvedPath] && aliasTypes[resolvedPath + ".d.ts"]) {
+    resolvedPath += ".d.ts";
   }
 
   getExpandedType(resolvedPath, importedType.name);
@@ -192,6 +192,7 @@ function updateExpandedTypes(component: Component, context: any) {
 
   typedMembers.forEach((member) => {
     const typeValue = getTypeValue(member, context);
+    console.log("__TYPE_VALUE__", member.name, typeValue);
     if (typeValue !== member.type.text) {
       member.rawType = {
         text: typeValue,
