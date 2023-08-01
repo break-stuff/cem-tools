@@ -286,19 +286,19 @@ If no value is provided, the plugin will use the `summary` property and then fal
 
 ## Slot Documentation
 
-Slot information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `slotDocs` to `false` in the config.
+Slot information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `hideSlotDocs` to `true` in the config.
 
 ![slot section of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/slots.png?raw=true)
 
 ## Event Documentation
 
-Event information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `eventDocs` to `false` in the config.
+Event information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `hideEventDocs` to `true` in the config.
 
 ![events section of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/events.png?raw=true)
 
 ## Method Documentation
 
-Methods will display if they are `public` and have a description. This section can be hidden by setting `methodDocs` to `false` in the config.
+Methods will display if they are `public` and have a description. This section can be hidden by setting `hideMethodDocs` to `true` in the config.
 
 ## CSS Documentation
 
