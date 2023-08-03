@@ -7,7 +7,7 @@ This plugin will not overwrite the existing property, but will create a new prop
 ```ts
 // my-component.ts
 
-type Target = '_blank; | '_self' | '_parent' | '_top';
+type Target = '_blank' | '_self' | '_parent' | '_top';
 
 export default MyElement extends HTMLElement {
   public target?: Target;
@@ -44,14 +44,19 @@ Ensure the following steps have been taken in your component library prior to us
 npm i -D cem-plugin-expanded-types
 ```
 
-### Import
+### Implementation
+
+Before you can use the plugin, you need to expose the TypeScript `typeChecker` and pass it to the plugin. To help with this, the package provides a `getTsProgram` helper that you can call in the `overrideModuleCreation` function in the CEM Analyzer.
 
 ```js
 // custom-elements-manifest.config.js
 
+import { getTsProgram, expandTypesPlugin } from "cem-plugin-expanded-types";
+
 let typeChecker;
 
 export default {
+  ...
   overrideModuleCreation: ({ts, globs}) => {
     const program = getTsProgram(ts, globs, 'tsconfig.json');
     typeChecker = program.getTypeChecker();
@@ -60,5 +65,20 @@ export default {
 
   /** Provide custom plugins */
   plugins: [expandTypesPlugin(typeChecker)],
+};
+```
+
+## Configuration
+
+You have the ability to change the property name that is assigned to the expanded type. By default it is `expandedType`, but if you wanted to save it as something like `rawType`, you can set that as part of the plugin options.
+
+```js
+// custom-elements-manifest.config.js
+
+export default {
+  ...
+  
+  /** Provide custom plugins */
+  plugins: [expandTypesPlugin(typeChecker, { propertyName: "rawType" })],
 };
 ```
