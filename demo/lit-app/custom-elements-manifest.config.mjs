@@ -1,5 +1,8 @@
 import { customElementVsCodePlugin } from "custom-element-vs-code-integration";
 import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integration";
+import { getTsProgram, expandTypesPlugin } from "cem-plugin-expanded-types";
+
+let typeChecker;
 
 export default {
   /** Globs to analyze */
@@ -16,6 +19,13 @@ export default {
   packagejson: true,
   /** Enable special handling for litelement */
   litelement: true,
+
+  overrideModuleCreation: ({ts, globs}) => {
+    const program = getTsProgram(ts, globs, 'tsconfig.json');
+    typeChecker = program.getTypeChecker();
+    return program.getSourceFiles().filter(sf => globs.find(glob => sf.fileName.includes(glob)));
+  },
+
   /** Provide custom plugins */
-  plugins: [customElementVsCodePlugin(), customElementJetBrainsPlugin()],
+  plugins: [customElementVsCodePlugin(), customElementJetBrainsPlugin(), expandTypesPlugin(typeChecker)],
 };
