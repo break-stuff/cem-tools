@@ -1,6 +1,6 @@
 # Custom Element (Web Component) VS Code Integration
 
-This package generates custom data config file for [VS Code](https://code.visualstudio.com/) using the Custom Element Manifest.
+This package generates custom data config files for [VS Code](https://code.visualstudio.com/) using the Custom Element Manifest.
 
 This config enables VS Code to display autocomplete and contextual information about your custom elements.
 
@@ -8,7 +8,9 @@ This config enables VS Code to display autocomplete and contextual information a
 
 ## Usage
 
-This package includes two ways to generate the custom data config file - calling a function in your build pipeline or as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
+This package includes two ways to generate the custom data config file: 
+1. calling a function in your build pipeline 
+2. as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/)
 
 ### Install
 
@@ -52,7 +54,7 @@ export default {
 };
 ```
 
-### Implementation
+## Implementation
 
 If you don't have it already, add a VS Code settings folder and file at the root of your project - `.vscode/settings.json`. Then add or append the following code:
 
