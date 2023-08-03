@@ -70,15 +70,34 @@ export default {
 
 ## Configuration
 
-You have the ability to change the property name that is assigned to the expanded type. By default it is `expandedType`, but if you wanted to save it as something like `rawType`, you can set that as part of the plugin options.
+You have the ability to change the property name that is assigned to the expanded type. By default it is `expandedType`, but if you wanted to save it as something like `parsedType`, you can set that as part of the plugin options.
 
 ```js
 // custom-elements-manifest.config.js
 
 export default {
   ...
-  
+
   /** Provide custom plugins */
-  plugins: [expandTypesPlugin(typeChecker, { propertyName: "rawType" })],
+  plugins: [expandTypesPlugin(typeChecker, { propertyName: "parsedType" })],
 };
 ```
+
+Once that has been updated, the expanded type will appear under the new property name.
+
+```json
+{
+  "kind": "field",
+  "name": "target",
+  "description": "A lookup type for example",
+  "attribute": "target",
+  "type": {
+    "text": "Target | undefined"
+  },
+  "parsedType": {
+    "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
+  }
+}
+```
+
+> **NOTE:** Types will only be resolved from TypeScript files (`.ts`) within the project and will not resolve types from type definition files (`.d.ts`) or from packages in `node_modules`.
