@@ -11,6 +11,12 @@ let currentFilename = "";
 let typeChecker: any;
 let options: any;
 
+/**
+ * CEM Analyzer plugin to expand types in component metadata
+ * @param tc TypeScript type checker
+ * @param op Configuration options
+ * @returns 
+ */
 export function expandTypesPlugin(tc: any, op: Options = { propertyName: "expandedType" }) {
   typeChecker = tc;
   options = op;
@@ -22,6 +28,13 @@ export function expandTypesPlugin(tc: any, op: Options = { propertyName: "expand
   };
 }
 
+/**
+ * 
+ * @param ts Global TypeScript object
+ * @param globs File globs to analyze
+ * @param configName TypeScript config file name to use during analysis
+ * @returns 
+ */
 export function getTsProgram(ts: any, globs: string[], configName: string) {
   const configFile = ts.findConfigFile(
     process.cwd(),
