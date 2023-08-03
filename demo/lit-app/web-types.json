@@ -107,9 +107,9 @@
               "value": { "type": "boolean | undefined" }
             },
             {
-              "name": "type",
+              "name": "target",
               "description": "A lookup type for example",
-              "value": { "type": "HTMLAnchorElement[\"type\"] | undefined" }
+              "value": { "type": "Target | undefined" }
             }
           ],
           "js": {
@@ -125,9 +125,9 @@
                 "value": { "type": "boolean | undefined" }
               },
               {
-                "name": "type",
+                "name": "target",
                 "description": "A lookup type for example",
-                "value": { "type": "HTMLAnchorElement[\"type\"] | undefined" }
+                "value": { "type": "Target | undefined" }
               }
             ],
             "events": []

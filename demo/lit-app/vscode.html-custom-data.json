@@ -59,9 +59,9 @@
           "values": []
         },
         {
-          "name": "type",
+          "name": "target",
           "description": "A lookup type for example",
-          "values": [{ "name": "HTMLAnchorElement[\"type\"]" }]
+          "values": [{ "name": "Target" }]
         }
       ],
       "references": []

@@ -280,12 +280,15 @@
             },
             {
               "kind": "field",
-              "name": "type",
+              "name": "target",
               "type": {
-                "text": "HTMLAnchorElement[\"type\"] | undefined"
+                "text": "Target | undefined"
               },
               "description": "A lookup type for example",
-              "attribute": "type"
+              "attribute": "target",
+              "expandedType": {
+                "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
+              }
             }
           ],
           "attributes": [
@@ -307,12 +310,15 @@
               "fieldName": "disabled"
             },
             {
-              "name": "type",
+              "name": "target",
               "type": {
-                "text": "HTMLAnchorElement[\"type\"] | undefined"
+                "text": "Target | undefined"
               },
               "description": "A lookup type for example",
-              "fieldName": "type"
+              "fieldName": "target",
+              "expandedType": {
+                "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
+              }
             }
           ],
           "superclass": {
