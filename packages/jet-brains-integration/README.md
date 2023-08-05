@@ -4,11 +4,13 @@ This package generates custom `web-types.json` config file for the [JetBrains ID
 
 This config enables JetBrains IDEs to display autocomplete and contextual information about your custom elements.
 
-<!-- ![demo of autocomplete features for custom elements in vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/demo.gif?raw=true) -->
+![demo of autocomplete features for custom elements in a JetBrains IDE](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/demo.gif?raw=true)
 
 ## Usage
 
-This package includes two ways to generate the custom data config file - calling a function in your build pipeline or as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
+This package includes two ways to generate the custom data config file:
+1. calling a function in your build pipeline 
+2. as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
 
 ### Install
 
@@ -19,12 +21,12 @@ npm i -D custom-element-jet-brains-integration
 ### Build Pipeline
 
 ```js
-import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integration";
+import { generateJetBrainsWebTypes } from "custom-element-jet-brains-integration";
 import manifest from "./path/to/custom-elements.json";
 
 const options = {...};
 
-customElementJetBrainsPlugin(manifest, options);
+generateJetBrainsWebTypes(manifest, options);
 ```
 
 ### CEM Analyzer

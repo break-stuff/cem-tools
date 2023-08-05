@@ -1,6 +1,6 @@
 {
   "name": "custom-element-jet-brains-integration",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-beta.0",
   "description": "A custom elements manifest analyzer plugin to generate configuration files for web component integration with JetBrains IDEs",
   "main": "index.js",
   "module": "index.js",
@@ -9,7 +9,6 @@
   "files": [
     "index.js",
     "index.d.ts",
-    "types.d.ts",
     "/dist"
   ],
   "scripts": {
