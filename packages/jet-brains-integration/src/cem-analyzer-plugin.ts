@@ -1,4 +1,4 @@
-import { generateJetBrainsWebTypes as generateCustomElementWebTypes } from "./web-types-generator";
+import { generateJetBrainsWebTypes as generateCustomElementWebTypes } from "./web-types-generator.js";
 import type { Options, Params } from "./types";
 import { logGreen } from "../../../tools/integrations";
 

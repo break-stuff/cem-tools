@@ -4,11 +4,13 @@ This package generates custom `web-types.json` config file for the [JetBrains ID
 
 This config enables JetBrains IDEs to display autocomplete and contextual information about your custom elements.
 
-<!-- ![demo of autocomplete features for custom elements in vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/demo.gif?raw=true) -->
+![demo of autocomplete features for custom elements in a JetBrains IDE](https://github.com/break-stuff/cem-tools/blob/main/demo/images/jet-brains-integration/jet_brains_demo.gif?raw=true)
 
 ## Usage
 
-This package includes two ways to generate the custom data config file - calling a function in your build pipeline or as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
+This package includes two ways to generate the custom data config file:
+1. calling a function in your build pipeline 
+2. as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
 
 ### Install
 
@@ -19,12 +21,12 @@ npm i -D custom-element-jet-brains-integration
 ### Build Pipeline
 
 ```js
-import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integration";
+import { generateJetBrainsWebTypes } from "custom-element-jet-brains-integration";
 import manifest from "./path/to/custom-elements.json";
 
 const options = {...};
 
-customElementJetBrainsPlugin(manifest, options);
+generateJetBrainsWebTypes(manifest, options);
 ```
 
 ### CEM Analyzer
@@ -93,6 +95,7 @@ export interface Options {
     events?: string;
     cssProperties?: string;
     cssParts?: string;
+    methods?: string;
   };
   /** Used to create links within the component info bubble */
   referencesTemplate?: (name: string, tag?: string) => Reference;
@@ -143,7 +146,8 @@ const options = {
     slots: "Slot Section",
     events: "Custom Events",
     cssProperties: "CSS Variables",
-    cssParts: "Style Hooks"
+    cssParts: "Style Hooks",
+    methods: "Methods"
   },
   /** Used to create an array of links within the component info bubble */
   referencesTemplate?: (name: string, tag?: string) => {
@@ -197,8 +201,6 @@ Here is a basic example of a component configuration using jsDoc:
  * @fires {Event} typed-event - some description for typed-event
  * @event {CustomEvent} typed-custom-event - some description for typed-custom-event
  *
- * @reference Documentation - https://my-site.com/docs
- *
  */
 class RadioGroup extends HTMLElement {}
 ````
@@ -211,7 +213,6 @@ class RadioGroup extends HTMLElement {}
 | ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `@summary` / description | This provides the description for the custom element when autocomplete is used or the element is hovered. If no summary is provided, it will fall back to the `description` if it is available.                                         |
 | `@attr` / `@attribute`   | This will provide descriptions for each attribute. If you use union types in TypeScript or in the description, these will display as autocomplete options. Values can also be defined in the jsDoc using comma or pipe delimited values |
-| `@reference`             | This is a custom tag for this plugin. It creates a reference link at the bottom of the information bubble. If multiple references are present, only the first one will be used.                                                         |
 
 The `@summary` and `@attr` / `@attribute` descriptions have limited markdown support and enable you to style text, create links, and add code snippets.
 
@@ -257,19 +258,19 @@ If no value is provided, the plugin will use the `summary` property and then fal
 
 ## Slot Documentation
 
-Slot information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `slotDocs` to `false` in the config.
+Slot information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `hideSlotDocs` to `true` in the config.
 
 <!-- ![slot section of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/slots.png?raw=true) -->
 
 ## Event Documentation
 
-Event information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `eventDocs` to `false` in the config.
+Event information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `hideEventDocs` to `true` in the config.
 
 <!-- ![events section of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/events.png?raw=true) -->
 
 ## CSS Documentation
 
-Component-specific [CSS Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) and [CSS Parts](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) are included in the component documentation. These can be hidden using the `cssPropertiesDocs` and `cssPartsDocs` configuration options respectively.
+Component-specific [CSS Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) and [CSS Parts](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) are included in the component documentation. These can be hidden using the `hideCssPropertiesDocs` and `hideCssPartsDocs` configuration options respectively.
 
 <!-- ![css properties and css parts sections of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/css.png?raw=true) -->
 
@@ -289,7 +290,8 @@ export default {
         slots: "Placeholders",
         events: "事件",
         cssProperties: "Propiedades CSS",
-        cssParts: "Style Hooks"
+        cssParts: "Style Hooks",
+        methods: "Methods"
       },
     }),
   ],

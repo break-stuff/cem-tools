@@ -9,8 +9,19 @@
     <script type="module" src="/src/index.ts"></script>
   </head>
   <body>
-    <my-element>
-      <h1>Vite + Lit</h1>
-    </my-element>
+  <radio-group size="lg">
+    <radio-button></radio-button>
+    <radio-button></radio-button>
+    <radio-button></radio-button>
+  </radio-group>
+    <style>
+      radio-button {
+        --radio-border-radius: 8px;
+      }
+
+      radio-button::part(radio-label) {
+        
+      }
+    </style>
   </body>
 </html>
