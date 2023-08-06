@@ -65,7 +65,6 @@ If you are deploying your library for others to use, your `package.json` will al
 The configuration has the following optional parameters:
 
 ```ts
-{
 export interface Options {
   /** Path to output directory */
   outdir?: string;
@@ -101,6 +100,8 @@ export interface Options {
   referencesTemplate?: (name: string, tag?: string) => Reference;
 }
 ```
+
+Here is an sample configuration.
 
 ```js
 // custom-elements-manifest.config.js
