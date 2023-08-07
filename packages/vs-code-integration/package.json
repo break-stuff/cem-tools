@@ -1,7 +1,7 @@
 {
   "name": "custom-element-vs-code-integration",
   "version": "1.0.0",
-  "description": "Tools for integrating web components into VS Code",
+  "description": "Tools for integrating web components/custom elements into VS Code",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
@@ -36,19 +36,13 @@
     "prettier": "^2.7.1"
   },
   "keywords": [
-    "custom elements",
     "custom-elements",
-    "custom elements manifest",
     "custom-elements-manifest",
-    "web components",
     "web-components",
     "components",
     "vs-code",
-    "vs code",
-    "visual studio code",
+    "visual-studio-code",
     "autocomplete",
-    "intellisense",
-    "web components autocomplete",
-    "web components intellisense"
+    "intellisense"
   ]
 }
