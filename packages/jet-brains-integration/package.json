@@ -1,7 +1,7 @@
 {
   "name": "custom-element-jet-brains-integration",
-  "version": "1.0.0-beta.0",
-  "description": "A custom elements manifest analyzer plugin to generate configuration files for web component integration with JetBrains IDEs",
+  "version": "1.0.0",
+  "description": "Tools for integrating web components/custom elements into JetBrains IDEs",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
@@ -41,15 +41,11 @@
     "tsup": "^7.1.0"
   },
   "keywords": [
-    "custom elements",
     "custom-elements",
-    "custom elements manifest",
     "custom-elements-manifest",
-    "web components",
     "web-components",
     "components",
     "JetBrains",
-    "jet brains",
     "phpstorm",
     "webstorm",
     "intellij",
@@ -58,8 +54,6 @@
     "pycharm",
     "rubymine",
     "autocomplete",
-    "intellisense",
-    "web components autocomplete",
-    "web components intellisense"
+    "intellisense"
   ]
 }

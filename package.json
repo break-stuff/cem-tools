@@ -2,6 +2,7 @@
   "name": "cem-tools",
   "version": "0.0.0",
   "private": true,
+  "license": "MIT",
   "workspaces": [
     "demo/*",
     "packages/*",
