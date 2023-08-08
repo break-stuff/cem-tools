@@ -9,15 +9,23 @@ export interface Options {
 const aliasTypes: any = {};
 let currentFilename = "";
 let typeChecker: any;
-let options: any;
+let options: Options;
+let typeScript: typeof import("typescript");
+let tsConfigFile: any;
+// const typeDefinitions: string[] = [];
 
 /**
  * CEM Analyzer plugin to expand types in component metadata
  * @param tc TypeScript type checker
  * @param op Configuration options
- * @returns 
+ * @returns
  */
-export function expandTypesPlugin(tc: any, op: Options = { propertyName: "expandedType" }) {
+export function expandTypesPlugin(
+  tc: any,
+  op: Options = {
+    propertyName: "expandedType",
+  }
+) {
   typeChecker = tc;
   options = op;
 
@@ -29,19 +37,23 @@ export function expandTypesPlugin(tc: any, op: Options = { propertyName: "expand
 }
 
 /**
- * 
+ *
  * @param ts Global TypeScript object
  * @param globs File globs to analyze
  * @param configName TypeScript config file name to use during analysis
- * @returns 
+ * @returns
  */
-export function getTsProgram(ts: any, globs: string[], configName: string) {
-  const configFile = ts.findConfigFile(
+export function getTsProgram(
+  ts: typeof import("typescript"),
+  globs: string[],
+  configName = "tsconfig.json"
+) {
+  tsConfigFile = ts.findConfigFile(
     process.cwd(),
     ts.sys.fileExists,
     configName
   );
-  const { config } = ts.readConfigFile(configFile, ts.sys.readFile);
+  const { config } = ts.readConfigFile(tsConfigFile, ts.sys.readFile);
   return ts.createProgram(globs, config);
 }
 
@@ -90,24 +102,33 @@ function getObjectTypes(fileName: string, typeName: string) {
 }
 
 function collectPhase({ ts, node }: any) {
-  if (node.kind === ts.SyntaxKind.SourceFile) {
+  typeScript = ts;
+  parseFileTypes(node);
+}
+
+function parseFileTypes(node: any) {
+  if (node?.fileName?.includes("node_modules")) {
+    return;
+  }
+
+  if (node.kind === typeScript.SyntaxKind.SourceFile) {
     currentFilename = path.resolve(node.fileName);
     aliasTypes[currentFilename] = {};
-  } else if (node.kind === ts.SyntaxKind.EnumDeclaration) {
-    setEnumTypes(node, currentFilename);
-  } else if (node.kind === ts.SyntaxKind.TypeAliasDeclaration) {
-    if (node.type.kind === ts.SyntaxKind.UnionType) {
-      setBasicUnionTypes(node, currentFilename);
+  } else if (node.kind === typeScript.SyntaxKind.EnumDeclaration) {
+    setEnumTypes(node);
+  } else if (node.kind === typeScript.SyntaxKind.TypeAliasDeclaration) {
+    if (node.type.kind === typeScript.SyntaxKind.UnionType) {
+      setBasicUnionTypes(node);
     } else if (
-      node.type.kind === ts.SyntaxKind.TypeOperator ||
-      node.type.kind === ts.SyntaxKind.IndexedAccessType
+      node.type.kind === typeScript.SyntaxKind.TypeOperator ||
+      node.type.kind === typeScript.SyntaxKind.IndexedAccessType
     ) {
-      setComplexUnionTypes(node, currentFilename);
+      setComplexUnionTypes(node);
     }
   }
 }
 
-function setEnumTypes(node: any, currentFilename: string) {
+function setEnumTypes(node: any) {
   const name = node.name.getText();
   const shortText = node.members
     ?.map((mem: any) => mem.initializer?.getText())
@@ -116,30 +137,28 @@ function setEnumTypes(node: any, currentFilename: string) {
   aliasTypes[currentFilename][name] = shortText;
 }
 
-function setBasicUnionTypes(node: any, currentFilename: string) {
-  const name = node.name.getText();
-  const unionTypes = node.type.types
-    .map((type: any) => type.getText())
+function setBasicUnionTypes(node: any) {
+  const name = node.name.escapedText;
+  const unionTypes = node?.type?.types
+    .map((type: any) => {
+      const value = type?.literal?.text;
+      return typeof value === "string" ? `'${value}'` : value;
+    })
     .join(" | ");
   aliasTypes[currentFilename][name] = unionTypes;
 }
 
-function setComplexUnionTypes(
-  node: any,
-  currentFilename: string,
-) {
-  const name = node.name.getText();
+function setComplexUnionTypes(node: any) {
+  const name = node?.name?.getText();
   const resolvedTypes = typeChecker.getDeclaredTypeOfSymbol(
     typeChecker.getSymbolAtLocation(node.name)
   );
   const unionTypes = resolvedTypes.types
-    .map((type: any) => {
-      if (typeof type.value === "string") {
-        return `'${type.value}'`;
-      }
-      return type.value;
-    })
+    .map((type: any) =>
+      typeof type.value === "string" ? `'${type.value}'` : type.value
+    )
     .join(" | ");
+
   aliasTypes[currentFilename][name] = unionTypes;
 }
 
@@ -170,8 +189,8 @@ function getComponent(node: any, moduleDoc: any) {
 function getTypedMembers(component: Component) {
   return (
     [
-      ...(component.members || []),
       ...(component.attributes || []),
+      ...(component.members || []),
       ...(component.events || []),
     ] as any[]
   ).filter((item) => item?.type);
@@ -181,30 +200,55 @@ function getTypeValue(item: any, context: any) {
   const importedType = context?.imports?.find(
     (i: any) => i.name === item.type?.text
   );
-  
+
   if (!importedType) {
     return getExpandedType(currentFilename, item.type.text);
   }
-  
+
   let resolvedPath = path.resolve(
     path.dirname(currentFilename),
     importedType.importPath
   );
 
+  let finalPath = '';
+
   if (!aliasTypes[resolvedPath] && aliasTypes[resolvedPath + ".ts"]) {
     resolvedPath += ".ts";
+  } else if (
+    !aliasTypes[resolvedPath] &&
+    fs.existsSync(resolvedPath + ".d.ts")
+  ) {
+    parseTypeDefinitionTypes(resolvedPath + ".d.ts");
+    resolvedPath = currentFilename;
+
+  }
+  
+  console.log("resolvedPath", resolvedPath);
+  console.log("currentFilename", currentFilename);
+  console.log("finalPath", finalPath);
+  return getExpandedType(resolvedPath, importedType.name);
+}
+
+function parseTypeDefinitionTypes(source: string) {
+  if (!source) {
+    return;
   }
 
-  return getExpandedType(resolvedPath, importedType.name);
+  const program = typeScript.createProgram([source], tsConfigFile);
+  const sourceFile = program.getSourceFile(source);
+
+  typeScript.forEachChild(sourceFile!, parseFileTypes);
 }
 
 function updateExpandedTypes(component: Component, context: any) {
   const typedMembers = getTypedMembers(component);
+  const propName = options.propertyName || "expandedTypes";
 
+  console.log("typedMembers", aliasTypes);
   typedMembers.forEach((member) => {
     const typeValue = getTypeValue(member, context);
     if (typeValue !== member.type.text) {
-      member[options.propertyName] = {
+      member[propName] = {
         text: typeValue,
       };
     }

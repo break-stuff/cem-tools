@@ -28,13 +28,18 @@
         },
         {
           "name": "variants",
-          "description": "This is a test for sting values",
+          "description": "This is a test for internal options",
           "values": [{ "name": "Variants" }]
         },
         {
           "name": "external",
-          "description": "This is a test for sting values",
+          "description": "This is a test for external d.ts options",
           "values": [{ "name": "Test" }]
+        },
+        {
+          "name": "external2",
+          "description": "This is a test for external .ts options",
+          "values": [{ "name": "Test2" }]
         },
         {
           "name": "my-attribute",

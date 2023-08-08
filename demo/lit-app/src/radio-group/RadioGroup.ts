@@ -1,6 +1,7 @@
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import type { Test } from './types';
+import { Test2 } from './alt-types';
 
 export type Variants = 'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text';
 
@@ -50,13 +51,17 @@ export class RadioGroup extends LitElement {
   @property()
   size: 'sm' | 'md' | 'lg' | 'xl' = 'md';
 
-  /** This is a test for sting values */
+  /** This is a test for internal options */
   @property({ type: String })
   variants: Variants = 'primary';
 
-  /** This is a test for sting values */
+  /** This is a test for external d.ts options */
   @property({ type: String })
   external: Test = 'value1';
+
+  /** This is a test for external .ts options */
+  @property({ type: String })
+  external2: Test2 = 'value1';
 
   /** This is a camel-case attribute */
   @property({ attribute: 'my-attribute' })

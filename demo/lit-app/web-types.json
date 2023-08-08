@@ -28,13 +28,18 @@
             },
             {
               "name": "variants",
-              "description": "This is a test for sting values",
+              "description": "This is a test for internal options",
               "value": { "type": "Variants" }
             },
             {
               "name": "external",
-              "description": "This is a test for sting values",
+              "description": "This is a test for external d.ts options",
               "value": { "type": "Test" }
+            },
+            {
+              "name": "external2",
+              "description": "This is a test for external .ts options",
+              "value": { "type": "Test2" }
             },
             {
               "name": "my-attribute",
@@ -61,13 +66,18 @@
               },
               {
                 "name": "variants",
-                "description": "This is a test for sting values",
+                "description": "This is a test for internal options",
                 "value": { "type": "Variants" }
               },
               {
                 "name": "external",
-                "description": "This is a test for sting values",
+                "description": "This is a test for external d.ts options",
                 "value": { "type": "Test" }
+              },
+              {
+                "name": "external2",
+                "description": "This is a test for external .ts options",
+                "value": { "type": "Test2" }
               },
               {
                 "name": "my-attribute",

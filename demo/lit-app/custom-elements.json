@@ -4,7 +4,13 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts",
+      "path": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/alt-types.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts",
       "declarations": [
         {
           "kind": "class",
@@ -77,7 +83,7 @@
                 "text": "Variants"
               },
               "default": "'primary'",
-              "description": "This is a test for sting values",
+              "description": "This is a test for internal options",
               "attribute": "variants",
               "expandedType": {
                 "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
@@ -90,8 +96,24 @@
                 "text": "Test"
               },
               "default": "'value1'",
-              "description": "This is a test for sting values",
-              "attribute": "external"
+              "description": "This is a test for external d.ts options",
+              "attribute": "external",
+              "expandedType": {
+                "text": "'value1' | 'value2' | 'value3'"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "external2",
+              "type": {
+                "text": "Test2"
+              },
+              "default": "'value1'",
+              "description": "This is a test for external .ts options",
+              "attribute": "external2",
+              "expandedType": {
+                "text": "'value4' | 'value5' | 'value6'"
+              }
             },
             {
               "kind": "field",
@@ -201,7 +223,7 @@
                 "text": "Variants"
               },
               "default": "'primary'",
-              "description": "This is a test for sting values",
+              "description": "This is a test for internal options",
               "fieldName": "variants",
               "expandedType": {
                 "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
@@ -213,8 +235,23 @@
                 "text": "Test"
               },
               "default": "'value1'",
-              "description": "This is a test for sting values",
-              "fieldName": "external"
+              "description": "This is a test for external d.ts options",
+              "fieldName": "external",
+              "expandedType": {
+                "text": "'value1' | 'value2' | 'value3'"
+              }
+            },
+            {
+              "name": "external2",
+              "type": {
+                "text": "Test2"
+              },
+              "default": "'value1'",
+              "description": "This is a test for external .ts options",
+              "fieldName": "external2",
+              "expandedType": {
+                "text": "'value4' | 'value5' | 'value6'"
+              }
             },
             {
               "name": "my-attribute",
@@ -239,14 +276,14 @@
           "name": "RadioGroup",
           "declaration": {
             "name": "RadioGroup",
-            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
+            "module": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts",
+      "path": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts",
       "declarations": [
         {
           "kind": "class",
@@ -336,7 +373,7 @@
           "name": "RadioButton",
           "declaration": {
             "name": "RadioButton",
-            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts"
+            "module": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts"
           }
         }
       ]
