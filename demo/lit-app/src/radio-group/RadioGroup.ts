@@ -61,7 +61,7 @@ export class RadioGroup extends LitElement {
 
   /** This is a test for external .ts options */
   @property({ type: String })
-  external2: Test2 = 'value1';
+  external2: Test2 = 'value4';
 
   /** This is a camel-case attribute */
   @property({ attribute: 'my-attribute' })
