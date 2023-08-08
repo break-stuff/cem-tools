@@ -1,6 +1,6 @@
 {
   "name": "cem-plugin-expanded-types",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "A CEM Analyzer plugin to add expanded TypeScript types to the Custom Elements Manifest",
   "main": "index.js",
   "module": "index.js",
