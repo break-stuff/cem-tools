@@ -42,6 +42,11 @@
           "values": [{ "name": "Test2" }]
         },
         {
+          "name": "complex",
+          "description": "This is a test for options from an object",
+          "values": [{ "name": "ComplexObjectType" }]
+        },
+        {
           "name": "my-attribute",
           "description": "This is a camel-case attribute",
           "values": []

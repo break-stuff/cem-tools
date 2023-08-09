@@ -21,12 +21,10 @@ let tsConfigFile: any;
  * @returns
  */
 export function expandTypesPlugin(
-  tc: any,
   op: Options = {
     propertyName: "expandedType",
   }
 ) {
-  typeChecker = tc;
   options = op;
 
   return {
@@ -54,7 +52,9 @@ export function getTsProgram(
     configName
   );
   const { config } = ts.readConfigFile(tsConfigFile, ts.sys.readFile);
-  return ts.createProgram(globs, config);
+  const program = ts.createProgram(globs, config);
+  typeChecker = program.getTypeChecker();
+  return program;
 }
 
 function getExpandedType(fileName: string, typeName: string): string {
@@ -210,8 +210,6 @@ function getTypeValue(item: any, context: any) {
     importedType.importPath
   );
 
-  let finalPath = '';
-
   if (!aliasTypes[resolvedPath] && aliasTypes[resolvedPath + ".ts"]) {
     resolvedPath += ".ts";
   } else if (
@@ -223,9 +221,6 @@ function getTypeValue(item: any, context: any) {
 
   }
   
-  console.log("resolvedPath", resolvedPath);
-  console.log("currentFilename", currentFilename);
-  console.log("finalPath", finalPath);
   return getExpandedType(resolvedPath, importedType.name);
 }
 
@@ -244,7 +239,6 @@ function updateExpandedTypes(component: Component, context: any) {
   const typedMembers = getTypedMembers(component);
   const propName = options.propertyName || "expandedTypes";
 
-  console.log("typedMembers", aliasTypes);
   typedMembers.forEach((member) => {
     const typeValue = getTypeValue(member, context);
     if (typeValue !== member.type.text) {

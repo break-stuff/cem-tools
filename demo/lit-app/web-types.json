@@ -42,6 +42,11 @@
               "value": { "type": "Test2" }
             },
             {
+              "name": "complex",
+              "description": "This is a test for options from an object",
+              "value": { "type": "ComplexObjectType" }
+            },
+            {
               "name": "my-attribute",
               "description": "This is a camel-case attribute",
               "value": { "type": "string | undefined" }
@@ -78,6 +83,11 @@
                 "name": "external2",
                 "description": "This is a test for external .ts options",
                 "value": { "type": "Test2" }
+              },
+              {
+                "name": "complex",
+                "description": "This is a test for options from an object",
+                "value": { "type": "ComplexObjectType" }
               },
               {
                 "name": "my-attribute",
