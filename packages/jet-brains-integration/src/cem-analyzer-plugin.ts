@@ -4,7 +4,7 @@ import { logGreen } from "../../../tools/integrations";
 
 export function customElementJetBrainsPlugin(options: Options = {}) {
   return {
-    name: "cem-plugin-vs-code-custom-data-generator",
+    name: "custom-element-jet-brains-integration",
     packageLinkPhase({ customElementsManifest }: Params) {
       console.log(
         "[jet-brains-web-type-generator] - Generating config files..."
