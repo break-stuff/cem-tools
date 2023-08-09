@@ -129,9 +129,9 @@ function parseFileTypes(node: any) {
 }
 
 function setEnumTypes(node: any) {
-  const name = node.name.getText();
+  const name = node.name.escapedText;
   const shortText = node.members
-    ?.map((mem: any) => mem.initializer?.getText())
+    ?.map((mem: any) => mem?.initializer?.getText())
     .join(" | ");
 
   aliasTypes[currentFilename][name] = shortText;
@@ -218,9 +218,8 @@ function getTypeValue(item: any, context: any) {
   ) {
     parseTypeDefinitionTypes(resolvedPath + ".d.ts");
     resolvedPath = currentFilename;
-
   }
-  
+
   return getExpandedType(resolvedPath, importedType.name);
 }
 
