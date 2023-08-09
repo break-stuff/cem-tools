@@ -98,3 +98,5 @@ Once that has been updated, the expanded type will appear under the new property
   }
 }
 ```
+
+> **NOTE:** As you can see in the example above, the structure will follow the same pattern as the `type` object in that your custom name will have a property called `text`.
