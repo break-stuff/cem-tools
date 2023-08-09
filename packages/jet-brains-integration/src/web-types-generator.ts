@@ -42,19 +42,19 @@ export function getTagList(
       description: getComponentDetailsTemplate(component, options),
       ["doc-url"]: reference?.url || "",
       attributes: getComponentAttributes(component),
-      js: getJsProperties(component),
+      js: getJsProperties(component, options.typesSrc),
     };
   });
 }
 
-function getJsProperties(component: Component): JsProperties {
+function getJsProperties(component: Component, typesSrc?: string): JsProperties {
   return {
-    properties: getWebTypeProperties(component),
+    properties: getWebTypeProperties(component, typesSrc),
     events: getWebTypeEvents(component),
   };
 }
 
-function getWebTypeProperties(component: Component): WebTypeAttribute[] {
+function getWebTypeProperties(component: Component, typesSrc = 'types'): WebTypeAttribute[] {
   return (
     ((component.attributes || component.members) as schema.Attribute[])?.map(
       (attr) => {
@@ -62,7 +62,7 @@ function getWebTypeProperties(component: Component): WebTypeAttribute[] {
           name: attr.name,
           description: attr.description,
           value: {
-            type: attr.type?.text,
+            type: (attr as any)[`${typesSrc}`]?.text || attr.type?.text,
           },
         };
       }

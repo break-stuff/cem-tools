@@ -46,25 +46,24 @@ npm i -D cem-plugin-expanded-types
 
 ### Implementation
 
-Before you can use the plugin, you need to expose the TypeScript `typeChecker` and pass it to the plugin. To help with this, the package provides a `getTsProgram` helper that you can call in the `overrideModuleCreation` function in the CEM Analyzer.
+Before you can use the plugin, you need to set the TypeScript `typeChecker`. To help with this, the package provides a `getTsProgram` helper that you can call in the `overrideModuleCreation` function in the CEM Analyzer.
 
 ```js
 // custom-elements-manifest.config.js
 
 import { getTsProgram, expandTypesPlugin } from "cem-plugin-expanded-types";
 
-let typeChecker;
-
 export default {
   ...
   overrideModuleCreation: ({ts, globs}) => {
-    const program = getTsProgram(ts, globs, 'tsconfig.json');
-    typeChecker = program.getTypeChecker();
-    return program.getSourceFiles().filter(sf => globs.find(glob => sf.fileName.includes(glob)));
+    const program = getTsProgram(ts, globs, "tsconfig.json");
+    return program
+      .getSourceFiles()
+      .filter((sf) => globs.find((glob) => sf.fileName.includes(glob)));
   },
 
   /** Provide custom plugins */
-  plugins: [expandTypesPlugin(typeChecker)],
+  plugins: [expandTypesPlugin()],
 };
 ```
 
@@ -79,7 +78,7 @@ export default {
   ...
 
   /** Provide custom plugins */
-  plugins: [expandTypesPlugin(typeChecker, { propertyName: "parsedType" })],
+  plugins: [expandTypesPlugin({ propertyName: "parsedType" })],
 };
 ```
 
@@ -100,4 +99,4 @@ Once that has been updated, the expanded type will appear under the new property
 }
 ```
 
-> **NOTE:** Types will only be resolved from TypeScript files (`.ts`) within the project and will not resolve types from type definition files (`.d.ts`) or from packages in `node_modules`.
+> **NOTE:** As you can see in the example above, the structure will follow the same pattern as the `type` object in that your custom name will have a property called `text`.

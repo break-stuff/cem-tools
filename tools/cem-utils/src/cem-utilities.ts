@@ -1,7 +1,6 @@
 import { removeQuoteWrappers } from "../../utilities";
 import type * as schema from "custom-elements-manifest";
 import type { CEM, Component } from "./types";
-import type { BaseOptions } from "../../configurations";
 
 const EXCLUDED_TYPES = ["string", "boolean", "undefined", "number", "null"];
 
@@ -33,8 +32,8 @@ export function getComponents(
   ).flat() as Component[];
 }
 
-export function getAttributeValueOptions(attr: schema.Attribute): string[] {
-  const value = attr.type?.text;
+export function getAttributeValueOptions(attr: schema.Attribute, typeSrc: string = 'type'): string[] {
+  const value: string = (attr as any)[`${typeSrc}`]?.text || attr.type?.text;
   return !value
     ? []
     : (value.includes("|") ? value.split("|") : value.split(","))

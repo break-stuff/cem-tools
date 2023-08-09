@@ -102,7 +102,7 @@ export function getTagList(components: Component[], options: Options): Tag[] {
       return {
         name: component.tagName || toKebabCase(component.name),
         description: getComponentDetailsTemplate(component, options!),
-        attributes: getComponentAttributes(component),
+        attributes: getComponentAttributes(component, options?.typesSrc),
         references: options?.referencesTemplate
           ? options.referencesTemplate(component.name, component.tagName)
           : [],
@@ -111,7 +111,7 @@ export function getTagList(components: Component[], options: Options): Tag[] {
   );
 }
 
-export function getComponentAttributes(component: Component) {
+export function getComponentAttributes(component: Component, typesSrc?: string) {
   const attributes: TagAttribute[] = [];
   component?.attributes?.forEach((attr) => {
     const existingAttr = attributes.find(
@@ -124,15 +124,15 @@ export function getComponentAttributes(component: Component) {
     attributes.push({
       name: attr.name || attr.fieldName,
       description: attr.description,
-      values: getAttributeValues(attr),
+      values: getAttributeValues(attr, typesSrc),
     } as TagAttribute);
   });
 
   return attributes;
 }
 
-export function getAttributeValues(attr: schema.Attribute): Value[] {
-  const options = getAttributeValueOptions(attr);
+export function getAttributeValues(attr: schema.Attribute, typesSrc?: string): Value[] {
+  const options = getAttributeValueOptions(attr, typesSrc);
   return (
     options?.map((option) => {
       return {

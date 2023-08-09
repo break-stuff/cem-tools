@@ -28,13 +28,23 @@
             },
             {
               "name": "variants",
-              "description": "This is a test for sting values",
+              "description": "This is a test for internal options",
               "value": { "type": "Variants" }
             },
             {
               "name": "external",
-              "description": "This is a test for sting values",
+              "description": "This is a test for external d.ts options",
               "value": { "type": "Test" }
+            },
+            {
+              "name": "external2",
+              "description": "This is a test for external .ts options",
+              "value": { "type": "Test2" }
+            },
+            {
+              "name": "complex",
+              "description": "This is a test for options from an object",
+              "value": { "type": "ComplexObjectType" }
             },
             {
               "name": "my-attribute",
@@ -61,13 +71,25 @@
               },
               {
                 "name": "variants",
-                "description": "This is a test for sting values",
-                "value": { "type": "Variants" }
+                "description": "This is a test for internal options",
+                "value": {
+                  "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+                }
               },
               {
                 "name": "external",
-                "description": "This is a test for sting values",
-                "value": { "type": "Test" }
+                "description": "This is a test for external d.ts options",
+                "value": { "type": "'value1' | 'value2' | 'value3'" }
+              },
+              {
+                "name": "external2",
+                "description": "This is a test for external .ts options",
+                "value": { "type": "'value4' | 'value5' | 'value6'" }
+              },
+              {
+                "name": "complex",
+                "description": "This is a test for options from an object",
+                "value": { "type": "'single' | 'multi'" }
               },
               {
                 "name": "my-attribute",
@@ -127,7 +149,9 @@
               {
                 "name": "target",
                 "description": "A lookup type for example",
-                "value": { "type": "Target | undefined" }
+                "value": {
+                  "type": "'_blank' | '_self' | '_parent' | '_top' | undefined"
+                }
               }
             ],
             "events": []

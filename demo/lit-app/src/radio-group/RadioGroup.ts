@@ -1,8 +1,19 @@
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import type { Test } from './types';
+import { Test2 } from './alt-types';
 
 export type Variants = 'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text';
+
+export const ComplexObject = {
+  /** Designates only a single <he-accordion-item> can be open a time. */
+  single: 'single',
+
+  /** Designates multiple <he-accordion-items> can be open simultaneously. */
+  multi: 'multi',
+} as const;
+
+export type ComplexObjectType = (typeof ComplexObject)[keyof typeof ComplexObject];
 
 /**
  *
@@ -50,13 +61,21 @@ export class RadioGroup extends LitElement {
   @property()
   size: 'sm' | 'md' | 'lg' | 'xl' = 'md';
 
-  /** This is a test for sting values */
+  /** This is a test for internal options */
   @property({ type: String })
   variants: Variants = 'primary';
 
-  /** This is a test for sting values */
+  /** This is a test for external d.ts options */
   @property({ type: String })
   external: Test = 'value1';
+
+  /** This is a test for external .ts options */
+  @property({ type: String })
+  external2: Test2 = 'value4';
+
+  /** This is a test for options from an object */
+  @property({ type: String })
+  complex: ComplexObjectType = 'single';
 
   /** This is a camel-case attribute */
   @property({ attribute: 'my-attribute' })

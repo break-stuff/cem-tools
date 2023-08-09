@@ -1,6 +1,6 @@
 {
   "name": "custom-element-vs-code-integration",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Tools for integrating web components/custom elements into VS Code",
   "main": "index.js",
   "module": "index.js",
