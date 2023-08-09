@@ -130,15 +130,16 @@ function parseFileTypes(node: any) {
 
 function setEnumTypes(node: any) {
   const name = node.name.escapedText;
+  const name = node.name.escapedText;
   const shortText = node.members
-    ?.map((mem: any) => mem?.initializer?.getText())
+    ?.map((mem: any) => mem.initializer?.text)
     .join(" | ");
 
   aliasTypes[currentFilename][name] = shortText;
 }
 
 function setBasicUnionTypes(node: any) {
-  const name = node.name.escapedText;
+  const name = node.name?.escapedText;
   const unionTypes = node?.type?.types
     .map((type: any) => {
       const value = type?.literal?.text;
@@ -149,7 +150,7 @@ function setBasicUnionTypes(node: any) {
 }
 
 function setComplexUnionTypes(node: any) {
-  const name = node?.name?.getText();
+  const name = node?.name?.escapedText;
   const resolvedTypes = typeChecker.getDeclaredTypeOfSymbol(
     typeChecker.getSymbolAtLocation(node.name)
   );
