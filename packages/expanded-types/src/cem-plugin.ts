@@ -130,7 +130,6 @@ function parseFileTypes(node: any) {
 
 function setEnumTypes(node: any) {
   const name = node.name.escapedText;
-  const name = node.name.escapedText;
   const shortText = node.members
     ?.map((mem: any) => mem.initializer?.text)
     .join(" | ");
