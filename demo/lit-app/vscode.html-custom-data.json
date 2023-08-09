@@ -29,22 +29,38 @@
         {
           "name": "variants",
           "description": "This is a test for internal options",
-          "values": [{ "name": "Variants" }]
+          "values": [
+            { "name": "default" },
+            { "name": "primary" },
+            { "name": "success" },
+            { "name": "neutral" },
+            { "name": "warning" },
+            { "name": "danger" },
+            { "name": "text" }
+          ]
         },
         {
           "name": "external",
           "description": "This is a test for external d.ts options",
-          "values": [{ "name": "Test" }]
+          "values": [
+            { "name": "value1" },
+            { "name": "value2" },
+            { "name": "value3" }
+          ]
         },
         {
           "name": "external2",
           "description": "This is a test for external .ts options",
-          "values": [{ "name": "Test2" }]
+          "values": [
+            { "name": "value4" },
+            { "name": "value5" },
+            { "name": "value6" }
+          ]
         },
         {
           "name": "complex",
           "description": "This is a test for options from an object",
-          "values": [{ "name": "ComplexObjectType" }]
+          "values": [{ "name": "single" }, { "name": "multi" }]
         },
         {
           "name": "my-attribute",
@@ -71,7 +87,12 @@
         {
           "name": "target",
           "description": "A lookup type for example",
-          "values": [{ "name": "Target" }]
+          "values": [
+            { "name": "_blank" },
+            { "name": "_self" },
+            { "name": "_parent" },
+            { "name": "_top" }
+          ]
         }
       ],
       "references": []

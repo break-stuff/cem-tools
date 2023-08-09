@@ -120,6 +120,8 @@ The configuration has the following optional parameters:
   cssSets?: CssSet[];
   /** Used to create an array of links within the component info bubble */
   referencesTemplate?: (name: string, tag?: string) => Reference[];
+  /** The property form your CEM component object to display your types */
+  typesSrc?: string;
 }
 ```
 
@@ -165,6 +167,7 @@ The configuration has the following optional parameters:
     cssParts: "Style Hooks",
     methods: "Functions",
   },
+  
   /** Creates reusable CSS values for consistency in components */
   cssSets: [
     {
@@ -176,11 +179,15 @@ The configuration has the following optional parameters:
       ],
     },
   ],
+
   /** Used to create an array of links within the component info bubble */
   referencesTemplate: (name: string, tag?: string) => [{
     name: 'Documentation',
     url: `https://example.com/components/${tag}`
-  }]
+  }],
+
+  /** The property form your CEM component object to display your types */
+  typesSrc: 'expandedType'
 }
 ```
 
@@ -430,3 +437,6 @@ const options = {
   }
 }
 ```
+## Custom Types
+
+If you are generating a custom types property on your CEM component object and you would like to reference that instead of the default type, you can use the `typesSrc` option to specify the name of the property. If none is specified or if no value is found, it will fall back to the `type` property. If you are using the CEM Analyzer, you can leverage [this tool](https://www.npmjs.com/package/cem-plugin-expanded-types) to generate expanded types.

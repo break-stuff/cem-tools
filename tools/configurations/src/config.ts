@@ -16,7 +16,9 @@ export interface BaseOptions {
   /** Displays the methods section of the element description */
   hideMethodDocs?: boolean;
   /** Overrides the default section labels in the component description */
-  labels?: DescriptionLabels;
+  labels?: DescriptionLabels;  
+  /** The property form your CEM component object to display your types */
+  typesSrc?: string;
 }
 
 export interface DescriptionLabels {

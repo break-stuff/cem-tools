@@ -27,8 +27,8 @@ export default {
 
   /** Provide custom plugins */
   plugins: [
-    customElementVsCodePlugin(),
-    customElementJetBrainsPlugin(),
     expandTypesPlugin(),
+    customElementVsCodePlugin({ typesSrc: "expandedType" }),
+    customElementJetBrainsPlugin({ typesSrc: "expandedType" }),
   ],
 };
