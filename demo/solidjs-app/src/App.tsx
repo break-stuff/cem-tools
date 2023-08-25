@@ -19,6 +19,7 @@ const App: Component = () => {
         >
           Learn Solid
         </a>
+        <radio-group size='md'></radio-group>
       </header>
     </div>
   );
