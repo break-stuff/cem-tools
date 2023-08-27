@@ -9,30 +9,23 @@ import type { RadioButton } from "./types/radio-button/RadioButton";
  * Usage:
  *
  * ```ts
- * import "./path/to/declaration-file.d.ts";
+ * import type { ScopedElements } from "lit-app/solid";
  *
- * declare module "custom-element-solidjs-integration" {
- *   interface UserOptions {
- *     Prefix: "<your-prefix>";
- *     Suffix: "<your-suffix>";
+ * declare module "solid-js" {
+ *   namespace JSX {
+ *     interface IntrinsicElements
+ *       extends ScopedElements<'test-', ''> {}
  *   }
  * }
  * ```
  *
  */
-interface UserOptions {}
-
-type $MergeBy<T, K> = Omit<T, keyof K> & K;
-type OptionsResolved = $MergeBy<
-  {
-    Prefix: "";
-    Suffix: "";
-  },
-  UserOptions
->;
-
-type UserPrefix = OptionsResolved["Prefix"];
-type UserSuffix = OptionsResolved["Suffix"];
+export type ScopedElements<
+  Prefix extends string = "",
+  Suffix extends string = ""
+> = {
+  [Key in keyof CustomElements as `${Prefix}${Key}${Suffix}`]: CustomElements[Key];
+};
 
 type BaseProps = {
   /** Prop for setting inline styles */
@@ -45,10 +38,7 @@ type BaseProps = {
   classList?: Record<string, boolean | undefined>;
 };
 
-type BaseEvents = {
-  /** Emitted when an element is clicked */
-  onClick?: (e: MouseEvent) => void;
-};
+type BaseEvents = {};
 
 type RadioGroupProps = {
   /** The value assigned to the radio button. This will reflect in the radio group when clicked. */
@@ -69,14 +59,26 @@ type RadioGroupProps = {
   "my-attribute"?: RadioGroup["myAttribute"];
 
   /** some description for custom-event */
+  // @ts-ignore
   "on:custom-event"?: (e: CustomEvent<never>) => void;
   /** some description for typed-event */
+  // @ts-ignore
   "on:typed-event"?: (e: CustomEvent<MyEventType>) => void;
   /** some description for typed-custom-event */
+  // @ts-ignore
   "on:typed-custom-event"?: (e: CustomEvent<MyCustomEventType>) => void;
 };
 
-type RadioGroupTag = Record<
+type RadioButtonProps = {
+  /** The value assigned to the radio button. This will reflect in the radio group when clicked. */
+  value?: RadioButton["value"];
+  /** Disables the radio button */
+  disabled?: RadioButton["disabled"];
+  /** A lookup type for example */
+  target?: RadioButton["target"];
+};
+
+type CustomElements = {
   /**
    *
    * Radio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).
@@ -113,22 +115,8 @@ type RadioGroupTag = Record<
    * ### **CSS Parts:**
    *  - **radio-label** - Applies custom styles the radio group label
    */
-  `${UserPrefix}radio-group${UserSuffix}`,
-  RadioGroupProps & BaseProps & BaseEvents
->;
+  "radio-group": Partial<RadioGroupProps | BaseProps | BaseEvents>;
 
-type RadioButtonProps = {
-  /** The value assigned to the radio button. This will reflect in the radio group when clicked. */
-  value?: RadioButton["value"];
-  /** Disables the radio button */
-  disabled?: RadioButton["disabled"];
-  /** A lookup type for example */
-  target?: RadioButton["target"];
-
-  undefined;
-};
-
-type RadioButtonTag = Record<
   /**
    * Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).
    *
@@ -142,12 +130,11 @@ type RadioButtonTag = Record<
    * ### **Slots:**
    *  - _default_ - add text here to label your radio button
    */
-  `${UserPrefix}radio-button${UserSuffix}`,
-  RadioButtonProps & BaseProps & BaseEvents
->;
+  "radio-button": Partial<RadioButtonProps | BaseProps | BaseEvents>;
+};
 
 declare module "solid-js" {
   namespace JSX {
-    interface IntrinsicElements extends RadioGroupTag, RadioButtonTag {}
+    interface IntrinsicElements extends CustomElements {}
   }
 }

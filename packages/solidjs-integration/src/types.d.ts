@@ -10,6 +10,8 @@ export interface Options extends BaseOptions {
   globalTypePath?: string;
   /** Used to get a specific path for a given component */
   componentTypePath?: (name: string, tag?: string) => string;
+  /** Used to add global element props to all component types */
+  globalEvents?: string;
   /** Used to create an array of links within the component info bubble */
   // referenceTemplate?: (name: string, tag?: string) => Reference;
 }

@@ -59,31 +59,23 @@ ${componentImportStatements.join("\n")}
  * Usage:
  * 
  * \`\`\`ts
- * import "./path/to/declaration-file.d.ts";
+ * import type { ScopedElements } from "lit-app/solid";
  * 
- * declare module "custom-element-solidjs-integration" {
- *   interface UserOptions {
- *     Prefix: "<your-prefix>";
- *     Suffix: "<your-suffix>";
+ * declare module "solid-js" {
+ *   namespace JSX {
+ *     interface IntrinsicElements
+ *       extends ScopedElements<'test-', ''> {}
  *   }
  * }
  * \`\`\`
  * 
  */
-interface UserOptions {}
-
-type $MergeBy<T, K> = Omit<T, keyof K> & K;
-type OptionsResolved = $MergeBy<
-  {
-    Prefix: "";
-    Suffix: "";
-  },
-  UserOptions
->;
-
-
-type UserPrefix = OptionsResolved["Prefix"];
-type UserSuffix = OptionsResolved["Suffix"];
+export type ScopedElements<
+  Prefix extends string = "",
+  Suffix extends string = ""
+> = {
+  [Key in keyof CustomElements as \`\${Prefix}\${Key}\${Suffix}\`]: CustomElements[Key];
+};
 
 type BaseProps = {
   /** Prop for setting inline styles */
@@ -96,53 +88,71 @@ type BaseProps = {
   classList?: Record<string, boolean | undefined>;
 };
 
-type BaseEvents = {
+type BaseEvents = {${
+    Object.hasOwn(options, "globalEvents")
+      ? options.globalEvents
+      : `
   /** Emitted when an element is clicked */
   onClick?: (e: MouseEvent) => void;
-};
-
+`}};
 
 ${components
   ?.map((component: Component) => {
     return `
 
 type ${component.name}Props = {
-${component.attributes
-  ?.map((attr) => {
-    return `/** ${getMemberDescription(attr.description, attr.deprecated)} */
+${
+  component.attributes
+    ?.map((attr) => {
+      return `/** ${getMemberDescription(attr.description, attr.deprecated)} */
   "${attr.name}"?: ${component.name}['${attr.fieldName}'];`;
-  })
-  .join("\n")}
-${getComponentProperties(component)
-  ?.map((prop) => {
-    return `/** ${getMemberDescription(prop.description, prop.deprecated)} */
-  "prop:${prop.name}"?: ${component.name}['${prop.name}'];`;
-  })
-  .join("\n")}
-${component.events
-  ?.map((event) => {
-    return `/** ${getMemberDescription(event.description, event.deprecated)} */
-  "on:${event.name}"?: (e: CustomEvent<${
-      event.type?.text || "never"
-    }>) => void;`;
-  })
-  .join("\n")}
+    })
+    .join("\n") || ""
 }
-
-/**
-  ${getComponentDetailsTemplate(component, options, true)}
-  */
-type ${component.name}Tag = Record<\`\${UserPrefix}${
-      component.tagName
-    }\${UserSuffix}\`, ${component.name}Props & BaseProps & BaseEvents>;`;
+${
+  getComponentProperties(component)
+    ?.map((prop) => {
+      return `/** ${getMemberDescription(prop.description, prop.deprecated)} */
+  "prop:${prop.name}"?: ${component.name}['${prop.name}'];`;
+    })
+    .join("\n") || ""
+}
+${
+  component.events
+    ?.map((event) => {
+      return `/** ${getMemberDescription(
+        event.description,
+        event.deprecated
+      )} */
+  // @ts-ignore
+  "on:${event.name}"?: (e: CustomEvent<${
+        event.type?.text || "never"
+      }>) => void;`;
+    })
+    .join("\n") || ""
+}
+}`;
   })
   .join("\n")}
+
+  type CustomElements = {
+${components
+  .map((component) => {
+    return `
+
+  /**
+    ${getComponentDetailsTemplate(component, options, true)}
+    */
+    "${component.tagName}": Partial<${
+      component.name
+    }Props | BaseProps | BaseEvents>;`;
+  })
+  .join("\n")}
+  }
 
 declare module "solid-js" {
   namespace JSX {
-    interface IntrinsicElements extends ${components
-      .map((comp) => `${comp.name}Tag`)
-      .join(", ")} {}
+    interface IntrinsicElements extends CustomElements {}
   }
 }
 `;
