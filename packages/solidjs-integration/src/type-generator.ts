@@ -24,7 +24,7 @@ export function generateSolidJsTypes(manifest: any, options: Options) {
 
 function getOptions(options: Options) {
   options.fileName =
-    options.fileName === undefined ? "solid.d.ts" : options.fileName;
+    options.fileName === undefined ? "solid-js.d.ts" : options.fileName;
   options.exclude = options.exclude === undefined ? [] : options.exclude;
   options.outdir = options.outdir === undefined ? "./" : options.outdir;
   return options;
