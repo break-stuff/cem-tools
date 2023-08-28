@@ -1,73 +1,10 @@
-# Turborepo starter
+# CEM Tools
 
-This is an official npm starter turborepo.
+This is a collection of tools based off the [Custom Elements Manifest](https://github.com/webcomponents/custom-elements-manifest). Each tool is designed to provide a better development experience when working with custom elements.
 
-## What's inside?
+## Tools
 
-This turborepo uses [npm](https://www.npmjs.com/) as a package manager. It includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-npm run build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-npm run dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+- [Expanded Types](https://github.com/break-stuff/cem-tools/tree/main/packages/expanded-types) - a plugin for the CEM Analyzer to parse TypeScript types and provide usable information for tools.
+- [JetBrains Integration](https://github.com/break-stuff/cem-tools/tree/main/packages/jet-brains-integration) - a mapper to take the information captured in the CEM and generate the appropriate `web-types.json` file for JetBrains IDEs
+- [SolidJS Integration](https://github.com/break-stuff/cem-tools/tree/main/packages/solidjs-integration) - a custom type generator to convert the CEM data into usable types to integrate custom elements into SolidJS projects
+- [VS Code Integration](https://github.com/break-stuff/cem-tools/tree/main/packages/vs-code-integration) - a mapper to take the information captured in the CEM and generate the appropriate HTML and CSS data files for for VS Code integration
