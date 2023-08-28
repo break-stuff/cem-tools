@@ -108,7 +108,7 @@ You can configure the destination and the file name of the generated type file u
   /** Path to output directory */
   outdir: 'dist',
   /** File name for the types */
-  fileName: 'solid-integration.d.ts';
+  fileName: 'solid-integration.d.ts'
 }
 ```
 
@@ -158,13 +158,15 @@ The contextual information provided when hovering over the custom element can be
 
 ### Types
 
-If your components were built using TypeScript, you should define a path to your type declarations.
+If your components were built using TypeScript, you should define a path to your type declarations to pass that type-safety on to the SolidJS project.
+
+> _***NOTE:*** All type paths should be relative to the location specified in the `outdir` option._
 
 If your types are rolled up into a single type declaration file, you can set the `globalTypePath` option to the location of that file.
 
 ```ts
 {
-  globalTypePath: ".dist/types.d.ts";
+  globalTypePath: ".dist/types.d.ts"
 }
 ```
 
@@ -172,11 +174,11 @@ If each of the component type definitions are split out by each component, you c
 
 ```ts
 {
-  componentTypePath: (name, tag) => `./types/${tag}/${name}`;
+  componentTypePath: (name, tag) => `./types/${tag}/${name}.d.ts`
 }
 ```
 
-> _***NOTE:*** If a type path is not provided, the generator will fall back to the type defined in the Custom Elements Manifest._
+> _***NOTE:*** It's important to note that if a type path is not provided, the generator will fall back to the type defined in the Custom Elements Manifest._
 
 #### Custom Types
 
@@ -209,7 +211,7 @@ By default the types will be mapped with the attributes, properties, and custom 
   onFocus?: (event: FocusEvent) => void;
   /** Fired when the element loses focus. */
   onBlur?: (event: FocusEvent) => void;
-  `;
+  `
 }
 ```
 
@@ -334,6 +336,8 @@ onPaste?: (event: ClipboardEvent) => void;
 If you are scoping your component tags using a custom prefix or suffix, you can use the `ScopedElements` utility type to provide types for those elements without having to generate new custom types.
 
 ```ts
+// scoped-types.d.ts
+
 import type { ScopedElements } from "path/to/types/solid-js";
 
 declare module "solid-js" {
