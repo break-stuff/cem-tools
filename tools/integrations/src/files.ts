@@ -12,10 +12,11 @@ export function saveFile(
   outDir: string,
   fileName: string,
   contents: string,
-  parser: "json" | "typescript" = "json"
+  parser: "json" | "typescript" = "json",
+  printWidth = 80
 ) {
   fs.writeFileSync(
     path.join(outDir, fileName),
-    prettier.format(contents, { parser })
+    prettier.format(contents, { parser, printWidth })
   );
 }
