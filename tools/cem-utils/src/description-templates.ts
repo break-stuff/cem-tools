@@ -139,12 +139,15 @@ function getSlotDocs(slots: schema.Slot[]) {
 
 function getMethodDocs(methods: schema.ClassMethod[]) {
   return methods
-    ?.map(
-      (method) =>
-        `- **${method.name}${getParameters(method.parameters)}${
-          method.return ? `: _${method.return.type?.text}_` : ""
-        }** - ${getMemberDescription(method.description, method.deprecated)}`
-    )
+    ?.map((method) => {
+      if (method.privacy === "private" || method.privacy === "protected") {
+        return;
+      }
+
+      return `- **${method.name}${getParameters(method.parameters)}${
+        method.return ? `: _${method.return.type?.text}_` : ""
+      }** - ${getMemberDescription(method.description, method.deprecated)}`;
+    })
     .join("\n");
 }
 

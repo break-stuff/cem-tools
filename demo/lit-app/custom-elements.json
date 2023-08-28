@@ -173,6 +173,12 @@
                 }
               ],
               "description": "This is a test method with parameters"
+            },
+            {
+              "kind": "method",
+              "name": "protectedMethod",
+              "privacy": "protected",
+              "description": "This is a test method that is protected"
             }
           ],
           "events": [

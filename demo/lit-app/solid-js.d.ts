@@ -106,6 +106,7 @@ type CustomElements = {
    *  - **validate()** - Validated the radio inputs
    * - **checkStatus(value: _string_, message: _string_): _string_** - This is a test method with parameters
    *
+   *
    * ### **Slots:**
    *  - _default_ - add radio buttons to the `default` slot to create options to your radio group
    * - **label** - placeholder for the radio group label

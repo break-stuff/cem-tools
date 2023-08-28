@@ -88,6 +88,11 @@ export class RadioGroup extends LitElement {
     return value + message ?? '';
   }
 
+  /** This is a test method that is protected */
+  protected protectedMethod() {
+    return '';
+  }
+
   render() {
     return html`
       <h2>Hello world!</h2>
