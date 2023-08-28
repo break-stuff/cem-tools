@@ -1,4 +1,4 @@
-import type { ScopedElements } from "lit-app/solid";
+import type { ScopedElements } from "lit-app/solid-js";
 
 declare module "solid-js" {
   namespace JSX {

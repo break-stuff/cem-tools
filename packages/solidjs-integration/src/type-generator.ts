@@ -80,6 +80,8 @@ type BaseProps = {
   class?: string;
   /** Takes an object where the key is the class name(s) and the value is a boolean expression. When true, the class is applied, and when false, it is removed. */
   classList?: Record<string, boolean | undefined>;
+  /** Content added between the opening and closing tags of the element */
+  children?: any;
 };
 
 type BaseEvents = {${
