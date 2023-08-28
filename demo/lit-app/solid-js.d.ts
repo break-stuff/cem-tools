@@ -1,7 +1,5 @@
 import type { JSX } from "solid-js";
-
-import type { RadioGroup } from "./types/radio-group/RadioGroup";
-import type { RadioButton } from "./types/radio-button/RadioButton";
+import type { RadioGroup, RadioButton } from "./types";
 
 /**
  * This interface can be customized by users.
@@ -38,7 +36,10 @@ type BaseProps = {
   classList?: Record<string, boolean | undefined>;
 };
 
-type BaseEvents = {};
+type BaseEvents = {
+  /** Emitted when an element is clicked */
+  onClick?: (e: MouseEvent) => void;
+};
 
 type RadioGroupProps = {
   /** The value assigned to the radio button. This will reflect in the radio group when clicked. */

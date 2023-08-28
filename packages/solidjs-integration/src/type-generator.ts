@@ -11,12 +11,6 @@ import { Options } from "./types";
 export function generateSolidJsTypes(manifest: any, options: Options) {
   options = getOptions(options);
 
-  if (!options.globalTypePath && !options.componentTypePath) {
-    throw new Error(
-      "You must provide either a `globalTypePath` or `componentTypePath` in the options."
-    );
-  }
-
   const components = getComponents(manifest, options.exclude);
   const template = getTypeTemplate(components, options);
   saveFile(options.outdir!, options.fileName!, template, "typescript");
@@ -91,10 +85,8 @@ type BaseProps = {
 type BaseEvents = {${
     Object.hasOwn(options, "globalEvents")
       ? options.globalEvents
-      : `
-  /** Emitted when an element is clicked */
-  onClick?: (e: MouseEvent) => void;
-`}};
+      : ''
+  }};
 
 ${components
   ?.map((component: Component) => {
@@ -104,16 +96,30 @@ type ${component.name}Props = {
 ${
   component.attributes
     ?.map((attr) => {
+      const type =
+        options.globalTypePath || options.componentTypePath
+          ? `${component.name}['${attr.fieldName}']`
+          : options.typesSrc
+          ? (attr as any)[`${options.typesSrc}`]?.text
+          : attr.type?.text || "string";
+
       return `/** ${getMemberDescription(attr.description, attr.deprecated)} */
-  "${attr.name}"?: ${component.name}['${attr.fieldName}'];`;
+  "${attr.name}"?: ${type};`;
     })
     .join("\n") || ""
 }
 ${
   getComponentProperties(component)
     ?.map((prop) => {
+      const type =
+        options.globalTypePath || options.componentTypePath
+          ? `${component.name}['${prop.name}']`
+          : options.typesSrc
+          ? (prop as any)[`${options.typesSrc}`]?.text
+          : (prop as any).type?.text || "string";
+
       return `/** ${getMemberDescription(prop.description, prop.deprecated)} */
-  "prop:${prop.name}"?: ${component.name}['${prop.name}'];`;
+  "prop:${prop.name}"?: ${type};`;
     })
     .join("\n") || ""
 }

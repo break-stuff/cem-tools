@@ -32,9 +32,7 @@ export default {
     customElementVsCodePlugin({ typesSrc: "expandedType" }),
     customElementJetBrainsPlugin({ typesSrc: "expandedType" }),
     customElementSolidJsPlugin({
-      // globalTypePath: "./types"
-      componentTypePath: (name, tag) => `./types/${tag}/${name}`,
-      globalEvents: ``
+      globalTypePath: "./types"
     })
   ],
 };

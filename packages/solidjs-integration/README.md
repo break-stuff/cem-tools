@@ -87,6 +87,8 @@ The configuration has the following optional parameters:
   globalTypePath?: string;
   /** Used to get types from specific path for a given component */
   componentTypePath?: (name: string, tag?: string) => string;
+  /** The property form your CEM component object to display your types */
+  typesSrc?: string;
   /** Used to add global element props to all component types */
   globalEvents?: string;
 }
@@ -97,7 +99,6 @@ The configuration has the following optional parameters:
 ### Output
 
 You can configure the destination and the file name of the generated type file using the `outdir` and `fileName` configuration.
-
 
 ```ts
 {
@@ -154,29 +155,33 @@ The contextual information provided when hovering over the custom element can be
 
 ### Types
 
-If your components were built using TypeScript, you should define a path to your type declarations. 
+If your components were built using TypeScript, you should define a path to your type declarations.
 
 If your types are rolled up into a single type declaration file, you can set the `globalTypePath` option to the location of that file.
 
 ```ts
 {
-  globalTypePath: '.dist/types.d.ts'
+  globalTypePath: ".dist/types.d.ts";
 }
 ```
 
- If each of the component type definitions are split out by each component, you can use the `componentTypePath` to reference individual component paths.
+If each of the component type definitions are split out by each component, you can use the `componentTypePath` to reference individual component paths.
 
 ```ts
 {
-  componentTypePath: (name, tag) => `./types/${tag}/${name}`
+  componentTypePath: (name, tag) => `./types/${tag}/${name}`;
 }
 ```
 
 > _***NOTE:*** If a type path is not provided, the generator will fall back to the type defined in the Custom Elements Manifest._
 
+#### Custom Types
+
+If you have custom types configured in your Custom Elements Manifest and do not have types or are unable to use them, you can specify the property name of that type using the `typeSrc` option.
+
 ### Adding Events
 
-By default the types will be mapped with the attributes, properties, and custom events that have been documented for it. There are, however the native events that are available to them because they are HTML elements. If you would like to add the events to your types, you can assign them to the `globalEvents` option and they will be included in your component types.
+By default the types will be mapped with the attributes, properties, and custom events that have been documented for it. There are, however the native events that are available to them because they are HTML elements. If you would like to add the events to your types, you can assign them to the `globalEvents` option and they will be included in your component's type.
 
 ```ts
 {
@@ -201,7 +206,7 @@ By default the types will be mapped with the attributes, properties, and custom 
   onFocus?: (event: FocusEvent) => void;
   /** Fired when the element loses focus. */
   onBlur?: (event: FocusEvent) => void;
-  `
+  `;
 }
 ```
 
@@ -209,7 +214,7 @@ By default the types will be mapped with the attributes, properties, and custom 
 
 #### Native Events Template
 
-Here is a list of some popular native events that are pre-configured for SolidJS.
+Here is a list of some popular native events that are pre-configured for SolidJS. This list is not exhaustive and can be modified to meet your needs.
 
 ```ts
 // Mouse Events
