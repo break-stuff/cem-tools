@@ -98,10 +98,6 @@ type ${component.name}Props = {
 ${
   component.attributes
     ?.map((attr) => {
-      if (attr.description === undefined) {
-        return "";
-      }
-
       const type =
         options.globalTypePath || options.componentTypePath
           ? `${component.name}['${attr.fieldName}']`
@@ -117,10 +113,6 @@ ${
 ${
   getComponentProperties(component)
     ?.map((prop) => {
-      if (prop.description === undefined) {
-        return "";
-      }
-
       const type =
         options.globalTypePath || options.componentTypePath
           ? `${component.name}['${prop.name}']`
@@ -136,10 +128,6 @@ ${
 ${
   component.events
     ?.map((event) => {
-      if (event.description === undefined) {
-        return "";
-      }
-
       return `/** ${getMemberDescription(
         event.description,
         event.deprecated
