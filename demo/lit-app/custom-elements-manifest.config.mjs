@@ -1,5 +1,6 @@
 import { customElementVsCodePlugin } from "custom-element-vs-code-integration";
 import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integration";
+import { customElementSolidJsPlugin } from "custom-element-solidjs-integration";
 import { getTsProgram, expandTypesPlugin } from "cem-plugin-expanded-types";
 
 export default {
@@ -30,5 +31,8 @@ export default {
     expandTypesPlugin(),
     customElementVsCodePlugin({ typesSrc: "expandedType" }),
     customElementJetBrainsPlugin({ typesSrc: "expandedType" }),
+    customElementSolidJsPlugin({
+      globalTypePath: "./types"
+    })
   ],
 };

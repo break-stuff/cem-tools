@@ -13,6 +13,7 @@
     "deploy:vs-code": "turbo run deploy --filter=custom-element-vs-code-integration",
     "deploy:jet-brains": "turbo run deploy --filter=custom-element-jet-brains-integration",
     "deploy:expanded-types": "turbo run deploy --filter=cem-plugin-expanded-types",
+    "deploy:solidjs": "turbo run deploy --filter=custom-element-solidjs-integration",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

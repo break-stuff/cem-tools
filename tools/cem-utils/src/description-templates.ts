@@ -3,11 +3,12 @@ import { has } from "../../utilities";
 import type * as schema from "custom-elements-manifest";
 import { Component } from "./types";
 import { BaseOptions } from "../../configurations";
-import { getDescription, getMethods } from "./cem-utilities";
+import { getComponentDescription, getComponentMethods } from "./cem-utilities";
 
 export function getComponentDetailsTemplate(
   component: Component,
   options: BaseOptions,
+  isComment = false
 ) {
   const slots = getSlotsTemplate(
     component?.slots,
@@ -30,20 +31,28 @@ export function getComponentDetailsTemplate(
     options?.labels?.cssParts
   );
   const methods = getMethodsTemplate(
-    getMethods(component),
+    getComponentMethods(component),
     options?.hideMethodDocs,
     options?.labels?.methods
   );
 
-  return (
-    getDescription(component, options?.descriptionSrc) +
-    "\n\n\n---\n\n\n" +
+  let description =
+    getComponentDescription(component, options?.descriptionSrc) +
+    "\n---\n" +
     events +
     methods +
     slots +
     cssProps +
-    parts
-  );
+    parts;
+
+  if (isComment) {
+    description = description
+      .split("\n")
+      .map((x) => ` * ${x}`)
+      .join("\n");
+  }
+
+  return description;
 }
 
 export function getSlotsTemplate(
@@ -51,7 +60,9 @@ export function getSlotsTemplate(
   hide?: boolean,
   label = "Slots"
 ): string {
-  return has(slots) && !hide ? `\n\n### **${label}:**\n ${getSlotDocs(slots!)}` : "";
+  return has(slots) && !hide
+    ? `\n\n### **${label}:**\n ${getSlotDocs(slots!)}`
+    : "";
 }
 
 export function getEventsTemplate(
@@ -59,7 +70,9 @@ export function getEventsTemplate(
   hide?: boolean,
   label = "Events"
 ): string {
-  return has(events) && !hide ? `\n\n### **${label}:**\n ${getEventDocs(events!)}` : "";
+  return has(events) && !hide
+    ? `\n\n### **${label}:**\n ${getEventDocs(events!)}`
+    : "";
 }
 
 export function getCssPropsTemplate(
@@ -130,7 +143,7 @@ function getMethodDocs(methods: schema.ClassMethod[]) {
       (method) =>
         `- **${method.name}${getParameters(method.parameters)}${
           method.return ? `: _${method.return.type?.text}_` : ""
-        }** - ${method.description}`
+        }** - ${getMemberDescription(method.description, method.deprecated)}`
     )
     .join("\n");
 }
@@ -145,4 +158,17 @@ function getParameters(parameters?: schema.Parameter[]): string {
           .join(", ") +
         ")"
     : "()";
+}
+
+export function getMemberDescription(
+  description?: string,
+  deprecated?: boolean | string
+) {
+  if (!deprecated) {
+    return description;
+  }
+
+  return typeof deprecated === "string"
+    ? `@deprecated ${deprecated} - ${description}`
+    : `@deprecated - ${description}`;
 }

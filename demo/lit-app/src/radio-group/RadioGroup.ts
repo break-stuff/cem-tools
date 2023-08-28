@@ -40,9 +40,6 @@ export type ComplexObjectType = (typeof ComplexObject)[keyof typeof ComplexObjec
  * @cssprop {set:radiuses} --radio-border-radius - Controls the border radius of the radio buttons
  * @cssproperty [--radio-background-color=red] - Controls the color of bar
  *
- * @prop {boolean} prop1 - this toggles some unseen feature
- * @property {number} prop2 - this will adjust thr width of the unit
- *
  * @fires custom-event - some description for custom-event
  * @fires {MyEventType} typed-event - some description for typed-event
  * @event {MyCustomEventType} typed-custom-event - some description for typed-custom-event

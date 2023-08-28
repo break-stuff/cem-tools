@@ -12,7 +12,7 @@ export interface Options extends BaseOptions {
   excludeHtml?: boolean;
   /** Excludes any custom CSS documentation */
   excludeCss?: boolean;
-  /** Used to create an array of links within the component info bubble */
+  /** Used to create a link within the component info bubble */
   referenceTemplate?: (name: string, tag?: string) => Reference;
 }
 
