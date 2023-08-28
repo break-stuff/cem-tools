@@ -13,7 +13,7 @@ export function generateSolidJsTypes(manifest: any, options: Options) {
 
   const components = getComponents(manifest, options.exclude);
   const template = getTypeTemplate(components, options);
-  saveFile(options.outdir!, options.fileName!, template, "typescript");
+  saveFile(options.outdir!, options.fileName!, template, "typescript", 120);
 }
 
 function getOptions(options: Options) {
