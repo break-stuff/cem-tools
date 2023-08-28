@@ -2,6 +2,9 @@
 
 This package is designed to generate types for your custom elements in a [SolidJS](https://www.solidjs.com/) project. These types will generate inline documentation, autocomplete, and type-safe validation for your custom elements.
 
+![demo of autocomplete features for custom elements in a solidjs project](https://github.com/break-stuff/cem-tools/blob/main/demo/images/solid-js-integration/solid-js-integration.gif?raw=true)
+
+
 ## Usage
 
 This package includes two ways to generate the custom data config file:
@@ -325,3 +328,20 @@ onPaste?: (event: ClipboardEvent) => void;
 
 // ... Add more events as needed
 ```
+
+## Scoping Types
+
+If you are scoping your component tags using a custom prefix or suffix, you can use the `ScopedElements` utility type to provide types for those elements without having to generate new custom types.
+
+```ts
+import type { ScopedElements } from "path/to/types/solid-js";
+
+declare module "solid-js" {
+  namespace JSX {
+    interface IntrinsicElements
+      extends ScopedElements<'prefix-', '-suffix'> {}
+  }
+}
+```
+
+> _***NOTE:*** The scoped types will lose the contextual information when hovering over the tag in the editor._
