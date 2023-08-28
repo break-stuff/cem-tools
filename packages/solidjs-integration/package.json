@@ -1,6 +1,6 @@
 {
   "name": "custom-element-solidjs-integration",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Tools for integrating custom elements into SolidJS",
   "main": "index.js",
   "module": "index.js",
