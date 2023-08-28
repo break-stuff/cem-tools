@@ -72,22 +72,22 @@ export type ScopedElements<
 };
 
 type BaseProps = {
-  /** Prop for setting inline styles */
-  style?: JSX.CSSProperties;
-  /** Adds a reference for a custom element slot */
-  slot?: string;
+  /** Content added between the opening and closing tags of the element */
+  children?: JSX.Element;
   /** Used for declaratively styling one or more elements using CSS (Cascading Stylesheets) */
   class?: string;
   /** Takes an object where the key is the class name(s) and the value is a boolean expression. When true, the class is applied, and when false, it is removed. */
   classList?: Record<string, boolean | undefined>;
-  /** Content added between the opening and closing tags of the element */
-  children?: any;
+  /** Contains a space-separated list of the part names of the element. Part names allows CSS to select and style specific elements in a shadow tree via the ::part pseudo-element. */
+  part?: string;
+  /** Adds a reference for a custom element slot */
+  slot?: string;
+  /** Prop for setting inline styles */
+  style?: JSX.CSSProperties;
 };
 
 type BaseEvents = {${
-    Object.hasOwn(options, "globalEvents")
-      ? options.globalEvents
-      : ''
+    Object.hasOwn(options, "globalEvents") ? options.globalEvents : ""
   }};
 
 ${components
@@ -98,6 +98,10 @@ type ${component.name}Props = {
 ${
   component.attributes
     ?.map((attr) => {
+      if (attr.description === undefined) {
+        return "";
+      }
+
       const type =
         options.globalTypePath || options.componentTypePath
           ? `${component.name}['${attr.fieldName}']`
@@ -113,6 +117,10 @@ ${
 ${
   getComponentProperties(component)
     ?.map((prop) => {
+      if (prop.description === undefined) {
+        return "";
+      }
+
       const type =
         options.globalTypePath || options.componentTypePath
           ? `${component.name}['${prop.name}']`
@@ -128,6 +136,10 @@ ${
 ${
   component.events
     ?.map((event) => {
+      if (event.description === undefined) {
+        return "";
+      }
+
       return `/** ${getMemberDescription(
         event.description,
         event.deprecated
