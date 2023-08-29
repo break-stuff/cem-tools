@@ -143,7 +143,7 @@ ${
   })
   .join("\n")}
 
-  type CustomElements = {
+  export type CustomElements = {
 ${components
   .map((component) => {
     return `
@@ -157,11 +157,5 @@ ${components
   })
   .join("\n")}
   }
-
-declare module "solid-js" {
-  namespace JSX {
-    interface IntrinsicElements extends CustomElements {}
-  }
-}
 `;
 }
