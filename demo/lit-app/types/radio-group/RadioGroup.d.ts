@@ -60,5 +60,7 @@ export declare class RadioGroup extends LitElement {
     validate(): string;
     /** This is a test method with parameters */
     checkStatus(value: string, message: string): string;
+    /** This is a test method that is protected */
+    protected protectedMethod(): string;
     render(): import("lit-html").TemplateResult<1>;
 }

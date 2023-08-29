@@ -54,6 +54,7 @@ export function getComponentProperties(component: Component) {
       member.kind === "field" &&
       member.privacy !== "private" &&
       member.privacy !== "protected" &&
+      !member.static &&
       !(member as schema.CustomElementField).attribute
   ) as schema.ClassMember[];
 }

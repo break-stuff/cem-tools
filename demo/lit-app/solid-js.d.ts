@@ -2,7 +2,7 @@ import type { JSX } from "solid-js";
 import type { RadioGroup, RadioButton } from "./types";
 
 /**
- * This interface can be customized by users.
+ * This type can be used to create scoped tags for your components.
  *
  * Usage:
  *
@@ -18,24 +18,23 @@ import type { RadioGroup, RadioButton } from "./types";
  * ```
  *
  */
-export type ScopedElements<
-  Prefix extends string = "",
-  Suffix extends string = ""
-> = {
+export type ScopedElements<Prefix extends string = "", Suffix extends string = ""> = {
   [Key in keyof CustomElements as `${Prefix}${Key}${Suffix}`]: CustomElements[Key];
 };
 
 type BaseProps = {
-  /** Prop for setting inline styles */
-  style?: JSX.CSSProperties;
-  /** Adds a reference for a custom element slot */
-  slot?: string;
+  /** Content added between the opening and closing tags of the element */
+  children?: JSX.Element;
   /** Used for declaratively styling one or more elements using CSS (Cascading Stylesheets) */
   class?: string;
   /** Takes an object where the key is the class name(s) and the value is a boolean expression. When true, the class is applied, and when false, it is removed. */
   classList?: Record<string, boolean | undefined>;
-  /** Content added between the opening and closing tags of the element */
-  children?: any;
+  /** Contains a space-separated list of the part names of the element. Part names allows CSS to select and style specific elements in a shadow tree via the ::part pseudo-element. */
+  part?: string;
+  /** Adds a reference for a custom element slot */
+  slot?: string;
+  /** Prop for setting inline styles */
+  style?: JSX.CSSProperties;
 };
 
 type BaseEvents = {};
@@ -103,6 +102,7 @@ type CustomElements = {
    * ### **Methods:**
    *  - **validate()** - Validated the radio inputs
    * - **checkStatus(value: _string_, message: _string_): _string_** - This is a test method with parameters
+   *
    *
    * ### **Slots:**
    *  - _default_ - add radio buttons to the `default` slot to create options to your radio group

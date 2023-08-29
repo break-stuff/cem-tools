@@ -4,7 +4,12 @@ import styles from "./App.module.css";
 const App: Component = () => {
   return (
     <div class={styles.App}>
-      <radio-group></radio-group>
+      <radio-group>
+        <radio-button></radio-button>
+        <radio-button></radio-button>
+        <radio-button></radio-button>
+        <radio-button></radio-button>
+      </radio-group>
     </div>
   );
 };
