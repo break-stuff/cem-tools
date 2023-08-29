@@ -48,7 +48,7 @@ ${
 ${componentImportStatements.join("\n")}
 
 /**
- * This interface can be customized by users.
+ * This type can be used to create scoped tags for your components.
  * 
  * Usage:
  * 

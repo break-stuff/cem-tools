@@ -97,6 +97,10 @@ The configuration has the following optional parameters:
 }
 ```
 
+## Implementation
+
+In order for teams to take advantage of this, all they need to do is import the types in their project. They should immediately begin seeing the type support for your components in the editor.
+
 ## Configuration
 
 ### Output

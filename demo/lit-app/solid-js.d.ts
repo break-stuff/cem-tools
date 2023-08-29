@@ -2,7 +2,7 @@ import type { JSX } from "solid-js";
 import type { RadioGroup, RadioButton } from "./types";
 
 /**
- * This interface can be customized by users.
+ * This type can be used to create scoped tags for your components.
  *
  * Usage:
  *
@@ -18,10 +18,7 @@ import type { RadioGroup, RadioButton } from "./types";
  * ```
  *
  */
-export type ScopedElements<
-  Prefix extends string = "",
-  Suffix extends string = ""
-> = {
+export type ScopedElements<Prefix extends string = "", Suffix extends string = ""> = {
   [Key in keyof CustomElements as `${Prefix}${Key}${Suffix}`]: CustomElements[Key];
 };
 
