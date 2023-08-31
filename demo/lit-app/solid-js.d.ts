@@ -77,7 +77,7 @@ type RadioButtonProps = {
   target?: RadioButton["target"];
 };
 
-type CustomElements = {
+export type CustomElements = {
   /**
    *
    * Radio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).
@@ -132,9 +132,3 @@ type CustomElements = {
    */
   "radio-button": Partial<RadioButtonProps | BaseProps | BaseEvents>;
 };
-
-declare module "solid-js" {
-  namespace JSX {
-    interface IntrinsicElements extends CustomElements {}
-  }
-}
