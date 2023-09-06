@@ -14,12 +14,19 @@ export function getComponentDescription(
   component: schema.Declaration,
   descriptionSrc?: string
 ): string {
-  return (
+  let description = (
     (descriptionSrc
       ? (component as any)[descriptionSrc]
       : component.summary || component.description
     )?.replace(/\\n/g, "\n") || ""
   );
+
+  if(component.deprecated) {
+    const deprecation = typeof component.deprecated === "string" ? `@deprecated ${component.deprecated}` : "@deprecated";
+    description = `${deprecation}\n\n${description}`;
+  }
+
+  return description;
 }
 
 /**

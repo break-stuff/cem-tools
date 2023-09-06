@@ -1,5 +1,5 @@
 import {
-  getMethods,
+  getComponentMethods,
 } from "../cem-utilities";
 import { component, customElementsManifest } from "./test-data.js";
 
@@ -8,7 +8,7 @@ describe("getMethods", () => {
     // Arrange
 
     // Act
-    const methods = getMethods(component);
+    const methods = getComponentMethods(component);
 
     // Assert
     expect(methods?.length).toBe(2);
