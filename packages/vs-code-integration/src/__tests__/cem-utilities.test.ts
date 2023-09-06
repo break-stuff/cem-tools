@@ -6,7 +6,7 @@ import {
 } from "../cem-utilities.js";
 import { component, customElementsManifest } from "./test-data.js";
 import { updateConfig } from "configurations";
-import { getComponents, getMethods } from "cem-utils";
+import { getComponents, getComponentMethods } from "cem-utils";
 import { Reference } from "../types.js";
 import { getOptions } from "../data-file-generator.js";
 
@@ -156,7 +156,7 @@ describe("getMethods", () => {
     // Arrange
 
     // Act
-    const methods = getMethods(component);
+    const methods = getComponentMethods(component);
 
     // Assert
     expect(methods?.length).toBe(2);

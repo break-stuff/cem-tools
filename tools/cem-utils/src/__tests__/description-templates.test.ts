@@ -1,4 +1,4 @@
-import { getMethods } from "../cem-utilities.js";
+import { getComponentMethods } from "../cem-utilities.js";
 import {
   getCssPropsTemplate,
   getEventsTemplate,
@@ -185,7 +185,7 @@ describe("getMethodsTemplate", () => {
     // Arrange
 
     // Act
-    const methods = getMethods(component);
+    const methods = getComponentMethods(component);
     const result = getMethodsTemplate(methods)?.trim();    
 
     // Assert
@@ -197,7 +197,7 @@ describe("getMethodsTemplate", () => {
     // Arrange
 
     // Act
-    const methods = getMethods(component);
+    const methods = getComponentMethods(component);
     const result = getMethodsTemplate(methods, true)?.trim();    
 
     // Assert
