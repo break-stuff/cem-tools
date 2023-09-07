@@ -53,12 +53,12 @@ ${componentImportStatements.join("\n")}
  * Usage:
  * 
  * \`\`\`ts
- * import type { ScopedElements } from "lit-app/solid";
+ * import type { ScopedElements } from "my-app/solid";
  * 
  * declare module "solid-js" {
  *   namespace JSX {
  *     interface IntrinsicElements
- *       extends ScopedElements<'test-', ''> {}
+ *       extends ScopedElements<'prefix-', '-suffix'> {}
  *   }
  * }
  * \`\`\`
