@@ -6,7 +6,7 @@ import {
 } from "../cem-utilities.js";
 import { component, customElementsManifest } from "./test-data.js";
 import { updateConfig } from "configurations";
-import { getComponents, getMethods } from "cem-utils";
+import { getComponents, getComponentMethods } from "cem-utils";
 import { Reference } from "../types.js";
 import { getOptions } from "../data-file-generator.js";
 
@@ -151,12 +151,12 @@ describe("getTagList", () => {
   });
 });
 
-describe("getMethods", () => {
+describe("getComponentMethods", () => {
   test("given a component with 4 methods where 1 is private and 1 does not have a description, it should return 2 methods", () => {
     // Arrange
 
     // Act
-    const methods = getMethods(component);
+    const methods = getComponentMethods(component);
 
     // Assert
     expect(methods?.length).toBe(2);

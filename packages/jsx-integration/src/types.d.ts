@@ -1,0 +1,21 @@
+import { CEM } from "../../../tools/cem-utils";
+import { BaseOptions } from "../../../tools/configurations";
+
+export interface Options extends BaseOptions {
+  /** Name of the file generated */
+  fileName?: string;
+  /** Component names to exclude form process */
+  exclude?: string[];
+  /** Used to get global type reference for components */
+  globalTypePath?: string;
+  /** Used to get a specific path for a given component */
+  componentTypePath?: (name: string, tag?: string) => string;
+  /** The property form your CEM component object to display your types */
+  typesSrc?: string;
+  /** Used to add global element props to all component types */
+  globalEvents?: string;
+}
+
+export interface Params {
+  customElementsManifest: CEM;
+}
