@@ -1,5 +1,6 @@
 import {
   Component,
+  EXCLUDED_TYPES,
   getComponentDetailsTemplate,
   getComponentProperties,
   getComponents,
@@ -24,25 +25,37 @@ function getOptions(options: Options) {
   return options;
 }
 
+function getEventTypes(component: Component) {
+  const types = component.events
+    ?.map((e) =>
+      !EXCLUDED_TYPES.includes(e.type?.text) ? e.type?.text : undefined
+    )
+    .filter((e) => e !== undefined && !e?.startsWith('HTML'));
+
+  return types?.length ? types.join(", ") : undefined;
+}
+
 function getTypeTemplate(components: Component[], options: Options) {
   const componentImportStatements =
     typeof options.componentTypePath === "function"
-      ? components.map(
-          (c) =>
-            `import type { ${c.name} } from "${options.componentTypePath!(
-              c.name,
-              c.tagName
-            )}";`
-        )
+      ? components.map((c) => {
+          const types = getEventTypes(c);
+          return `import type { ${c.name} ${
+            types ? `, ${types}` : ""
+          } } from "${options.componentTypePath!(c.name, c.tagName)}";`;
+        })
       : [];
 
   return `
 import type { JSX } from "solid-js";
 ${
   options.globalTypePath
-    ? `import type { ${components.map((c) => c.name).join(", ")} } from "${
-        options.globalTypePath
-      }";`
+    ? `import type { ${components
+        .map((c) => {
+          const types = getEventTypes(c);
+          return c.name + (types ? `, ${types}` : "");
+        })
+        .join(", ")} } from "${options.globalTypePath}";`
     : ""
 }
 ${componentImportStatements.join("\n")}
@@ -132,7 +145,6 @@ ${
         event.description,
         event.deprecated
       )} */
-  // @ts-ignore
   "on:${event.name}"?: (e: CustomEvent<${
         event.type?.text || "never"
       }>) => void;`;
