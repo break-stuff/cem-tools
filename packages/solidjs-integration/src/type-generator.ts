@@ -28,15 +28,25 @@ function getOptions(options: Options) {
 function getEventTypes(component: Component, componentNames: string[]) {
   const types = component.events
     ?.map((e) =>
-      !EXCLUDED_TYPES.includes(e.type?.text) && !componentNames.includes(e.type?.text) ? e.type?.text : undefined
+      e.type?.text &&
+      !EXCLUDED_TYPES.includes(e.type.text) &&
+      !componentNames.includes(e.type.text) &&
+      !e.type.text.includes("<") &&
+      !e.type.text.includes(`{`) &&
+      !e.type.text.includes("'") &&
+      !e.type.text.includes(`"`)
+        ? e.type.text.replace("[]", "").replace(" | undefined", "")
+        : undefined
     )
-    .filter((e) => e !== undefined && !e?.startsWith('HTML'));
+    .filter((e) => e !== undefined && !e?.startsWith("HTML"));
 
   return types?.length ? types.join(", ") : undefined;
 }
 
 function getTypeTemplate(components: Component[], options: Options) {
-  const componentNames = components.filter(x => x.customElement).map((c) => c.name); 
+  const componentNames = components
+    .filter((x) => x.customElement)
+    .map((c) => c.name);
   const componentImportStatements =
     typeof options.componentTypePath === "function"
       ? components.map((c) => {
