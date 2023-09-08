@@ -25,10 +25,10 @@ function getOptions(options: Options) {
   return options;
 }
 
-function getEventTypes(component: Component) {
+function getEventTypes(component: Component, componentNames: string[]) {
   const types = component.events
     ?.map((e) =>
-      !EXCLUDED_TYPES.includes(e.type?.text) ? e.type?.text : undefined
+      !EXCLUDED_TYPES.includes(e.type?.text) && !componentNames.includes(e.type?.text) ? e.type?.text : undefined
     )
     .filter((e) => e !== undefined && !e?.startsWith('HTML'));
 
@@ -36,13 +36,14 @@ function getEventTypes(component: Component) {
 }
 
 function getTypeTemplate(components: Component[], options: Options) {
+  const componentNames = components.filter(x => x.customElement).map((c) => c.name); 
   const componentImportStatements =
     typeof options.componentTypePath === "function"
       ? components.map((c) => {
-          const types = getEventTypes(c);
+          const types = getEventTypes(c, componentNames);
           return `import type { ${c.name} ${
             types ? `, ${types}` : ""
-          } } from "${options.componentTypePath!(c.name, c.tagName)}";`;
+          } } from "${options.componentTypePath?.(c.name, c.tagName)}";`;
         })
       : [];
 
@@ -52,7 +53,7 @@ ${
   options.globalTypePath
     ? `import type { ${components
         .map((c) => {
-          const types = getEventTypes(c);
+          const types = getEventTypes(c, componentNames);
           return c.name + (types ? `, ${types}` : "");
         })
         .join(", ")} } from "${options.globalTypePath}";`
