@@ -27,20 +27,21 @@ function getOptions(options: Options) {
 
 function getEventTypes(component: Component, componentNames: string[]) {
   const types = component.events
-    ?.map((e) =>
-      e.type?.text &&
-      !EXCLUDED_TYPES.includes(e.type.text) &&
-      !componentNames.includes(e.type.text) &&
-      !e.type.text.includes("<") &&
-      !e.type.text.includes(`{`) &&
-      !e.type.text.includes("'") &&
-      !e.type.text.includes(`"`)
-        ? e.type.text.replace("[]", "").replace(" | undefined", "")
-        : undefined
-    )
+    ?.map((e) => {
+      const eventType = e.type?.text.replace("[]", "").replace(" | undefined", "");
+      return eventType &&
+        !EXCLUDED_TYPES.includes(eventType) &&
+        !componentNames.includes(eventType) &&
+        !eventType.includes("<") &&
+        !eventType.includes(`{`) &&
+        !eventType.includes("'") &&
+        !eventType.includes(`"`)
+        ? eventType
+        : undefined;
+    })
     .filter((e) => e !== undefined && !e?.startsWith("HTML"));
 
-  return types?.length ? types.join(", ") : undefined;
+  return types?.length ? [...new Set(types)].join(", ") : undefined;
 }
 
 function getTypeTemplate(components: Component[], options: Options) {
