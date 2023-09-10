@@ -43,6 +43,8 @@ export function getOptions(options: Options) {
     options.cssFileName === undefined
       ? "vscode.css-custom-data.json"
       : options.cssFileName;
+  options.prefix = options.prefix === undefined ? "" : options.prefix;
+  options.suffix = options.suffix === undefined ? "" : options.suffix;
 
   return options;
 }
