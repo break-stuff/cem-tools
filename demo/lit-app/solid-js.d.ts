@@ -1,5 +1,7 @@
 import type { JSX } from "solid-js";
-import type { RadioGroup, RadioButton } from "./types";
+
+import type { RadioGroup, InterfaceEventType } from "./types/radio-group/RadioGroup.d.ts";
+import type { RadioButton } from "./types/radio-button/RadioButton.d.ts";
 
 /**
  * This type can be used to create scoped tags for your components.
@@ -7,12 +9,12 @@ import type { RadioGroup, RadioButton } from "./types";
  * Usage:
  *
  * ```ts
- * import type { ScopedElements } from "lit-app/solid";
+ * import type { ScopedElements } from "my-app/solid";
  *
  * declare module "solid-js" {
  *   namespace JSX {
  *     interface IntrinsicElements
- *       extends ScopedElements<'test-', ''> {}
+ *       extends ScopedElements<'prefix-', '-suffix'> {}
  *   }
  * }
  * ```
@@ -58,14 +60,11 @@ type RadioGroupProps = {
   "my-attribute"?: RadioGroup["myAttribute"];
 
   /** some description for custom-event */
-  // @ts-ignore
   "on:custom-event"?: (e: CustomEvent<never>) => void;
   /** some description for typed-event */
-  // @ts-ignore
-  "on:typed-event"?: (e: CustomEvent<MyEventType>) => void;
+  "on:typed-event"?: (e: CustomEvent<HTMLInputElement>) => void;
   /** some description for typed-custom-event */
-  // @ts-ignore
-  "on:typed-custom-event"?: (e: CustomEvent<MyCustomEventType>) => void;
+  "on:typed-custom-event"?: (e: CustomEvent<InterfaceEventType>) => void;
 };
 
 type RadioButtonProps = {
@@ -77,7 +76,7 @@ type RadioButtonProps = {
   target?: RadioButton["target"];
 };
 
-type CustomElements = {
+export type CustomElements = {
   /**
    *
    * Radio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).
@@ -132,9 +131,3 @@ type CustomElements = {
    */
   "radio-button": Partial<RadioButtonProps | BaseProps | BaseEvents>;
 };
-
-declare module "solid-js" {
-  namespace JSX {
-    interface IntrinsicElements extends CustomElements {}
-  }
-}

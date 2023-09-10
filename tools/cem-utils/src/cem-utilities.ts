@@ -2,7 +2,18 @@ import { removeQuoteWrappers } from "../../utilities";
 import type * as schema from "custom-elements-manifest";
 import type { CEM, Component } from "./types";
 
-const EXCLUDED_TYPES = ["string", "boolean", "undefined", "number", "null"];
+export const EXCLUDED_TYPES = [
+  "any",
+  "bigint",
+  "boolean",
+  "never",
+  "null",
+  "number",
+  "string",
+  "Symbol",
+  "undefined",
+  "unknown",
+];
 
 /**
  * Gets the description from a CEM based on a specified source
@@ -14,15 +25,17 @@ export function getComponentDescription(
   component: schema.Declaration,
   descriptionSrc?: string
 ): string {
-  let description = (
+  let description =
     (descriptionSrc
       ? (component as any)[descriptionSrc]
       : component.summary || component.description
-    )?.replace(/\\n/g, "\n") || ""
-  );
+    )?.replace(/\\n/g, "\n") || "";
 
-  if(component.deprecated) {
-    const deprecation = typeof component.deprecated === "string" ? `@deprecated ${component.deprecated}` : "@deprecated";
+  if (component.deprecated) {
+    const deprecation =
+      typeof component.deprecated === "string"
+        ? `@deprecated ${component.deprecated}`
+        : "@deprecated";
     description = `${deprecation}\n\n${description}`;
   }
 
@@ -89,7 +102,9 @@ export function getAttributeValueOptions(
  * @param component CEM component/declaration object
  * @returns ClassMethod[]
  */
-export function getComponentMethods(component: Component): schema.ClassMethod[] {
+export function getComponentMethods(
+  component: Component
+): schema.ClassMethod[] {
   return component.members?.filter(
     (member) =>
       member.kind === "method" &&

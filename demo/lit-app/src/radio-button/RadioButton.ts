@@ -1,7 +1,7 @@
 import { html, LitElement } from "lit";
 import { property } from "lit/decorators.js";
 
-type Target = '_blank' | '_self' | '_parent' | '_top';
+export type Target = '_blank' | '_self' | '_parent' | '_top';
 
 /**
  * 

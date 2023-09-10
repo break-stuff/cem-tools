@@ -15,6 +15,11 @@ export const ComplexObject = {
 
 export type ComplexObjectType = (typeof ComplexObject)[keyof typeof ComplexObject];
 
+export interface InterfaceEventType {
+  value: string;
+  message?: string;
+}
+
 /**
  *
  * Radio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).
@@ -41,8 +46,8 @@ export type ComplexObjectType = (typeof ComplexObject)[keyof typeof ComplexObjec
  * @cssproperty [--radio-background-color=red] - Controls the color of bar
  *
  * @fires custom-event - some description for custom-event
- * @fires {MyEventType} typed-event - some description for typed-event
- * @event {MyCustomEventType} typed-custom-event - some description for typed-custom-event
+ * @fires {HTMLInputElement } typed-event - some description for typed-event
+ * @event {InterfaceEventType} typed-custom-event - some description for typed-custom-event
  *
  */
 export class RadioGroup extends LitElement {
