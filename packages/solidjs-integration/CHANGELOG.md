@@ -3,6 +3,7 @@
 ## 1.1.1
 
 - Remove duplicate types
+- Add docs for event typing
 
 ## 1.1.0
 

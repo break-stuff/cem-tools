@@ -4,7 +4,6 @@ This package is designed to generate types for your custom elements in a [SolidJ
 
 ![demo of autocomplete features for custom elements in a solidjs project](https://github.com/break-stuff/cem-tools/blob/main/demo/images/solid-js-integration/solid-js-integration.gif?raw=true)
 
-
 ## Usage
 
 This package includes two ways to generate the custom data config file:
@@ -181,7 +180,7 @@ If your types are rolled up into a single type declaration file, you can set the
 
 ```ts
 {
-  globalTypePath: ".dist/types.d.ts"
+  globalTypePath: ".dist/types.d.ts";
 }
 ```
 
@@ -189,11 +188,48 @@ If each of the component type definitions are split out by each component, you c
 
 ```ts
 {
-  componentTypePath: (name, tag) => `./types/${tag}/${name}.d.ts`
+  componentTypePath: (name, tag) => `./types/${tag}/${name}.d.ts`;
 }
 ```
 
 > _***NOTE:*** It's important to note that if a type path is not provided, the generator will fall back to the type defined in the Custom Elements Manifest._
+
+#### Typing Events
+
+If you are using the `globalTypePath` or `componentTypePath`, it's important to appropriately type your events. There are a few things you can do to provide a good experience for the developers using your components:
+
+- use types or interfaces when working with complex types. This allows you to maintain the type in a single place and reduce the risk of types getting out of sync.
+- along the same lines, avoid using generics as they can be difficult to resolve. The integration will skip importing generic event types.
+
+```ts
+// DON"T DO THIS
+
+/**
+ * @event {{ message: string }} update - emitted when updated
+ * @event {"value1" | "value2" | "value3"} input - emitted when input
+ * @event {InputSave<MyData>} save - emitted when saved
+ */
+export class MyComponent extents HTMLElement
+```
+
+```ts
+// DO THIS
+
+export type MyComponentUpdateEvent = { 
+  message: string 
+};
+
+export type MyComponentInputEvent = "value1" | "value2" | "value3";
+
+export type MyComponentSaveEvent = InputSave<MyData>;
+
+/**
+ * @event {MyComponentUpdateEvent} update - emitted when updated
+ * @event {MyComponentInputEvent} input - emitted when updated
+ * @event {MyComponentSaveEvent} save - emitted when saved
+ */
+export class MyComponent extents HTMLElement
+```
 
 #### Custom Types
 
@@ -226,7 +262,7 @@ By default the types will be mapped with the attributes, properties, and custom 
   onFocus?: (event: FocusEvent) => void;
   /** Fired when the element loses focus. */
   onBlur?: (event: FocusEvent) => void;
-  `
+  `;
 }
 ```
 
@@ -357,8 +393,7 @@ import type { ScopedElements } from "path/to/types/solid-js";
 
 declare module "solid-js" {
   namespace JSX {
-    interface IntrinsicElements
-      extends ScopedElements<'prefix-', '-suffix'> {}
+    interface IntrinsicElements extends ScopedElements<"prefix-", "-suffix"> {}
   }
 }
 ```
