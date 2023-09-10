@@ -22,6 +22,8 @@ function getOptions(options: Options) {
     options.fileName === undefined ? "solid-js.d.ts" : options.fileName;
   options.exclude = options.exclude === undefined ? [] : options.exclude;
   options.outdir = options.outdir === undefined ? "./" : options.outdir;
+  options.prefix = options.prefix === undefined ? "" : options.prefix;
+  options.suffix = options.suffix === undefined ? "" : options.suffix;
   return options;
 }
 
@@ -175,7 +177,7 @@ ${components
   /**
     ${getComponentDetailsTemplate(component, options, true)}
     */
-    "${component.tagName}": Partial<${
+    "${options.prefix}${component.tagName}${options.suffix}": Partial<${
       component.name
     }Props | BaseProps | BaseEvents>;`;
   })

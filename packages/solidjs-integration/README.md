@@ -384,7 +384,9 @@ onPaste?: (event: ClipboardEvent) => void;
 
 ## Scoping Types
 
-If you are scoping your component tags using a custom prefix or suffix, you can use the `ScopedElements` utility type to provide types for those elements without having to generate new custom types.
+If your project is scoping components using prefixes or suffixes in the tag name, you can generate a custom data config file using your scoping using the `prefix` or `suffix` option (`prefix: "test_"` => `test_my-element`).
+
+If you are unable to generate a custom type file or provide the means for others to generate their own, you can use the `ScopedElements` utility type to provide types for those elements without having to generate new custom types.
 
 ```ts
 // scoped-types.d.ts
@@ -398,4 +400,4 @@ declare module "solid-js" {
 }
 ```
 
-> _***NOTE:*** The scoped types will lose the contextual information when hovering over the tag in the editor._
+> _***NOTE:*** The `ScopedElements` utility will lose the contextual information when hovering over the tag in the editor._

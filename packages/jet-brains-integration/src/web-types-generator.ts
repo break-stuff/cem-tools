@@ -38,7 +38,9 @@ export function getTagList(
       : undefined;
 
     return {
-      name: component.tagName || toKebabCase(component.name),
+      name: `${options.prefix}${
+        component.tagName || toKebabCase(component.name)
+      }${options.suffix}`,
       description: getComponentDetailsTemplate(component, options),
       ["doc-url"]: reference?.url || "",
       attributes: getComponentAttributes(component),
@@ -47,14 +49,20 @@ export function getTagList(
   });
 }
 
-function getJsProperties(component: Component, typesSrc?: string): JsProperties {
+function getJsProperties(
+  component: Component,
+  typesSrc?: string
+): JsProperties {
   return {
     properties: getWebTypeProperties(component, typesSrc),
     events: getWebTypeEvents(component),
   };
 }
 
-function getWebTypeProperties(component: Component, typesSrc = 'types'): WebTypeAttribute[] {
+function getWebTypeProperties(
+  component: Component,
+  typesSrc = "types"
+): WebTypeAttribute[] {
   return (
     ((component.attributes || component.members) as schema.Attribute[])?.map(
       (attr) => {
@@ -108,6 +116,8 @@ export function getOptions(options: Options) {
     options.webTypesFileName === undefined
       ? "web-types.json"
       : options.webTypesFileName;
+  options.prefix = options.prefix === undefined ? "" : options.prefix;
+  options.suffix = options.suffix === undefined ? "" : options.suffix;
 
   return options;
 }

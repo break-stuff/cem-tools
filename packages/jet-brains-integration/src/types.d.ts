@@ -12,6 +12,10 @@ export interface Options extends BaseOptions {
   excludeHtml?: boolean;
   /** Excludes any custom CSS documentation */
   excludeCss?: boolean;
+  /** Adds a prefix to tag references */
+  prefix?: string;
+  /** Adds a suffix to tag references */
+  suffix?: string;
   /** Used to create a link within the component info bubble */
   referenceTemplate?: (name: string, tag?: string) => Reference;
 }
