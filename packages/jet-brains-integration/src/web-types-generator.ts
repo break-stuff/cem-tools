@@ -21,7 +21,7 @@ import {
   getCssPartList,
   getCssPropertyList,
 } from "./cem-utilities";
-import { createOutDir, logRed, saveFile } from "../../../tools/integrations";
+import { createOutDir, logBlue, logRed, saveFile } from "../../../tools/integrations";
 import { toKebabCase } from "../../../tools/utilities";
 import { updateConfig } from "../../../tools/configurations";
 
@@ -107,7 +107,8 @@ export function generateJetBrainsWebTypes(
   const cssProperties = getCssPropertyList(components);
   const cssParts = getCssPartList(components);
 
-  saveWebTypeFile(elements, cssProperties, cssParts, options);
+  const outputPath = saveWebTypeFile(elements, cssProperties, cssParts, options);
+  logBlue(`[jet-brains-web-type-generator] - Generated "${outputPath}".`);
 }
 
 export function getOptions(options: Options) {
@@ -135,13 +136,15 @@ export function saveWebTypeFile(
   createOutDir(options.outdir!);
 
   if (options.webTypesFileName) {
-    saveFile(
+    savePackageJson(packageJson, options);
+    return saveFile(
       options.outdir!,
       options.webTypesFileName!,
       getWebTypesFileContents(tags, cssProperties, parts, options)
     );
-    savePackageJson(packageJson, options);
   }
+
+  return '';
 }
 
 function savePackageJson(packageJson: any, options: Options) {

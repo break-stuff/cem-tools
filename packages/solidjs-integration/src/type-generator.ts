@@ -6,15 +6,16 @@ import {
   getComponents,
   getMemberDescription,
 } from "../../../tools/cem-utils";
-import { saveFile } from "../../../tools/integrations";
+import { logBlue, saveFile } from "../../../tools/integrations";
 import { Options } from "./types";
 
 export function generateSolidJsTypes(manifest: any, options: Options) {
   options = getOptions(options);
 
-  const components = getComponents(manifest, options.exclude);
+  const components = getComponents(manifest, options.exclude).filter(x => x.tagName);
   const template = getTypeTemplate(components, options);
-  saveFile(options.outdir!, options.fileName!, template, "typescript", 120);
+  const outputPath = saveFile(options.outdir!, options.fileName!, template, "typescript", 120);
+  logBlue(`[solidjs-type-generator] - Generated "${outputPath}".`);
 }
 
 function getOptions(options: Options) {

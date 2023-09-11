@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.1
+
+- Add log with output path
+
 ## 1.2.0
 
 - Add tag scoping to output

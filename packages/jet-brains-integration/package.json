@@ -1,6 +1,6 @@
 {
   "name": "custom-element-jet-brains-integration",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Tools for integrating web components/custom elements into JetBrains IDEs",
   "main": "index.js",
   "module": "index.js",
