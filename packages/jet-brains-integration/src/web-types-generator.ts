@@ -21,7 +21,12 @@ import {
   getCssPartList,
   getCssPropertyList,
 } from "./cem-utilities";
-import { createOutDir, logBlue, logRed, saveFile } from "../../../tools/integrations";
+import {
+  createOutDir,
+  logBlue,
+  logRed,
+  saveFile,
+} from "../../../tools/integrations";
 import { toKebabCase } from "../../../tools/utilities";
 import { updateConfig } from "../../../tools/configurations";
 
@@ -94,7 +99,10 @@ export function generateJetBrainsWebTypes(
   options: Options
 ) {
   options = getOptions(options);
-  const components = getComponents(customElementsManifest);
+  const components = getComponents(
+    customElementsManifest,
+    options.exclude
+  ).filter((x) => x.tagName);
 
   if (!components.length) {
     logRed("No components found in custom-elements.json");
@@ -107,7 +115,12 @@ export function generateJetBrainsWebTypes(
   const cssProperties = getCssPropertyList(components);
   const cssParts = getCssPartList(components);
 
-  const outputPath = saveWebTypeFile(elements, cssProperties, cssParts, options);
+  const outputPath = saveWebTypeFile(
+    elements,
+    cssProperties,
+    cssParts,
+    options
+  );
   logBlue(`[jet-brains-web-type-generator] - Generated "${outputPath}".`);
 }
 
@@ -144,7 +157,7 @@ export function saveWebTypeFile(
     );
   }
 
-  return '';
+  return "";
 }
 
 function savePackageJson(packageJson: any, options: Options) {

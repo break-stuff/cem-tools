@@ -3,6 +3,7 @@
 ## 1.2.1
 
 - Add log with output path
+- Exclude components without tag names
 
 ## 1.2.0
 

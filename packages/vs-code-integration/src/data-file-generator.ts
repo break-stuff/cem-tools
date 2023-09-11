@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { createOutDir, logBlue, logRed, saveFile } from "../../../tools/integrations";
+import {
+  createOutDir,
+  logBlue,
+  logRed,
+  saveFile,
+} from "../../../tools/integrations";
 import {
   getCssPartList,
   getCssPropertyList,
   getTagList,
 } from "./cem-utilities.js";
 import type { Options, Tag, VsCssProperty } from "./types";
-import { getComponents, type CEM, Component } from "../../../tools/cem-utils";
+import { getComponents, type CEM } from "../../../tools/cem-utils";
 import { updateConfig } from "../../../tools/configurations";
 
 export function generateVsCodeCustomElementData(
@@ -17,7 +22,7 @@ export function generateVsCodeCustomElementData(
   const components = getComponents(
     customElementsManifest,
     options.exclude
-  ) as Component[];
+  ).filter((x) => x.tagName);
 
   if (!components.length) {
     logRed("[custom-element-vs-code-integration] - No components found.");
@@ -30,7 +35,12 @@ export function generateVsCodeCustomElementData(
     : [];
   const cssParts = options.cssFileName ? getCssPartList(components) : [];
 
-  const outputPath = saveCustomDataFiles(options, htmlTags, cssProperties, cssParts);
+  const outputPath = saveCustomDataFiles(
+    options,
+    htmlTags,
+    cssProperties,
+    cssParts
+  );
   logBlue(`[vs-code-custom-data-generator] - Generated ${outputPath}.`);
 }
 
