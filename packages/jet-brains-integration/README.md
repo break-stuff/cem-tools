@@ -351,3 +351,7 @@ const options = {
 ## Custom Types
 
 If you are generating a custom types property on your CEM component object and you would like to reference that instead of the default type, you can use the `typesSrc` option to specify the name of the property. If none is specified or if no value is found, it will fall back to the `type` property. If you are using the CEM Analyzer, you can leverage [this tool](https://www.npmjs.com/package/cem-plugin-expanded-types) to generate expanded types.
+
+## Scoping Tags
+
+If your project is scoping components using prefixes or suffixes in the tag name, you can generate a custom data config file using your scoping using the `prefix` or `suffix` option (`prefix: "test_"` => `test_my-element`).

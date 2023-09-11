@@ -10,6 +10,10 @@ export interface Options extends BaseOptions {
   cssSets?: CssSet[];
   /** Used to create an array of links within the component info bubble */
   referencesTemplate?: (name: string, tag?: string) => Reference[];
+  /** Adds a prefix to tag references */
+  prefix?: string;
+  /** Adds a suffix to tag references */
+  suffix?: string;
 }
 
 export interface CssSet {

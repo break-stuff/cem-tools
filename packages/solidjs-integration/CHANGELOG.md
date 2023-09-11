@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.0
+
+- Add tag scoping to output
+
 ## 1.1.1
 
 - Remove duplicate types
