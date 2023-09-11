@@ -7,10 +7,10 @@ export function customElementSolidJsPlugin(options: Options = {}) {
     name: "custom-element-solidjs-integration",
     packageLinkPhase({ customElementsManifest }: Params) {
       console.log(
-        "[solidjs-type-generator] - Generating config files..."
+        "[solidjs-type-generator] - Generating custom types..."
       );
       generateSolidJsTypes(customElementsManifest, options);
-      logGreen("[solidjs-type-generator] - File generation complete.");
+      logGreen("[solidjs-type-generator] - Custom types generation complete.");
     },
   };
 }

@@ -15,8 +15,11 @@ export function saveFile(
   parser: "json" | "typescript" = "json",
   printWidth = 80
 ) {
+  const outputPath = path.join(outDir, fileName);
   fs.writeFileSync(
-    path.join(outDir, fileName),
+    outputPath,
     prettier.format(contents, { parser, printWidth })
   );
+
+  return outputPath;
 }

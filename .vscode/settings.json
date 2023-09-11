@@ -1,5 +1,8 @@
 {
   "html.customData": ["./demo/lit-demo/vscode.html-custom-data.json"],
   "css.customData": ["./demo/lit-demo/vscode.css-custom-data.json"],
-  "cSpell.words": ["Outdir"]
+  "cSpell.words": [
+    "Outdir",
+    "solidjs"
+  ]
 }
