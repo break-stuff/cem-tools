@@ -21,7 +21,12 @@ import {
   getCssPartList,
   getCssPropertyList,
 } from "./cem-utilities";
-import { createOutDir, logRed, saveFile } from "../../../tools/integrations";
+import {
+  createOutDir,
+  logBlue,
+  logRed,
+  saveFile,
+} from "../../../tools/integrations";
 import { toKebabCase } from "../../../tools/utilities";
 import { updateConfig } from "../../../tools/configurations";
 
@@ -38,7 +43,9 @@ export function getTagList(
       : undefined;
 
     return {
-      name: component.tagName || toKebabCase(component.name),
+      name: `${options.prefix}${
+        component.tagName || toKebabCase(component.name)
+      }${options.suffix}`,
       description: getComponentDetailsTemplate(component, options),
       ["doc-url"]: reference?.url || "",
       attributes: getComponentAttributes(component),
@@ -47,14 +54,20 @@ export function getTagList(
   });
 }
 
-function getJsProperties(component: Component, typesSrc?: string): JsProperties {
+function getJsProperties(
+  component: Component,
+  typesSrc?: string
+): JsProperties {
   return {
     properties: getWebTypeProperties(component, typesSrc),
     events: getWebTypeEvents(component),
   };
 }
 
-function getWebTypeProperties(component: Component, typesSrc = 'types'): WebTypeAttribute[] {
+function getWebTypeProperties(
+  component: Component,
+  typesSrc = "types"
+): WebTypeAttribute[] {
   return (
     ((component.attributes || component.members) as schema.Attribute[])?.map(
       (attr) => {
@@ -86,7 +99,10 @@ export function generateJetBrainsWebTypes(
   options: Options
 ) {
   options = getOptions(options);
-  const components = getComponents(customElementsManifest);
+  const components = getComponents(
+    customElementsManifest,
+    options.exclude
+  ).filter((x) => x.tagName);
 
   if (!components.length) {
     logRed("No components found in custom-elements.json");
@@ -99,7 +115,13 @@ export function generateJetBrainsWebTypes(
   const cssProperties = getCssPropertyList(components);
   const cssParts = getCssPartList(components);
 
-  saveWebTypeFile(elements, cssProperties, cssParts, options);
+  const outputPath = saveWebTypeFile(
+    elements,
+    cssProperties,
+    cssParts,
+    options
+  );
+  logBlue(`[jet-brains-web-type-generator] - Generated "${outputPath}".`);
 }
 
 export function getOptions(options: Options) {
@@ -108,6 +130,8 @@ export function getOptions(options: Options) {
     options.webTypesFileName === undefined
       ? "web-types.json"
       : options.webTypesFileName;
+  options.prefix = options.prefix === undefined ? "" : options.prefix;
+  options.suffix = options.suffix === undefined ? "" : options.suffix;
 
   return options;
 }
@@ -125,13 +149,15 @@ export function saveWebTypeFile(
   createOutDir(options.outdir!);
 
   if (options.webTypesFileName) {
-    saveFile(
+    savePackageJson(packageJson, options);
+    return saveFile(
       options.outdir!,
       options.webTypesFileName!,
       getWebTypesFileContents(tags, cssProperties, parts, options)
     );
-    savePackageJson(packageJson, options);
   }
+
+  return "";
 }
 
 function savePackageJson(packageJson: any, options: Options) {

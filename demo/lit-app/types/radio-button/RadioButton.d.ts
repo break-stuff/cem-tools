@@ -1,5 +1,5 @@
 import { LitElement } from "lit";
-type Target = '_blank' | '_self' | '_parent' | '_top';
+export type Target = '_blank' | '_self' | '_parent' | '_top';
 /**
  *
  * @summary Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\n\nUse it like this:\n```html\n<radio-button value="1" disabled>Your label</radio-button>\n```
@@ -19,4 +19,3 @@ export declare class RadioButton extends LitElement {
     target?: Target;
     render(): import("lit-html").TemplateResult<1>;
 }
-export {};

@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { createOutDir, logRed, saveFile } from "../../../tools/integrations";
+import {
+  createOutDir,
+  logBlue,
+  logRed,
+  saveFile,
+} from "../../../tools/integrations";
 import {
   getCssPartList,
   getCssPropertyList,
   getTagList,
 } from "./cem-utilities.js";
 import type { Options, Tag, VsCssProperty } from "./types";
-import { getComponents, type CEM, Component } from "../../../tools/cem-utils";
+import { getComponents, type CEM } from "../../../tools/cem-utils";
 import { updateConfig } from "../../../tools/configurations";
 
 export function generateVsCodeCustomElementData(
@@ -17,7 +22,7 @@ export function generateVsCodeCustomElementData(
   const components = getComponents(
     customElementsManifest,
     options.exclude
-  ) as Component[];
+  ).filter((x) => x.tagName);
 
   if (!components.length) {
     logRed("[custom-element-vs-code-integration] - No components found.");
@@ -30,7 +35,13 @@ export function generateVsCodeCustomElementData(
     : [];
   const cssParts = options.cssFileName ? getCssPartList(components) : [];
 
-  saveCustomDataFiles(options, htmlTags, cssProperties, cssParts);
+  const outputPath = saveCustomDataFiles(
+    options,
+    htmlTags,
+    cssProperties,
+    cssParts
+  );
+  logBlue(`[vs-code-custom-data-generator] - Generated ${outputPath}.`);
 }
 
 export function getOptions(options: Options) {
@@ -43,6 +54,8 @@ export function getOptions(options: Options) {
     options.cssFileName === undefined
       ? "vscode.css-custom-data.json"
       : options.cssFileName;
+  options.prefix = options.prefix === undefined ? "" : options.prefix;
+  options.suffix = options.suffix === undefined ? "" : options.suffix;
 
   return options;
 }
@@ -53,23 +66,30 @@ function saveCustomDataFiles(
   cssProperties: VsCssProperty[],
   cssParts: VsCssProperty[]
 ) {
+  const outputPaths = [];
   createOutDir(options.outdir!);
 
   if (options.htmlFileName) {
-    saveFile(
+    const htmlOutput = saveFile(
       options.outdir!,
       options.htmlFileName!,
       getCustomHtmlDataFileContents(tags)
     );
+
+    outputPaths.push(`"${htmlOutput}"`);
   }
 
   if (options.cssFileName) {
-    saveFile(
+    const cssOutput = saveFile(
       options.outdir!,
       options.cssFileName!,
       getCustomCssDataFileContents(cssProperties, cssParts)
     );
+
+    outputPaths.push(`"${cssOutput}"`);
   }
+
+  return outputPaths.join(", ");
 }
 
 function getCustomHtmlDataFileContents(tags: Tag[]) {

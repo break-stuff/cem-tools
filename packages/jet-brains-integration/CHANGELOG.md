@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.1
+
+- Add log with output path
+- Exclude components without tag names
+
+## 1.2.0
+
+- Add tag scoping to output
+
 ## 1.1.1
 
 - Added deprecation messages to the component description

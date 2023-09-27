@@ -14,6 +14,10 @@ export interface Options extends BaseOptions {
   typesSrc?: string;
   /** Used to add global element props to all component types */
   globalEvents?: string;
+  /** Adds a prefix to tag references */
+  prefix?: string;
+  /** Adds a suffix to tag references */
+  suffix?: string;
 }
 
 export interface Params {

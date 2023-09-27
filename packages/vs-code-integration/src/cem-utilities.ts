@@ -100,7 +100,7 @@ export function getTagList(components: Component[], options: Options): Tag[] {
   return (
     components?.map((component) => {
       return {
-        name: component.tagName || toKebabCase(component.name),
+        name: `${options.prefix}${component.tagName || toKebabCase(component.name)}${options.suffix}`,
         description: getComponentDetailsTemplate(component, options!),
         attributes: getComponentAttributes(component, options?.typesSrc),
         references: options?.referencesTemplate
