@@ -52,7 +52,8 @@ export function getTsProgram(
     configName
   );
   const { config } = ts.readConfigFile(tsConfigFile, ts.sys.readFile);
-  const program = ts.createProgram(globs, config);
+  const compilerOptions = ts.convertCompilerOptionsFromJson(config, ".");
+  const program = ts.createProgram(globs, compilerOptions.options);
   typeChecker = program.getTypeChecker();
   return program;
 }
