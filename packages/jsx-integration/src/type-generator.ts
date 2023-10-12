@@ -1,47 +1,86 @@
 import {
   Component,
+  EXCLUDED_TYPES,
   getComponentDetailsTemplate,
   getComponentProperties,
   getComponents,
   getMemberDescription,
 } from "../../../tools/cem-utils";
-import { saveFile } from "../../../tools/integrations";
+import { logBlue, saveFile } from "../../../tools/integrations";
+import { toPascalCase } from "../../../tools/utilities";
 import { Options } from "./types";
 
 export function generateJsxTypes(manifest: any, options: Options) {
   options = getOptions(options);
 
-  const components = getComponents(manifest, options.exclude);
+  const components = getComponents(manifest, options.exclude).filter(
+    (x) => x.tagName
+  );
   const template = getTypeTemplate(components, options);
-  saveFile(options.outdir!, options.fileName!, template, "typescript", 120);
+  const outputPath = saveFile(
+    options.outdir!,
+    options.fileName!,
+    template,
+    "typescript",
+    120
+  );
+  logBlue(`[jsx-type-generator] - Generated "${outputPath}".`);
 }
 
 function getOptions(options: Options) {
   options.fileName =
-    options.fileName === undefined ? "jsx-integration.d.ts" : options.fileName;
+    options.fileName === undefined ? "custom-element-jsx.d.ts" : options.fileName;
   options.exclude = options.exclude === undefined ? [] : options.exclude;
   options.outdir = options.outdir === undefined ? "./" : options.outdir;
+  options.prefix = options.prefix === undefined ? "" : options.prefix;
+  options.suffix = options.suffix === undefined ? "" : options.suffix;
   return options;
 }
 
+function getEventTypes(component: Component, componentNames: string[]) {
+  const types = component.events
+    ?.map((e) => {
+      const eventType = e.type?.text
+        .replace("[]", "")
+        .replace(" | undefined", "");
+      return eventType &&
+        !EXCLUDED_TYPES.includes(eventType) &&
+        !componentNames.includes(eventType) &&
+        !eventType.includes("<") &&
+        !eventType.includes(`{`) &&
+        !eventType.includes("'") &&
+        !eventType.includes(`"`)
+        ? eventType
+        : undefined;
+    })
+    .filter((e) => e !== undefined && !e?.startsWith("HTML"));
+
+  return types?.length ? [...new Set(types)].join(", ") : undefined;
+}
+
 function getTypeTemplate(components: Component[], options: Options) {
+  const componentNames = components
+    .filter((x) => x.customElement)
+    .map((c) => c.name);
   const componentImportStatements =
     typeof options.componentTypePath === "function"
-      ? components.map(
-          (c) =>
-            `import type { ${c.name} } from "${options.componentTypePath!(
-              c.name,
-              c.tagName
-            )}";`
-        )
+      ? components.map((c) => {
+          const types = getEventTypes(c, componentNames);
+          return `import type { ${c.name} ${
+            types ? `, ${types}` : ""
+          } } from "${options.componentTypePath?.(c.name, c.tagName)}";`;
+        })
       : [];
 
   return `
 ${
   options.globalTypePath
-    ? `import type { ${components.map((c) => c.name).join(", ")} } from "${
-        options.globalTypePath
-      }";`
+    ? `import type { ${components
+        .map((c) => {
+          const types = getEventTypes(c, componentNames);
+          return c.name + (types ? `, ${types}` : "");
+        })
+        .join(", ")} } from "${options.globalTypePath}";`
     : ""
 }
 ${componentImportStatements.join("\n")}
@@ -52,9 +91,9 @@ ${componentImportStatements.join("\n")}
  * Usage:
  * 
  * \`\`\`ts
- * import type { ScopedElements } from "path/to/library/preact-integration";
+ * import type { ScopedElements } from "path/to/library/jsx-integration";
  * 
- * declare module "preact" {
+ * declare module "my-library" {
  *   namespace JSX {
  *     interface IntrinsicElements
  *       extends ScopedElements<'test-', ''> {}
@@ -133,8 +172,7 @@ ${
         event.description,
         event.deprecated
       )} */
-  // @ts-ignore
-  "on:${event.name}"?: (e: CustomEvent<${
+  "on${toPascalCase(event.name)}"?: (e: CustomEvent<${
         event.type?.text || "never"
       }>) => void;`;
     })
@@ -152,7 +190,7 @@ ${components
   /**
     ${getComponentDetailsTemplate(component, options, true)}
     */
-    "${component.tagName}": Partial<${
+    "${options.prefix}${component.tagName}${options.suffix}": Partial<${
       component.name
     }Props | BaseProps | BaseEvents>;`;
   })

@@ -1,2 +1,2 @@
-export { generateJsxTypes as generateSolidJsTypes } from "./type-generator";
-export { customElementPreactPlugin as customElementSolidJsPlugin } from "./cem-analyzer-plugin";
+export { generateJsxTypes } from "./type-generator";
+export { customElementJsxPlugin } from "./cem-analyzer-plugin";

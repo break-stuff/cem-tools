@@ -2,15 +2,15 @@ import { generateJsxTypes } from "./type-generator";
 import type { Options, Params } from "./types";
 import { logGreen } from "../../../tools/integrations";
 
-export function customElementPreactPlugin(options: Options = {}) {
+export function customElementJsxPlugin(options: Options = {}) {
   return {
-    name: "custom-element-preact-integration",
+    name: "custom-element-jsx-integration",
     packageLinkPhase({ customElementsManifest }: Params) {
       console.log(
-        "[preact-type-generator] - Generating types..."
+        "[jsx-type-generator] - Generating types..."
       );
       generateJsxTypes(customElementsManifest, options);
-      logGreen("[preact-type-generator] - Type generation complete.");
+      logGreen("[jsx-type-generator] - Type generation complete.");
     },
   };
 }
