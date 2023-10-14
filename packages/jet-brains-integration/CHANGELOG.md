@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+- Update `package.json` urls to match current repository
+
 ## 1.3.0
 
 - Add slot details

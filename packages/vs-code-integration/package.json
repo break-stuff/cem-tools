@@ -21,6 +21,9 @@
   "license": "MIT",
   "repository": "https://github.com/break-stuff/cem-tools",
   "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/vs-code-integration",
+  "bugs": {
+    "url": "https://github.com/break-stuff/cem-tools/issues"
+  },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.3",
     "@types/jest": "^29.2.3",

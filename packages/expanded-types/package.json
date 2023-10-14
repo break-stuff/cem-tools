@@ -31,8 +31,11 @@
   "author": "",
   "license": "MIT",
   "repository": "https://github.com/break-stuff/cem-tools",
-  "homepage": "https://github.com/break-stuff/cem-tools/packages/expanded-types",
-    "keywords": [
+  "homepage": "https://github.com/break-stuff/cem-tools/blob/main/packages/expanded-types/README.md",
+  "bugs": {
+    "url": "https://github.com/break-stuff/cem-tools/issues"
+  },
+  "keywords": [
     "custom elements",
     "custom-elements",
     "custom elements manifest",
