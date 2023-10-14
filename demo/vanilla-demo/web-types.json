@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/web-types",
+  "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
   "name": "vanilla-demo",
   "version": "1.0.0",
   "description-markup": "markdown",
@@ -22,6 +22,13 @@
               "value": { "type": "boolean" }
             }
           ],
+          "slots": [
+            {
+              "name": "",
+              "description": "add text here to label your radio button"
+            }
+          ],
+          "events": [],
           "js": {
             "properties": [
               {
@@ -64,6 +71,30 @@
               "value": {
                 "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
               }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "add radio buttons to the `default` slot to create options to your radio group"
+            },
+            {
+              "name": "label",
+              "description": "placeholder for the radio group label"
+            }
+          ],
+          "events": [
+            {
+              "name": "custom-event",
+              "description": "some description for custom-event"
+            },
+            {
+              "name": "typed-event",
+              "description": "some description for typed-event"
+            },
+            {
+              "name": "typed-custom-event",
+              "description": "some description for typed-custom-event"
             }
           ],
           "js": {
