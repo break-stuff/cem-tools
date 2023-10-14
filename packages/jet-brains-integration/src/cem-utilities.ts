@@ -1,5 +1,12 @@
-import type { Component } from "../../../tools/cem-utils";
-import type { WebTypeAttribute, WebTypeCssProperty, WebTypePseudoElement } from "./types";
+import {
+  getAttributeValueOptions,
+  type Component,
+} from "../../../tools/cem-utils";
+import type {
+  WebTypeAttribute,
+  WebTypeCssProperty,
+  WebTypePseudoElement,
+} from "./types";
 
 export function getCssPropertyList(
   components: Component[]
@@ -47,7 +54,7 @@ function getCssNameValue(value: string) {
   return !value ? "" : value.startsWith("--") ? `var(${value})` : value;
 }
 
-export function getComponentAttributes(component: Component) {
+export function getComponentAttributes(component: Component, typeSrc = 'type') {
   const attributes: WebTypeAttribute[] = [];
   component?.attributes?.forEach((attr) => {
     const existingAttr = attributes.find(
@@ -61,7 +68,8 @@ export function getComponentAttributes(component: Component) {
       name: attr.name || attr.fieldName,
       description: attr.description,
       value: {
-        type: attr.type?.text,
+        type: (attr as any)[`${typeSrc}`]?.text || attr.type?.text || 'string',
+        default: attr.default,
       },
     } as WebTypeAttribute);
   });
