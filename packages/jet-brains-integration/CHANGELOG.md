@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0
+
+- Add slot details
+- Add default values for attributes
+- Fix `typeSrc` reference
+
 ## 1.2.1
 
 - Add log with output path

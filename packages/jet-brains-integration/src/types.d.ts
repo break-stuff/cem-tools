@@ -35,11 +35,12 @@ export interface WebTypeElement {
 export interface WebTypeAttribute {
   name: string;
   description?: string;
+  default?: string;
   value: WebTypeValue;
 }
 
 export interface WebTypeValue {
-  type?: string;
+  type?: string | string[];
 }
 
 export interface JsProperties {

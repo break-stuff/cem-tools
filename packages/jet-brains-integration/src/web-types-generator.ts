@@ -48,7 +48,14 @@ export function getTagList(
       }${options.suffix}`,
       description: getComponentDetailsTemplate(component, options),
       ["doc-url"]: reference?.url || "",
-      attributes: getComponentAttributes(component),
+      attributes: getComponentAttributes(component, options.typesSrc),
+      slots: component.slots?.map((slot) => {
+        return {
+          name: slot.name,
+          description: slot.description,
+        };
+      }),
+      events: getWebTypeEvents(component),
       js: getJsProperties(component, options.typesSrc),
     };
   });
@@ -175,7 +182,7 @@ function getWebTypesFileContents(
   options: Options
 ) {
   return `{
-    "$schema": "https://json.schemastore.org/web-types",
+    "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
     "name": "${packageJson.name}",
     "version": "${packageJson.version}",
     "description-markup": "markdown",
