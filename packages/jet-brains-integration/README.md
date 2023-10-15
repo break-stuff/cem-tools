@@ -264,7 +264,7 @@ If no value is provided, the plugin will use the `summary` property and then fal
 
 ## Slot Documentation
 
-Slot information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `hideSlotDocs` to `true` in the config.
+Slot names for child elements of a component will be displayed as part of the autocomplete popup when using the `slot` attribute. Slot information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `hideSlotDocs` to `true` in the config.
 
 <!-- ![slot section of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/slots.png?raw=true) -->
 

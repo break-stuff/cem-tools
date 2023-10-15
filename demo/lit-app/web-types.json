@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/web-types",
+  "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
   "name": "lit-app",
   "version": "0.0.0",
   "description-markup": "markdown",
@@ -14,7 +14,7 @@
             {
               "name": "value",
               "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "value": { "type": "string" }
+              "value": { "type": "string", "default": "\"\"" }
             },
             {
               "name": "disabled",
@@ -24,32 +24,68 @@
             {
               "name": "size",
               "description": "This will control the size of the radio buttons",
-              "value": { "type": "'sm' | 'md' | 'lg' | 'xl'" }
+              "value": {
+                "type": "'sm' | 'md' | 'lg' | 'xl'",
+                "default": "'md'"
+              }
             },
             {
               "name": "variants",
               "description": "This is a test for internal options",
-              "value": { "type": "Variants" }
+              "value": {
+                "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'",
+                "default": "'primary'"
+              }
             },
             {
               "name": "external",
               "description": "This is a test for external d.ts options",
-              "value": { "type": "Test" }
+              "value": {
+                "type": "'value1' | 'value2' | 'value3'",
+                "default": "'value1'"
+              }
             },
             {
               "name": "external2",
               "description": "This is a test for external .ts options",
-              "value": { "type": "Test2" }
+              "value": {
+                "type": "'value4' | 'value5' | 'value6'",
+                "default": "'value4'"
+              }
             },
             {
               "name": "complex",
               "description": "This is a test for options from an object",
-              "value": { "type": "ComplexObjectType" }
+              "value": { "type": "'single' | 'multi'", "default": "'single'" }
             },
             {
               "name": "my-attribute",
               "description": "This is a camel-case attribute",
               "value": { "type": "string | undefined" }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "add radio buttons to the `default` slot to create options to your radio group"
+            },
+            {
+              "name": "label",
+              "description": "placeholder for the radio group label"
+            }
+          ],
+          "events": [
+            {
+              "name": "custom-event",
+              "description": "some description for custom-event"
+            },
+            {
+              "name": "typed-event",
+              "description": "some description for typed-event"
+            },
+            {
+              "name": "typed-custom-event",
+              "description": "some description for typed-custom-event"
             }
           ],
           "js": {
@@ -121,7 +157,7 @@
             {
               "name": "value",
               "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "value": { "type": "string" }
+              "value": { "type": "string", "default": "\"\"" }
             },
             {
               "name": "disabled",
@@ -131,9 +167,18 @@
             {
               "name": "target",
               "description": "A lookup type for example",
-              "value": { "type": "Target | undefined" }
+              "value": {
+                "type": "'_blank' | '_self' | '_parent' | '_top' | undefined"
+              }
             }
           ],
+          "slots": [
+            {
+              "name": "",
+              "description": "add text here to label your radio button"
+            }
+          ],
+          "events": [],
           "js": {
             "properties": [
               {
