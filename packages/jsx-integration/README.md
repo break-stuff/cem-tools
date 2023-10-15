@@ -114,6 +114,8 @@ declare module "my-app" {
 }
 ```
 
+> ***NOTE:*** Libraries will often have their own module names you will need to use when extending the `IntrinsicElements` interface. For example, Preact requires you to use the `"preact"` module name instead of `"my-app"` (`declare module "preact" {`).
+
 ## Configuration
 
 ### Output
