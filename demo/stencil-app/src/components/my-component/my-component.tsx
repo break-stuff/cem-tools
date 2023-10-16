@@ -1,6 +1,6 @@
 import { Component, Prop, h } from '@stencil/core';
 import { format } from '../../utils/utils';
-import '../../scoped-components';
+import '../../../scoped-components';
 
 @Component({
   tag: 'my-component',
@@ -29,10 +29,12 @@ export class MyComponent {
 
   render() {
     return (
-      <>
+      <div>
         <div>Hello, World! I'm {this.getText()}</div>
-        <radio-group></radio-group>
-      </>
+        <radio-group disabled variants='default'>
+          <radio-button value='1'>Option 1</radio-button>
+        </radio-group>
+      </div>
     );
   }
 }

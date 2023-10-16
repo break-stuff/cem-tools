@@ -1,8 +1,7 @@
-import type { CustomElements, ScopedElements } from "lit-app/solid-js";
+import type { CustomElements } from 'lit-app/custom-element-jsx';
 
-declare global {
+declare module '@stencil/core' {
   namespace JSX {
-    interface IntrinsicElements
-      extends CustomElements {}
+    interface IntrinsicElements extends CustomElements {}
   }
 }
