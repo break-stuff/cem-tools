@@ -151,7 +151,7 @@ describe("getTagList", () => {
   });
 });
 
-describe("getMethods", () => {
+describe("getComponentMethods", () => {
   test("given a component with 4 methods where 1 is private and 1 does not have a description, it should return 2 methods", () => {
     // Arrange
 
