@@ -112,3 +112,33 @@ export function getComponentMethods(
       member.description?.length
   ) as schema.ClassMethod[];
 }
+
+/**
+ * Gets a list of event names for a given component
+ * @param component The component you want to get the event types for
+ * @param excludedTypes Any types you want to exclude from the list
+ * @returns A string array of event types for a given component
+ */
+export function getCustomEventTypes(
+  component: Component,
+  excludedTypes?: string[]
+) {
+  const types = component.events
+    ?.map((e) => {
+      const eventType = e.type?.text
+        .replace("[]", "")
+        .replace(" | undefined", "");
+      return eventType &&
+        !excludedTypes?.includes(eventType) &&
+        !EXCLUDED_TYPES.includes(eventType) &&
+        !eventType.includes("<") &&
+        !eventType.includes(`{`) &&
+        !eventType.includes("'") &&
+        !eventType.includes(`"`)
+        ? eventType
+        : undefined;
+    })
+    .filter((e) => e !== undefined && !e?.startsWith("HTML"));
+
+  return types?.length ? [...new Set(types)].join(", ") : undefined;
+}

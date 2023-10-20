@@ -35,3 +35,13 @@ export function toPascalCase(value: string) {
     )
     .replace(new RegExp(/\w/), (s) => s.toUpperCase());
 }
+
+export function toCamelCase(value: string = "") {
+  const arr = value.split("-");
+  const capital = arr.map((item, index) =>
+    index
+      ? item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
+      : item.toLowerCase()
+  );
+  return capital.join("");
+}
