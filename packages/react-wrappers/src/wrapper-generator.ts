@@ -18,6 +18,7 @@ import {
   Component,
   getComponentMethods,
   getComponents,
+  getCustomEventTypes,
 } from "../../../tools/cem-utils/index.js";
 import type {
   Attribute,
@@ -38,7 +39,7 @@ export function generateReactWrappers(
 ) {
   updateConfig(options);
   const components = getComponents(customElementsManifest);
-  console.log('MODULE_PATH', config.modulePath, options.modulePath);
+  console.log("MODULE_PATH", config.modulePath, options.modulePath);
   createOutDir(config.outdir!);
   saveReactUtils(config.outdir!);
 
@@ -125,8 +126,18 @@ function generateTypeDefinition(
 }
 
 function generateManifests(components: Component[], outdir: string) {
-  saveFile(outdir, "index.js", getManifestContentTemplate(components), "typescript");
-  saveFile(outdir, "index.d.ts", getManifestContentTemplate(components), "typescript");
+  saveFile(
+    outdir,
+    "index.js",
+    getManifestContentTemplate(components),
+    "typescript"
+  );
+  saveFile(
+    outdir,
+    "index.d.ts",
+    getManifestContentTemplate(components),
+    "typescript"
+  );
 }
 
 function getProperties(
@@ -397,11 +408,13 @@ function getTypeDefinitionTemplate(
     properties
   );
   const methods = getMethods(component);
+  const eventTypes = getCustomEventTypes(component);
 
   return `
-    import { ${component.name} as ${
-    component.name
-  }Element } from '${modulePath}';
+    import { 
+      ${component.name} as ${component.name}Element
+      ${eventTypes?.length ? `, ${eventTypes}` : ""}
+    } from '${modulePath}';
 
     export type { ${component.name}Element };
     export type * from '${modulePath}';

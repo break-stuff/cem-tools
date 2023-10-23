@@ -4,13 +4,13 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/alt-types.ts",
+      "path": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/alt-types.ts",
       "declarations": [],
       "exports": []
     },
     {
       "kind": "javascript-module",
-      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts",
+      "path": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -307,7 +307,7 @@
           "name": "ComplexObject",
           "declaration": {
             "name": "ComplexObject",
-            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
+            "module": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
           }
         },
         {
@@ -315,14 +315,14 @@
           "name": "RadioGroup",
           "declaration": {
             "name": "RadioGroup",
-            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
+            "module": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts",
+      "path": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts",
       "declarations": [
         {
           "kind": "class",
@@ -415,7 +415,7 @@
           "name": "RadioButton",
           "declaration": {
             "name": "RadioButton",
-            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts"
+            "module": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts"
           }
         }
       ]
@@ -461,21 +461,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/radio-group/radio-group.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "radio-group",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "/src/radio-group/RadioGroup.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/radio-button/radio-button.ts",
       "declarations": [],
       "exports": [
@@ -485,6 +470,21 @@
           "declaration": {
             "name": "RadioButton",
             "module": "/src/radio-button/RadioButton.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio-group/radio-group.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "radio-group",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "/src/radio-group/RadioGroup.js"
           }
         }
       ]

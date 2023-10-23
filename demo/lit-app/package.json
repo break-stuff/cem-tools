@@ -3,6 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "analyze": "cem analyze",
     "dev": "vite",
@@ -20,7 +23,8 @@
     "cem-plugin-expanded-types": "*",
     "custom-element-solidjs-integration": "*",
     "custom-element-jsx-integration": "*",
-    "custom-element-react-wrappers": "*"
+    "custom-element-react-wrappers": "*",
+    "vite-plugin-dts": "^3.6.0"
   },
   "customElements": "custom-elements.json",
   "web-types": "./web-types.json"
