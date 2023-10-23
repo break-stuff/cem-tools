@@ -399,7 +399,6 @@ function getTypeDefinitionTemplate(
   modulePath: string,
   properties?: ClassField[]
 ) {
-  const params = getParams(booleanAttributes, attributes, properties, events);
   const props = getPropsInterface(
     component.name,
     booleanAttributes,
@@ -416,8 +415,10 @@ function getTypeDefinitionTemplate(
       ${eventTypes?.length ? `, ${eventTypes}` : ""}
     } from '${modulePath}';
 
-    export type { ${component.name}Element };
-    export type * from '${modulePath}';
+    export type { 
+      ${component.name}Element 
+      ${eventTypes?.length ? `, ${eventTypes}` : ""}  
+    };
     
     export interface ${component.name}Props { 
       ${props} 
