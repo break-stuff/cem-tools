@@ -3,6 +3,7 @@ import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integrat
 import { customElementSolidJsPlugin } from "custom-element-solidjs-integration";
 import { customElementJsxPlugin } from "custom-element-jsx-integration";
 import { getTsProgram, expandTypesPlugin } from "cem-plugin-expanded-types";
+import { customElementReactWrapperPlugin } from "custom-element-react-wrappers";
 
 export default {
   /** Globs to analyze */
@@ -38,6 +39,10 @@ export default {
     }),
     customElementJsxPlugin({
       componentTypePath: (name, tag) => `./types/${tag}/${name}.d.ts`
-    })
+    }),
+    customElementReactWrapperPlugin({
+      outdir: "./dist/react",
+      modulePath: () => `../index.js`,
+    }),
   ],
 };

@@ -151,5 +151,5 @@ export function useEventListener(targetElement, eventName, eventHandler) {
 
 `;
 
-  saveFile(outdir, "react-utils.js", reactUtils);
+  saveFile(outdir, "react-utils.js", reactUtils, "typescript");
 }

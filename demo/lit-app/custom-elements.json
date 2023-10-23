@@ -209,7 +209,8 @@
               },
               "default": "\"\"",
               "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "fieldName": "value"
+              "fieldName": "value",
+              "propName": "value"
             },
             {
               "name": "disabled",
@@ -217,7 +218,8 @@
                 "text": "boolean | undefined"
               },
               "description": "Disables the radio group and all of its radio buttons",
-              "fieldName": "disabled"
+              "fieldName": "disabled",
+              "propName": "disabled"
             },
             {
               "name": "size",
@@ -226,7 +228,8 @@
               },
               "default": "'md'",
               "description": "This will control the size of the radio buttons",
-              "fieldName": "size"
+              "fieldName": "size",
+              "propName": "size"
             },
             {
               "name": "variants",
@@ -238,7 +241,8 @@
               "fieldName": "variants",
               "expandedType": {
                 "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
-              }
+              },
+              "propName": "variants"
             },
             {
               "name": "external",
@@ -250,7 +254,8 @@
               "fieldName": "external",
               "expandedType": {
                 "text": "'value1' | 'value2' | 'value3'"
-              }
+              },
+              "propName": "external"
             },
             {
               "name": "external2",
@@ -262,7 +267,8 @@
               "fieldName": "external2",
               "expandedType": {
                 "text": "'value4' | 'value5' | 'value6'"
-              }
+              },
+              "propName": "external2"
             },
             {
               "name": "complex",
@@ -274,7 +280,8 @@
               "fieldName": "complex",
               "expandedType": {
                 "text": "'single' | 'multi'"
-              }
+              },
+              "propName": "complex"
             },
             {
               "name": "my-attribute",
@@ -282,7 +289,8 @@
                 "text": "string | undefined"
               },
               "description": "This is a camel-case attribute",
-              "fieldName": "myAttribute"
+              "fieldName": "myAttribute",
+              "propName": "myAttribute"
             }
           ],
           "superclass": {
@@ -367,7 +375,8 @@
               },
               "default": "\"\"",
               "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "fieldName": "value"
+              "fieldName": "value",
+              "propName": "value"
             },
             {
               "name": "disabled",
@@ -375,7 +384,8 @@
                 "text": "boolean | undefined"
               },
               "description": "Disables the radio button",
-              "fieldName": "disabled"
+              "fieldName": "disabled",
+              "propName": "disabled"
             },
             {
               "name": "target",
@@ -386,7 +396,8 @@
               "fieldName": "target",
               "expandedType": {
                 "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
-              }
+              },
+              "propName": "target"
             }
           ],
           "superclass": {

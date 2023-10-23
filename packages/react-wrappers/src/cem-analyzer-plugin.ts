@@ -1,16 +1,14 @@
-import { generateJsxTypes } from "./type-generator";
+import { generateReactWrappers } from "./wrapper-generator";
 import type { Options, Params } from "./types";
 import { logGreen } from "../../../tools/integrations";
 
-export function customElementJsxPlugin(options: Options = {}) {
+export function customElementReactWrapperPlugin(options: Options = {}) {
   return {
-    name: "custom-element-jsx-integration",
+    name: "custom-element-react-wrappers",
     packageLinkPhase({ customElementsManifest }: Params) {
-      console.log(
-        "[jsx-type-generator] - Generating types..."
-      );
-      generateJsxTypes(customElementsManifest, options);
-      logGreen("[jsx-type-generator] - Type generation complete.");
+      console.log("[react-wrappers] - Generating wrappers...");
+      generateReactWrappers(customElementsManifest, options);
+      logGreen("[react-wrappers] - Wrapper generation complete.");
     },
   };
 }

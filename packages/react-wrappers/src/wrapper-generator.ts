@@ -4,8 +4,7 @@ import {
   MappedAttribute,
   ComponentAttributes,
   Options,
-} from "./types";
-
+} from "./types.js";
 import {
   RESERVED_WORDS,
   createEventName,
@@ -13,15 +12,13 @@ import {
   getPackageJson,
   saveReactUtils,
 } from "./utils.js";
-
-import { createOutDir, logBlue, saveFile } from "../../../tools/integrations";
+import { createOutDir, saveFile } from "../../../tools/integrations/index.js";
 import {
   CEM,
   Component,
   getComponentMethods,
   getComponents,
 } from "../../../tools/cem-utils/index.js";
-
 import type {
   Attribute,
   CssCustomProperty,
@@ -33,53 +30,18 @@ import type {
 import { has, toCamelCase } from "../../../tools/utilities/index.js";
 
 const packageJson = getPackageJson();
-let config: Options = {};
+const config: Options = {};
 
-export default function reactWrapper({
-  exclude = [],
-  attributeMapping = {},
-  outdir = "react",
-  modulePath,
-  descriptionSrc,
-  hideSlotDocs = false,
-  hideEventDocs = false,
-  hideMethodDocs = false,
-  hideCssPropertiesDocs = false,
-  hideCssPartsDocs = false,
-  labels = {},
-  typesSrc = "types",
-}: Options = {}) {
-  return {
-    name: "cem-plugin-react-wrapper",
-    packageLinkPhase(params: any) {
-      console.log("[react-wrapper] - Generating React Wrappers");
-
-      config = {
-        exclude,
-        attributeMapping,
-        outdir,
-        modulePath,
-        descriptionSrc,
-        hideSlotDocs,
-        hideEventDocs,
-        hideMethodDocs,
-        hideCssPartsDocs,
-        hideCssPropertiesDocs,
-        labels,
-        typesSrc,
-      };
-
-      createOutDir(outdir);
-      saveReactUtils(outdir);
-      createWrappers(params.customElementsManifest);
-
-      logBlue("[react-wrapper] - Successfully Generated React Wrappers");
-    },
-  };
-}
-
-function createWrappers(customElementsManifest: CEM) {
+export function generateReactWrappers(
+  customElementsManifest: CEM,
+  options: Options
+) {
+  updateConfig(options);
   const components = getComponents(customElementsManifest);
+  console.log('MODULE_PATH', config.modulePath, options.modulePath);
+  createOutDir(config.outdir!);
+  saveReactUtils(config.outdir!);
+
   components.forEach((component) => {
     const events = [...getEventNames(component), ...baseEvents];
     const { booleanAttributes, attributes } = getAttributes(component);
@@ -113,6 +75,15 @@ function createWrappers(customElementsManifest: CEM) {
   generateManifests(components, config.outdir!);
 }
 
+function updateConfig(options: Options) {
+  config.outdir = options.outdir || "./react";
+  config.exclude = options.exclude || [];
+  config.prefix = options.prefix || "";
+  config.suffix = options.suffix || "";
+  config.typesSrc = options.typesSrc || "types";
+  config.modulePath = options.modulePath;
+}
+
 function generateReactWrapper(
   component: Component,
   events: EventName[],
@@ -130,7 +101,7 @@ function generateReactWrapper(
     properties
   );
 
-  saveFile(config.outdir!, `${component.name}.js`, result);
+  saveFile(config.outdir!, `${component.name}.js`, result, "typescript");
 }
 
 function generateTypeDefinition(
@@ -150,12 +121,12 @@ function generateTypeDefinition(
     properties
   );
 
-  saveFile(config.outdir!, `${component.name}.d.ts`, result);
+  saveFile(config.outdir!, `${component.name}.d.ts`, result, "typescript");
 }
 
 function generateManifests(components: Component[], outdir: string) {
-  saveFile(outdir, "index.js", getManifestContentTemplate(components));
-  saveFile(outdir, "index.d.ts", getManifestContentTemplate(components));
+  saveFile(outdir, "index.js", getManifestContentTemplate(components), "typescript");
+  saveFile(outdir, "index.d.ts", getManifestContentTemplate(components), "typescript");
 }
 
 function getProperties(
@@ -239,8 +210,8 @@ function getParams(
 ) {
   return [
     ...[...booleanAttributes, ...attributes].map((attr) => attr.propName),
-    ...properties?.map((prop) => prop.name),
-    ...eventNames?.map((event) => event.reactName),
+    ...(properties?.map((prop) => prop.name) || []),
+    ...(eventNames?.map((event) => event.reactName) || []),
   ]?.join(", ");
 }
 
@@ -439,12 +410,6 @@ function getTypeDefinitionTemplate(
       ${props} 
     }
 
-    declare module "react" {
-      interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T>, ${
-        component.name
-      }Props {
-      }
-    }
     /** 
      ${getComponentDescription(component)} 
      *
@@ -574,13 +539,13 @@ function getPropsInterface(
   properties?: ClassField[]
 ) {
   return [
-    ...(booleanAttributes || []).map(
+    ...(booleanAttributes?.map(
       (attr) => `
         /** ${attr.description} */
         ${attr?.propName}?: ${attr?.type?.text || "boolean"};
       `
-    ),
-    ...(attributes || []).map(
+    ) || []),
+    ...((attributes || []).map(
       (attr) => `
         /** ${attr.description} */
         ${attr.propName}?: ${
@@ -594,8 +559,8 @@ function getPropsInterface(
             }`
       };
       `
-    ),
-    ...(properties || []).map(
+    ) || []),
+    ...(properties?.map(
       (prop) => `
       /** ${prop.description} */
       ${prop.name}?: ${
@@ -604,8 +569,8 @@ function getPropsInterface(
           : `${componentName}Element['${prop.name}']`
       };
     `
-    ),
-    ...events?.map(
+    ) || []),
+    ...(events?.map(
       (event) => `
         /** ${event.description} */
         ${event.reactName}?: (event: ${getEventType(
@@ -613,7 +578,7 @@ function getPropsInterface(
         event.custom
       )}) => void;
       `
-    ),
+    ) || []),
     `
     /** Used to help React identify which items have changed, are added, or are removed within a list. */ 
     key?: string | number;
