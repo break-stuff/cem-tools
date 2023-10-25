@@ -78,17 +78,17 @@ function getExpandedType(fileName: string, typeName: string): string {
 
 function getUnionTypes(fileName: string, typeName: string) {
   const parts = typeName
-    .split("|")
+    ?.split("|")
     .map((part) => part.trim())
     .filter((part) => part.length > 0);
-  return parts.map((part) => getExpandedType(fileName, part)).join(" | ");
+  return parts?.map((part) => getExpandedType(fileName, part)).join(" | ") || '';
 }
 
 function getObjectTypes(fileName: string, typeName: string) {
   const parts = [
     ...new Set(
       typeName
-        .split(/[:{}]/)
+        ?.split(/[:{}]/)
         .map((part) => part.trim())
         .filter((part) => part.length > 0)
     ),
@@ -133,7 +133,7 @@ function setEnumTypes(node: any) {
   const name = node.name.escapedText;
   const shortText = node.members
     ?.map((mem: any) => mem.initializer?.text)
-    .join(" | ");
+    .join(" | ") || '';
 
   aliasTypes[currentFilename][name] = shortText;
 }
@@ -141,11 +141,11 @@ function setEnumTypes(node: any) {
 function setBasicUnionTypes(node: any) {
   const name = node.name?.escapedText;
   const unionTypes = node?.type?.types
-    .map((type: any) => {
+    ?.map((type: any) => {
       const value = type?.literal?.text;
       return typeof value === "string" ? `'${value}'` : value;
     })
-    .join(" | ");
+    .join(" | ") || '';
   aliasTypes[currentFilename][name] = unionTypes;
 }
 
@@ -155,10 +155,10 @@ function setComplexUnionTypes(node: any) {
     typeChecker.getSymbolAtLocation(node.name)
   );
   const unionTypes = resolvedTypes.types
-    .map((type: any) =>
+    ?.map((type: any) =>
       typeof type.value === "string" ? `'${type.value}'` : type.value
     )
-    .join(" | ");
+    .join(" | ") || '';
 
   aliasTypes[currentFilename][name] = unionTypes;
 }
