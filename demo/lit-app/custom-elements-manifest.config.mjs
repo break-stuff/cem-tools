@@ -35,10 +35,10 @@ export default {
     customElementJetBrainsPlugin({ typesSrc: "expandedType" }),
     customElementSolidJsPlugin({
       // globalTypePath: "./types"
-      componentTypePath: (name, tag) => `./types/${tag}/${name}.d.ts`
+      componentTypePath: (name, tag) => `./dist/${tag}/${name}.d.ts`
     }),
     customElementJsxPlugin({
-      componentTypePath: (name, tag) => `./types/${tag}/${name}.d.ts`
+      componentTypePath: (name, tag) => `./dist/${tag}/${name}.d.ts`
     }),
     customElementReactWrapperPlugin({
       outdir: "./dist/react",

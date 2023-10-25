@@ -322,7 +322,7 @@ function getReactComponentTemplate(
       ${has(eventTemplates) ? "useEventListener," : ""} 
       ${has(propTemplates) ? "useProperties" : ""}
     } from './react-utils.js';
-    import '${modulePath}';
+    import { ${component.name} as ${component.name}Element } from '${modulePath}';
 
     export const ${component.name} = forwardRef(({children${
     params ? "," : ""
@@ -374,7 +374,7 @@ function getReactComponentTemplate(
       }));
 
       return React.createElement(
-        "${component.tagName}",
+        ${component.name}Element.customTag || "${component.tagName}",
         { 
           ${useEffect ? "ref," : ""} 
           ${attributes

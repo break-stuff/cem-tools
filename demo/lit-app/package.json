@@ -9,7 +9,7 @@
   "scripts": {
     "analyze": "cem analyze",
     "dev": "tsc",
-    "build": "tsc",
+    "build": "tsc && cp src/radio-group/types.d.ts dist/radio-group/types.d.ts || copy src/radio-group/types.d.ts dist/radio-group/types.d.ts",
     "preview": "vite preview"
   },
   "dependencies": {
