@@ -565,12 +565,7 @@ function getPropsInterface(
         ${attr.propName}?: ${
         baseProperties.some((base) => base.propName === attr.propName)
           ? attr.type?.text || "string"
-          : `${componentName}Element['${attr.propName}'] ${
-              !attr.type?.text.includes("string") &&
-              !attr.type?.text.includes("'")
-                ? " | string"
-                : ""
-            }`
+          : `${componentName}Element['${attr.propName}']`
       };
       `
     ) || []),
