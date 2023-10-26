@@ -189,7 +189,7 @@ function getAttributes(component: Component): ComponentAttributes {
     /** Handle reserved keyword attributes */
     if (RESERVED_WORDS.includes(attr?.name)) {
       /** If we have a user-specified mapping, rename */
-      if (attr.name in config.attributeMapping!) {
+      if (attr.name in config.attributeMapping) {
         const attribute = getMappedAttribute(attr);
         addAttribute(attribute, result);
         return;
@@ -260,7 +260,7 @@ function getMappedAttribute(attr: Attribute): MappedAttribute {
   return {
     ...attr,
     originalName: attr.name,
-    name: config.attributeMapping![attr.name],
+    name: config.attributeMapping?.[attr.name],
   };
 }
 
