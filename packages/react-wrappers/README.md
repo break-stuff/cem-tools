@@ -1,11 +1,16 @@
-# Custom Elements JSX Integration
+# Custom Element React Wrapper
 
-This package is designed to generate types for your custom elements in a project using [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html). These types will generate inline documentation, autocomplete, and type-safe validation for your custom elements in non-react frameworks that use JSX like [Preact](https://preactjs.com/) and [StencilJS](https://stenciljs.com/).
+Make your web components React compatible!
 
-> ***NOTE:*** THIS IS FOR NON-REACT PROJECTS THAT USE JSX/TSX TEMPLATES
+- No manual event mapping
+- Automatically generates types for your components and props
+- Provides editor autocomplete features and documentation
+- Configurable
+- Very easy to set up and use
 
-![demo of autocomplete features for custom elements in a solidjs project](https://github.com/break-stuff/cem-tools/blob/main/demo/images/solid-js-integration/solid-js-integration.gif?raw=true)
+![an animated image of the autocomplete functionality in vs code](https://github.com/break-stuff/cem-plugin-react-wrapper/blob/master/demo/images/demo.gif?raw=true)
 
+---
 
 ## Usage
 
@@ -17,18 +22,18 @@ This package includes two ways to generate the custom data config file:
 ### Install
 
 ```bash
-npm i -D custom-element-jsx-integration
+npm i -D custom-element-react-wrappers
 ```
 
 ### Build Pipeline
 
 ```js
-import { generateJsxTypes } from "custom-element-jsx-integration";
+import { generateReactWrappers } from "custom-element-react-wrappers";
 import manifest from "./path/to/custom-elements.json";
 
 const options = {...};
 
-generateJsxTypes(manifest, options);
+generateReactWrappers(manifest, options);
 ```
 
 ### CEM Analyzer
@@ -45,15 +50,27 @@ Ensure the following steps have been taken in your component library prior to us
 ```js
 // custom-elements-manifest.config.js
 
-import { customElementJsxPlugin } from "custom-element-jsx-integration";
+import { customElementReactWrapperPlugin } from "custom-element-react-wrappers";
 
 const options = {...};
 
 export default {
   plugins: [
-    customElementJsxPlugin(options)
+    customElementReactWrapperPlugin(options)
   ],
 };
+```
+
+Once you run the analyzer, you should see a new directory (the default directory name is `react`) with the component wrappers and their types!
+
+You should now be able to start using your "react" components or deploy them with your component library for others to enjoy.
+
+```js
+import { MyElement, MyOtherElement } from "./react";
+
+// or
+
+import { MyElement, MyOtherElement } from "my-component-library/react";
 ```
 
 ## Configuration
@@ -62,14 +79,18 @@ The configuration has the following optional parameters:
 
 ```ts
 {
+  /** Used to get a specific path for a given component */
+  modulePath?: (className: string, tagName: string) => string;
+  /** Used to provide alternative property name to prevent name collisions with React */
+  attributeMapping?: { [key: string]: string };
+  /** Used to add global element props to all component types */
+  globalEvents?: string;
   /** Path to output directory */
   outdir?: string;
-  /** File name for the types */
-  fileName?: string | null;
   /** Class names of any components you would like to exclude from the custom data */
   exclude?: string[];
   /** The property name from the component object that you would like to use for the description of your component */
-  descriptionSrc?: "description" | "summary" | string;
+  descriptionSrc?: "description" | "summary";
   /** Displays the slot section of the element description */
   hideSlotDocs?: boolean;
   /** Displays the event section of the element description */
@@ -88,47 +109,110 @@ The configuration has the following optional parameters:
     cssParts?: string;
     methods?: string;
   };
-  /** Used to get type reference for components from a single source */
-  globalTypePath?: string;
-  /** Used to get types from specific path for a given component */
-  componentTypePath?: (name: string, tag?: string) => string;
-  /** The property form your CEM component object to display your types */
-  typesSrc?: string;
-  /** Used to add global element props to all component types */
-  globalEvents?: string;
 }
 ```
 
-## Implementation
+```js
+// custom-elements-manifest.config.js
 
-In order for teams to take advantage of this, all they need to do is import the types in their project and extend JSX's `IntrinsicElements`. They should immediately begin seeing the type support for your components in the editor.
+import { reactWrapper } from "cem-react-wrapper";
 
-```ts
-// custom-elements-types.d.ts
-import type { CustomElements } from "path/to/jsx-types";
+export default {
+  plugins: [
+    reactWrapper({
+      /** Provide an attribute mapping to avoid collisions with JS/React reserved keywords */
+      attributeMapping: {
+        for: "_for",
+      },
 
-declare module "my-app" {
-  namespace JSX {
-    interface IntrinsicElements extends CustomElements {}
-  }
-}
+      /** Array of class names to exclude */
+      exclude: ["MyBaseElement"],
+
+      /** Specify the path where the component module is defined */
+      modulePath: (className, tagName) => `../dist/${tagName}/${className}.js`,
+
+      /** Output directory to write the React wrappers to - default is "react" */
+      outdir: `dist/react`,
+
+      /** The property name from the component object constructed by the CEM Analyzer */
+      descriptionSrc: 'description',
+    }),
+  ],
+};
 ```
 
-> ***NOTE:*** Libraries will often have their own module names you will need to use when extending the `IntrinsicElements` interface. For example, Preact requires you to use the `"preact"` module name instead of `"my-app"` (`declare module "preact"`) and StencilJS uses "@stencil/core" (`declare module "@stencil/core"`).
+### Attribute Mapping
 
-## Configuration
+React components operate as JavaScript functions and because of that, there are a number of reserved words in React and JavaScript that will cause problems if they are used in React components. To prevent this from happening, the `attributeMapping` object allows you to create alternate names for attributes to prevent naming collisions. The attribute for your component will remain the same, but the React component will take advantage of these alternate names to prevent issues.
 
-### Output
-
-You can configure the destination and the file name of the generated type file using the `outdir` and `fileName` configuration.
-
-```ts
+```js
 {
-  /** Path to output directory */
-  outdir: 'dist',
-  /** File name for the types */
-  fileName: 'jsx-integration.d.ts'
+  attributeMapping: {
+    for: "_for",
+    goto: "go_to"
+  },
 }
+```
+
+```jsx
+<MyElement _for={"Some Value"} />
+```
+
+### Exclude
+
+Many component libraries contain internal components and base classes used to help construct other components. These may not necessarily need their own wrapper. If that's the case, they can be excluded from the process using the `exclude` property. Pass an array fo the class names you would like to exclude and they will be skipped.
+
+```js
+{
+  exclude: ["MyInternalElement", "MyBaseClass"];
+}
+```
+
+### Module Path
+
+This setting is used to determine where to pull the pull the logic for the custom element. If nothing is defined, it will try to use the `module` property defined in the `package.json`, otherwise it will throw an error.
+
+This configuration accepts a `function` with the component's class name and tag name as parameters. This should provide flexibility in identifying file locations.
+
+> **_Note:_** _These paths are relative to the React wrapper output directory._
+
+```js
+{
+  modulePath: (className, tagName) => `../dist/${tagName}/${className}.js`,
+}
+```
+
+If there is only a single entry point, a simple string with the path referenced can be returned.
+
+```js
+{
+  modulePath: () => `../../index.js`,
+}
+```
+
+Advanced logic can also be abstracted.
+
+```js
+{
+  modulePath: (className, tagName) => getMyComponentPath(className, tagName),
+}
+```
+
+### Output Directory
+
+The `outdir` configuration identifies where the wrappers will be added. The default directory is called `react` and added at the root of your project.
+
+In addition to the wrappers, a manifest file (`index.js`) to provide a single point of entry to access the components.
+
+```js
+import { MyElement, MyOtherElement } from "./react";
+```
+
+Components can also be accessed directly from each component file.
+
+```js
+import { MyElement } from "./react/MyElement.js";
+import { MyOtherElement } from "./react/MyOtherElement.js";
 ```
 
 ### Descriptions
@@ -137,7 +221,7 @@ Using the `descriptionSrc` configuration, you can determine the source of the te
 
 If no value is provided, the plugin will use the `summary` property and then fall back to the `description` property if a summary is not available.
 
-![description section of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/description.png?raw=true)
+![description section of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-react-wrapper/blob/master/demo/images/description.png?raw=true)
 
 **Note:** _Descriptions support multiple lines by breaking the comment up into multiple lines whereas summaries do not and will need to be manually added using `\n`._
 
@@ -150,12 +234,12 @@ If no value is provided, the plugin will use the `summary` property and then fal
  *
  * Use it like this:
  * ```html
- * <radio-group value="2" size="3">
+ * <RadioGroup value="2" size={3}>
  *   <span slot="label">My Label</span>
- *   <radio-button value="1">Option 1</radio-button>
- *   <radio-button value="2">Option 2</radio-button>
- *   <radio-button value="3">Option 3</radio-button>
- * </radio-group>
+ *   <Radio value="1">Option 1</Radio>
+ *   <Radio value="2">Option 2</Radio>
+ *   <Radio value="3">Option 3</Radio>
+ * </RadioGroup>
  * ```
  *
  */
@@ -166,205 +250,116 @@ If no value is provided, the plugin will use the `summary` property and then fal
 
 /**
  *
- * @summary Radios buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\n\nUse it like this:\n```html\n<radio-button value="1" disabled>Your label</radio-button>\n```
+ * @summary Radios buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\n\nUse it like this:\n```html\n<Radio value="1" disabled>Your label</Radio>\n```
  *
  * /
 ````
 
-### Contextual Information
+## Attributes and Properties
 
-The contextual information provided when hovering over the custom element can be configured using the `hideSlotDocs`, `hideEventDocs`, `hideCssPropertiesDocs`, `hideCssPartsDocs`, as well as the `hideMethodDocs`. The headings for each of the sections can also be configured using the `labels` option.
+All attributes and public property names (with the exception of those that were mapped using the `attributeMapping` config) are converted to camel-case properties on the React component.
 
-### Types
+```jsx
+<MyCheckbox myLabel={"My Checkbox"} />
+```
 
-If your components were built using TypeScript, you should define a path to your type declarations to pass that type-safety on to the JSX project.
+Additionally, complex objects can also be passed as properties as well.
 
-> _***NOTE:*** All type paths should be relative to the location specified in the `outdir` option._
+```jsx
+<MyTodoList items={["Wash car", "Pay bills", "Deploy code"]} />
+```
 
-If your types are rolled up into a single type declaration file, you can set the `globalTypePath` option to the location of that file.
+## Slots
 
-```ts
-{
-  globalTypePath: ".dist/types.d.ts"
+Slotted items get passed to the component slot using the `children` property under the hood and should behave like normal slots.
+
+```jsx
+<MySelect>
+  <span slot="label">My Label</span>
+  <MyOption>Option 1</MyOption>
+  <MyOption>Option 2</MyOption>
+  <MyOption>Option 3</MyOption>
+</MySelect>
+```
+
+Slot information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `slotDocs` to `false` in the config.
+
+![slot section of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-react-wrapper/blob/master/demo/images/slots.png?raw=true)
+
+## Events
+
+Event names are converted to camel-case names prefixed with `on`. For example, an event named `my-change` will be converted to `onMyChange`.
+
+```jsx
+<MySelect onMyChange={handleMyChange} />
+```
+
+Event information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `hideSlotEvents` to `true` in the config.
+
+![events section of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-react-wrapper/blob/master/demo/images/events.png?raw=true)
+
+## CSS
+
+Component-specific [CSS Properties](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties) and [CSS Parts](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) are included in the component documentation. These can be hidden using the `hideCssPropertiesDocs` and `hideCssPartsDocs` configuration options respectively.
+
+![css properties and css parts sections of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-react-wrapper/blob/master/demo/images/css.png?raw=true)
+
+## TypeScript Support
+
+There are a few important things to keep in mind when using types in your new React-wrapped components.
+
+### Component Type
+
+Your component wrappers will likely have the same name as the class used to declare the custom element. In order to prevent name collisions, references to your to the web component will be suffixed with `Element` - (example - `MySwitch` -> `MySwitchElement`). This is useful if you want to provide types and autocomplete when using `refs` with your components.
+
+```tsx
+import React, { useRef } from "react";
+import { MySwitch, MySwitchElement } from "../components/react";
+
+export default () => {
+  const switchRef = useRef<MySwitchElement>(null);
+
+  const handleClick = () => {
+    switchRef.current?.toggle();
+  };
+
+  return (
+    <>
+      <button onClick={handleClick}>Toggle</button>
+      <MySwitch ref={switchRef} />
+    </>
+  );
+};
+```
+
+This is also important when referencing an element from the event target.
+
+```tsx
+import { MyInput, MyInputElement, MyInputChangeEvent } from "../components/react";
+
+export default () => {
+  // If your events have a `details` payload, be sure to provide types and export them. They will be included in the wrapper types.
+  const handleChange = (e: CustomEvent<MyInputChangeEvent>) => {
+    const value = (e.target as MyInputElement).value;
+    ...
+  };
+
+  return <MyInput onChange={handleChange} />;
 }
 ```
 
-If each of the component type definitions are split out by each component, you can use the `componentTypePath` to reference individual component paths.
+### Prop Types
 
-```ts
-{
-  componentTypePath: (name, tag) => `./types/${tag}/${name}.d.ts`
-}
+Each React component will provide types for the component properties using the component name suffixed with `Props` (example - `MyButton` -> `MyButtonProps`). This will automatically be applied to the component to provide editor autocomplete and type-safety, but there may be times where you need access to the types of those properties. The example below shows how you can import the prop types to provide relevant types to your state management and other values in your components.
+
+```tsx
+import { MyButton, MyButtonProps } from "../components/react";
+
+export default () => {
+  // Now TypeScript will only allow valid variants to be set using `setButtonVariant` and the `variant` prop will identify `buttonVariant` as a valid variable type.
+  const [buttonVariant, setButtonVariant] =
+    useState<MyButtonProps["variant"]>("primary");
+
+  return <MyButton variant={buttonVariant}>Button</MyButton>;
+};
 ```
-
-> _***NOTE:*** It's important to note that if a type path is not provided, the generator will fall back to the type defined in the Custom Elements Manifest._
-
-#### Custom Types
-
-If you have custom types configured in your Custom Elements Manifest and do not have types or are unable to use them, you can specify the property name of that type using the `typeSrc` option.
-
-### Adding Events
-
-By default the types will be mapped with the attributes, properties, and custom events that have been documented for it. There are, however the native events that are available to them because they are HTML elements. If you would like to add the events to your types, you can assign them to the `globalEvents` option and they will be included in your component's type.
-
-```ts
-{
-  globalEvents: `
-  // Mouse Events
-
-  /** Triggered when the element is clicked by the user by mouse or keyboard. */
-  onClick?: (event: MouseEvent) => void;
-
-  // Keyboard Events
-
-  /** Fired when a key is pressed down. */
-  onKeyDown?: (event: KeyboardEvent) => void;
-  /** Fired when a key is released.. */
-  onKeyUp?: (event: KeyboardEvent) => void;
-  /** Fired when a key is pressed down. */
-  onKeyPressed?: (event: KeyboardEvent) => void;
-
-  // Focus Events
-
-  /** Fired when the element receives focus, often triggered by tab navigation. */
-  onFocus?: (event: FocusEvent) => void;
-  /** Fired when the element loses focus. */
-  onBlur?: (event: FocusEvent) => void;
-  `
-}
-```
-
-> _***NOTE:*** It is not required, but highly recommended that you include descriptions for these events as code editors will often provide that information._
-
-#### Native Events Template
-
-Here is a list of some popular native events that are pre-configured for SolidJS. This list is not exhaustive and can be modified to meet your needs.
-
-```ts
-// Mouse Events
-
-/** Triggered when the element is clicked by the user by mouse or keyboard. */
-onClick?: (event: MouseEvent) => void;
-/** Fired when the context menu is triggered, often by right-clicking. */
-onContextMenu?: (event: MouseEvent) => void;
-/** Fired when the element is double-clicked. */
-onDoubleClick?: (event: MouseEvent) => void;
-/** Fired repeatedly as the draggable element is being dragged. */
-onDrag?: (event: DragEvent) => void;
-/** Fired when the dragging of a draggable element is finished. */
-onDragEnd?: (event: DragEvent) => void;
-/** Fired when a dragged element or text selection enters a valid drop target. */
-onDragEnter?: (event: DragEvent) => void;
-/** Fired when a dragged element or text selection leaves a valid drop target. */
-onDragExit?: (event: DragEvent) => void;
-/** Fired when a dragged element or text selection leaves a valid drop target. */
-onDragLeave?: (event: DragEvent) => void;
-/** Fired when an element or text selection is being dragged over a valid drop target (every few hundred milliseconds). */
-onDragOver?: (event: DragEvent) => void;
-/** Fired when a draggable element starts being dragged. */
-onDragStart?: (event: DragEvent) => void;
-/** Fired when a dragged element is dropped onto a drop target. */
-onDrop?: (event: DragEvent) => void;
-/** Fired when a mouse button is pressed down on the element. */
-onMouseDown?: (event: MouseEvent) => void;
-/** Fired when the mouse cursor enters the element. */
-onMouseEnter?: (event: MouseEvent) => void;
-/** Triggered when the mouse cursor leaves the element. */
-onMouseLeave?: (event: MouseEvent) => void;
-/** Fired at an element when a pointing device (usually a mouse) is moved while the cursor's hotspot is inside it. */
-onMouseMove?: (event: MouseEvent) => void;
-/** Fired at an Element when a pointing device (usually a mouse) is used to move the cursor so that it is no longer contained within the element or one of its children. */
-onMouseOut?: (event: MouseEvent) => void;
-/** Fired at an Element when a pointing device (such as a mouse or trackpad) is used to move the cursor onto the element or one of its child elements. */
-onMouseOver?: (event: MouseEvent) => void;
-/** Fired when a mouse button is released on the element. */
-onMouseUp?: (event: MouseEvent) => void;
-
-// Keyboard Events
-
-/** Fired when a key is pressed down. */
-onKeyDown?: (event: KeyboardEvent) => void;
-/** Fired when a key is released.. */
-onKeyUp?: (event: KeyboardEvent) => void;
-/** Fired when a key is pressed down. */
-onKeyPressed?: (event: KeyboardEvent) => void;
-
-// Focus Events
-
-/** Fired when the element receives focus, often triggered by tab navigation. */
-onFocus?: (event: FocusEvent) => void;
-/** Fired when the element loses focus. */
-onBlur?: (event: FocusEvent) => void;
-
-// Form Events
-
-/** Fired when the value of an input element changes, such as with text inputs or select elements. */
-onChange?: (event: Event) => void;
-/** Fires when the value of an <input>, <select>, or <textarea> element has been changed. */
-onInput?: (event: Event) => void;
-/** Fired when a form is submitted, usually on pressing Enter in a text input. */
-onSubmit?: (event: Event) => void;
-/** Fired when a form is reset. */
-onReset?: (event: Event) => void;
-
-// UI Events
-
-/** Fired when the content of an element is scrolled. */
-onScroll?: (event: UIEvent) => void;
-
-// Wheel Events
-
-/** Fired when the mouse wheel is scrolled while the element is focused. */
-onWheel?: (event: WheelEvent) => void;
-
-// Animation Events
-
-/** Fired when a CSS animation starts. */
-onAnimationStart?: (event: AnimationEvent) => void;
-/** Fired when a CSS animation completes. */
-onAnimationEnd?: (event: AnimationEvent) => void;
-/** Fired when a CSS animation completes one iteration. */
-onAnimationIteration?: (event: AnimationEvent) => void;
-
-// Transition Events
-
-/** Fired when a CSS transition has completed. */
-onTransitionEnd?: (event: TransitionEvent) => void;
-
-// Media Events
-
-/** Fired when an element (usually an image) finishes loading */
-onLoad?: (event: Event) => void;
-/** Fired when an error occurs during the loading of an element, like an image not being found. */
-onError?: (event: Event) => void;
-
-// Clipboard Events
-
-/** Fires when the user initiates a copy action through the browser's user interface. */
-onCopy?: (event: ClipboardEvent) => void;
-/** Fired when the user has initiated a "cut" action through the browser's user interface. */
-onCut?: (event: ClipboardEvent) => void;
-/** Fired when the user has initiated a "paste" action through the browser's user interface. */
-onPaste?: (event: ClipboardEvent) => void;
-
-// ... Add more events as needed
-```
-
-## Scoping Types
-
-If you are scoping your component tags using a custom prefix or suffix, you can use the `ScopedElements` utility type to provide types for those elements without having to generate new custom types.
-
-```ts
-// scoped-types.d.ts
-
-import type { ScopedElements } from "path/to/jsx-types";
-
-declare module "my-app" {
-  namespace JSX {
-    interface IntrinsicElements
-      extends ScopedElements<'prefix-', '-suffix'> {}
-  }
-}
-```
-
-> _***NOTE:*** The scoped types will lose the contextual information when hovering over the tag in the editor._
