@@ -1,4 +1,4 @@
-import { MappedAttribute } from "./types";
+import { GlobalEvent, MappedAttribute } from "./types";
 
 export const baseProperties: MappedAttribute[] = [
   {
@@ -37,15 +37,36 @@ export const baseProperties: MappedAttribute[] = [
       text: "boolean",
     },
   },
+  {
+    name: "key",
+    propName: "key",
+    description: "Used to help React identify which items have changed, are added, or are removed within a list.",
+    type: {
+      text: "boolean",
+    },
+  },
+    {
+    name: "children",
+    propName: "children",
+    description: "Content between the opening and closing component tags.",
+    type: {
+      text: "any",
+    },
+  },
+    {
+    name: "ref",
+    propName: "ref",
+    description: "A mutable ref object whose `.current` property is initialized to the passed argument (`initialValue`). The returned object will persist for the full lifetime of the component.",
+    type: {
+      text: "any",
+    },
+  },
 ];
 
-export const baseEvents = [
+export const baseEvents: GlobalEvent[] = [
   {
-    name: "click",
-    description:
-      "A pointing device button has been pressed and released on an element.",
-    reactName: "onClick",
-    type: "MouseEvent",
-    custom: true,
+    event: "onClick",
+    description: "Triggered when a user clicks an element.",
+    type: "React.MouseEventHandler",
   },
 ];

@@ -4,6 +4,7 @@ import {
   MappedAttribute,
   ComponentAttributes,
   Options,
+  GlobalEvent,
 } from "./types.js";
 import {
   RESERVED_WORDS,
@@ -32,6 +33,7 @@ import { has, toCamelCase } from "../../../tools/utilities/index.js";
 
 const packageJson = getPackageJson();
 const config: Options = {};
+const globalEvents: GlobalEvent[] = [];
 
 export function generateReactWrappers(
   customElementsManifest: CEM,
@@ -39,12 +41,11 @@ export function generateReactWrappers(
 ) {
   updateConfig(options);
   const components = getComponents(customElementsManifest);
-  console.log("MODULE_PATH", config.modulePath, options.modulePath);
   createOutDir(config.outdir!);
   saveReactUtils(config.outdir!);
 
   components.forEach((component) => {
-    const events = [...getEventNames(component), ...baseEvents];
+    const events = getEventNames(component);
     const { booleanAttributes, attributes } = getAttributes(component);
     const properties = getProperties(component, attributes, booleanAttributes);
     const componentModulePath = getModulePath(
@@ -81,6 +82,7 @@ function updateConfig(options: Options) {
   config.exclude = options.exclude || [];
   config.typesSrc = options.typesSrc || "types";
   config.modulePath = options.modulePath;
+  globalEvents.push(...baseEvents, ...(options.globalEvents || []));
 }
 
 function generateReactWrapper(
@@ -221,6 +223,7 @@ function getParams(
     ...[...booleanAttributes, ...attributes].map((attr) => attr.propName),
     ...(properties?.map((prop) => prop.name) || []),
     ...(eventNames?.map((event) => event.reactName) || []),
+    ...globalEvents.map(x => x.event),
   ]?.join(", ");
 }
 
@@ -320,7 +323,9 @@ function getReactComponentTemplate(
       ${has(eventTemplates) ? "useEventListener," : ""} 
       ${has(propTemplates) ? "useProperties" : ""}
     } from './react-utils.js';
-    import { ${component.name} as ${component.name}Element } from '${modulePath}';
+    import { ${component.name} as ${
+    component.name
+  }Element } from '${modulePath}';
 
     export const ${component.name} = forwardRef(({children${
     params ? "," : ""
@@ -381,7 +386,8 @@ function getReactComponentTemplate(
                 ? attr?.name
                 : `"${attr.originalName || attr?.name}": ${attr?.propName}`;
             })
-            .join(", ")}
+            .join(", ")},
+          ${globalEvents.map(x => x.event).join(", ")}
         },
         children
       );
@@ -586,18 +592,12 @@ function getPropsInterface(
       )}) => void;
       `
     ) || []),
-    `
-    /** Used to help React identify which items have changed, are added, or are removed within a list. */ 
-    key?: string | number;
-    `,
-    `
-    /** Content between the opening and closing component tags. */
-    children?: any;
-    `,
-    `
-    /** A mutable ref object whose \`.current\` property is initialized to the passed argument (\`initialValue\`). The returned object will persist for the full lifetime of the component. */
-    ref?: any;
-    `,
+    ...(globalEvents?.map(
+      (event) => `
+        /** ${event.description} */
+        ${event.event}?: (event: ${event.type}) => void;
+      `
+    ) || []),
   ]?.join("");
 }
 

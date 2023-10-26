@@ -84,7 +84,7 @@ The configuration has the following optional parameters:
   /** Used to provide alternative property name to prevent name collisions with React */
   attributeMapping?: { [key: string]: string };
   /** Used to add global element props to all component types */
-  globalEvents?: string;
+  globalEvents?: GlobalEvent[];
   /** Path to output directory */
   outdir?: string;
   /** Class names of any components you would like to exclude from the custom data */
@@ -135,7 +135,7 @@ export default {
       outdir: `dist/react`,
 
       /** The property name from the component object constructed by the CEM Analyzer */
-      descriptionSrc: 'description',
+      descriptionSrc: "description",
     }),
   ],
 };
@@ -297,6 +297,50 @@ Event names are converted to camel-case names prefixed with `on`. For example, a
 Event information will display with the element description during autocompletion or when hovered over. This section can be hidden by setting `hideSlotEvents` to `true` in the config.
 
 ![events section of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-react-wrapper/blob/master/demo/images/events.png?raw=true)
+
+### Global Events
+
+To keep the API clean, standard HTML Element events have been excluded with the exception of `onClick`. All components have a click handler by default, but if you want to include more events, you can use the `globalEvents` option. Pass it an array of events you want to add to your components. Here are some examples:
+
+```ts
+globalEvents: [
+  {
+    event: "onMouseEnter",
+    description: "Triggered when the mouse pointer enters an element.",
+    type: "React.MouseEventHandler",
+  },
+  {
+    event: "onMouseLeave",
+    description: "Fired when the mouse pointer leaves an element.",
+    type: "React.MouseEventHandler",
+  },
+  {
+    event: "onKeyPress",
+    description: "Fired when a key is pressed.",
+    type: "React.KeyboardEventHandler",
+  },
+  {
+    event: "onKeyDown",
+    description: "Triggered when a key is pressed down.",
+    type: "React.KeyboardEventHandler",
+  },
+  {
+    event: "onKeyUp",
+    description: "Fired when a key is released.",
+    type: "React.KeyboardEventHandler",
+  },
+  {
+    event: "onDoubleClick",
+    description: "Triggered when an element is double-clicked.",
+    type: "React.MouseEventHandler",
+  },
+  {
+    event: "onScroll",
+    description: "Triggered when the user scrolls an element.",
+    type: "React.UIEventHandler",
+  },
+];
+```
 
 ## CSS
 

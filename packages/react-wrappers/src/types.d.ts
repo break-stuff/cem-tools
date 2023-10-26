@@ -8,7 +8,13 @@ export interface Options extends BaseOptions {
   /** Used to provide alternative property name to prevent name collisions with React */
   attributeMapping?: { [key: string]: string };
   /** Used to add global element props to all component types */
-  globalEvents?: string;
+  globalEvents?: GlobalEvent[];
+}
+
+export interface GlobalEvent {
+  event: string,
+  description: string,
+  type: string,
 }
 
 export interface Params {

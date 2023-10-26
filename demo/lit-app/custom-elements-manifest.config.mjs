@@ -43,6 +43,23 @@ export default {
     customElementReactWrapperPlugin({
       outdir: "./dist/react",
       modulePath: () => `../index.js`,
+      globalEvents: [
+        {
+          event: 'onChange',
+          description: 'Fired when the value of an input element changes.',
+          type: 'React.ChangeEventHandler',
+        },
+        {
+          event: 'onSubmit',
+          description: 'Fired when a form is submitted.',
+          type: 'React.FormEventHandler',
+        },
+        {
+          event: 'onFocus',
+          description: 'Triggered when an element receives focus.',
+          type: 'React.FocusEventHandler',
+        },
+      ]
     }),
   ],
 };
