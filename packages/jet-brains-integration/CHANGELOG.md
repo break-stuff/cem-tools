@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.0
+
+- Add option to automatically add reference to `package.json`
+
 ## 1.3.0
 
 - Add slot details

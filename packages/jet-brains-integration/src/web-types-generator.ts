@@ -156,7 +156,10 @@ export function saveWebTypeFile(
   createOutDir(options.outdir!);
 
   if (options.webTypesFileName) {
-    savePackageJson(packageJson, options);
+    if (options.packageJson) {
+      savePackageJson(packageJson, options);
+    }
+
     return saveFile(
       options.outdir!,
       options.webTypesFileName!,
