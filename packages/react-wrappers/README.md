@@ -383,7 +383,7 @@ import { MyInput, MyInputElement, MyInputChangeEvent } from "../components/react
 
 export default () => {
   // If your events have a `details` payload, be sure to provide types and export them. They will be included in the wrapper types.
-  const handleChange = (e: CustomEvent<MyInputChangeEvent>) => {
+  const handleChange = e => {
     const value = (e.target as MyInputElement).value;
     ...
   };
