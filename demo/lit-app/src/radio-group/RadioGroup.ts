@@ -93,6 +93,10 @@ export class RadioGroup extends LitElement {
     return value + message ?? '';
   }
 
+  get customTag() {
+    return 'custom-tag';
+  }
+
   /** This is a test method that is protected */
   protected protectedMethod() {
     return '';

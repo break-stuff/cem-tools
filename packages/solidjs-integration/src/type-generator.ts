@@ -1,9 +1,9 @@
 import {
   Component,
-  EXCLUDED_TYPES,
   getComponentDetailsTemplate,
   getComponentProperties,
   getComponents,
+  getCustomEventTypes,
   getMemberDescription,
 } from "../../../tools/cem-utils";
 import { logBlue, saveFile } from "../../../tools/integrations";
@@ -36,27 +36,6 @@ function getOptions(options: Options) {
   return options;
 }
 
-function getEventTypes(component: Component, componentNames: string[]) {
-  const types = component.events
-    ?.map((e) => {
-      const eventType = e.type?.text
-        .replace("[]", "")
-        .replace(" | undefined", "");
-      return eventType &&
-        !EXCLUDED_TYPES.includes(eventType) &&
-        !componentNames.includes(eventType) &&
-        !eventType.includes("<") &&
-        !eventType.includes(`{`) &&
-        !eventType.includes("'") &&
-        !eventType.includes(`"`)
-        ? eventType
-        : undefined;
-    })
-    .filter((e) => e !== undefined && !e?.startsWith("HTML"));
-
-  return types?.length ? [...new Set(types)].join(", ") : undefined;
-}
-
 function getTypeTemplate(components: Component[], options: Options) {
   const componentNames = components
     .filter((x) => x.customElement)
@@ -64,7 +43,7 @@ function getTypeTemplate(components: Component[], options: Options) {
   const componentImportStatements =
     typeof options.componentTypePath === "function"
       ? components.map((c) => {
-          const types = getEventTypes(c, componentNames);
+          const types = getCustomEventTypes(c, componentNames);
           return `import type { ${c.name} ${
             types ? `, ${types}` : ""
           } } from "${options.componentTypePath?.(c.name, c.tagName)}";`;
@@ -77,7 +56,7 @@ ${
   options.globalTypePath
     ? `import type { ${components
         .map((c) => {
-          const types = getEventTypes(c, componentNames);
+          const types = getCustomEventTypes(c, componentNames);
           return c.name + (types ? `, ${types}` : "");
         })
         .join(", ")} } from "${options.globalTypePath}";`

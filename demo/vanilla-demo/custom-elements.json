@@ -4,7 +4,7 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "radio-button.js",
+      "path": "src/radio-button.js",
       "declarations": [
         {
           "kind": "class",
@@ -22,14 +22,16 @@
                 "text": "string"
               },
               "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "name": "value"
+              "name": "value",
+              "propName": "value"
             },
             {
               "type": {
                 "text": "boolean"
               },
               "description": "Disables the radio button",
-              "name": "disabled"
+              "name": "disabled",
+              "propName": "disabled"
             }
           ],
           "superclass": {
@@ -46,14 +48,14 @@
           "name": "radio-button",
           "declaration": {
             "name": "Radio",
-            "module": "radio-button.js"
+            "module": "src/radio-button.js"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "radio-group.js",
+      "path": "src/radio-group.js",
       "declarations": [
         {
           "kind": "class",
@@ -133,28 +135,32 @@
                 "text": "boolean"
               },
               "description": "Disables the element",
-              "name": "disabled"
+              "name": "disabled",
+              "propName": "disabled"
             },
             {
               "type": {
                 "text": "string"
               },
               "description": "The value of the selected radio",
-              "name": "value"
+              "name": "value",
+              "propName": "value"
             },
             {
               "type": {
                 "text": "1|2|3|4"
               },
               "description": "This will control the size of radio buttons",
-              "name": "size"
+              "name": "size",
+              "propName": "size"
             },
             {
               "type": {
                 "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
               },
               "description": "This is a test for sting values",
-              "name": "variants"
+              "name": "variants",
+              "propName": "variants"
             }
           ],
           "superclass": {
@@ -170,7 +176,7 @@
           "name": "radio-group",
           "declaration": {
             "name": "RadioGroup",
-            "module": "radio-group.js"
+            "module": "src/radio-group.js"
           }
         }
       ]

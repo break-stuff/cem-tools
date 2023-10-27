@@ -9,7 +9,8 @@
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.6",
     "custom-element-vs-code-integration": "*",
-    "custom-element-jet-brains-integration": "*"
+    "custom-element-jet-brains-integration": "*",
+    "custom-element-react-wrappers": "*"
   },
   "keywords": [],
   "author": "",

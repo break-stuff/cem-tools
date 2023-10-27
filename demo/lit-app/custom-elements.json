@@ -4,13 +4,13 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/alt-types.ts",
+      "path": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/alt-types.ts",
       "declarations": [],
       "exports": []
     },
     {
       "kind": "javascript-module",
-      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts",
+      "path": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -175,6 +175,10 @@
               "description": "This is a test method with parameters"
             },
             {
+              "kind": "field",
+              "name": "customTag"
+            },
+            {
               "kind": "method",
               "name": "protectedMethod",
               "privacy": "protected",
@@ -209,7 +213,8 @@
               },
               "default": "\"\"",
               "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "fieldName": "value"
+              "fieldName": "value",
+              "propName": "value"
             },
             {
               "name": "disabled",
@@ -217,7 +222,8 @@
                 "text": "boolean | undefined"
               },
               "description": "Disables the radio group and all of its radio buttons",
-              "fieldName": "disabled"
+              "fieldName": "disabled",
+              "propName": "disabled"
             },
             {
               "name": "size",
@@ -226,7 +232,8 @@
               },
               "default": "'md'",
               "description": "This will control the size of the radio buttons",
-              "fieldName": "size"
+              "fieldName": "size",
+              "propName": "size"
             },
             {
               "name": "variants",
@@ -238,7 +245,8 @@
               "fieldName": "variants",
               "expandedType": {
                 "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
-              }
+              },
+              "propName": "variants"
             },
             {
               "name": "external",
@@ -250,7 +258,8 @@
               "fieldName": "external",
               "expandedType": {
                 "text": "'value1' | 'value2' | 'value3'"
-              }
+              },
+              "propName": "external"
             },
             {
               "name": "external2",
@@ -262,7 +271,8 @@
               "fieldName": "external2",
               "expandedType": {
                 "text": "'value4' | 'value5' | 'value6'"
-              }
+              },
+              "propName": "external2"
             },
             {
               "name": "complex",
@@ -274,7 +284,8 @@
               "fieldName": "complex",
               "expandedType": {
                 "text": "'single' | 'multi'"
-              }
+              },
+              "propName": "complex"
             },
             {
               "name": "my-attribute",
@@ -282,7 +293,8 @@
                 "text": "string | undefined"
               },
               "description": "This is a camel-case attribute",
-              "fieldName": "myAttribute"
+              "fieldName": "myAttribute",
+              "propName": "myAttribute"
             }
           ],
           "superclass": {
@@ -299,7 +311,7 @@
           "name": "ComplexObject",
           "declaration": {
             "name": "ComplexObject",
-            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
+            "module": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
           }
         },
         {
@@ -307,14 +319,14 @@
           "name": "RadioGroup",
           "declaration": {
             "name": "RadioGroup",
-            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
+            "module": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts",
+      "path": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts",
       "declarations": [
         {
           "kind": "class",
@@ -367,7 +379,8 @@
               },
               "default": "\"\"",
               "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "fieldName": "value"
+              "fieldName": "value",
+              "propName": "value"
             },
             {
               "name": "disabled",
@@ -375,7 +388,8 @@
                 "text": "boolean | undefined"
               },
               "description": "Disables the radio button",
-              "fieldName": "disabled"
+              "fieldName": "disabled",
+              "propName": "disabled"
             },
             {
               "name": "target",
@@ -386,7 +400,8 @@
               "fieldName": "target",
               "expandedType": {
                 "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
-              }
+              },
+              "propName": "target"
             }
           ],
           "superclass": {
@@ -404,7 +419,7 @@
           "name": "RadioButton",
           "declaration": {
             "name": "RadioButton",
-            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts"
+            "module": "/home/parallels/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts"
           }
         }
       ]
@@ -450,30 +465,46 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/radio-group/radio-group.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "radio-group",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "/src/radio-group/RadioGroup.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/radio-button/radio-button.ts",
       "declarations": [],
       "exports": [
+        {
+          "kind": "js",
+          "name": "RadioButton",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "src/radio-button/radio-button.ts"
+          }
+        },
         {
           "kind": "custom-element-definition",
           "name": "radio-button",
           "declaration": {
             "name": "RadioButton",
             "module": "/src/radio-button/RadioButton.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio-group/radio-group.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioGroup",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "src/radio-group/radio-group.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "radio-group",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "/src/radio-group/RadioGroup.js"
           }
         }
       ]
