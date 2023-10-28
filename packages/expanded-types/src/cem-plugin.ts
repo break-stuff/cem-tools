@@ -143,7 +143,11 @@ function setBasicUnionTypes(node: any) {
   const name = node.name?.escapedText;
   const unionTypes = node?.type?.types
     ?.map((type: any) => {
-      const value = type?.literal?.text;
+      let value = type?.literal?.text;
+      if (!value) {
+        value = getExpandedType(currentFilename, type.typeName.escapedText);
+        return value;
+      }
       return typeof value === "string" ? `'${value}'` : value;
     })
     .join(" | ");

@@ -74,7 +74,9 @@
             {
               "name": "complex-union",
               "description": "This is a test for options from an object",
-              "value": { "type": " | 'extra-small' | undefined" }
+              "value": {
+                "type": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
+              }
             }
           ],
           "slots": [
@@ -153,7 +155,9 @@
               {
                 "name": "complex-union",
                 "description": "This is a test for options from an object",
-                "value": { "type": " | 'extra-small' | undefined" }
+                "value": {
+                  "type": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
+                }
               }
             ],
             "events": [

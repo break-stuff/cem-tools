@@ -79,7 +79,12 @@
         {
           "name": "complex-union",
           "description": "This is a test for options from an object",
-          "values": [{ "name": "" }, { "name": "extra-small" }]
+          "values": [
+            { "name": "small" },
+            { "name": "medium" },
+            { "name": "large" },
+            { "name": "extra-small" }
+          ]
         }
       ],
       "references": []

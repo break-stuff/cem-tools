@@ -175,7 +175,7 @@
               "description": "This is a test for options from an object",
               "attribute": "complex-union",
               "expandedType": {
-                "text": " | 'extra-small' | undefined"
+                "text": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
               }
             },
             {
@@ -350,7 +350,7 @@
               "description": "This is a test for options from an object",
               "fieldName": "complexUnion",
               "expandedType": {
-                "text": " | 'extra-small' | undefined"
+                "text": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
               },
               "propName": "complexUnion"
             }
