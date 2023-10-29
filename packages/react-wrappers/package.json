@@ -1,7 +1,7 @@
 {
-  "name": "custom-element-jet-brains-integration",
-  "version": "1.4.0",
-  "description": "Tools for integrating web components/custom elements into JetBrains IDEs",
+  "name": "custom-element-react-wrappers",
+  "version": "1.0.1",
+  "description": "A tool for generating react-compatible wrappers for custom elements",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
@@ -9,25 +9,15 @@
   "files": [
     "index.js",
     "index.d.ts",
+    "types.d.ts",
     "/dist"
   ],
+  "repository": "https://github.com/break-stuff/cem-tools",
+  "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/react-wrappers#readme",
   "scripts": {
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "deploy": "npm run build && npm publish",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/break-stuff/cem-plugin-jet-brains-ide-integration.git"
-  },
-  "author": "",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/break-stuff/cem-plugin-jet-brains-ide-integration/issues"
-  },
-  "homepage": "https://github.com/break-stuff/cem-plugin-jet-brains-ide-integration#readme",
-  "dependencies": {
-    "prettier": "^2.8.0"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.3",
@@ -36,24 +26,23 @@
     "@types/prettier": "^2.6.4",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
+    "custom-elements-manifest": "2.0.0",
     "eslint": "^8.32.0",
     "ts-jest": "^29.0.3",
     "tsup": "^7.1.0"
+  },
+  "dependencies": {
+    "prettier": "^2.7.1"
   },
   "keywords": [
     "custom-elements",
     "custom-elements-manifest",
     "web-components",
     "components",
-    "JetBrains",
-    "phpstorm",
-    "webstorm",
-    "intellij",
-    "rider",
-    "fleet",
-    "pycharm",
-    "rubymine",
+    "react",
     "autocomplete",
     "intellisense"
-  ]
+  ],
+  "author": "",
+  "license": "MIT"
 }

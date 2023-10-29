@@ -1,5 +1,5 @@
-import type { RadioGroup, InterfaceEventType } from "./types/radio-group/RadioGroup.d.ts";
-import type { RadioButton } from "./types/radio-button/RadioButton.d.ts";
+import type { RadioGroup, InterfaceEventType } from "./dist/radio-group/RadioGroup.d.ts";
+import type { RadioButton } from "./dist/radio-button/RadioButton.d.ts";
 
 /**
  * This type can be used to create scoped tags for your components.
@@ -58,7 +58,8 @@ type RadioGroupProps = {
   complex?: RadioGroup["complex"];
   /** This is a camel-case attribute */
   "my-attribute"?: RadioGroup["myAttribute"];
-
+  /**  */
+  "prop:customTag"?: RadioGroup["customTag"];
   /** some description for custom-event */
   onCustomEvent?: (e: CustomEvent<never>) => void;
   /** some description for typed-event */
