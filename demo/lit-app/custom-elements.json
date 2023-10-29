@@ -469,14 +469,6 @@
       "declarations": [],
       "exports": [
         {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "src/radio-button/radio-button.ts"
-          }
-        },
-        {
           "kind": "custom-element-definition",
           "name": "radio-button",
           "declaration": {
@@ -491,14 +483,6 @@
       "path": "src/radio-group/radio-group.ts",
       "declarations": [],
       "exports": [
-        {
-          "kind": "js",
-          "name": "RadioGroup",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "src/radio-group/radio-group.ts"
-          }
-        },
         {
           "kind": "custom-element-definition",
           "name": "radio-group",
