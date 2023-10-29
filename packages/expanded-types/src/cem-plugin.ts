@@ -77,12 +77,11 @@ function getExpandedType(fileName: string, typeName: string): string {
 }
 
 function getUnionTypes(fileName: string, typeName: string) {
-  return typeName
+  const parts = typeName
     ?.split("|")
     .map((part) => part.trim())
-    .filter((part) => part.length > 0)
-    .map((part) => getExpandedType(fileName, part))
-    .join(" | ");
+    .filter((part) => part.length > 0);
+  return parts?.map((part) => getExpandedType(fileName, part)).join(" | ") || '';
 }
 
 function getObjectTypes(fileName: string, typeName: string) {
@@ -134,7 +133,7 @@ function setEnumTypes(node: any) {
   const name = node.name.escapedText;
   const shortText = node.members
     ?.map((mem: any) => mem.initializer?.text)
-    .join(" | ");
+    .join(" | ") || '';
 
   aliasTypes[currentFilename][name] = shortText;
 }
@@ -150,7 +149,7 @@ function setBasicUnionTypes(node: any) {
       }
       return typeof value === "string" ? `'${value}'` : value;
     })
-    .join(" | ");
+    .join(" | ") || '';
   aliasTypes[currentFilename][name] = unionTypes;
 }
 
@@ -163,7 +162,7 @@ function setComplexUnionTypes(node: any) {
     ?.map((type: any) =>
       typeof type.value === "string" ? `'${type.value}'` : type.value
     )
-    .join(" | ");
+    .join(" | ") || '';
 
   aliasTypes[currentFilename][name] = unionTypes;
 }
