@@ -33,7 +33,7 @@ import { has, toCamelCase } from "../../../tools/utilities/index.js";
 
 const packageJson = getPackageJson();
 const config: Options = {};
-const globalEvents: GlobalEvent[] = [];
+let globalEvents: GlobalEvent[] = [];
 
 export function generateReactWrappers(
   customElementsManifest: CEM,
@@ -82,7 +82,7 @@ function updateConfig(options: Options) {
   config.exclude = options.exclude || [];
   config.typesSrc = options.typesSrc || "types";
   config.modulePath = options.modulePath;
-  globalEvents.push(...baseEvents, ...(options.globalEvents || []));
+  globalEvents = [...baseEvents, ...(options.globalEvents || [])];
 }
 
 function generateReactWrapper(
@@ -220,7 +220,7 @@ function getParams(
   eventNames: EventName[] = []
 ) {
   return [
-    ...[...booleanAttributes, ...attributes].map((attr) => attr.propName),
+    ...[...booleanAttributes, ...attributes.filter(x => x.name !== 'ref')].map((attr) => attr.propName),
     ...(properties?.map((prop) => prop.name) || []),
     ...(eventNames?.map((event) => event.reactName) || []),
     ...globalEvents.map(x => x.event),
@@ -327,9 +327,7 @@ function getReactComponentTemplate(
     component.name
   }Element } from '${modulePath}';
 
-    export const ${component.name} = forwardRef(({children${
-    params ? "," : ""
-  } ${params}}, forwardedRef) => {
+    export const ${component.name} = forwardRef(({${params}}, forwardedRef) => {
       ${useEffect ? `const ref = useRef(null);` : ""}
 
       ${has(eventTemplates) ? "/** Event listeners - run once */" : ""}

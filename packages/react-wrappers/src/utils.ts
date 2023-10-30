@@ -118,9 +118,9 @@ export function useAttribute(targetElement, attrName, value) {
 export function useBooleanAttribute(targetElement, attrName, propName) {
   useEffect(() => {
     if (!propName || propName === 'false') {
-      targetElement.current?.setAttribute(attrName, '');
-    } else {
       targetElement.current?.removeAttribute(attrName);
+    } else {
+      targetElement.current?.setAttribute(attrName, '');
     }
   }, [propName]);
 }

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.3
+
+- Fix `Boolean` attribute rendering
+- Fix duplicate `globalEvents`
+- Fix duplicate `props`
+
 ## 1.0.2
 
 - Fix `key` prop type
