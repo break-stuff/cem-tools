@@ -42,7 +42,7 @@ export const baseProperties: MappedAttribute[] = [
     propName: "key",
     description: "Used to help React identify which items have changed, are added, or are removed within a list.",
     type: {
-      text: "boolean",
+      text: "number | string",
     },
   },
     {

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.2
+
+- Fix `key` prop type
+
 ## 1.0.1
 
 - Update project URL
