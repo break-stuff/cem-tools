@@ -142,7 +142,11 @@ function setBasicUnionTypes(node: any) {
   const name = node.name?.escapedText;
   const unionTypes = node?.type?.types
     ?.map((type: any) => {
-      const value = type?.literal?.text;
+      let value = type?.literal?.text;
+      if (!value) {
+        value = getExpandedType(currentFilename, type.typeName.escapedText);
+        return value;
+      }
       return typeof value === "string" ? `'${value}'` : value;
     })
     .join(" | ") || '';
@@ -206,22 +210,34 @@ function getTypeValue(item: any, context: any) {
     return getExpandedType(currentFilename, item.type.text);
   }
 
+  const resolvedPath = getResolvedImportPath(currentFilename, importedType);
+
+  return getExpandedType(resolvedPath, importedType.name);
+}
+
+function getResolvedImportPath(importPath: string, importedType: any) {
   let resolvedPath = path.resolve(
     path.dirname(currentFilename),
     importedType.importPath
   );
 
-  if (!aliasTypes[resolvedPath] && aliasTypes[resolvedPath + ".ts"]) {
+  if (aliasTypes[resolvedPath]) {
+    return resolvedPath;
+  }
+
+  if (aliasTypes[resolvedPath + ".ts"]) {
     resolvedPath += ".ts";
-  } else if (
-    !aliasTypes[resolvedPath] &&
-    fs.existsSync(resolvedPath + ".d.ts")
-  ) {
+  } else if (resolvedPath.endsWith(".js")) {
+    resolvedPath = `${resolvedPath}`.replace(".js", ".ts");
+  } else if (resolvedPath.endsWith(".d.ts")) {
+    parseTypeDefinitionTypes(resolvedPath);
+    resolvedPath = currentFilename;
+  } else if (fs.existsSync(resolvedPath + ".d.ts")) {
     parseTypeDefinitionTypes(resolvedPath + ".d.ts");
     resolvedPath = currentFilename;
   }
 
-  return getExpandedType(resolvedPath, importedType.name);
+  return resolvedPath;
 }
 
 function parseTypeDefinitionTypes(source: string) {

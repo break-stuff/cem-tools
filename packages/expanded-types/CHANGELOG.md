@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.2
+
+- Fixed type imports with file extensions
+- Fixed support for combined union types
+
 ## 1.1.1
 
 - Add optional chaining to prevent errors when types are `undefined`.

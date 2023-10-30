@@ -54,10 +54,16 @@ type RadioGroupProps = {
   external?: RadioGroup["external"];
   /** This is a test for external .ts options */
   external2?: RadioGroup["external2"];
+  /** This is a test for external .ts options */
+  external3?: RadioGroup["external3"];
   /** This is a test for options from an object */
   complex?: RadioGroup["complex"];
   /** This is a camel-case attribute */
   "my-attribute"?: RadioGroup["myAttribute"];
+  /** This is a test for options from an object */
+  "complex-union"?: RadioGroup["complexUnion"];
+  /** This is data object */
+  "prop:data"?: RadioGroup["data"];
   /**  */
   "prop:customTag"?: RadioGroup["customTag"];
   /** some description for custom-event */

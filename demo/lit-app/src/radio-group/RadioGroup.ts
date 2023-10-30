@@ -1,7 +1,7 @@
 import { html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
-import type { Test } from './types';
-import { Test2 } from './alt-types';
+import type { Test, Test3 } from './types.d.ts';
+import { Test2 } from './alt-types.js';
 
 export type Variants = 'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text';
 
@@ -12,6 +12,18 @@ export const ComplexObject = {
   /** Designates multiple <he-accordion-items> can be open simultaneously. */
   multi: 'multi',
 } as const;
+
+export type DataObject = {
+  /** The name. */
+  name?: string,
+  /** The type. */
+  type?: string,
+  /** The value. */
+  value?: number,
+};
+
+type Size = 'small' | 'medium' | 'large';
+type ChildSize =  Size | 'extra-small';
 
 export type ComplexObjectType = (typeof ComplexObject)[keyof typeof ComplexObject];
 
@@ -75,6 +87,10 @@ export class RadioGroup extends LitElement {
   @property({ type: String })
   external2: Test2 = 'value4';
 
+  /** This is a test for external .ts options */
+  @property({ type: String })
+  external3: Test3 = 'value8';
+
   /** This is a test for options from an object */
   @property({ type: String })
   complex: ComplexObjectType = 'single';
@@ -82,6 +98,15 @@ export class RadioGroup extends LitElement {
   /** This is a camel-case attribute */
   @property({ attribute: 'my-attribute' })
   myAttribute?: string;
+
+  /** This is data object */
+  @property({ attribute: false })
+  data?: DataObject;
+
+  /** This is a test for options from an object */
+  @property({ attribute: 'complex-union' })
+  complexUnion?: ChildSize;
+
 
   /** Validated the radio inputs */
   validate() {
