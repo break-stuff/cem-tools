@@ -67,21 +67,24 @@ function getExpandedType(fileName: string, typeName: string): string {
     return aliasTypes[fileName][typeName];
   }
 
-  if (typeName.includes("|")) {
+  if (typeName?.includes("|")) {
     return getUnionTypes(fileName, typeName);
   }
 
-  return typeName.startsWith("{") && typeName.endsWith("}")
+  return typeName?.startsWith("{") && typeName?.endsWith("}")
     ? getObjectTypes(fileName, typeName)
     : typeName;
 }
 
 function getUnionTypes(fileName: string, typeName: string) {
-  const parts = typeName
-    ?.split("|")
-    .map((part) => part.trim())
-    .filter((part) => part.length > 0);
-  return parts?.map((part) => getExpandedType(fileName, part)).join(" | ") || '';
+  return (
+    typeName
+      ?.split("|")
+      .map((part) => part.trim())
+      .filter((part) => part.length > 0)
+      ?.map((part) => getExpandedType(fileName, part))
+      .join(" | ") || ""
+  );
 }
 
 function getObjectTypes(fileName: string, typeName: string) {
@@ -131,25 +134,25 @@ function parseFileTypes(node: any) {
 
 function setEnumTypes(node: any) {
   const name = node.name.escapedText;
-  const shortText = node.members
-    ?.map((mem: any) => mem.initializer?.text)
-    .join(" | ") || '';
+  const shortText =
+    node.members?.map((mem: any) => mem.initializer?.text).join(" | ") || "";
 
   aliasTypes[currentFilename][name] = shortText;
 }
 
 function setBasicUnionTypes(node: any) {
   const name = node.name?.escapedText;
-  const unionTypes = node?.type?.types
-    ?.map((type: any) => {
-      let value = type?.literal?.text;
-      if (!value) {
-        value = getExpandedType(currentFilename, type.typeName.escapedText);
-        return value;
-      }
-      return typeof value === "string" ? `'${value}'` : value;
-    })
-    .join(" | ") || '';
+  const unionTypes =
+    node?.type?.types
+      ?.map((type: any) => {
+        let value = type?.literal?.text;
+        if (!value && type?.typeName?.escapedText) {
+          value = getExpandedType(currentFilename, type.typeName.escapedText);
+          return value;
+        }
+        return typeof value === "string" ? `'${value}'` : value;
+      })
+      .join(" | ") || "";
   aliasTypes[currentFilename][name] = unionTypes;
 }
 
@@ -158,11 +161,12 @@ function setComplexUnionTypes(node: any) {
   const resolvedTypes = typeChecker.getDeclaredTypeOfSymbol(
     typeChecker.getSymbolAtLocation(node.name)
   );
-  const unionTypes = resolvedTypes.types
-    ?.map((type: any) =>
-      typeof type.value === "string" ? `'${type.value}'` : type.value
-    )
-    .join(" | ") || '';
+  const unionTypes =
+    resolvedTypes.types
+      ?.map((type: any) =>
+        typeof type.value === "string" ? `'${type.value}'` : type.value
+      )
+      .join(" | ") || "";
 
   aliasTypes[currentFilename][name] = unionTypes;
 }
