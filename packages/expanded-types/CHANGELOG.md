@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.3
+
+- Added check for missing value
+
 ## 1.1.2
 
 - Fixed type imports with file extensions
