@@ -128,7 +128,12 @@ export function useBooleanAttribute(targetElement, attrName, propName) {
 export function useProperties(targetElement, propName, value) {
   useEffect(() => {
     if (value !== undefined && targetElement.current[propName] !== value) {
-      targetElement.current[propName] = value;
+      // add try catch to avoid errors when setting read-only properties
+      try {
+        targetElement.current[propName] = value;
+      } catch (e) {
+        console.warn(e);
+      }
     }
   }, [value]);
 }
