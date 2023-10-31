@@ -1,6 +1,6 @@
 {
   "name": "custom-element-react-wrappers",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A tool for generating react-compatible wrappers for custom elements",
   "main": "index.js",
   "module": "index.js",

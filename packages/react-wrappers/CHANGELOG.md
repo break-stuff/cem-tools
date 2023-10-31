@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.4
+
+- Add check for getter or setter _only_ properties to prevent error
+
 ## 1.0.3
 
 - Fix `Boolean` attribute rendering
