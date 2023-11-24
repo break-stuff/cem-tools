@@ -40,7 +40,7 @@ export function generateReactWrappers(
   options: Options
 ) {
   updateConfig(options);
-  const components = getComponents(customElementsManifest);
+  const components = getComponents(customElementsManifest, config.exclude);
   createOutDir(config.outdir!);
   saveReactUtils(config.outdir!);
 
