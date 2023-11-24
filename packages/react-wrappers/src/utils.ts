@@ -139,7 +139,7 @@ export function useProperties(targetElement, propName, value) {
 }
 
 export function useEventListener(targetElement, eventName, eventHandler) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (eventHandler !== undefined) {
       targetElement?.current?.addEventListener(eventName, eventHandler);
     }
