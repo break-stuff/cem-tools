@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.5
+
+- Fix exclude functionality
+- Update event timing to bind before render
+
 ## 1.0.4
 
 - Add check for getter or setter _only_ properties to prevent error
