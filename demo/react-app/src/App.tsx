@@ -29,7 +29,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <RadioGroup variants="primary" complex="multi" external2="value5" external="test">
+      <RadioGroup variants="primary" complex="multi" external2="value5" external="value1">
         <RadioButton value=""></RadioButton>
         <RadioButton></RadioButton>
         <RadioButton></RadioButton>
