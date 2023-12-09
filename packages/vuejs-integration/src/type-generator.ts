@@ -10,7 +10,7 @@ import { logBlue, saveFile } from "../../../tools/integrations";
 import { toPascalCase } from "../../../tools/utilities";
 import { Options } from "./types";
 
-export function generateVueTypes(manifest: any, options: Options) {
+export function generateVuejsTypes(manifest: any, options: Options) {
   options = getOptions(options);
 
   const components = getComponents(manifest, options.exclude).filter(
@@ -24,12 +24,12 @@ export function generateVueTypes(manifest: any, options: Options) {
     "typescript",
     120
   );
-  logBlue(`[vue-type-generator] - Generated "${outputPath}".`);
+  logBlue(`[vuejs-type-generator] - Generated "${outputPath}".`);
 }
 
 function getOptions(options: Options) {
   options.fileName =
-    options.fileName === undefined ? "custom-element-vue.d.ts" : options.fileName;
+    options.fileName === undefined ? "custom-element-vuejs.d.ts" : options.fileName;
   options.exclude = options.exclude === undefined ? [] : options.exclude;
   options.outdir = options.outdir === undefined ? "./" : options.outdir;
   options.prefix = options.prefix === undefined ? "" : options.prefix;

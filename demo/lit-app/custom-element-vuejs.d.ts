@@ -25,9 +25,9 @@ type RadioGroupProps = {
   /** This is a test for options from an object */
   "complex-union"?: RadioGroup["complexUnion"];
   /** This is data object */
-  "prop:data"?: RadioGroup["data"];
+  data?: RadioGroup["data"];
   /**  */
-  "prop:customTag"?: RadioGroup["customTag"];
+  customTag?: RadioGroup["customTag"];
   /** some description for custom-event */
   onCustomEvent?: (e: CustomEvent<never>) => void;
   /** some description for typed-event */
@@ -45,7 +45,7 @@ type RadioButtonProps = {
   target?: RadioButton["target"];
 };
 
-type CustomElements = {
+export type CustomElements = {
   /**
    *
    * Radio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).
@@ -102,5 +102,13 @@ type CustomElements = {
 };
 
 declare module "vue" {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface GlobalComponents extends CustomElements {}
+}
+
+declare global {
+  namespace JSX {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface IntrinsicElements extends CustomElements {}
+  }
 }

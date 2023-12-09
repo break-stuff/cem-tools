@@ -1,4 +1,4 @@
-import { CustomElements } from 'lit-app/custom-element-vue';
+import { CustomElements } from 'lit-app/custom-element-vuejs';
 
 
 declare module "vue" {

@@ -4,7 +4,7 @@ import { customElementSolidJsPlugin } from "custom-element-solidjs-integration";
 import { customElementJsxPlugin } from "custom-element-jsx-integration";
 import { getTsProgram, expandTypesPlugin } from "cem-plugin-expanded-types";
 import { customElementReactWrapperPlugin } from "custom-element-react-wrappers";
-import { customElementVuePlugin } from "custom-element-vue-integration";
+import { customElementVuejsPlugin } from "custom-element-vuejs-integration";
 
 export default {
   /** Globs to analyze */
@@ -62,7 +62,7 @@ export default {
         },
       ],
     }),
-    customElementVuePlugin({
+    customElementVuejsPlugin({
       componentTypePath: (name, tag) => `./dist/${tag}/${name}.d.ts`,
     }),
   ],

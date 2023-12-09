@@ -14,13 +14,13 @@ This package includes two ways to generate the custom data config file:
 ### Install
 
 ```bash
-npm i -D custom-element-vue-integration
+npm i -D custom-element-vuejs-integration
 ```
 
 ### Build Pipeline
 
 ```js
-import { generateJsxTypes } from "custom-element-vue-integration";
+import { generateJsxTypes } from "custom-element-vuejs-integration";
 import manifest from "./path/to/custom-elements.json";
 
 const options = {...};
@@ -42,7 +42,7 @@ Ensure the following steps have been taken in your component library prior to us
 ```js
 // custom-elements-manifest.config.js
 
-import { customElementVuePlugin } from "custom-element-vue-integration";
+import { customElementVuePlugin } from "custom-element-vuejs-integration";
 
 const options = {...};
 
@@ -102,7 +102,7 @@ In order for teams to take advantage of this, all they need to do is import the 
 
 ```ts
 // custom-elements-types.d.ts
-import type { CustomElements } from "path/to/vue-types";
+import type { CustomElements } from "path/to/vuejs-types";
 
 declare module "vue" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -128,7 +128,7 @@ You can configure the destination and the file name of the generated type file u
   /** Path to output directory */
   outdir: 'dist',
   /** File name for the types */
-  fileName: 'vue-integration.d.ts'
+  fileName: 'vuejs-integration.d.ts'
 }
 ```
 
@@ -358,7 +358,7 @@ If you are scoping your component tags using a custom prefix or suffix, you can 
 ```ts
 // scoped-types.d.ts
 
-import type { ScopedElements } from "path/to/vue-types";
+import type { ScopedElements } from "path/to/vuejs-types";
 
 declare module "vue" {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
