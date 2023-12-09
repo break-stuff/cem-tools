@@ -17,17 +17,15 @@ import { createOutDir, saveFile } from "../../../tools/integrations/index.js";
 import {
   CEM,
   Component,
+  getComponentDetailsTemplate,
   getComponentMethods,
   getComponents,
   getCustomEventTypes,
 } from "../../../tools/cem-utils/index.js";
 import type {
   Attribute,
-  CssCustomProperty,
-  CssPart,
   ClassField,
   Parameter,
-  ClassMethod,
 } from "custom-elements-manifest";
 import { has, toCamelCase } from "../../../tools/utilities/index.js";
 
@@ -220,10 +218,13 @@ function getParams(
   eventNames: EventName[] = []
 ) {
   return [
-    ...[...booleanAttributes, ...attributes.filter(x => x.name !== 'ref')].map((attr) => attr.propName),
+    ...[
+      ...booleanAttributes,
+      ...attributes.filter((x) => x.name !== "ref"),
+    ].map((attr) => attr.propName),
     ...(properties?.map((prop) => prop.name) || []),
     ...(eventNames?.map((event) => event.reactName) || []),
-    ...globalEvents.map(x => x.event),
+    ...globalEvents.map((x) => x.event),
   ]?.join(", ");
 }
 
@@ -385,7 +386,7 @@ function getReactComponentTemplate(
                 : `"${attr.originalName || attr?.name}": ${attr?.propName}`;
             })
             .join(", ")},
-          ${globalEvents.map(x => x.event).join(", ")}
+          ${globalEvents.map((x) => x.event).join(", ")}
         },
         children
       );
@@ -408,7 +409,6 @@ function getTypeDefinitionTemplate(
     events,
     properties
   );
-  const methods = getMethods(component);
   const eventTypes = getCustomEventTypes(component);
 
   return `
@@ -426,119 +426,13 @@ function getTypeDefinitionTemplate(
       ${props} 
     }
 
-    /** 
-     ${getComponentDescription(component)} 
-     *
-      ${
-        has(component.slots) && config.hideSlotDocs
-          ? `*
-  * ### Slots 
- ${getSlotDocs(component)}`
-          : "*"
-      }
-      ${
-        has(component.events) && config.hideEventDocs
-          ? `*
-  * ### Events
- ${getEventDocs(events)}`
-          : "*"
-      }
-      ${
-        has(methods) && config.hideMethodDocs
-          ? `*
-  * ### Methods
- ${getMethodDocs(methods)}`
-          : "*"
-      }
-      ${
-        has(component.cssProperties) && config.hideCssPropertiesDocs
-          ? `*
-  * ### CSS Properties 
- ${getCssPropertyDocs(component.cssProperties)}`
-          : "*"
-      }
-      ${
-        has(component.cssParts) && config.hideCssPartsDocs
-          ? `*
-  * ### CSS Parts 
- ${getCssPartsDocs(component.cssParts)}`
-          : "*"
-      }
-      *
-      */
-    export const ${component.name}: React.ForwardRefExoticComponent<${
+    /**
+     ${getComponentDetailsTemplate(component, config, true)}
+     */
+     export const ${component.name}: React.ForwardRefExoticComponent<${
     component.name
   }Props>;
   `;
-}
-
-function getComponentDescription(component: Component) {
-  const description = config.descriptionSrc
-    ? component[config.descriptionSrc]
-    : component.summary || component.description;
-
-  return (
-    description
-      ?.split("\n")
-      ?.map((y) => y?.split("\\n").map((x) => ` * ${x}`))
-      .flat()
-      .join("\n") || "*"
-  );
-}
-
-function getSlotDocs(component: Component) {
-  return component.slots
-    ?.map(
-      (slot) =>
-        `  * - ${slot.name ? `**${slot.name}**` : "_default_"} - ${
-          slot.description
-        }`
-    )
-    .join("\n");
-}
-
-function getEventDocs(events?: EventName[]) {
-  return events
-    ?.map((event) => `  * - **${event.reactName}** - ${event.description}`)
-    .join("\n");
-}
-
-function getCssPropertyDocs(properties?: CssCustomProperty[]) {
-  return properties
-    ?.map(
-      (prop) =>
-        `  * - **${prop.name}** - ${prop.description} _(default: ${prop.default})_`
-    )
-    .join("\n");
-}
-
-function getCssPartsDocs(parts?: CssPart[]) {
-  return parts
-    ?.map((part) => `  * - **${part.name}** - ${part.description}`)
-    .join("\n");
-}
-
-function getMethodDocs(methods?: ClassMethod[]) {
-  return methods
-    ?.map(
-      (method) =>
-        `  * - **${method.name}${getTypedMethodParameters(method.parameters)}${
-          method.return ? `: _${method.return.type?.text}_` : ""
-        }** - ${method.description}`
-    )
-    .join("\n");
-}
-
-function getTypedMethodParameters(parameters?: Parameter[]) {
-  return parameters
-    ? "(" +
-        parameters
-          .map(
-            (x) => `${x.name + (x?.type?.text ? `: _${x?.type?.text}_` : "")}`
-          )
-          .join(", ") +
-        ")"
-    : "()";
 }
 
 function getMethodParameters(parameters?: Parameter[]) {
@@ -555,48 +449,84 @@ function getPropsInterface(
   properties?: ClassField[]
 ) {
   return [
-    ...(booleanAttributes?.map(
+    ...getBooleanPropsTemplate(booleanAttributes),
+    ...getAttributePropsTemplate(attributes, componentName),
+    ...getPropertyPropsTemplate(properties, componentName),
+    ...getEventPropsTemplate(events),
+    ...getGlobalEventPropsTemplate(globalEvents),
+  ]?.join("");
+}
+
+function getBooleanPropsTemplate(booleanAttributes: MappedAttribute[]) {
+  return (
+    booleanAttributes?.map(
       (attr) => `
-        /** ${attr.description} */
-        ${attr?.propName}?: ${attr?.type?.text || "boolean"};
-      `
-    ) || []),
-    ...((attributes || []).map(
+      /** ${attr.description} */
+      ${attr?.propName}?: ${attr?.type?.text || "boolean"};
+    `
+    ) || []
+  );
+}
+
+function getAttributePropsTemplate(
+  attributes: MappedAttribute[],
+  componentName: string
+) {
+  return (
+    (attributes || []).map(
       (attr) => `
-        /** ${attr.description} */
-        ${attr.propName}?: ${
+      /** ${attr.description} */
+      ${attr.propName}?: ${
         baseProperties.some((base) => base.propName === attr.propName)
           ? attr.type?.text || "string"
           : `${componentName}Element['${attr.propName}']`
       };
-      `
-    ) || []),
-    ...(properties?.map(
+    `
+    ) || []
+  );
+}
+
+function getPropertyPropsTemplate(
+  properties: ClassField[] | undefined,
+  componentName: string
+) {
+  return (
+    properties?.map(
       (prop) => `
-      /** ${prop.description} */
-      ${prop.name}?: ${
+    /** ${prop.description} */
+    ${prop.name}?: ${
         baseProperties.some((base) => base.propName === prop.name)
           ? prop.type?.text || "string"
           : `${componentName}Element['${prop.name}']`
       };
-    `
-    ) || []),
-    ...(events?.map(
+  `
+    ) || []
+  );
+}
+
+function getEventPropsTemplate(events: EventName[] | undefined) {
+  return (
+    events?.map(
       (event) => `
-        /** ${event.description} */
-        ${event.reactName}?: (event: ${getEventType(
+      /** ${event.description} */
+      ${event.reactName}?: (event: ${getEventType(
         event.type,
         event.custom
       )}) => void;
-      `
-    ) || []),
-    ...(globalEvents?.map(
+    `
+    ) || []
+  );
+}
+
+function getGlobalEventPropsTemplate(events: GlobalEvent[] | undefined) {
+  return (
+    globalEvents?.map(
       (event) => `
-        /** ${event.description} */
-        ${event.event}?: (event: ${event.type}) => void;
-      `
-    ) || []),
-  ]?.join("");
+      /** ${event.description} */
+      ${event.event}?: (event: ${event.type}) => void;
+    `
+    ) || []
+  );
 }
 
 function getManifestContentTemplate(components: Component[]) {
@@ -617,13 +547,4 @@ function getEventType(eventType?: string, eventCustom?: boolean) {
   }
 
   return base + `<${eventType}>`;
-}
-
-function getMethods(component: Component) {
-  return component.members?.filter(
-    (member) =>
-      member.kind === "method" &&
-      member.privacy !== "private" &&
-      member.description?.length
-  ) as ClassMethod[];
 }

@@ -63,9 +63,9 @@ type RadioGroupProps = {
   /** This is a test for options from an object */
   "complex-union"?: RadioGroup["complexUnion"];
   /** This is data object */
-  "prop:data"?: RadioGroup["data"];
+  data?: RadioGroup["data"];
   /**  */
-  "prop:customTag"?: RadioGroup["customTag"];
+  customTag?: RadioGroup["customTag"];
   /** some description for custom-event */
   onCustomEvent?: (e: CustomEvent<never>) => void;
   /** some description for typed-event */
