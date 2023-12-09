@@ -52,6 +52,7 @@ function getTypeTemplate(components: Component[], options: Options) {
       : [];
 
   return `
+  import type { DefineComponent } from "vue";
 ${
   options.globalTypePath
     ? `import type { ${components
@@ -63,47 +64,6 @@ ${
     : ""
 }
 ${componentImportStatements.join("\n")}
-
-/**
- * This type can be used to create scoped tags for your components.
- * 
- * Usage:
- * 
- * \`\`\`ts
- * import type { ScopedElements } from "path/to/library/vue-integration";
- * 
- * declare module "my-library" {
- *   namespace JSX {
- *     interface IntrinsicElements
- *       extends ScopedElements<'test-', ''> {}
- *   }
- * }
- * \`\`\`
- * 
- */
-export type ScopedElements<
-  Prefix extends string = "",
-  Suffix extends string = ""
-> = {
-  [Key in keyof CustomElements as \`\${Prefix}\${Key}\${Suffix}\`]: CustomElements[Key];
-};
-
-type BaseProps = {
-  /** Used for declaratively styling one or more elements using CSS (Cascading Stylesheets) */
-  class?: string;
-  /** Contains a space-separated list of the part names of the element. Part names allows CSS to select and style specific elements in a shadow tree via the ::part pseudo-element. */
-  part?: string;
-  /** Contains a space-separated list of the part names of the element that should be exposed on the host element. */
-  exportparts?: string;
-  /** Adds a reference for a custom element slot */
-  slot?: string;
-  /** Prop for setting inline styles */
-  style?: Record<string, string | number>;
-};
-
-type BaseEvents = {${
-    Object.hasOwn(options, "globalEvents") ? options.globalEvents : ""
-  }};
 
 ${components
   ?.map((component: Component) => {
@@ -165,11 +125,23 @@ ${components
   /**
     ${getComponentDetailsTemplate(component, options, true)}
     */
-    "${options.prefix}${component.tagName}${options.suffix}": Partial<${
+    "${options.prefix}${component.tagName}${options.suffix}": DefineComponent<${
       component.name
-    }Props | BaseProps | BaseEvents>;`;
+    }Props>;`;
   })
   .join("\n")}
+  }
+
+  declare module "vue" {
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    interface GlobalComponents extends CustomElements {}
+  }
+  
+  declare global {
+    namespace JSX {
+      // eslint-disable-next-line @typescript-eslint/no-empty-interface
+      interface IntrinsicElements extends CustomElements {}
+    }
   }
 `;
 }
