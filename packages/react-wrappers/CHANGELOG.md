@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.6
+
+- Fixed missing details in component description
+
 ## 1.0.5
 
 - Fix exclude functionality
