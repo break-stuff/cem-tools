@@ -96,7 +96,7 @@ ${
           : (prop as any).type?.text || "string";
 
       return `/** ${getMemberDescription(prop.description, prop.deprecated)} */
-  "prop:${prop.name}"?: ${type};`;
+  "${prop.name}"?: ${type};`;
     })
     .join("\n") || ""
 }
