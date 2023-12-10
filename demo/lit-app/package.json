@@ -22,6 +22,7 @@
     "custom-element-react-wrappers": "*",
     "custom-element-solidjs-integration": "*",
     "custom-element-vs-code-integration": "*",
+    "custom-element-vuejs-integration": "*",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },
