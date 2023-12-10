@@ -13,7 +13,7 @@
     "/dist"
   ],
   "repository": "https://github.com/break-stuff/cem-tools",
-  "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/jsx-integration",
+  "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/vuejs-integration",
   "scripts": {
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "deploy": "npm run build && npm publish",

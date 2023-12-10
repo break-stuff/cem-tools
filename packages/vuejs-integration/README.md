@@ -89,6 +89,10 @@ Now you can add a reference to the types in your `tsconfig.json`.
 
 ```
 
+## Configuring Your Vue.js Project
+
+If you haven't configured your Vue.js project to work with custom element/web components, follow [the instructions here](https://vuejs.org/guide/extras/web-components.html#using-custom-elements-in-vue) based on your project type to ensure the components work correctly.
+
 ## Configuration
 
 The configuration has the following optional parameters:
@@ -99,28 +103,8 @@ The configuration has the following optional parameters:
   outdir?: string;
   /** File name for the types */
   fileName?: string | null;
-  /** Class names of any components you would like to exclude from the custom data */
+  /** Class names of any components you would like to exclude from the types */
   exclude?: string[];
-  /** The property name from the component object that you would like to use for the description of your component */
-  descriptionSrc?: "description" | "summary" | string;
-  /** Displays the slot section of the element description */
-  hideSlotDocs?: boolean;
-  /** Displays the event section of the element description */
-  hideEventDocs?: boolean;
-  /** Displays the CSS custom properties section of the element description */
-  hideCssPropertiesDocs?: boolean;
-  /** Displays the CSS parts section of the element description */
-  hideCssPartsDocs?: boolean;
-  /** Displays the methods section of the element description */
-  hideMethodDocs?: boolean;
-  /** Overrides the default section labels in the component description */
-  labels?: {
-    slots?: string;
-    events?: string;
-    cssProperties?: string;
-    cssParts?: string;
-    methods?: string;
-  };
   /** Used to get type reference for components from a single source */
   globalTypePath?: string;
   /** Used to get types from specific path for a given component */
@@ -149,7 +133,7 @@ You can configure the destination and the file name of the generated type file u
 
 ### Types
 
-If your components were built using TypeScript, you should define a path to your type declarations to pass that type-safety on to the Vue.js project.
+If your components were built using TypeScript, the types should automatically be used when you reference the corresponding module.
 
 > _***NOTE:*** All type paths should be relative to the location specified in the `outdir` option._
 
