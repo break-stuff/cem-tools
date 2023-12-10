@@ -61,7 +61,7 @@ Ensure the following steps have been taken in your component library prior to us
 ```js
 // custom-elements-manifest.config.js
 
-import { customElementVuePlugin } from "custom-element-vuejs-integration";
+import { customElementVuejsPlugin } from "custom-element-vuejs-integration";
 
 const options = {
   outdir: './dist',
@@ -71,7 +71,7 @@ const options = {
 
 export default {
   plugins: [
-    customElementVuePlugin(options)
+    customElementVuejsPlugin(options)
   ],
 };
 ```
