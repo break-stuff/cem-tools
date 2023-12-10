@@ -39,11 +39,9 @@ generateVuejsTypes(manifest, options);
 Now you can add a reference to the types in your `tsconfig.json`.
 
 ```json
-// tsconfig.json
 {
   "compilerOptions": {
-    ...
-    "types": [..., "./my-library-vuejs"],
+    "types": ["./my-library-vuejs"],
   },
 }
 
@@ -83,11 +81,9 @@ export default {
 Now you can add a reference to the types in your `tsconfig.json`.
 
 ```json
-// tsconfig.json
 {
   "compilerOptions": {
-    ...
-    "types": [..., "my-library/my-library-vuejs"],
+    "types": ["my-library/my-library-vuejs"],
   },
 }
 

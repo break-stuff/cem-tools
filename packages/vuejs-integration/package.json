@@ -1,6 +1,6 @@
 {
   "name": "custom-element-vuejs-integration",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.2",
   "description": "Types for integrating custom elements into Vue.js projects",
   "main": "index.js",
   "module": "index.js",
