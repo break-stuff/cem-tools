@@ -44,7 +44,7 @@ Ensure the following steps have been taken in your component library prior to us
 ```js
 // custom-elements-manifest.config.js
 
-import { customElementJetBrainsPlugin } from "cem-plugin-jet-brains-ide-integration";
+import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integration";
 
 const options = {...};
 
@@ -120,7 +120,7 @@ Here is an sample configuration.
 ```js
 // custom-elements-manifest.config.js
 
-import { generateWebTypes } from "cem-plugin-jet-brains-ide-integration";
+import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integration";
 
 const options = {
   /** Path to output directory */
@@ -300,7 +300,7 @@ There may be instances where you may want to translate or override the default s
 // custom-elements-manifest.config.js
 export default {
   plugins: [
-    generateWebTypes({
+    customElementJetBrainsPlugin({
       ...
 
       /** Overrides the default section labels in the component description */
