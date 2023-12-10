@@ -46,58 +46,7 @@ type RadioButtonProps = {
 };
 
 export type CustomElements = {
-  /**
-   *
-   * Radio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).
-   *
-   * Use it like this:
-   * ```html
-   * <radio-group value="2" size="3">
-   *   <span slot="label">My Label</span>
-   *   <radio-button value="1">Option 1</radio-button>
-   *   <radio-button value="2">Option 2</radio-button>
-   *   <radio-button value="3">Option 3</radio-button>
-   * </radio-group>
-   * ```
-   * ---
-   *
-   *
-   * ### **Events:**
-   *  - **custom-event** - some description for custom-event
-   * - **typed-event** - some description for typed-event
-   * - **typed-custom-event** - some description for typed-custom-event
-   *
-   * ### **Methods:**
-   *  - **validate()** - Validated the radio inputs
-   * - **checkStatus(value: _string_, message: _string_): _string_** - This is a test method with parameters
-   *
-   *
-   * ### **Slots:**
-   *  - _default_ - add radio buttons to the `default` slot to create options to your radio group
-   * - **label** - placeholder for the radio group label
-   *
-   * ### **CSS Properties:**
-   *  - **--radio-border-radius** - Controls the border radius of the radio buttons _(default: undefined)_
-   * - **--radio-background-color** - Controls the color of bar _(default: red)_
-   *
-   * ### **CSS Parts:**
-   *  - **radio-label** - Applies custom styles the radio group label
-   */
   "radio-group": DefineComponent<RadioGroupProps>;
-
-  /**
-   * Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).
-   *
-   * Use it like this:
-   * ```html
-   * <radio-button value="1" disabled>Your label</radio-button>
-   * ```
-   * ---
-   *
-   *
-   * ### **Slots:**
-   *  - _default_ - add text here to label your radio button
-   */
   "radio-button": DefineComponent<RadioButtonProps>;
 };
 
