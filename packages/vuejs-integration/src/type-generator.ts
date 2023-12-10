@@ -120,12 +120,7 @@ ${
   export type CustomElements = {
 ${components
   .map((component) => {
-    return `
-
-  /**
-    ${getComponentDetailsTemplate(component, options, true)}
-    */
-    "${options.prefix}${component.tagName}${options.suffix}": DefineComponent<${
+    return `"${options.prefix}${component.tagName}${options.suffix}": DefineComponent<${
       component.name
     }Props>;`;
   })
