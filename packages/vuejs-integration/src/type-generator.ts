@@ -6,7 +6,7 @@ import {
   getCustomEventTypes,
   getMemberDescription,
 } from "../../../tools/cem-utils";
-import { logBlue, saveFile } from "../../../tools/integrations";
+import { createOutDir, logBlue, saveFile } from "../../../tools/integrations";
 import { toPascalCase } from "../../../tools/utilities";
 import { Options } from "./types";
 
@@ -17,6 +17,7 @@ export function generateVuejsTypes(manifest: any, options: Options) {
     (x) => x.tagName
   );
   const template = getTypeTemplate(components, options);
+  createOutDir(options.outdir!);
   const outputPath = saveFile(
     options.outdir!,
     options.fileName!,

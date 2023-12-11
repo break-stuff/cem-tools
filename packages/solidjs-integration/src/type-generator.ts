@@ -6,7 +6,7 @@ import {
   getCustomEventTypes,
   getMemberDescription,
 } from "../../../tools/cem-utils";
-import { logBlue, saveFile } from "../../../tools/integrations";
+import { createOutDir, logBlue, saveFile } from "../../../tools/integrations";
 import { Options } from "./types";
 
 export function generateSolidJsTypes(manifest: any, options: Options) {
@@ -16,6 +16,7 @@ export function generateSolidJsTypes(manifest: any, options: Options) {
     (x) => x.tagName
   );
   const template = getTypeTemplate(components, options);
+  createOutDir(options.outdir!);
   const outputPath = saveFile(
     options.outdir!,
     options.fileName!,
