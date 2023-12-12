@@ -105,7 +105,7 @@ export const RESERVED_WORDS = [
 
 export function saveReactUtils(outdir: string) {
   const reactUtils = `
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from "react";
 
 export function useAttribute(targetElement, attrName, value) {
   useEffect(() => {
