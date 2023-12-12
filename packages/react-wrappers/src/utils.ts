@@ -105,10 +105,10 @@ export const RESERVED_WORDS = [
 
 export function saveReactUtils(outdir: string) {
   const reactUtils = `
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 
 export function useAttribute(targetElement, attrName, value) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (value !== undefined && attrName !== 'style' && targetElement.current?.getAttribute(attrName) !== String(value)) {
       targetElement.current?.setAttribute(attrName, String(value));
     }
@@ -116,7 +116,7 @@ export function useAttribute(targetElement, attrName, value) {
 }
 
 export function useBooleanAttribute(targetElement, attrName, propName) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!propName || propName === 'false') {
       targetElement.current?.removeAttribute(attrName);
     } else {
@@ -126,7 +126,7 @@ export function useBooleanAttribute(targetElement, attrName, propName) {
 }
 
 export function useProperties(targetElement, propName, value) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (value !== undefined && targetElement.current[propName] !== value) {
       // add try catch to avoid errors when setting read-only properties
       try {
