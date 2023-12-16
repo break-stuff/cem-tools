@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.0
+
+- Changed attribute binding to add attributes before rendering
+- Fixed attribute mapping error
+
 ## 1.0.6
 
 - Fixed missing details in component description
