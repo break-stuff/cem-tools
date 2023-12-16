@@ -80,6 +80,7 @@ function updateConfig(options: Options) {
   config.exclude = options.exclude || [];
   config.typesSrc = options.typesSrc || "types";
   config.modulePath = options.modulePath;
+  config.attributeMapping = options.attributeMapping || {};
   globalEvents = [...baseEvents, ...(options.globalEvents || [])];
 }
 

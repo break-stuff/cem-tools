@@ -112,6 +112,11 @@
             { "name": "_parent" },
             { "name": "_top" }
           ]
+        },
+        {
+          "name": "for",
+          "description": "A mapped attribute for react wrapper example",
+          "values": []
         }
       ],
       "references": []

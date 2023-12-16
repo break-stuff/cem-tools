@@ -108,7 +108,7 @@ export function saveReactUtils(outdir: string) {
 import { useEffect, useLayoutEffect } from "react";
 
 export function useAttribute(targetElement, attrName, value) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (value !== undefined && attrName !== 'style' && targetElement.current?.getAttribute(attrName) !== String(value)) {
       targetElement.current?.setAttribute(attrName, String(value));
     }

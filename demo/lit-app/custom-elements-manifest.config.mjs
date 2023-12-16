@@ -61,6 +61,9 @@ export default {
           type: "React.FocusEventHandler",
         },
       ],
+      attributeMapping: {
+        "for": "_for",
+      }
     }),
     customElementVuejsPlugin({
       componentTypePath: (name, tag) => `./dist/${tag}/${name}.d.ts`,

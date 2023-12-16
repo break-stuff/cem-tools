@@ -43,6 +43,8 @@ type RadioButtonProps = {
   disabled?: RadioButton["disabled"];
   /** A lookup type for example */
   target?: RadioButton["target"];
+  /** A mapped attribute for react wrapper example */
+  for?: RadioButton["for"];
 };
 
 export type CustomElements = {
