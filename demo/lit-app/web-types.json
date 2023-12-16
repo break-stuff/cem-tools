@@ -197,6 +197,11 @@
               "value": {
                 "type": "'_blank' | '_self' | '_parent' | '_top' | undefined"
               }
+            },
+            {
+              "name": "for",
+              "description": "A mapped attribute for react wrapper example",
+              "value": { "type": "string | undefined" }
             }
           ],
           "slots": [
@@ -224,6 +229,11 @@
                 "value": {
                   "type": "'_blank' | '_self' | '_parent' | '_top' | undefined"
                 }
+              },
+              {
+                "name": "for",
+                "description": "A mapped attribute for react wrapper example",
+                "value": { "type": "string | undefined" }
               }
             ],
             "events": []

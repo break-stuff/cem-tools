@@ -427,6 +427,15 @@
               "expandedType": {
                 "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
               }
+            },
+            {
+              "kind": "field",
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A mapped attribute for react wrapper example",
+              "attribute": "for"
             }
           ],
           "attributes": [
@@ -460,6 +469,14 @@
                 "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
               },
               "propName": "target"
+            },
+            {
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A mapped attribute for react wrapper example",
+              "fieldName": "for"
             }
           ],
           "superclass": {
