@@ -1,4 +1,4 @@
-import { has, removeQuoteWrappers, toKebabCase } from "../utilities";
+import { has, removeQuoteWrappers, toKebabCase, toPascalCase } from "../utilities";
 
 describe("toKebabCase", () => {
   test("given a string in Pascal case, it should convert it kebab case", () => {
@@ -102,5 +102,41 @@ describe("has", () => {
 
     // Assert
     expect(result).toBe(true);
+  });
+});
+
+
+describe("toPascalCase", () => {
+  test("given a string in kebab case, it should convert it to pascal case", () => {
+    // Arrange
+    const input = 'test-example';
+
+    // Act
+    const result = toPascalCase(input);
+
+    // Assert
+    expect(result).toBe("TestExample");
+  });
+
+  test("given a string in snake case, it should convert it to pascal case", () => {
+    // Arrange
+    const input = 'test_example';
+
+    // Act
+    const result = toPascalCase(input);
+
+    // Assert
+    expect(result).toBe("TestExample");
+  });
+
+  test("given a string in with spaces, it should convert it pascal case", () => {
+    // Arrange
+    const input = 'test example';
+
+    // Act
+    const result = toPascalCase(input);
+
+    // Assert
+    expect(result).toBe("TestExample");
   });
 });

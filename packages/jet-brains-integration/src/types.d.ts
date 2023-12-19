@@ -16,6 +16,8 @@ export interface Options extends BaseOptions {
   prefix?: string;
   /** Adds a suffix to tag references */
   suffix?: string;
+  /** Automatically adds reference to yor package.json */
+  packageJson?: boolean;
   /** Used to create a link within the component info bubble */
   referenceTemplate?: (name: string, tag?: string) => Reference;
 }

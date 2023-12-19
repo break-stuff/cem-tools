@@ -125,6 +125,19 @@
             },
             {
               "kind": "field",
+              "name": "external3",
+              "type": {
+                "text": "Test3"
+              },
+              "default": "'value8'",
+              "description": "This is a test for external .ts options",
+              "attribute": "external3",
+              "expandedType": {
+                "text": "'value7' | 'value8' | 'value9'"
+              }
+            },
+            {
+              "kind": "field",
               "name": "complex",
               "type": {
                 "text": "ComplexObjectType"
@@ -144,6 +157,29 @@
               },
               "description": "This is a camel-case attribute",
               "attribute": "my-attribute"
+            },
+            {
+              "kind": "field",
+              "name": "data",
+              "type": {
+                "text": "{\n    // The name.\n    name?: string,\n    /** The type. */\n    type?: string,\n    /** The value. */\n    value?: number,\n  } | undefined"
+              },
+              "description": "This is data object",
+              "expandedType": {
+                "text": "{\n    // The name.\n    name??: string,\n    /** The type. */\n    type?: string,\n    /** The value. */\n    value?: number,\n  } | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "complexUnion",
+              "type": {
+                "text": "ChildSize | undefined"
+              },
+              "description": "This is a test for options from an object",
+              "attribute": "complex-union",
+              "expandedType": {
+                "text": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
+              }
             },
             {
               "kind": "method",
@@ -173,6 +209,10 @@
                 }
               ],
               "description": "This is a test method with parameters"
+            },
+            {
+              "kind": "field",
+              "name": "customTag"
             },
             {
               "kind": "method",
@@ -209,7 +249,8 @@
               },
               "default": "\"\"",
               "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "fieldName": "value"
+              "fieldName": "value",
+              "propName": "value"
             },
             {
               "name": "disabled",
@@ -217,7 +258,8 @@
                 "text": "boolean | undefined"
               },
               "description": "Disables the radio group and all of its radio buttons",
-              "fieldName": "disabled"
+              "fieldName": "disabled",
+              "propName": "disabled"
             },
             {
               "name": "size",
@@ -226,7 +268,8 @@
               },
               "default": "'md'",
               "description": "This will control the size of the radio buttons",
-              "fieldName": "size"
+              "fieldName": "size",
+              "propName": "size"
             },
             {
               "name": "variants",
@@ -238,7 +281,8 @@
               "fieldName": "variants",
               "expandedType": {
                 "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
-              }
+              },
+              "propName": "variants"
             },
             {
               "name": "external",
@@ -250,7 +294,8 @@
               "fieldName": "external",
               "expandedType": {
                 "text": "'value1' | 'value2' | 'value3'"
-              }
+              },
+              "propName": "external"
             },
             {
               "name": "external2",
@@ -262,7 +307,21 @@
               "fieldName": "external2",
               "expandedType": {
                 "text": "'value4' | 'value5' | 'value6'"
-              }
+              },
+              "propName": "external2"
+            },
+            {
+              "name": "external3",
+              "type": {
+                "text": "Test3"
+              },
+              "default": "'value8'",
+              "description": "This is a test for external .ts options",
+              "fieldName": "external3",
+              "expandedType": {
+                "text": "'value7' | 'value8' | 'value9'"
+              },
+              "propName": "external3"
             },
             {
               "name": "complex",
@@ -274,7 +333,8 @@
               "fieldName": "complex",
               "expandedType": {
                 "text": "'single' | 'multi'"
-              }
+              },
+              "propName": "complex"
             },
             {
               "name": "my-attribute",
@@ -282,7 +342,20 @@
                 "text": "string | undefined"
               },
               "description": "This is a camel-case attribute",
-              "fieldName": "myAttribute"
+              "fieldName": "myAttribute",
+              "propName": "myAttribute"
+            },
+            {
+              "name": "complex-union",
+              "type": {
+                "text": "ChildSize | undefined"
+              },
+              "description": "This is a test for options from an object",
+              "fieldName": "complexUnion",
+              "expandedType": {
+                "text": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
+              },
+              "propName": "complexUnion"
             }
           ],
           "superclass": {
@@ -357,6 +430,15 @@
               "expandedType": {
                 "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
               }
+            },
+            {
+              "kind": "field",
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A mapped attribute for react wrapper example",
+              "attribute": "for"
             }
           ],
           "attributes": [
@@ -367,7 +449,8 @@
               },
               "default": "\"\"",
               "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "fieldName": "value"
+              "fieldName": "value",
+              "propName": "value"
             },
             {
               "name": "disabled",
@@ -375,7 +458,8 @@
                 "text": "boolean | undefined"
               },
               "description": "Disables the radio button",
-              "fieldName": "disabled"
+              "fieldName": "disabled",
+              "propName": "disabled"
             },
             {
               "name": "target",
@@ -386,7 +470,16 @@
               "fieldName": "target",
               "expandedType": {
                 "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
-              }
+              },
+              "propName": "target"
+            },
+            {
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A mapped attribute for react wrapper example",
+              "fieldName": "for"
             }
           ],
           "superclass": {
@@ -454,6 +547,14 @@
       "declarations": [],
       "exports": [
         {
+          "kind": "js",
+          "name": "RadioButton",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "src/radio-button/radio-button.ts"
+          }
+        },
+        {
           "kind": "custom-element-definition",
           "name": "radio-button",
           "declaration": {
@@ -468,6 +569,14 @@
       "path": "src/radio-group/radio-group.ts",
       "declarations": [],
       "exports": [
+        {
+          "kind": "js",
+          "name": "RadioGroup",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "src/radio-group/radio-group.ts"
+          }
+        },
         {
           "kind": "custom-element-definition",
           "name": "radio-group",

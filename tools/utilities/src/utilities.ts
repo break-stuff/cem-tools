@@ -23,3 +23,25 @@ export function toSentenceCase(value: string) {
       .trim()
   );
 }
+
+export function toPascalCase(value: string) {
+  return value
+    .toLowerCase()
+    .replace(new RegExp(/[-_]+/, "g"), " ")
+    .replace(new RegExp(/[^\w\s]/, "g"), "")
+    .replace(
+      new RegExp(/\s+(.)(\w*)/, "g"),
+      ($1, $2, $3) => `${$2.toUpperCase() + $3}`
+    )
+    .replace(new RegExp(/\w/), (s) => s.toUpperCase());
+}
+
+export function toCamelCase(value: string = "") {
+  const arr = value.split("-");
+  const capital = arr.map((item, index) =>
+    index
+      ? item.charAt(0).toUpperCase() + item.slice(1).toLowerCase()
+      : item.toLowerCase()
+  );
+  return capital.join("");
+}

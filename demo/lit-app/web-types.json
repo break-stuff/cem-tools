@@ -54,6 +54,14 @@
               }
             },
             {
+              "name": "external3",
+              "description": "This is a test for external .ts options",
+              "value": {
+                "type": "'value7' | 'value8' | 'value9'",
+                "default": "'value8'"
+              }
+            },
+            {
               "name": "complex",
               "description": "This is a test for options from an object",
               "value": { "type": "'single' | 'multi'", "default": "'single'" }
@@ -62,6 +70,13 @@
               "name": "my-attribute",
               "description": "This is a camel-case attribute",
               "value": { "type": "string | undefined" }
+            },
+            {
+              "name": "complex-union",
+              "description": "This is a test for options from an object",
+              "value": {
+                "type": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
+              }
             }
           ],
           "slots": [
@@ -123,6 +138,11 @@
                 "value": { "type": "'value4' | 'value5' | 'value6'" }
               },
               {
+                "name": "external3",
+                "description": "This is a test for external .ts options",
+                "value": { "type": "'value7' | 'value8' | 'value9'" }
+              },
+              {
                 "name": "complex",
                 "description": "This is a test for options from an object",
                 "value": { "type": "'single' | 'multi'" }
@@ -131,6 +151,13 @@
                 "name": "my-attribute",
                 "description": "This is a camel-case attribute",
                 "value": { "type": "string | undefined" }
+              },
+              {
+                "name": "complex-union",
+                "description": "This is a test for options from an object",
+                "value": {
+                  "type": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
+                }
               }
             ],
             "events": [
@@ -170,6 +197,11 @@
               "value": {
                 "type": "'_blank' | '_self' | '_parent' | '_top' | undefined"
               }
+            },
+            {
+              "name": "for",
+              "description": "A mapped attribute for react wrapper example",
+              "value": { "type": "string | undefined" }
             }
           ],
           "slots": [
@@ -197,6 +229,11 @@
                 "value": {
                   "type": "'_blank' | '_self' | '_parent' | '_top' | undefined"
                 }
+              },
+              {
+                "name": "for",
+                "description": "A mapped attribute for react wrapper example",
+                "value": { "type": "string | undefined" }
               }
             ],
             "events": []

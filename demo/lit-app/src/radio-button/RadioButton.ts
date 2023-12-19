@@ -23,6 +23,9 @@ export class RadioButton extends LitElement {
   /** A lookup type for example */
   @property() target?: Target;
 
+  /** A mapped attribute for react wrapper example */
+  @property() for?: string;
+
   render() {
     return html`
       <h2>Hello world!</h2>

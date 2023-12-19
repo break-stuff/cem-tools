@@ -58,6 +58,15 @@
           ]
         },
         {
+          "name": "external3",
+          "description": "This is a test for external .ts options",
+          "values": [
+            { "name": "value7" },
+            { "name": "value8" },
+            { "name": "value9" }
+          ]
+        },
+        {
           "name": "complex",
           "description": "This is a test for options from an object",
           "values": [{ "name": "single" }, { "name": "multi" }]
@@ -66,6 +75,16 @@
           "name": "my-attribute",
           "description": "This is a camel-case attribute",
           "values": []
+        },
+        {
+          "name": "complex-union",
+          "description": "This is a test for options from an object",
+          "values": [
+            { "name": "small" },
+            { "name": "medium" },
+            { "name": "large" },
+            { "name": "extra-small" }
+          ]
         }
       ],
       "references": []
@@ -93,6 +112,11 @@
             { "name": "_parent" },
             { "name": "_top" }
           ]
+        },
+        {
+          "name": "for",
+          "description": "A mapped attribute for react wrapper example",
+          "values": []
         }
       ],
       "references": []

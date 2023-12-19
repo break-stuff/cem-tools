@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.0
+
+- Recursively generate output directories
+
 ## 1.2.1
 
 - Add log with output path

@@ -1,8 +1,12 @@
 # Changelog
 
-## 1.3.1
+## 1.4.1
 
-- Update `package.json` urls to match current repository
+- Update docs to reflect correct package name and imported module
+
+## 1.4.0
+
+- Add option to automatically add reference to `package.json`
 
 ## 1.3.0
 

@@ -1,7 +1,7 @@
 import type { JSX } from "solid-js";
 
-import type { RadioGroup, InterfaceEventType } from "./types/radio-group/RadioGroup.d.ts";
-import type { RadioButton } from "./types/radio-button/RadioButton.d.ts";
+import type { RadioGroup, InterfaceEventType } from "./dist/radio-group/RadioGroup.d.ts";
+import type { RadioButton } from "./dist/radio-button/RadioButton.d.ts";
 
 /**
  * This type can be used to create scoped tags for your components.
@@ -54,11 +54,18 @@ type RadioGroupProps = {
   external?: RadioGroup["external"];
   /** This is a test for external .ts options */
   external2?: RadioGroup["external2"];
+  /** This is a test for external .ts options */
+  external3?: RadioGroup["external3"];
   /** This is a test for options from an object */
   complex?: RadioGroup["complex"];
   /** This is a camel-case attribute */
   "my-attribute"?: RadioGroup["myAttribute"];
-
+  /** This is a test for options from an object */
+  "complex-union"?: RadioGroup["complexUnion"];
+  /** This is data object */
+  "prop:data"?: RadioGroup["data"];
+  /**  */
+  "prop:customTag"?: RadioGroup["customTag"];
   /** some description for custom-event */
   "on:custom-event"?: (e: CustomEvent<never>) => void;
   /** some description for typed-event */
@@ -74,6 +81,8 @@ type RadioButtonProps = {
   disabled?: RadioButton["disabled"];
   /** A lookup type for example */
   target?: RadioButton["target"];
+  /** A mapped attribute for react wrapper example */
+  for?: RadioButton["for"];
 };
 
 export type CustomElements = {

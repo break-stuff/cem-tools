@@ -9,7 +9,8 @@ This config enables JetBrains IDEs to display autocomplete and contextual inform
 ## Usage
 
 This package includes two ways to generate the custom data config file:
-1. calling a function in your build pipeline 
+
+1. calling a function in your build pipeline
 2. as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
 
 ### Install
@@ -43,7 +44,7 @@ Ensure the following steps have been taken in your component library prior to us
 ```js
 // custom-elements-manifest.config.js
 
-import { customElementJetBrainsPlugin } from "cem-plugin-jet-brains-ide-integration";
+import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integration";
 
 const options = {...};
 
@@ -58,7 +59,16 @@ export default {
 
 Once the file has been generated, the IDE should automatically pick it up and you should see your information displayed in the IDE!
 
-If you are deploying your library for others to use, your `package.json` will also be updated with a reference to the generated `web-types.json` file so it will be automatically discovered and integrated by the IDE into their experience. No user involvement necessary!
+If you are deploying your library for others to use, you will need to update your `package.json` a reference to the generated `web-types.json` file. this will allow it to be discovered and integrated by the IDE. No user involvement necessary!
+
+```json
+{
+  ...
+  "web-types": "./web-types.json"
+}
+```
+
+Optionally, you can enable the plugin to do this for you automatically using the `packageJson` option. Setting this to `true` will update your `package.json` fille with the appropriate reference.
 
 ## Configuration
 
@@ -100,6 +110,8 @@ export interface Options {
   referencesTemplate?: (name: string, tag?: string) => Reference;
   /** The property form your CEM component object to display your types */
   typesSrc?: string;
+  /** Automatically adds reference to yor package.json */
+  packageJson?: boolean;
 }
 ```
 
@@ -108,7 +120,7 @@ Here is an sample configuration.
 ```js
 // custom-elements-manifest.config.js
 
-import { generateWebTypes } from "cem-plugin-jet-brains-ide-integration";
+import { customElementJetBrainsPlugin } from "custom-element-jet-brains-integration";
 
 const options = {
   /** Path to output directory */
@@ -288,7 +300,7 @@ There may be instances where you may want to translate or override the default s
 // custom-elements-manifest.config.js
 export default {
   plugins: [
-    generateWebTypes({
+    customElementJetBrainsPlugin({
       ...
 
       /** Overrides the default section labels in the component description */
