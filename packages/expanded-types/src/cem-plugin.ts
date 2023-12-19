@@ -97,9 +97,11 @@ function getObjectTypes(fileName: string, typeName: string) {
     ),
   ];
   parts.forEach((part) => {
+    const cleanPart = part
+      .replace(/\/\*[\s\S]*?\*\/|(?<=[^:])\/\/.*|^\/\/.*/g, "");
     typeName = typeName.replace(
-      new RegExp(part, "g"),
-      getExpandedType(fileName, part)
+      new RegExp(cleanPart, "g"),
+      getExpandedType(fileName, cleanPart)
     );
   });
   return typeName;
@@ -133,7 +135,7 @@ function parseFileTypes(node: any) {
 }
 
 function setEnumTypes(node: any) {
-  const name = node.name.escapedText;
+  const name = node.name?.escapedText;
   const shortText =
     node.members?.map((mem: any) => mem.initializer?.text).join(" | ") || "";
 
@@ -147,7 +149,7 @@ function setBasicUnionTypes(node: any) {
       ?.map((type: any) => {
         let value = type?.literal?.text;
         if (!value && type?.typeName?.escapedText) {
-          value = getExpandedType(currentFilename, type.typeName.escapedText);
+          value = getExpandedType(currentFilename, type.typeName?.escapedText);
           return value;
         }
         return typeof value === "string" ? `'${value}'` : value;
