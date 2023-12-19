@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.4
+
+- Updated to prevent errors when object types have comments
+- Add optional chaining when evaluating types in case they return `null` or undefined
+
 ## 1.1.3
 
 - Added check for missing value

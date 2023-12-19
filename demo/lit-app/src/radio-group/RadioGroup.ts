@@ -101,7 +101,14 @@ export class RadioGroup extends LitElement {
 
   /** This is data object */
   @property({ attribute: false })
-  data?: DataObject;
+  data?: {
+    // The name.
+    name?: string,
+    /** The type. */
+    type?: string,
+    /** The value. */
+    value?: number,
+  };
 
   /** This is a test for options from an object */
   @property({ attribute: 'complex-union' })
