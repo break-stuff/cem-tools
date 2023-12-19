@@ -121,7 +121,11 @@ ${
   export type CustomElements = {
 ${components
   .map((component) => {
-    return `"${options.prefix}${component.tagName}${options.suffix}": DefineComponent<${
+    return `
+    /**
+     ${getComponentDetailsTemplate(component, options, true)}
+     */ 
+    "${options.prefix}${component.tagName}${options.suffix}": DefineComponent<${
       component.name
     }Props>;`;
   })
