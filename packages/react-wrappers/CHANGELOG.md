@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.1
+
+- Removed duplicate `ref` prop in wrapper
+
 ## 1.1.0
 
 - Changed attribute binding to add attributes before rendering
