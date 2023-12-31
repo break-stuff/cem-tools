@@ -40,12 +40,13 @@ export const baseProperties: MappedAttribute[] = [
   {
     name: "key",
     propName: "key",
-    description: "Used to help React identify which items have changed, are added, or are removed within a list.",
+    description:
+      "Used to help React identify which items have changed, are added, or are removed within a list.",
     type: {
       text: "number | string",
     },
   },
-    {
+  {
     name: "children",
     propName: "children",
     description: "Content between the opening and closing component tags.",
@@ -53,12 +54,22 @@ export const baseProperties: MappedAttribute[] = [
       text: "any",
     },
   },
-    {
+  {
     name: "ref",
     propName: "ref",
-    description: "A mutable ref object whose `.current` property is initialized to the passed argument (`initialValue`). The returned object will persist for the full lifetime of the component.",
+    description:
+      "A mutable ref object whose `.current` property is initialized to the passed argument (`initialValue`). The returned object will persist for the full lifetime of the component.",
     type: {
       text: "any",
+    },
+  },
+  {
+    name: "tabindex",
+    propName: "tabIndex",
+    description:
+      "Allows developers to make HTML elements focusable, allow or prevent them from being sequentially focusable (usually with the `Tab` key, hence the name) and determine their relative ordering for sequential focus navigation.",
+    type: {
+      text: "string",
     },
   },
 ];

@@ -381,6 +381,7 @@ function getReactComponentTemplate(
         { 
           ${useEffect ? "ref," : ""} 
           ${attributes
+            .filter((x) => x.name !== "ref")
             .map((attr) => {
               return (attr.originalName || attr?.name) === attr?.propName
                 ? attr?.name
