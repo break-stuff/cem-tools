@@ -19,6 +19,7 @@
     "cem-plugin-expanded-types": "*",
     "custom-element-jet-brains-integration": "*",
     "custom-element-jsx-integration": "*",
+    "custom-element-lazy-loader": "*",
     "custom-element-react-wrappers": "*",
     "custom-element-solidjs-integration": "*",
     "custom-element-vs-code-integration": "*",
