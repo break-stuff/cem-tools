@@ -5,6 +5,7 @@ import { customElementJsxPlugin } from "custom-element-jsx-integration";
 import { getTsProgram, expandTypesPlugin } from "cem-plugin-expanded-types";
 import { customElementReactWrapperPlugin } from "custom-element-react-wrappers";
 import { customElementVuejsPlugin } from "custom-element-vuejs-integration";
+import { customElementLazyLoaderPlugin } from "custom-element-lazy-loader";
 
 export default {
   /** Globs to analyze */
@@ -68,5 +69,8 @@ export default {
     customElementVuejsPlugin({
       componentTypePath: (name, tag) => `./dist/${tag}/${name}.d.ts`,
     }),
+    customElementLazyLoaderPlugin({
+      importPathTemplate: (name, tag) => `./dist/${tag}/${name}.js`,
+    })
   ],
 };
