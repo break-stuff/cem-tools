@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.2
+
+- Deploy updated repo links
+
 ## 1.4.1
 
 - Update docs to reflect correct package name and imported module
