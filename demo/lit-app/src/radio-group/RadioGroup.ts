@@ -32,6 +32,8 @@ export interface InterfaceEventType {
   message?: string;
 }
 
+export type Example = Test2 | 'valueA' | 'valueB';
+
 /**
  *
  * Radio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).
@@ -85,7 +87,7 @@ export class RadioGroup extends LitElement {
 
   /** This is a test for external .ts options */
   @property({ type: String })
-  external2: Test2 = 'value4';
+  external2: Example = 'value4';
 
   /** This is a test for external .ts options */
   @property({ type: String })

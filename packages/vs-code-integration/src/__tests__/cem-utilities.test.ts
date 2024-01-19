@@ -5,10 +5,10 @@ import {
   getValueSet,
 } from "../cem-utilities.js";
 import { component, customElementsManifest } from "./test-data.js";
-import { updateConfig } from "configurations";
-import { getComponents, getComponentMethods } from "cem-utils";
 import { Reference } from "../types.js";
 import { getOptions } from "../data-file-generator.js";
+import { updateConfig } from "../../../../tools/configurations/src/config.js";
+import { getComponentMethods, getComponents } from "../../../../tools/cem-utils/index.js";
 
 describe("getCssValues", () => {
   test("given a string with comma separated values, it should return an array of CSS Value objects", () => {
