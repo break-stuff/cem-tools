@@ -2,7 +2,7 @@
 
 ## 1.1.5
 
-- Fixed module paths
+- Fixed module paths that were preventing inheritance
 - Small performance improvement
 
 ## 1.1.4
