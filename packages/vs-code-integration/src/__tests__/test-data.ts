@@ -1,5 +1,5 @@
-import { CEM, Component } from "cem-utils";
 import * as schema from "custom-elements-manifest/schema";
+import { CEM, Component } from "../../../../tools/cem-utils";
 
 export const methods: schema.ClassMethod[] = [
   {
