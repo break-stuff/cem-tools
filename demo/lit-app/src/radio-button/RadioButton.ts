@@ -3,6 +3,18 @@ import { property } from "lit/decorators.js";
 
 export type Target = '_blank' | '_self' | '_parent' | '_top';
 
+export enum Direction {
+  Up = "UP",
+  Down = "DOWN",
+  Left = "LEFT",
+  Right = "RIGHT",
+  val = 1
+};
+
+// type DirectionString = (typeof Direction)[keyof typeof Direction];
+
+// const test: Direction = "UP";
+
 /**
  * 
  * @summary Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\n\nUse it like this:\n```html\n<radio-button value="1" disabled>Your label</radio-button>\n```
@@ -25,6 +37,9 @@ export class RadioButton extends LitElement {
 
   /** A mapped attribute for react wrapper example */
   @property() for?: string;
+
+  /** Enum example */
+  @property() position?: string = Direction.Up;
 
   render() {
     return html`

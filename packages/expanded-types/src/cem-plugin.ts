@@ -7,12 +7,27 @@ export interface Options {
 }
 
 const aliasTypes: any = {};
+const primitives = [
+  "string",
+  "number",
+  "boolean",
+  "any",
+  "null",
+  "undefined",
+  "unknown",
+  "never",
+  "void",
+  "object",
+  "symbol",
+  "bigint",
+  "true",
+  "false",
+];
 let currentFilename = "";
 let typeChecker: any;
 let options: Options;
 let typeScript: typeof import("typescript");
 let tsConfigFile: any;
-// const typeDefinitions: string[] = [];
 
 /**
  * CEM Analyzer plugin to expand types in component metadata
@@ -59,7 +74,10 @@ export function getTsProgram(
 }
 
 function getExpandedType(fileName: string, typeName: string): string {
-  if (typeof aliasTypes[fileName] === "undefined") {
+  if (
+    primitives.includes(typeName) ||
+    typeof aliasTypes[fileName] === "undefined"
+  ) {
     return typeName;
   }
 
@@ -98,8 +116,10 @@ function getObjectTypes(fileName: string, typeName: string) {
   ];
   parts.forEach((part) => {
     // remove comments from object
-    const cleanPart = part
-      .replace(/\/\*[\s\S]*?\*\/|(?<=[^:])\/\/.*|^\/\/.*/g, "");
+    const cleanPart = part.replace(
+      /\/\*[\s\S]*?\*\/|(?<=[^:])\/\/.*|^\/\/.*/g,
+      ""
+    );
     typeName = typeName.replace(
       new RegExp(cleanPart, "g"),
       getExpandedType(fileName, cleanPart)
@@ -138,7 +158,8 @@ function parseFileTypes(node: any) {
 function setEnumTypes(node: any) {
   const name = node.name?.escapedText;
   const shortText =
-    node.members?.map((mem: any) => mem.initializer?.text).join(" | ") || "";
+    node.members?.map((mem: any) => `'${mem.initializer?.text}'`).join(" | ") ||
+    "";
 
   aliasTypes[currentFilename][name] = shortText;
 }

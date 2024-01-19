@@ -52,9 +52,9 @@
           "name": "external2",
           "description": "This is a test for external .ts options",
           "values": [
-            { "name": "value4" },
-            { "name": "value5" },
-            { "name": "value6" }
+            { "name": "Test2" },
+            { "name": "valueA" },
+            { "name": "valueB" }
           ]
         },
         {
@@ -117,7 +117,8 @@
           "name": "for",
           "description": "A mapped attribute for react wrapper example",
           "values": []
-        }
+        },
+        { "name": "position", "description": "Enum example", "values": [] }
       ],
       "references": []
     }

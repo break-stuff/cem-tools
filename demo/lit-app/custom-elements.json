@@ -114,13 +114,13 @@
               "kind": "field",
               "name": "external2",
               "type": {
-                "text": "Test2"
+                "text": "Example"
               },
               "default": "'value4'",
               "description": "This is a test for external .ts options",
               "attribute": "external2",
               "expandedType": {
-                "text": "'value4' | 'value5' | 'value6'"
+                "text": "Test2 | 'valueA' | 'valueB'"
               }
             },
             {
@@ -300,13 +300,13 @@
             {
               "name": "external2",
               "type": {
-                "text": "Test2"
+                "text": "Example"
               },
               "default": "'value4'",
               "description": "This is a test for external .ts options",
               "fieldName": "external2",
               "expandedType": {
-                "text": "'value4' | 'value5' | 'value6'"
+                "text": "Test2 | 'valueA' | 'valueB'"
               },
               "propName": "external2"
             },
@@ -439,6 +439,15 @@
               },
               "description": "A mapped attribute for react wrapper example",
               "attribute": "for"
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Enum example",
+              "attribute": "position"
             }
           ],
           "attributes": [
@@ -480,6 +489,15 @@
               },
               "description": "A mapped attribute for react wrapper example",
               "fieldName": "for"
+            },
+            {
+              "name": "position",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Enum example",
+              "fieldName": "position",
+              "propName": "position"
             }
           ],
           "superclass": {
