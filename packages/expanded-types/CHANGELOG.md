@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.5
+
+- Fixed module paths
+- Small performance improvement
+
 ## 1.1.4
 
 - Updated to prevent errors when object types have comments
