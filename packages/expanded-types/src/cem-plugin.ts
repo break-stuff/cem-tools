@@ -1,6 +1,6 @@
 import path from "path";
 import fs from "fs";
-import type { Component } from "../../../tools/cem-utils";
+import type { CEM, Component } from "../../../tools/cem-utils";
 
 export interface Options {
   propertyName?: string;
@@ -196,6 +196,7 @@ function setComplexUnionTypes(node: any) {
 }
 
 function analyzePhase({ ts, node, moduleDoc, context }: any) {
+  moduleDoc.path = moduleDoc.path.replace(`${process.cwd()}/`, "");
   if (node.kind === ts.SyntaxKind.SourceFile) {
     currentFilename = path.resolve(node.fileName);
   }
@@ -204,12 +205,29 @@ function analyzePhase({ ts, node, moduleDoc, context }: any) {
     return;
   }
 
+  console.log("analyzePhase", moduleDoc);
+
   const component = getComponent(node, moduleDoc);
   if (!component) {
     return;
   }
 
+  // (component as any).exports?.forEach((x: any) => x.declaration.module.replace(process.cwd(), ""));
   updateExpandedTypes(component, context);
+}
+
+function packageLinkPhase({
+  customElementsManifest,
+  context,
+}: {
+  customElementsManifest: CEM;
+  context: any;
+}) {
+  customElementsManifest.modules.forEach((module) => {
+    module.path.replace(process.cwd(), "");
+    // module.declarations.forEach((component: Component) => {
+    //   updateExpandedTypes(component, context);
+  });
 }
 
 function getComponent(node: any, moduleDoc: any) {
