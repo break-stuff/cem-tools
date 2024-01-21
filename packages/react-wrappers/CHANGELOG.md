@@ -4,6 +4,11 @@
 
 - Exclude private members using the `#` access modifier
 - Add `htmlFor` global prop
+- Patched issue with `className` prop
+- Patched issue with `style` prop when using style object
+- Removed redundant prop listing
+- Removed attribute utility helpers
+
 
 ## 1.1.1
 
