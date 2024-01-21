@@ -9,7 +9,6 @@
 - Removed redundant prop listing
 - Removed attribute utility helpers
 
-
 ## 1.1.1
 
 - Removed duplicate `ref` prop in wrapper

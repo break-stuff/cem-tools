@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.3
+
+- Exclude private methods and properties using the `#` access modifier
+
 ## 1.4.2
 
 - Deploy updated repo links
