@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.2
+
+- Exclude private methods and properties using the `#` access modifier
+
 ## 1.2.1
 
 - Add log with output path

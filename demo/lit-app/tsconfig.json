@@ -5,6 +5,7 @@
     "declaration": true,
     "outDir": "./dist",
     "strict": true,
+    "target": "ES2015",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,

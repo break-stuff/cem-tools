@@ -72,6 +72,15 @@ export const baseProperties: MappedAttribute[] = [
       text: "string",
     },
   },
+  {
+    name: "for",
+    propName: "htmlFor",
+    description:
+      "Used for labels to link them with their inputs (using input id).",
+    type: {
+      text: "string",
+    },
+  },
 ];
 
 export const baseEvents: GlobalEvent[] = [

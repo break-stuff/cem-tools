@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.1
+
+- Exclude private methods and properties using the `#` access modifier
+
 ## 1.3.0
 
 - Recursively generate output directories
