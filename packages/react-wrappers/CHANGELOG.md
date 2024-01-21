@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.2.0
+
+- Exclude private members using the `#` access modifier
+- Add `htmlFor` global prop
+
 ## 1.1.1
 
 - Removed duplicate `ref` prop in wrapper

@@ -75,7 +75,8 @@ export function getComponentProperties(component: Component) {
       member.privacy !== "private" &&
       member.privacy !== "protected" &&
       !member.static &&
-      !(member as schema.CustomElementField).attribute
+      !(member as schema.CustomElementField).attribute &&
+      !member.name.startsWith("#")
   ) as schema.ClassMember[];
 }
 
@@ -109,7 +110,8 @@ export function getComponentMethods(
     (member) =>
       member.kind === "method" &&
       member.privacy !== "private" &&
-      member.description?.length
+      member.description?.length &&
+      !member.name.startsWith("#") 
   ) as schema.ClassMethod[];
 }
 

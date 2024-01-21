@@ -182,6 +182,16 @@
               }
             },
             {
+              "kind": "field",
+              "name": "#privateProperty",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              },
+              "default": "'private'",
+              "description": "This is a test for a private property"
+            },
+            {
               "kind": "method",
               "name": "validate",
               "description": "Validated the radio inputs"
@@ -209,6 +219,11 @@
                 }
               ],
               "description": "This is a test method with parameters"
+            },
+            {
+              "kind": "method",
+              "name": "#privateMethod",
+              "description": "This is a test for a private method"
             },
             {
               "kind": "field",
