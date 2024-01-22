@@ -205,8 +205,6 @@ function analyzePhase({ ts, node, moduleDoc, context }: any) {
     return;
   }
 
-  console.log("analyzePhase", moduleDoc);
-
   const component = getComponent(node, moduleDoc);
   if (!component) {
     return;
