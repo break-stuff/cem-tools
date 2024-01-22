@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.6
+
+- Remove console log
+
 ## 1.1.5
 
 - Fixed module paths that were preventing inheritance
