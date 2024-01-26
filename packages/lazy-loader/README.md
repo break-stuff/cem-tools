@@ -1,8 +1,19 @@
 # Custom Element Lazy Loader
 
-Create a single entry point for your users to lazy-load your custom elements/web components as needed!
+Create a single entry point to lazy-load your custom elements/web components as needed!
 
-As components get loaded the component configurations get removed from the list and when all of the components have been loaded the loader will shut off to help improve performance.
+As components get loaded the component configurations get removed from the list and when all of the components have been loaded, the loader will shut off to help improve performance.
+
+```html
+
+<body>
+  <my-button>Button</my-button>
+  <my-checkbox></my-checkbox>
+
+  <!-- the lazy-loader will only load what gets used -->
+  <script type="module" src="path/to/my/loader.js" />
+</body>
+```
 
 ## Usage
 
