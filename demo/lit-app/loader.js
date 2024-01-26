@@ -9,8 +9,10 @@ let components = {
     dependencies: [],
   },
 };
+const eagerLoad = [];
 
-export function updateConfig(config) {
+/** Update the lazy-loader configuration at runtime */
+export async function updateConfig(config) {
   if (config.components) {
     components = { ...components, ...config.components };
   }
@@ -19,20 +21,27 @@ export function updateConfig(config) {
     observer.disconnect();
     start(config.rootElement);
   }
+
+  if (config.eagerLoad) {
+    await Promise.allSettled(eagerLoad?.map((tagName) => register(tagName)));
+  }
 }
 
+/** Load any undefined custom elements and load the components in the list */
 async function load(root) {
   const rootTagName = root instanceof Element ? root.tagName.toLowerCase() : "";
-  const tags = [...root.querySelectorAll(":not(:defined)")].map((el) =>
-    el.tagName.toLowerCase()
-  );
+  const tags =
+    [...root.querySelectorAll(":not(:defined)")]?.map((el) =>
+      el.tagName.toLowerCase()
+    ) || [];
   if (rootTagName.includes("-") && !customElements.get(rootTagName)) {
     tags.push(rootTagName);
   }
   const tagsToRegister = [...new Set(tags)];
-  await Promise.allSettled(tagsToRegister.map((tagName) => register(tagName)));
+  await Promise.allSettled(tagsToRegister?.map((tagName) => register(tagName)));
 }
 
+/** Register the component and any dependencies */
 function register(tagName) {
   if (customElements.get(tagName)) {
     cleanUp(component, tagName);
@@ -59,6 +68,7 @@ function register(tagName) {
   });
 }
 
+/** Remove the component from the list of components to load */
 function cleanUp(component, tagName) {
   delete components[tagName];
   component.dependencies?.forEach((dependency) => {
@@ -70,7 +80,12 @@ function cleanUp(component, tagName) {
   }
 }
 
-function start(root = document.body) {
+/** Initialize the loader */
+async function start(root = document.body) {
+  // Eager load any components that are not defined in the Custom Elements Manifest
+  await Promise.allSettled(eagerLoad?.map((tagName) => register(tagName)));
+
+  // Watch for any new elements that are added to the DOM
   observer = new MutationObserver((mutations) => {
     for (const { addedNodes } of mutations) {
       for (const node of addedNodes) {
