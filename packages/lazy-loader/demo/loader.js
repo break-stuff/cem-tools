@@ -12,6 +12,7 @@ let components = {
       "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/components/input/input.js",
   },
 };
+const eagerLoad = ['sl-button'];
 
 let observer;
 
@@ -23,6 +24,10 @@ export function updateConfig(config) {
   if (config.rootElement) {
     observer.disconnect();
     start(config.rootElement);
+  }
+
+  if (config.eagerLoad) {
+    config.eagerLoad.map((tagName) => register(tagName));
   }
 }
 
@@ -39,6 +44,7 @@ async function load(root) {
 }
 
 function register(tagName) {
+  console.log("register", tagName);
   if (customElements.get(tagName)) {
     cleanUp(component, tagName);
     return Promise.resolve();
@@ -75,7 +81,9 @@ function cleanUp(component, tagName) {
   }
 }
 
-function start(root = document.body) {
+async function start(root = document.body) {
+  await Promise.allSettled(eagerLoad.map((tagName) => register(tagName)));
+
   observer = new MutationObserver((mutations) => {
     for (const { addedNodes } of mutations) {
       for (const node of addedNodes) {
@@ -85,13 +93,9 @@ function start(root = document.body) {
       }
     }
   });
-  
+
   load(root);
   observer.observe(root, { subtree: true, childList: true });
 }
 
-if (!window?.customElements?.define) {
-  document.addEventListener("DOMContentLoaded", () => start());
-} else {
-  start();
-}
+start();

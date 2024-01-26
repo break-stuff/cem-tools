@@ -85,6 +85,8 @@ export type Options = {
   prefix?: string;
   /** Adds a suffix to tag name */
   suffix?: string;
+  /** Component tag names that you would like to eager-load */
+  eagerLoad: string[];
 };
 ```
 
@@ -167,8 +169,12 @@ type RuntimeConfiguration = {
   components?: ComponentConfig;
   /** The root element to observe for your custom elements */
   rootElement?: Element;
+  /** Component tag names that you would like to eager-load */
+  eagerLoad: string[];
 };
 ```
+
+> **_NOTE:_** The `updateConfig` function is async, so you can `await` it if you want to ensure load order.
 
 ### Adding Components
 
@@ -183,3 +189,7 @@ The loader will observe the document body for any new components that get added,
   rootElement: document.querySelector("#my-app");
 }
 ```
+
+## Eager-Loading Components
+
+There may be instances where you want certain components loaded as soon as possible. Both the generator and runtime configs accept an `eagerLoad` option. This is a string array of the tag names you would like to eager-load (load immediately) from your list of components.
