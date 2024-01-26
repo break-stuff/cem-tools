@@ -57,7 +57,7 @@ let userOptions: Options;
 const loaderTemplate = (components: ComponentConfig) => `
 let observer;
 let components = ${JSON.stringify(components, null, 2)};
-const eagerLoad = ${JSON.stringify(userOptions.eagerLoad)};
+const eagerLoad = ${JSON.stringify(userOptions.eagerLoad || [])};
 
 /** Update the lazy-loader configuration at runtime */
 export async function updateConfig(config) {
@@ -71,21 +71,21 @@ export async function updateConfig(config) {
   }
 
   if (config.eagerLoad) {
-    await Promise.allSettled(eagerLoad.map((tagName) => register(tagName)));
+    await Promise.allSettled(eagerLoad?.map((tagName) => register(tagName)));
   }
 }
 
 /** Load any undefined custom elements and load the components in the list */
 async function load(root) {
   const rootTagName = root instanceof Element ? root.tagName.toLowerCase() : "";
-  const tags = [...root.querySelectorAll(":not(:defined)")].map((el) =>
+  const tags = [...root.querySelectorAll(":not(:defined)")]?.map((el) =>
     el.tagName.toLowerCase()
-  );
+  ) || [];
   if (rootTagName.includes("-") && !customElements.get(rootTagName)) {
     tags.push(rootTagName);
   }
   const tagsToRegister = [...new Set(tags)];
-  await Promise.allSettled(tagsToRegister.map((tagName) => register(tagName)));
+  await Promise.allSettled(tagsToRegister?.map((tagName) => register(tagName)));
 }
 
 /** Register the component and any dependencies */
@@ -146,7 +146,7 @@ function cleanUp(component, tagName) {
 /** Initialize the loader */
 async function start(root = document.body) {
   // Eager load any components that are not defined in the Custom Elements Manifest
-  await Promise.allSettled(eagerLoad.map((tagName) => register(tagName)));
+  await Promise.allSettled(eagerLoad?.map((tagName) => register(tagName)));
 
   // Watch for any new elements that are added to the DOM
   observer = new MutationObserver((mutations) => {
