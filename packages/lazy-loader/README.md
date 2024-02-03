@@ -204,3 +204,9 @@ The loader will observe the document body for any new components that get added,
 ## Eager-Loading Components
 
 There may be instances where you want certain components loaded as soon as possible. Both the generator and runtime configs accept an `eagerLoad` option. This is a string array of the tag names you would like to eager-load (load immediately) from your list of components.
+
+## Scoping Components
+
+If you are using custom tag names with either a prefix or suffix to prevent tag name collisions, you can configure the lazy-loader watch for your scoped tags. Both the build and runtime configurations accept `prefix` and `suffix` options to update the component list with your specified tag names. 
+
+For example, setting the `prefix` option to `prefix_` will update the tag list so the loader will watch for `prefix_my-element`.
