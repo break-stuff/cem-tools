@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.0
+
+- Add runtime scoping
+
 ## 1.1.1
 
 - Update docs

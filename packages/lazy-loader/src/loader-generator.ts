@@ -65,6 +65,10 @@ export async function updateConfig(config) {
     components = { ...components, ...config.components };
   }
 
+  if(config.prefix || config.suffix) {
+    components = getScopedComponents(config.prefix, config.suffix);
+  }
+
   if (config.rootElement) {
     observer.disconnect();
     start(config.rootElement);
@@ -73,6 +77,16 @@ export async function updateConfig(config) {
   if (config.eagerLoad) {
     await Promise.allSettled(eagerLoad?.map((tagName) => register(tagName)));
   }
+}
+
+function getScopedComponents(prefix = "", suffix = "") {
+  const scopedComponents = {};
+  for (const [key, value] of Object.entries(components)) {
+    const newKey = prefix + key + suffix;
+    scopedComponents[newKey] = value;
+  }
+
+  return scopedComponents;
 }
 
 /** Load any undefined custom elements and load the components in the list */
