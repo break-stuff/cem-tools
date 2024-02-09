@@ -1,96 +1,103 @@
-import { Options } from "../..";
-import { customElementsManifest } from "./test-data";
-import { getOptions, getTagList } from "../web-types-generator";
-import { getComponents } from "../../../../tools/cem-utils";
+// import { getComponents } from "../../../../tools/cem-utils/index.ts";
+import { getComponents } from "../../../../tools/cem-utils/index";
+import { generateUpdatedCem } from "../cem-inheritance";
+import { standAloneManifest } from "./test-data";
+// import cem from "./_base-cem.js";
 
-describe("web-types-generator", () => {
-  const components = getComponents(customElementsManifest);
+describe("cem-inheritance", () => {
+  // const components = getComponents(standAloneManifest);
 
   describe("updateConfig", () => {
     test("given a custom `outdir` config value, the config value should be updated, but others should use default", () => {
       // Arrange
 
       // Act
-      const options = getOptions({
-        outdir: "./demo",
-      });
+      // const options = getOptions({
+      //   outdir: "./demo",
+      // });
 
+      const input = getComponents(standAloneManifest as any).find(c => c.name === "MyExtInput");
+      console.log('OLD', input?.attributes?.length);
+
+      const newInput = getComponents(generateUpdatedCem(standAloneManifest)).find(c => c.name === "MyExtInput");
+
+      console.log('NEW', newInput?.attributes);
       // Assert
-      expect(options.outdir).toBe("./demo");
-      expect(options.webTypesFileName).toBe("vscode.html-custom-data.json");
+      // expect(options.outdir).toBe("./demo");
+      // expect(options.webTypesFileName).toBe("vscode.html-custom-data.json");
     });
 
-    test("given a custom `slot` label, the config value should be updated, but other labels should use default", () => {
-      // Arrange
-      const slotLabel = "Slug";
-      const options = getOptions({
-        labels: {
-          slots: slotLabel,
-        },
-      });
+    // test("given a custom `slot` label, the config value should be updated, but other labels should use default", () => {
+    //   // Arrange
+    //   const slotLabel = "Slug";
+    //   const options = getOptions({
+    //     labels: {
+    //       slots: slotLabel,
+    //     },
+    //   });
 
-      // Act
-      const tagList = getTagList(components, options);
+    //   // Act
+    //   const tagList = getTagList(components, options);
 
-      // Assert
-      expect(options.labels?.slots).toBe("Slug");
-      expect(options.webTypesFileName).toBe("vscode.html-custom-data.json");
-      expect(JSON.stringify(tagList).includes(slotLabel)).toBe(true);
-    });
+    //   // Assert
+    //   expect(options.labels?.slots).toBe("Slug");
+    //   expect(options.webTypesFileName).toBe("vscode.html-custom-data.json");
+    //   expect(JSON.stringify(tagList).includes(slotLabel)).toBe(true);
+    // });
 
-    test("given a config to hide slots, the Slots section should not be in the docs", () => {
-      // Arrange
-      const options = getOptions({
-        hideSlotDocs: false,
-      });
+    // test("given a config to hide slots, the Slots section should not be in the docs", () => {
+    //   // Arrange
+    //   const options = getOptions({
+    //     hideSlotDocs: false,
+    //   });
 
-      // Act
-      const tagList = getTagList(components, options);
+    //   // Act
+    //   const tagList = getTagList(components, options);
 
-      // Assert
-      expect(JSON.stringify(tagList).includes("**Slots:**")).toBe(false);
-    });
+    //   // Assert
+    //   expect(JSON.stringify(tagList).includes("**Slots:**")).toBe(false);
+    // });
 
-    test("given a config to hide events, the Events section should not be in the docs", () => {
-      // Arrange
-      const options = getOptions({
-        hideEventDocs: false,
-      });
+    // test("given a config to hide events, the Events section should not be in the docs", () => {
+    //   // Arrange
+    //   const options = getOptions({
+    //     hideEventDocs: false,
+    //   });
 
-      // Act
-      const tagList = getTagList(components, options);
+    //   // Act
+    //   const tagList = getTagList(components, options);
 
-      // Assert
-      expect(JSON.stringify(tagList).includes("**Events:**")).toBe(false);
-    });
+    //   // Assert
+    //   expect(JSON.stringify(tagList).includes("**Events:**")).toBe(false);
+    // });
 
-    test("given a config to hide CSS properties, the CSS Properties section should not be in the docs", () => {
-      // Arrange
-      const options = getOptions({
-        hideCssPropertiesDocs: false,
-      });
+    // test("given a config to hide CSS properties, the CSS Properties section should not be in the docs", () => {
+    //   // Arrange
+    //   const options = getOptions({
+    //     hideCssPropertiesDocs: false,
+    //   });
 
-      // Act
-      const tagList = getTagList(components, options);
+    //   // Act
+    //   const tagList = getTagList(components, options);
 
-      // Assert
-      expect(JSON.stringify(tagList).includes("**CSS Properties:**")).toBe(
-        false
-      );
-    });
+    //   // Assert
+    //   expect(JSON.stringify(tagList).includes("**CSS Properties:**")).toBe(
+    //     false
+    //   );
+    // });
 
-    test("given a config to hide CSS parts, the CSS Parts section should not be in the docs", () => {
-      // Arrange
-      const options = getOptions({
-        hideCssPartsDocs: false,
-      });
+    // test("given a config to hide CSS parts, the CSS Parts section should not be in the docs", () => {
+    //   // Arrange
+    //   const options = getOptions({
+    //     hideCssPartsDocs: false,
+    //   });
 
-      // Act
-      const tagList = getTagList(components, options);
+    //   // Act
+    //   const tagList = getTagList(components, options);
 
-      // Assert
-      expect(JSON.stringify(tagList).includes("**CSS Parts:**")).toBe(false);
-    });
+    //   // Assert
+    //   expect(JSON.stringify(tagList).includes("**CSS Parts:**")).toBe(false);
+    // });
   });
 
   // describe("getCssValues", () => {

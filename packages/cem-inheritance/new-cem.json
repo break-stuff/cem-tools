@@ -1,0 +1,1187 @@
+[
+  {
+    "kind": "class",
+    "description": "",
+    "name": "MyElement",
+    "members": [
+      {
+        "kind": "field",
+        "name": "baseName",
+        "type": {
+          "text": "string"
+        },
+        "privacy": "public",
+        "static": true
+      },
+      {
+        "kind": "field",
+        "name": "scope",
+        "type": {
+          "text": "any"
+        },
+        "privacy": "protected"
+      },
+      {
+        "kind": "field",
+        "name": "_dir",
+        "type": {
+          "text": "'ltr' | 'rtl' | 'auto' | undefined"
+        },
+        "privacy": "private"
+      },
+      {
+        "kind": "field",
+        "name": "dir",
+        "type": {
+          "text": "'ltr' | 'rtl' | 'auto'"
+        },
+        "privacy": "public",
+        "description": "The dir global attribute is an enumerated attribute that indicates the directionality of the element's text.",
+        "attribute": "dir"
+      }
+    ],
+    "attributes": [
+      {
+        "name": "dir",
+        "type": {
+          "text": "'ltr' | 'rtl' | 'auto'"
+        },
+        "description": "The dir global attribute is an enumerated attribute that indicates the directionality of the element's text.",
+        "fieldName": "dir"
+      }
+    ],
+    "superclass": {
+      "name": "LitElement",
+      "package": "lit"
+    },
+    "customElement": true
+  },
+  {
+    "kind": "class",
+    "description": "Input allows the user to enter and edit text",
+    "name": "CoreInput",
+    "cssProperties": [
+      {
+        "description": "The font size for the input.",
+        "name": "--input-font-size",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "The font wight for the input.",
+        "name": "--input-font-weight",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      }
+    ],
+    "cssParts": [
+      {
+        "description": "container for end slot",
+        "name": "end",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "The native input element.",
+        "name": "input",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "The component's base wrapper.",
+        "name": "input-base",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "The wrapper for start, input, and end",
+        "name": "input-control",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "The error container",
+        "name": "input-error",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "The label",
+        "name": "input-label",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "container for start slot",
+        "name": "start",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      }
+    ],
+    "slots": [
+      {
+        "description": "A presentational suffix icon or similar element.",
+        "name": "end"
+      },
+      {
+        "description": "The input's label. Alternatively, you can use the label prop.",
+        "name": "label"
+      },
+      {
+        "description": "A presentational prefix icon or similar element.",
+        "name": "start"
+      }
+    ],
+    "members": [
+      {
+        "kind": "field",
+        "name": "pattern",
+        "type": {
+          "text": "string | undefined"
+        },
+        "privacy": "public",
+        "description": "A pattern to validate input against.",
+        "attribute": "pattern",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "autocapitalize",
+        "type": {
+          "text": "'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters'"
+        },
+        "privacy": "public",
+        "default": "'off'",
+        "description": "Controls whether and how text input is automatically capitalized as it is entered/edited by the user.",
+        "attribute": "autocapitalize",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "autocomplete",
+        "type": {
+          "text": "string | undefined"
+        },
+        "privacy": "public",
+        "description": "Permission the user agent has to provide automated assistance in filling out form field values and the type of\ninformation expected in the field.",
+        "attribute": "autocomplete",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "autocorrect",
+        "type": {
+          "text": "'on' | 'off' | undefined"
+        },
+        "privacy": "public",
+        "attribute": "autocorrect",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "enterkeyhint",
+        "type": {
+          "text": "'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined"
+        },
+        "privacy": "public",
+        "description": "Used to customize the label or icon of the Enter key on virtual keyboards.",
+        "attribute": "enterkeyhint",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "inputmode",
+        "type": {
+          "text": "'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url' | undefined"
+        },
+        "privacy": "public",
+        "description": "Hints at the type of data that might be entered by the user while editing the element or its contents.",
+        "attribute": "inputmode",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "max",
+        "type": {
+          "text": "number | undefined"
+        },
+        "privacy": "public",
+        "description": "The input's max attribute.",
+        "attribute": "max",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "maxlength",
+        "type": {
+          "text": "number | undefined"
+        },
+        "privacy": "public",
+        "description": "The input's maxlength attribute.",
+        "attribute": "maxlength",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "min",
+        "type": {
+          "text": "number | undefined"
+        },
+        "privacy": "public",
+        "description": "The input's min attribute.",
+        "attribute": "min",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "minlength",
+        "type": {
+          "text": "number | undefined"
+        },
+        "privacy": "public",
+        "description": "The input's minlength attribute.",
+        "attribute": "minlength",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "spellcheck",
+        "type": {
+          "text": "boolean"
+        },
+        "privacy": "public",
+        "default": "false",
+        "description": "Enables spell checking on the input.",
+        "attribute": "spellcheck",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "step",
+        "type": {
+          "text": "number | undefined"
+        },
+        "privacy": "public",
+        "description": "The input's step attribute.",
+        "attribute": "step",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "type",
+        "type": {
+          "text": "InputTypes"
+        },
+        "privacy": "public",
+        "default": "'text'",
+        "attribute": "type",
+        "parsedType": {
+          "text": "'date' | 'datetime-local' | 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url'"
+        },
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "valueAsDate",
+        "privacy": "public",
+        "description": "Gets or sets the current value as a `Date` object. Only valid when `type` is `date`.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "valueAsNumber",
+        "privacy": "public",
+        "description": "Gets or sets the current value as a number.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "handleChange",
+        "privacy": "protected",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "handleInput",
+        "privacy": "protected",
+        "description": "handles input - renamed from handleInput due to collision with base class",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "handleEnterKey",
+        "privacy": "protected",
+        "parameters": [
+          {
+            "name": "event",
+            "type": {
+              "text": "KeyboardEvent"
+            }
+          }
+        ],
+        "description": "Handles the Enter key press event.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "handleKeyDown",
+        "privacy": "protected",
+        "parameters": [
+          {
+            "name": "event",
+            "type": {
+              "text": "KeyboardEvent"
+            }
+          }
+        ],
+        "description": "Handles the keydown event, specifically checking for Enter key.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "inputElementTemplate",
+        "privacy": "protected",
+        "description": "Generates the template for the native input element.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "inputControlTemplate",
+        "privacy": "protected",
+        "description": "Generates the template for the input's control.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "inputTemplate",
+        "privacy": "protected",
+        "description": "Generates the template for the input component.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      }
+    ],
+    "events": [
+      {
+        "description": "Emitted when an alteration to the control's value is committed by the user.",
+        "name": "change",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "Emitted when the control receives input and its value changes.",
+        "name": "input",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "Emitted when the control gains focus.",
+        "name": "focus",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "Emitted when the control loses focus.",
+        "name": "blur",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      }
+    ],
+    "attributes": [
+      {
+        "name": "pattern",
+        "type": {
+          "text": "string | undefined"
+        },
+        "description": "A pattern to validate input against.",
+        "fieldName": "pattern",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "autocapitalize",
+        "type": {
+          "text": "'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters'"
+        },
+        "default": "'off'",
+        "description": "Controls whether and how text input is automatically capitalized as it is entered/edited by the user.",
+        "fieldName": "autocapitalize",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "autocomplete",
+        "type": {
+          "text": "string | undefined"
+        },
+        "description": "Permission the user agent has to provide automated assistance in filling out form field values and the type of\ninformation expected in the field.",
+        "fieldName": "autocomplete",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "autocorrect",
+        "type": {
+          "text": "'on' | 'off' | undefined"
+        },
+        "fieldName": "autocorrect",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "enterkeyhint",
+        "type": {
+          "text": "'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined"
+        },
+        "description": "Used to customize the label or icon of the Enter key on virtual keyboards.",
+        "fieldName": "enterkeyhint",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "inputmode",
+        "type": {
+          "text": "'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url' | undefined"
+        },
+        "description": "Hints at the type of data that might be entered by the user while editing the element or its contents.",
+        "fieldName": "inputmode",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "max",
+        "type": {
+          "text": "number | undefined"
+        },
+        "description": "The input's max attribute.",
+        "fieldName": "max",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "maxlength",
+        "type": {
+          "text": "number | undefined"
+        },
+        "description": "The input's maxlength attribute.",
+        "fieldName": "maxlength",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "min",
+        "type": {
+          "text": "number | undefined"
+        },
+        "description": "The input's min attribute.",
+        "fieldName": "min",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "minlength",
+        "type": {
+          "text": "number | undefined"
+        },
+        "description": "The input's minlength attribute.",
+        "fieldName": "minlength",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "spellcheck",
+        "type": {
+          "text": "boolean"
+        },
+        "default": "false",
+        "description": "Enables spell checking on the input.",
+        "fieldName": "spellcheck",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "step",
+        "type": {
+          "text": "number | undefined"
+        },
+        "description": "The input's step attribute.",
+        "fieldName": "step",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "type",
+        "type": {
+          "text": "InputTypes"
+        },
+        "default": "'text'",
+        "fieldName": "type",
+        "parsedType": {
+          "text": "'date' | 'datetime-local' | 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url'"
+        },
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      }
+    ],
+    "superclass": {
+      "name": "MyFormControlElement",
+      "module": "/src/base/form-control-element/my-form-control-element.js"
+    },
+    "tagName": "my-input",
+    "customElement": true
+  },
+  {
+    "kind": "class",
+    "description": "Input allows the user to enter and edit text",
+    "name": "MyExtInput",
+    "cssParts": [
+      {
+        "description": "container for end slot",
+        "name": "end",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "The native input element.",
+        "name": "input",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "The component's base wrapper.",
+        "name": "input-base",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "The wrapper for start, input, and end",
+        "name": "input-control",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "The error container",
+        "name": "input-error",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "The label",
+        "name": "input-label",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "container for start slot",
+        "name": "start",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      }
+    ],
+    "slots": [
+      {
+        "description": "A presentational suffix icon or similar element.",
+        "name": "end"
+      },
+      {
+        "description": "The input's label. Alternatively, you can use the label prop.",
+        "name": "label"
+      },
+      {
+        "description": "A presentational prefix icon or similar element.",
+        "name": "start"
+      }
+    ],
+    "members": [
+      {
+        "kind": "field",
+        "name": "size",
+        "type": {
+          "text": "'small' | 'medium' | 'large' | undefined"
+        },
+        "privacy": "public",
+        "default": "'medium'",
+        "description": "Controls the size of the input",
+        "attribute": "size",
+        "reflects": true
+      },
+      {
+        "kind": "field",
+        "name": "appearance",
+        "type": {
+          "text": "'filled' | 'outline' | 'underline' | undefined"
+        },
+        "privacy": "public",
+        "default": "'outline'",
+        "description": "Controls the appearance of the input",
+        "attribute": "appearance",
+        "reflects": true
+      },
+      {
+        "kind": "field",
+        "name": "pattern",
+        "type": {
+          "text": "string | undefined"
+        },
+        "privacy": "public",
+        "description": "A pattern to validate input against.",
+        "attribute": "pattern",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "autocapitalize",
+        "type": {
+          "text": "'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters'"
+        },
+        "privacy": "public",
+        "default": "'off'",
+        "description": "Controls whether and how text input is automatically capitalized as it is entered/edited by the user.",
+        "attribute": "autocapitalize",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "autocomplete",
+        "type": {
+          "text": "string | undefined"
+        },
+        "privacy": "public",
+        "description": "Permission the user agent has to provide automated assistance in filling out form field values and the type of\ninformation expected in the field.",
+        "attribute": "autocomplete",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "autocorrect",
+        "type": {
+          "text": "'on' | 'off' | undefined"
+        },
+        "privacy": "public",
+        "attribute": "autocorrect",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "enterkeyhint",
+        "type": {
+          "text": "'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined"
+        },
+        "privacy": "public",
+        "description": "Used to customize the label or icon of the Enter key on virtual keyboards.",
+        "attribute": "enterkeyhint",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "inputmode",
+        "type": {
+          "text": "'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url' | undefined"
+        },
+        "privacy": "public",
+        "description": "Hints at the type of data that might be entered by the user while editing the element or its contents.",
+        "attribute": "inputmode",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "max",
+        "type": {
+          "text": "number | undefined"
+        },
+        "privacy": "public",
+        "description": "The input's max attribute.",
+        "attribute": "max",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "maxlength",
+        "type": {
+          "text": "number | undefined"
+        },
+        "privacy": "public",
+        "description": "The input's maxlength attribute.",
+        "attribute": "maxlength",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "min",
+        "type": {
+          "text": "number | undefined"
+        },
+        "privacy": "public",
+        "description": "The input's min attribute.",
+        "attribute": "min",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "minlength",
+        "type": {
+          "text": "number | undefined"
+        },
+        "privacy": "public",
+        "description": "The input's minlength attribute.",
+        "attribute": "minlength",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "spellcheck",
+        "type": {
+          "text": "boolean"
+        },
+        "privacy": "public",
+        "default": "false",
+        "description": "Enables spell checking on the input.",
+        "attribute": "spellcheck",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "step",
+        "type": {
+          "text": "number | undefined"
+        },
+        "privacy": "public",
+        "description": "The input's step attribute.",
+        "attribute": "step",
+        "reflects": true,
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "type",
+        "type": {
+          "text": "InputTypes"
+        },
+        "privacy": "public",
+        "default": "'text'",
+        "attribute": "type",
+        "parsedType": {
+          "text": "'date' | 'datetime-local' | 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url'"
+        },
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "valueAsDate",
+        "privacy": "public",
+        "description": "Gets or sets the current value as a `Date` object. Only valid when `type` is `date`.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "field",
+        "name": "valueAsNumber",
+        "privacy": "public",
+        "description": "Gets or sets the current value as a number.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "handleChange",
+        "privacy": "protected",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "handleInput",
+        "privacy": "protected",
+        "description": "handles input - renamed from handleInput due to collision with base class",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "handleEnterKey",
+        "privacy": "protected",
+        "parameters": [
+          {
+            "name": "event",
+            "type": {
+              "text": "KeyboardEvent"
+            }
+          }
+        ],
+        "description": "Handles the Enter key press event.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "handleKeyDown",
+        "privacy": "protected",
+        "parameters": [
+          {
+            "name": "event",
+            "type": {
+              "text": "KeyboardEvent"
+            }
+          }
+        ],
+        "description": "Handles the keydown event, specifically checking for Enter key.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "inputElementTemplate",
+        "privacy": "protected",
+        "description": "Generates the template for the native input element.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "inputControlTemplate",
+        "privacy": "protected",
+        "description": "Generates the template for the input's control.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "kind": "method",
+        "name": "inputTemplate",
+        "privacy": "protected",
+        "description": "Generates the template for the input component.",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      }
+    ],
+    "events": [
+      {
+        "description": "Emitted when an alteration to the control's value is committed by the user.",
+        "name": "change",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "Emitted when the control receives input and its value changes.",
+        "name": "input",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "Emitted when the control gains focus.",
+        "name": "focus",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "description": "Emitted when the control loses focus.",
+        "name": "blur",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      }
+    ],
+    "attributes": [
+      {
+        "name": "size",
+        "type": {
+          "text": "'small' | 'medium' | 'large' | undefined"
+        },
+        "default": "'medium'",
+        "description": "Controls the size of the input",
+        "fieldName": "size",
+        "propName": "size"
+      },
+      {
+        "name": "appearance",
+        "type": {
+          "text": "'filled' | 'outline' | 'underline' | undefined"
+        },
+        "default": "'outline'",
+        "description": "Controls the appearance of the input",
+        "fieldName": "appearance",
+        "propName": "appearance"
+      },
+      {
+        "name": "pattern",
+        "type": {
+          "text": "string | undefined"
+        },
+        "description": "A pattern to validate input against.",
+        "fieldName": "pattern",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "autocapitalize",
+        "type": {
+          "text": "'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters'"
+        },
+        "default": "'off'",
+        "description": "Controls whether and how text input is automatically capitalized as it is entered/edited by the user.",
+        "fieldName": "autocapitalize",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "autocomplete",
+        "type": {
+          "text": "string | undefined"
+        },
+        "description": "Permission the user agent has to provide automated assistance in filling out form field values and the type of\ninformation expected in the field.",
+        "fieldName": "autocomplete",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "autocorrect",
+        "type": {
+          "text": "'on' | 'off' | undefined"
+        },
+        "fieldName": "autocorrect",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "enterkeyhint",
+        "type": {
+          "text": "'enter' | 'done' | 'go' | 'next' | 'previous' | 'search' | 'send' | undefined"
+        },
+        "description": "Used to customize the label or icon of the Enter key on virtual keyboards.",
+        "fieldName": "enterkeyhint",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "inputmode",
+        "type": {
+          "text": "'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url' | undefined"
+        },
+        "description": "Hints at the type of data that might be entered by the user while editing the element or its contents.",
+        "fieldName": "inputmode",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "max",
+        "type": {
+          "text": "number | undefined"
+        },
+        "description": "The input's max attribute.",
+        "fieldName": "max",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "maxlength",
+        "type": {
+          "text": "number | undefined"
+        },
+        "description": "The input's maxlength attribute.",
+        "fieldName": "maxlength",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "min",
+        "type": {
+          "text": "number | undefined"
+        },
+        "description": "The input's min attribute.",
+        "fieldName": "min",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "minlength",
+        "type": {
+          "text": "number | undefined"
+        },
+        "description": "The input's minlength attribute.",
+        "fieldName": "minlength",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "spellcheck",
+        "type": {
+          "text": "boolean"
+        },
+        "default": "false",
+        "description": "Enables spell checking on the input.",
+        "fieldName": "spellcheck",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "step",
+        "type": {
+          "text": "number | undefined"
+        },
+        "description": "The input's step attribute.",
+        "fieldName": "step",
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      },
+      {
+        "name": "type",
+        "type": {
+          "text": "InputTypes"
+        },
+        "default": "'text'",
+        "fieldName": "type",
+        "parsedType": {
+          "text": "'date' | 'datetime-local' | 'email' | 'number' | 'password' | 'search' | 'tel' | 'text' | 'time' | 'url'"
+        },
+        "inheritedFrom": {
+          "name": "CoreInput"
+        }
+      }
+    ],
+    "superclass": {
+      "name": "CoreInput",
+      "package": "../core"
+    },
+    "tagName": "my-ext-input",
+    "customElement": true
+  }
+]

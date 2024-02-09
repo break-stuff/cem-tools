@@ -1,3 +1,3 @@
-export { generateJetBrainsWebTypes } from "./web-types-generator.js";
-export { customElementJetBrainsPlugin } from "./cem-analyzer-plugin.js";
+export { generateJetBrainsWebTypes } from "./cem-inheritance.js";
+export { customElementJetBrainsPlugin } from "./cem-inheritance-plugin.js";
 export type { Options } from "./types.js";
