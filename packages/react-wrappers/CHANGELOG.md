@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.2.1
+
+- Included file extensions for exports in manifest
+
 ## 1.2.0
 
 - Exclude private members using the `#` access modifier
