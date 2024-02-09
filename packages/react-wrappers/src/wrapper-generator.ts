@@ -513,7 +513,7 @@ function getGlobalEventPropsTemplate(events: GlobalEvent[] | undefined) {
 
 function getManifestContentTemplate(components: Component[]) {
   return components
-    .map((component) => `export * from './${component.name}';`)
+    .map((component) => `export * from './${component.name}.js';`)
     .join("");
 }
 
