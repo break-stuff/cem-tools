@@ -1,4 +1,4 @@
-import { generateJetBrainsWebTypes as generateCustomElementWebTypes } from "./cem-inheritance.js";
+import {  } from "./cem-inheritance.js";
 import type { Options, Params } from "./types.js";
 import { logGreen } from "../../../tools/integrations/index.js";
 

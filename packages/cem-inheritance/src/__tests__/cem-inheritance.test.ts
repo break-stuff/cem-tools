@@ -3,28 +3,120 @@ import { getComponents } from "../../../../tools/cem-utils/index";
 import { generateUpdatedCem } from "../cem-inheritance";
 import { standAloneManifest } from "./test-data";
 // import cem from "./_base-cem.js";
+import fs from "fs";
 
 describe("cem-inheritance", () => {
-  // const components = getComponents(standAloneManifest);
+  describe("inherit within same file", () => {
+    const components = getComponents(generateUpdatedCem(standAloneManifest));
 
-  describe("updateConfig", () => {
-    test("given a custom `outdir` config value, the config value should be updated, but others should use default", () => {
-      // Arrange
+    describe("CSS Parts", () => {
+      const extendedInput = components.find((c) => c.name === "MyExtInput");
+      const cssParts = extendedInput?.cssParts;
 
-      // Act
-      // const options = getOptions({
-      //   outdir: "./demo",
-      // });
+      test("should be inherited", () => {
+        // Arrange
 
-      const input = getComponents(standAloneManifest as any).find(c => c.name === "MyExtInput");
-      console.log('OLD', input?.attributes?.length);
+        // Act
+        const endPart = cssParts?.find((p) => p.name === "end");
 
-      const newInput = getComponents(generateUpdatedCem(standAloneManifest)).find(c => c.name === "MyExtInput");
+        // Assert
+        expect(cssParts?.length).toBe(7);
+        // @ts-expect-error
+        expect(endPart?.inheritedFrom?.name).toBe("CoreInput");
+      });
+    });
 
-      console.log('NEW', newInput?.attributes);
-      // Assert
-      // expect(options.outdir).toBe("./demo");
-      // expect(options.webTypesFileName).toBe("vscode.html-custom-data.json");
+    describe("Slots", () => {
+      const extendedInput = components.find((c) => c.name === "MyExtInput");
+      const slots = extendedInput?.slots;
+
+      test("should be inherited", () => {
+        // Arrange
+
+        // Act
+        const endPart = slots?.find((p) => p.name === "end");
+
+        // Assert
+        expect(slots?.length).toBe(3);
+        // @ts-expect-error
+        expect(endPart?.inheritedFrom?.name).toBe("CoreInput");
+      });
+    });
+
+    describe("Members", () => {
+      const extendedInput = components.find((c) => c.name === "MyExtInput");
+      const members = extendedInput?.members;
+
+      test("should be inherited", () => {
+        // Arrange
+
+        // Act
+        const disabled = members?.find((p) => p.name === "disabled");
+        const type = members?.find((p) => p.name === "type");
+        const baseName = members?.find((p) => p.name === "baseName");
+
+        // Assert
+        expect(members?.length).toBe(58);
+        expect(disabled?.inheritedFrom?.name).toBe("MyFormControlElement");
+        expect(type?.inheritedFrom?.name).toBe("CoreInput");
+        expect(baseName?.inheritedFrom?.name).toBe("MyElement");
+      });
+
+      test("protected Members should be inherited", () => {
+        // Arrange
+
+        // Act
+        const handleChange = members?.find((p) => p.name === "handleChange");
+
+        // Assert
+        expect(handleChange?.inheritedFrom?.name).toBe("CoreInput");
+      });
+
+      test("private Members should not be inherited", () => {
+        // Arrange
+
+        // Act
+        const dir = members?.find((p) => p.name === "_dir");
+
+        // Assert
+        expect(dir).toBeUndefined();
+      });
+    });
+
+    describe("Attributes", () => {
+      const extendedInput = components.find((c) => c.name === "MyExtInput");
+      const attributes = extendedInput?.attributes;
+
+      test("should be inherited", () => {
+        // Arrange
+
+        // Act
+        const sizeAttribute = attributes?.find((a) => a.name === "size");
+        const patternAttribute = attributes?.find((a) => a.name === "pattern");
+        const dirAttribute = attributes?.find((a) => a.name === "dir");
+
+        // Assert
+        expect(attributes?.length).toBe(27);
+        expect(sizeAttribute?.inheritedFrom).toBeUndefined();
+        expect(patternAttribute?.inheritedFrom?.name).toBe("CoreInput");
+        expect(dirAttribute?.inheritedFrom?.name).toBe("MyElement");
+      });
+    });
+
+    describe("Events", () => {
+      const extendedInput = components.find((c) => c.name === "MyExtInput");
+      const events = extendedInput?.events;
+
+      test("should be inherited", () => {
+        // Arrange
+
+        // Act
+        const inputEvent = events?.find((e) => e.name === "input");
+
+        // Assert
+        expect(events?.length).toBe(4);
+        expect(inputEvent?.inheritedFrom?.name).toBe("CoreInput");
+      });
     });
 
     // test("given a custom `slot` label, the config value should be updated, but other labels should use default", () => {

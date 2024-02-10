@@ -1,7 +1,6 @@
 import {
   CEM,
   Component,
-  getComponents,
 } from "../../../tools/cem-utils/index.js";
 import * as schema from "custom-elements-manifest/schema";
 import {
@@ -11,12 +10,14 @@ import {
   saveFile,
 } from "../../../tools/integrations";
 import fs from "fs";
+import { Options } from "./types.js";
 
 const completedClasses: string[] = [];
 let classQueue: Component[] = [];
-let cemComponents: Component[] = [];
+let cemEntities: Component[] = [];
+let userConfig: Options = {};
 
-export function updateCemInheritance(cem: CEM) {
+export function updateCemInheritance(cem: CEM, options: Options = {}) {
   if (!cem) {
     throw new Error(
       "Custom Elements Manifest is required to update inheritance."
@@ -24,12 +25,27 @@ export function updateCemInheritance(cem: CEM) {
   }
 
   logBlue("[cem-inheritance-generator] - Updating Custom Elements Manifest...");
+  const newCem = generateUpdatedCem(cem, options);
+  createOutDir(userConfig.outdir!);
+  saveFile(userConfig.outdir!, options.fileName!, JSON.stringify(newCem, null, 2));
+  logBlue("[cem-inheritance-generator] - Custom Elements Manifest updated.");
 }
 
-export function generateUpdatedCem(cem: any) {
-  cemComponents = getComponents(cem);
+function updateOptions(options: Options = {}) {
+  return {
+    fileName: "custom-elements.json",
+    outdir: "./",
+    exclude: [],
+    externalManifests: [],
+    omit: {},
+    ...options
+  };
+}
 
-  cemComponents.forEach((component) => {
+export function generateUpdatedCem(cem: any, options: Options = {}) {
+  userConfig = updateOptions(options);
+  cemEntities = getDeclarations(cem);
+  cemEntities.forEach((component) => {
     getAncestors(component);
     processInheritanceQueue();
   });
@@ -44,12 +60,13 @@ function getAncestors(component?: Component) {
 
   classQueue.push(component);
   if (
-    component.superclass &&
+    component.superclass?.name &&
     !completedClasses.includes(component.superclass.name)
   ) {
-    const parent = cemComponents.find(
+    const parent = cemEntities.find(
       (c) => c.name === component.superclass?.name
     );
+    console.log("PARENT", component.superclass?.name, parent);
     getAncestors(parent);
   }
 }
@@ -61,8 +78,10 @@ function processInheritanceQueue() {
 
   classQueue.reverse();
 
+  console.log(classQueue.map((component) => component.name));
+
   classQueue.forEach((component) => {
-    const parent = cemComponents.find(
+    const parent = cemEntities.find(
       (c) => c.name === component.superclass?.name
     );
     if (parent) {
@@ -71,6 +90,7 @@ function processInheritanceQueue() {
       updateAttributes(component, parent);
       updateEvents(component, parent);
       updateMembers(component, parent);
+      updateSlots(component, parent);
     }
     completedClasses.push(component.name);
   });
@@ -93,7 +113,8 @@ function updateCssProperties(component: Component, parent: Component) {
       if (!parentCssProp.inheritedFrom) {
         // @ts-expect-error
         parentCssProp.inheritedFrom = {
-          name: parent.name,
+          name: component.superclass?.name,
+          module: component.superclass?.module || component.superclass?.package,
         };
       }
 
@@ -117,7 +138,8 @@ function updateCssParts(component: Component, parent: Component) {
       if (!parentCssPart.inheritedFrom) {
         // @ts-expect-error
         parentCssPart.inheritedFrom = {
-          name: parent.name,
+          name: component.superclass?.name,
+          module: component.superclass?.module || component.superclass?.package,
         };
       }
       component.cssParts?.push(parentCssPart);
@@ -138,7 +160,8 @@ function updateAttributes(component: Component, parent: Component) {
     if (!existingAttr) {
       if (!parentAttr.inheritedFrom) {
         parentAttr.inheritedFrom = {
-          name: parent.name,
+          name: component.superclass!.name!,
+          module: component.superclass?.module || component.superclass?.package,
         };
       }
 
@@ -160,7 +183,8 @@ function updateEvents(component: Component, parent: Component) {
     if (!existingEvent) {
       if (!parentEvent.inheritedFrom) {
         parentEvent.inheritedFrom = {
-          name: parent.name,
+          name: component.superclass?.name!,
+          module: component.superclass?.module || component.superclass?.package,
         };
       }
       component.events?.push(parentEvent);
@@ -174,19 +198,64 @@ function updateMembers(component: Component, parent: Component) {
   }
 
   component.members = component.members || [];
-  parent.members?.forEach((parentMember) => {
-    const existingMember = component.members?.find(
-      (member) =>
-        member.name === parentMember.name && member.privacy !== "private"
+  parent.members
+    ?.filter((member) => member.privacy !== "private")
+    .forEach((parentMember) => {
+      const existingMember = component.members?.find(
+        (member) => member.name === parentMember.name
+      );
+      if (!existingMember) {
+        if (!parentMember.inheritedFrom) {
+          parentMember.inheritedFrom = {
+            name: component.superclass?.name!,
+            module:
+              component.superclass?.module || component.superclass?.package,
+          };
+        }
+
+        component.members?.push(parentMember);
+      }
+    });
+}
+
+function updateSlots(component: Component, parent: Component) {
+  if (!parent.slots) {
+    return;
+  }
+
+  component.slots = component.slots || [];
+  parent.slots?.forEach((parentSlot) => {
+    const existingSlot = component.slots?.find(
+      (slot) => slot.name === parentSlot.name
     );
-    if (!existingMember) {
-      if (!parentMember.inheritedFrom) {
-        parentMember.inheritedFrom = {
-          name: parent.name,
+    if (!existingSlot) {
+      // @ts-expect-error
+      if (!parentSlot.inheritedFrom) {
+        // @ts-expect-error
+        parentSlot.inheritedFrom = {
+          name: component.superclass?.name!,
+          module: component.superclass?.module || component.superclass?.package,
         };
       }
-
-      component.members?.push(parentMember);
+      component.slots?.push(parentSlot);
     }
   });
+}
+
+/**
+ * Gets a list of components from a CEM object
+ * @param customElementsManifest CEM object
+ * @param exclude and array of component names to exclude
+ * @returns Component[]
+ */
+export function getDeclarations(
+  customElementsManifest: CEM,
+  exclude?: string[]
+): Component[] {
+  return (
+    customElementsManifest.modules?.map(
+      (mod) =>
+        mod?.declarations?.filter((dec) => !exclude?.includes(dec.name)) || []
+    ) || []
+  ).flat() as Component[];
 }
