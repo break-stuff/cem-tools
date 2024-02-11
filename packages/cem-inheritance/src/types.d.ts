@@ -9,8 +9,10 @@ export interface Options {
   exclude?: string[];
   /** Aspects of your class that you would like to exclude from it and its children */
   omit?: Omit;
+  /** Skip inheritance for an aspect of your components */
+  ignore?: string[];
   /** External CEMs that your components extend */
-  externalManifests?: object[];
+  externalManifests?: any[];
 }
 
 export interface Params {
@@ -25,5 +27,6 @@ interface Omit {
     members?: string[];
     attributes?: string[];
     events?: string[];
+    slots?: string[];
   }
 }

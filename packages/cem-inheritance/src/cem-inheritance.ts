@@ -16,6 +16,7 @@ const completedClasses: string[] = [];
 let classQueue: Component[] = [];
 let cemEntities: Component[] = [];
 let userConfig: Options = {};
+let externalComponents: Component[] = [];
 
 export function updateCemInheritance(cem: CEM, options: Options = {}) {
   if (!cem) {
@@ -32,6 +33,7 @@ export function updateCemInheritance(cem: CEM, options: Options = {}) {
 }
 
 function updateOptions(options: Options = {}) {
+  setExternalManifests(options.externalManifests);
   return {
     fileName: "custom-elements.json",
     outdir: "./",
@@ -42,9 +44,18 @@ function updateOptions(options: Options = {}) {
   };
 }
 
+function setExternalManifests(manifests?: any[]) {
+  if (!manifests?.length) {
+    return;
+  }
+
+  externalComponents = manifests.flatMap((manifest) => getDeclarations(manifest));
+}
+
+
 export function generateUpdatedCem(cem: any, options: Options = {}) {
   userConfig = updateOptions(options);
-  cemEntities = getDeclarations(cem);
+  cemEntities = getDeclarations(cem, userConfig.exclude);
   cemEntities.forEach((component) => {
     getAncestors(component);
     processInheritanceQueue();
@@ -66,7 +77,7 @@ function getAncestors(component?: Component) {
     const parent = cemEntities.find(
       (c) => c.name === component.superclass?.name
     );
-    console.log("PARENT", component.superclass?.name, parent);
+
     getAncestors(parent);
   }
 }
@@ -77,8 +88,6 @@ function processInheritanceQueue() {
   }
 
   classQueue.reverse();
-
-  console.log(classQueue.map((component) => component.name));
 
   classQueue.forEach((component) => {
     const parent = cemEntities.find(
@@ -99,12 +108,17 @@ function processInheritanceQueue() {
 }
 
 function updateCssProperties(component: Component, parent: Component) {
-  if (!parent.cssProperties) {
+  if (!parent.cssProperties || userConfig.ignore?.includes("cssProperties")) {
     return;
   }
 
+  const omittedProps = userConfig.omit?.[component.name]?.cssProperties || [];
   component.cssProperties = component.cssProperties || [];
   parent.cssProperties?.forEach((parentCssProp) => {
+    if (omittedProps.includes(parentCssProp.name)) {
+      return;
+    }
+
     const existingProp = component.cssProperties?.find(
       (prop) => prop.name === parentCssProp.name
     );
@@ -124,12 +138,17 @@ function updateCssProperties(component: Component, parent: Component) {
 }
 
 function updateCssParts(component: Component, parent: Component) {
-  if (!parent.cssParts) {
+  if (!parent.cssParts || userConfig.ignore?.includes("cssParts")) {
     return;
   }
 
+  const omittedParts = userConfig.omit?.[component.name]?.cssParts || [];
   component.cssParts = component.cssParts || [];
   parent.cssParts?.forEach((parentCssPart) => {
+    if (omittedParts.includes(parentCssPart.name)) {
+      return;
+    }
+
     const existingPart = component.cssParts?.find(
       (part) => part.name === parentCssPart.name
     );
@@ -148,12 +167,17 @@ function updateCssParts(component: Component, parent: Component) {
 }
 
 function updateAttributes(component: Component, parent: Component) {
-  if (!parent.attributes) {
+  if (!parent.attributes || userConfig.ignore?.includes("attributes")) {
     return;
   }
 
+  const omittedAttrs = userConfig.omit?.[component.name]?.attributes || [];
   component.attributes = component.attributes || [];
   parent.attributes?.forEach((parentAttr) => {
+    if (omittedAttrs.includes(parentAttr.name)) {
+      return;
+    }
+
     const existingAttr = component.attributes?.find(
       (attr) => attr.name === parentAttr.name
     );
@@ -171,12 +195,17 @@ function updateAttributes(component: Component, parent: Component) {
 }
 
 function updateEvents(component: Component, parent: Component) {
-  if (!parent.events) {
+  if (!parent.events || userConfig.ignore?.includes("events")) {
     return;
   }
 
+  const omittedEvents = userConfig.omit?.[component.name]?.events || [];
   component.events = component.events || [];
   parent.events?.forEach((parentEvent) => {
+    if (omittedEvents.includes(parentEvent.name)) {
+      return;
+    }
+
     const existingEvent = component.events?.find(
       (event) => event.name === parentEvent.name
     );
@@ -193,14 +222,19 @@ function updateEvents(component: Component, parent: Component) {
 }
 
 function updateMembers(component: Component, parent: Component) {
-  if (!parent.members) {
+  if (!parent.members || userConfig.ignore?.includes("members")) {
     return;
   }
 
+  const omittedMembers = userConfig.omit?.[component.name]?.members || [];
   component.members = component.members || [];
   parent.members
     ?.filter((member) => member.privacy !== "private")
     .forEach((parentMember) => {
+      if (omittedMembers.includes(parentMember.name)) {
+        return;
+      }
+
       const existingMember = component.members?.find(
         (member) => member.name === parentMember.name
       );
@@ -219,12 +253,17 @@ function updateMembers(component: Component, parent: Component) {
 }
 
 function updateSlots(component: Component, parent: Component) {
-  if (!parent.slots) {
+  if (!parent.slots || userConfig.ignore?.includes("slots")) {
     return;
   }
 
+  const omittedSlots = userConfig.omit?.[component.name]?.slots || [];
   component.slots = component.slots || [];
   parent.slots?.forEach((parentSlot) => {
+    if (omittedSlots.includes(parentSlot.name)) {
+      return;
+    }
+
     const existingSlot = component.slots?.find(
       (slot) => slot.name === parentSlot.name
     );
