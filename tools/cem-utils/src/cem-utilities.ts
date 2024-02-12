@@ -22,7 +22,7 @@ export const EXCLUDED_TYPES = [
  * @returns string
  */
 export function getComponentDescription(
-  component: schema.Declaration,
+  component: Component,
   descriptionSrc?: string
 ): string {
   let description =
