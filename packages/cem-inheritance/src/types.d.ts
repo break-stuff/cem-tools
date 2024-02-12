@@ -20,7 +20,7 @@ export interface Params {
 }
 
 
-interface Omit {
+export interface Omit {
   [key: string]: {
     cssProperties?: string[];
     cssParts?: string[];
