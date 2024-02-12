@@ -16,7 +16,7 @@ export function updateCemInheritance(cem: CEM, options: Options = {}) {
   createOutDir(userConfig.outdir!);
   saveFile(
     userConfig.outdir!,
-    options.fileName!,
+    userConfig.fileName!,
     JSON.stringify(newCem, null, 2)
   );
   logBlue("[cem-inheritance-generator] - Custom Elements Manifest updated.");
