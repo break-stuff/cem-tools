@@ -1,7 +1,7 @@
 // import { getComponents } from "../../../../tools/cem-utils/index.ts";
 import { getComponents } from "../../../../tools/cem-utils/index";
 import { generateUpdatedCem } from "../cem-inheritance";
-import { standAloneManifest } from "./test-data";
+import { standAloneManifest, baseManifest, externalManifest } from "./test-data";
 // import cem from "./_base-cem.js";
 import fs from "fs";
 
@@ -13,7 +13,6 @@ describe("cem-inheritance", () => {
   });
 
   describe("inherit within same file", () => {
-    console.log('singleCEM', singleCEM);
     const components = getComponents(generateUpdatedCem(singleCEM));
 
     describe("CSS Parts", () => {
@@ -176,9 +175,31 @@ describe("cem-inheritance", () => {
       );
       const myExtInput = components.find((c) => c.name === "MyExtInput");
 
-      console.log(myExtInput?.cssProperties);
       // Assert
       expect(myExtInput?.cssProperties?.length).toBeUndefined();
+    });
+
+    it.only("should exclude entries from external CEM", () => {
+      // Arrange
+      const options = {
+        externalManifests: [externalManifest],
+      };
+
+      // Act
+      const components = getComponents(
+        generateUpdatedCem(baseManifest, options)
+      );
+      const myExtInput = components.find((c) => c.name === "MyExtInput");
+      fs.writeFileSync('cem-inheritance-1.json', JSON.stringify(baseManifest, null, 2));
+
+
+      // Assert
+      expect(components.length).toBe(1);
+      expect(myExtInput?.members?.length).toBe(58);
+      expect(myExtInput?.attributes?.length).toBe(27);
+      expect(myExtInput?.events?.length).toBe(4);
+      expect(myExtInput?.slots?.length).toBe(3);
+      expect(myExtInput?.cssParts?.length).toBe(7);
     });
   });
 });

@@ -1,7 +1,4 @@
-import {
-  CEM,
-  Component,
-} from "../../../tools/cem-utils/index.js";
+import { CEM, Component } from "../../../tools/cem-utils/index.js";
 import * as schema from "custom-elements-manifest/schema";
 import {
   createOutDir,
@@ -17,18 +14,17 @@ let classQueue: Component[] = [];
 let cemEntities: Component[] = [];
 let userConfig: Options = {};
 let externalComponents: Component[] = [];
+let updatedCEM: any = {};
 
 export function updateCemInheritance(cem: CEM, options: Options = {}) {
-  if (!cem) {
-    throw new Error(
-      "Custom Elements Manifest is required to update inheritance."
-    );
-  }
-
   logBlue("[cem-inheritance-generator] - Updating Custom Elements Manifest...");
   const newCem = generateUpdatedCem(cem, options);
   createOutDir(userConfig.outdir!);
-  saveFile(userConfig.outdir!, options.fileName!, JSON.stringify(newCem, null, 2));
+  saveFile(
+    userConfig.outdir!,
+    options.fileName!,
+    JSON.stringify(newCem, null, 2)
+  );
   logBlue("[cem-inheritance-generator] - Custom Elements Manifest updated.");
 }
 
@@ -40,7 +36,7 @@ function updateOptions(options: Options = {}) {
     exclude: [],
     externalManifests: [],
     omit: {},
-    ...options
+    ...options,
   };
 }
 
@@ -49,11 +45,19 @@ function setExternalManifests(manifests?: any[]) {
     return;
   }
 
-  externalComponents = manifests.flatMap((manifest) => getDeclarations(manifest));
+  externalComponents = manifests.flatMap((manifest) =>
+    getDeclarations(manifest)
+  );
 }
 
-
 export function generateUpdatedCem(cem: any, options: Options = {}) {
+  if (!cem) {
+    throw new Error(
+      "Custom Elements Manifest is required to update inheritance."
+    );
+  }
+
+  updatedCEM = cem;
   userConfig = updateOptions(options);
   cemEntities = getDeclarations(cem, userConfig.exclude);
   cemEntities.forEach((component) => {
@@ -61,7 +65,7 @@ export function generateUpdatedCem(cem: any, options: Options = {}) {
     processInheritanceQueue();
   });
 
-  return cem;
+  return updatedCEM;
 }
 
 function getAncestors(component?: Component) {
@@ -74,10 +78,9 @@ function getAncestors(component?: Component) {
     component.superclass?.name &&
     !completedClasses.includes(component.superclass.name)
   ) {
-    const parent = cemEntities.find(
-      (c) => c.name === component.superclass?.name
-    );
-
+    const parent =
+      cemEntities.find((c) => c.name === component.superclass?.name) ||
+      externalComponents.find((c) => c.name === component.superclass?.name);
     getAncestors(parent);
   }
 }
@@ -90,9 +93,9 @@ function processInheritanceQueue() {
   classQueue.reverse();
 
   classQueue.forEach((component) => {
-    const parent = cemEntities.find(
-      (c) => c.name === component.superclass?.name
-    );
+    const parent =
+      cemEntities.find((c) => c.name === component.superclass?.name) ||
+      externalComponents.find((c) => c.name === component.superclass?.name);
     if (parent) {
       updateCssProperties(component, parent);
       updateCssParts(component, parent);
@@ -101,6 +104,7 @@ function processInheritanceQueue() {
       updateMembers(component, parent);
       updateSlots(component, parent);
     }
+
     completedClasses.push(component.name);
   });
 
@@ -123,16 +127,8 @@ function updateCssProperties(component: Component, parent: Component) {
       (prop) => prop.name === parentCssProp.name
     );
     if (!existingProp) {
-      // @ts-expect-error
-      if (!parentCssProp.inheritedFrom) {
-        // @ts-expect-error
-        parentCssProp.inheritedFrom = {
-          name: component.superclass?.name,
-          module: component.superclass?.module || component.superclass?.package,
-        };
-      }
-
-      component.cssProperties?.push(parentCssProp);
+      const prop = addInheritedFromInfo(parentCssProp, component);
+      component.cssProperties?.push(prop);
     }
   });
 }
@@ -153,15 +149,8 @@ function updateCssParts(component: Component, parent: Component) {
       (part) => part.name === parentCssPart.name
     );
     if (!existingPart) {
-      // @ts-expect-error
-      if (!parentCssPart.inheritedFrom) {
-        // @ts-expect-error
-        parentCssPart.inheritedFrom = {
-          name: component.superclass?.name,
-          module: component.superclass?.module || component.superclass?.package,
-        };
-      }
-      component.cssParts?.push(parentCssPart);
+      const part = addInheritedFromInfo(parentCssPart, component);
+      component.cssParts?.push(part);
     }
   });
 }
@@ -182,14 +171,8 @@ function updateAttributes(component: Component, parent: Component) {
       (attr) => attr.name === parentAttr.name
     );
     if (!existingAttr) {
-      if (!parentAttr.inheritedFrom) {
-        parentAttr.inheritedFrom = {
-          name: component.superclass!.name!,
-          module: component.superclass?.module || component.superclass?.package,
-        };
-      }
-
-      component.attributes?.push(parentAttr);
+      const attr = addInheritedFromInfo(parentAttr, component);
+      component.attributes?.push(attr);
     }
   });
 }
@@ -210,13 +193,8 @@ function updateEvents(component: Component, parent: Component) {
       (event) => event.name === parentEvent.name
     );
     if (!existingEvent) {
-      if (!parentEvent.inheritedFrom) {
-        parentEvent.inheritedFrom = {
-          name: component.superclass?.name!,
-          module: component.superclass?.module || component.superclass?.package,
-        };
-      }
-      component.events?.push(parentEvent);
+      const event = addInheritedFromInfo(parentEvent, component);
+      component.events?.push(event);
     }
   });
 }
@@ -239,15 +217,8 @@ function updateMembers(component: Component, parent: Component) {
         (member) => member.name === parentMember.name
       );
       if (!existingMember) {
-        if (!parentMember.inheritedFrom) {
-          parentMember.inheritedFrom = {
-            name: component.superclass?.name!,
-            module:
-              component.superclass?.module || component.superclass?.package,
-          };
-        }
-
-        component.members?.push(parentMember);
+        const member = addInheritedFromInfo(parentMember, component);
+        component.members?.push(member);
       }
     });
 }
@@ -268,17 +239,20 @@ function updateSlots(component: Component, parent: Component) {
       (slot) => slot.name === parentSlot.name
     );
     if (!existingSlot) {
-      // @ts-expect-error
-      if (!parentSlot.inheritedFrom) {
-        // @ts-expect-error
-        parentSlot.inheritedFrom = {
-          name: component.superclass?.name!,
-          module: component.superclass?.module || component.superclass?.package,
-        };
-      }
-      component.slots?.push(parentSlot);
+      const slot = addInheritedFromInfo(parentSlot, component);
+      component.slots?.push(slot);
     }
   });
+}
+
+function addInheritedFromInfo(member: any, component: Component) {
+  const newMember = { ...member };
+  if (!member.inheritedFrom) {
+    newMember.inheritedFrom = {
+      name: component.superclass?.name,
+    };
+  }
+  return newMember;
 }
 
 /**
