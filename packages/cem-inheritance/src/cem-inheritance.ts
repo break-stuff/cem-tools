@@ -1,11 +1,5 @@
 import { CEM, Component } from "../../../tools/cem-utils/index.js";
-import * as schema from "custom-elements-manifest/schema";
-import {
-  createOutDir,
-  logBlue,
-  logRed,
-  saveFile,
-} from "../../../tools/integrations";
+import { createOutDir, logBlue, saveFile } from "../../../tools/integrations";
 import fs from "fs";
 import { Options } from "./types.js";
 
