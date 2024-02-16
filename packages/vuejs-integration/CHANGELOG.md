@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.0
+
+- Add `defaultExport` options to resolve imports without named exports.
+
 ## 1.0.1
 
 - Exclude private methods and properties using the `#` access modifier

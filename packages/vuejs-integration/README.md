@@ -105,6 +105,8 @@ The configuration has the following optional parameters:
   fileName?: string | null;
   /** Class names of any components you would like to exclude from the types */
   exclude?: string[];
+  /** Indicates if the component classes are a default export rather than a named export */
+  defaultExport?: boolean;
   /** Used to get type reference for components from a single source */
   globalTypePath?: string;
   /** Used to get types from specific path for a given component */
@@ -130,6 +132,11 @@ You can configure the destination and the file name of the generated type file u
   fileName: 'vuejs-integration.d.ts'
 }
 ```
+
+### Default Exports
+
+If you component class does not provide a named export and is the default export, be sure to set `defaultExport` to `true`. This will endure the import for the class gets resolved correctly.
+
 
 ### Types
 

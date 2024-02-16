@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.0
+
+- Add `defaultExport` options to resolve imports without named exports.
+
 ## 1.2.1
 
 - Included file extensions for exports in manifest
