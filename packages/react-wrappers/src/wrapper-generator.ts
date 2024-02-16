@@ -325,9 +325,9 @@ function getReactComponentTemplate(
       ${has(eventTemplates) ? "useEventListener," : ""} 
       ${has(propTemplates) ? "useProperties" : ""}
     } from './react-utils.js';
-    import { ${component.name} as ${
-    component.name
-  }Element } from '${modulePath}';
+    import { ${
+      config.defaultExport ? 'default' : component.name
+    } as ${component.name}Element } from '${modulePath}';
 
     export const ${component.name} = forwardRef((props, forwardedRef) => {
       ${useEffect ? `const ref = useRef(null);` : ""}
@@ -395,7 +395,7 @@ function getTypeDefinitionTemplate(
 
   return `
     import { 
-      ${component.name} as ${component.name}Element
+      ${config.defaultExport ? 'default' : component.name} as ${component.name}Element
       ${eventTypes?.length ? `, ${eventTypes}` : ""}
     } from '${modulePath}';
 
