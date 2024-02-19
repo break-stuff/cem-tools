@@ -120,7 +120,7 @@
               "description": "This is a test for external .ts options",
               "attribute": "external2",
               "expandedType": {
-                "text": "Test2 | 'valueA' | 'valueB'"
+                "text": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'"
               }
             },
             {
@@ -321,7 +321,7 @@
               "description": "This is a test for external .ts options",
               "fieldName": "external2",
               "expandedType": {
-                "text": "Test2 | 'valueA' | 'valueB'"
+                "text": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'"
               },
               "propName": "external2"
             },

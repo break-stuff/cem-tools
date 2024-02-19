@@ -49,7 +49,7 @@
               "name": "external2",
               "description": "This is a test for external .ts options",
               "value": {
-                "type": "Test2 | 'valueA' | 'valueB'",
+                "type": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'",
                 "default": "'value4'"
               }
             },
@@ -135,7 +135,9 @@
               {
                 "name": "external2",
                 "description": "This is a test for external .ts options",
-                "value": { "type": "Test2 | 'valueA' | 'valueB'" }
+                "value": {
+                  "type": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'"
+                }
               },
               {
                 "name": "external3",

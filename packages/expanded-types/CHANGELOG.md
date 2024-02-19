@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0
+
+- Resolve external types included in union types
+
 ## 1.1.6
 
 - Remove console log

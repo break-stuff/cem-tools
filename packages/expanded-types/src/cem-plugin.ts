@@ -6,7 +6,14 @@ export interface Options {
   propertyName?: string;
 }
 
-const aliasTypes: any = {};
+interface AliasTypes {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
+
+const aliasTypes: AliasTypes = {};
+const groupedTypes: AliasTypes = {};
 const primitives = [
   "string",
   "number",
@@ -74,24 +81,30 @@ export function getTsProgram(
 }
 
 function getExpandedType(fileName: string, typeName: string): string {
-  if (
-    primitives.includes(typeName) ||
-    typeof aliasTypes[fileName] === "undefined"
-  ) {
-    return typeName;
-  }
-
-  if (typeof aliasTypes[fileName][typeName] !== "undefined") {
-    return aliasTypes[fileName][typeName];
-  }
-
   if (typeName?.includes("|")) {
     return getUnionTypes(fileName, typeName);
   }
 
-  return typeName?.startsWith("{") && typeName?.endsWith("}")
-    ? getObjectTypes(fileName, typeName)
-    : typeName;
+  if (typeName?.startsWith("{") && typeName?.endsWith("}")) {
+    return getObjectTypes(fileName, typeName);
+  }
+
+  if (
+    primitives.includes(typeName) ||
+    typeof groupedTypes[typeName] === "undefined"
+  ) {
+    return typeName;
+  }
+
+  if (typeof groupedTypes[typeName][fileName] !== "undefined") {
+    return groupedTypes[typeName][fileName];
+  }
+
+  if (Object.entries(groupedTypes[typeName]).length === 1) {
+    return Object.values(groupedTypes[typeName])[0];
+  }
+
+  return typeName;
 }
 
 function getUnionTypes(fileName: string, typeName: string) {
@@ -153,6 +166,21 @@ function parseFileTypes(node: any) {
       setComplexUnionTypes(node);
     }
   }
+
+  groupTypesByName();
+}
+
+function groupTypesByName() {
+  for (const alias in aliasTypes) {
+    for (const type in aliasTypes[alias]) {
+      if (!groupedTypes[type]) {
+        groupedTypes[type] = {};
+      }
+      groupedTypes[type][alias] = aliasTypes[alias][type];
+    }
+  }
+
+  // console.log("groupedTypes", JSON.stringify(groupedTypes, null, 2));
 }
 
 function setEnumTypes(node: any) {
@@ -210,22 +238,7 @@ function analyzePhase({ ts, node, moduleDoc, context }: any) {
     return;
   }
 
-  // (component as any).exports?.forEach((x: any) => x.declaration.module.replace(process.cwd(), ""));
   updateExpandedTypes(component, context);
-}
-
-function packageLinkPhase({
-  customElementsManifest,
-  context,
-}: {
-  customElementsManifest: CEM;
-  context: any;
-}) {
-  customElementsManifest.modules.forEach((module) => {
-    module.path.replace(process.cwd(), "");
-    // module.declarations.forEach((component: Component) => {
-    //   updateExpandedTypes(component, context);
-  });
 }
 
 function getComponent(node: any, moduleDoc: any) {

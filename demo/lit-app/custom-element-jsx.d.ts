@@ -1,5 +1,5 @@
-import type { default as RadioGroup, InterfaceEventType } from "./dist/radio-group/RadioGroup.d.ts";
-import type { default as RadioButton } from "./dist/radio-button/RadioButton.d.ts";
+import type { RadioGroup, InterfaceEventType } from "./dist/radio-group/RadioGroup.d.ts";
+import type { RadioButton } from "./dist/radio-button/RadioButton.d.ts";
 
 /**
  * This type can be used to create scoped tags for your components.
