@@ -52,7 +52,9 @@
           "name": "external2",
           "description": "This is a test for external .ts options",
           "values": [
-            { "name": "Test2" },
+            { "name": "value4" },
+            { "name": "value5" },
+            { "name": "value6" },
             { "name": "valueA" },
             { "name": "valueB" }
           ]
