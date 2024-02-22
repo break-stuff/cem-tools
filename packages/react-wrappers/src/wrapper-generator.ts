@@ -461,7 +461,7 @@ function getAttributePropsTemplate(
       ${attr.propName}?: ${
         baseProperties.some((base) => base.propName === attr.propName)
           ? attr.type?.text || "string"
-          : `${componentName}Element['${attr.propName}']`
+          : `${componentName}Element['${attr.originalName || attr.propName}']`
       };
     `
     ) || []

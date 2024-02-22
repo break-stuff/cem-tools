@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.0
+
+- Added additional default attributes - `dir`, `exportparts`, `htmlFor`, `hidden`, `id`, `lang`, `ref`, `tabIndex`, `title`, and `translate`.
+
 ## 1.4.0
 
 - Add `defaultExport` options to resolve imports without named exports.

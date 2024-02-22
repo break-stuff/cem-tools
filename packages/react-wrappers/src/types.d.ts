@@ -28,6 +28,10 @@ export interface MappedAttribute extends Attribute {
   propName?: string;
 }
 
+export interface ExtendedAttribute extends MappedAttribute {
+  mappedName: string;
+}
+
 export interface ComponentAttributes {
   attributes: MappedAttribute[];
   booleanAttributes: MappedAttribute[];

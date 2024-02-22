@@ -503,7 +503,8 @@
                 "text": "string | undefined"
               },
               "description": "A mapped attribute for react wrapper example",
-              "fieldName": "for"
+              "fieldName": "for",
+              "propName": "for"
             },
             {
               "name": "position",
