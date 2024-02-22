@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.4.0
+
+- Added additional default attributes - `classList`, `dir`, `exportparts`, `id`, `lang`, `part`, `title`, and `translate`
+- Fixed attribute mapping in types
+
 ## 1.3.0
 
 - Add `defaultExport` options to resolve imports without named exports.

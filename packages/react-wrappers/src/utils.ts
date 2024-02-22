@@ -63,7 +63,6 @@ export const RESERVED_WORDS = [
   "final",
   "finally",
   "float",
-  "for",
   "function",
   "goto",
   "if",
