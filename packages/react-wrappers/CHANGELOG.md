@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.4.1
+
+- Allow any string for `descriptionSrc`
+
 ## 1.4.0
 
 - Added additional default attributes - `classList`, `dir`, `exportparts`, `id`, `lang`, `part`, `title`, and `translate`

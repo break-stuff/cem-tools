@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.4
+
+- Allow any string for `descriptionSrc`
+
 ## 1.4.3
 
 - Exclude private methods and properties using the `#` access modifier
