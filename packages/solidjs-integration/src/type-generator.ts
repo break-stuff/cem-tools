@@ -106,12 +106,12 @@ type BaseProps = {
   dir?: "ltr" | "rtl";
   /** Contains a space-separated list of the part names of the element that should be exposed on the host element. */
   exportparts?: string;
-  /** For <label> and <output>, lets you associate the label with some control. */
-  htmlFor?: string;
   /** Specifies whether the element should be hidden. */
   hidden?: boolean | string;
   /** A unique identifier for the element. */
-  id?: string;
+  id?: string;  
+  /** Sets the HTML or XML markup contained within the element. */
+  innerHTML?: string;
   /** Specifies the language of the element. */
   lang?: string;
   /** Contains a space-separated list of the part names of the element. Part names allows CSS to select and style specific elements in a shadow tree via the ::part pseudo-element. */
@@ -123,7 +123,9 @@ type BaseProps = {
   /** Prop for setting inline styles */
   style?: JSX.CSSProperties;
   /** Overrides the default Tab button behavior. Avoid using values other than -1 and 0. */
-  tabIndex?: number;
+  tabIndex?: number;  
+  /** Sets the text content of the element */
+  textContent?: number;
   /** Specifies the tooltip text for the element. */
   title?: string;
   /** Passing 'no' excludes the element content from being translated. */
