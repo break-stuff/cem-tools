@@ -125,7 +125,7 @@ type BaseProps = {
   /** Overrides the default Tab button behavior. Avoid using values other than -1 and 0. */
   tabIndex?: number;  
   /** Sets the text content of the element */
-  textContent?: number;
+  textContent?: string;
   /** Specifies the tooltip text for the element. */
   title?: string;
   /** Passing 'no' excludes the element content from being translated. */
