@@ -1,16 +1,14 @@
-import { BaseConfiguration } from "../config";
+import { BaseOptions } from "../config";
 
-export const config: BaseConfiguration = {
+export const config: BaseOptions = {
   outdir: "./",
-  htmlFileName: "vscode.html-custom-data.json",
-  cssFileName: "vscode.css-custom-data.json",
   exclude: [],
   descriptionSrc: undefined,
-  slotDocs: true,
-  eventDocs: true,
-  cssPropertiesDocs: true,
-  cssPartsDocs: true,
-  methodDocs: true,
+  hideSlotDocs: false,
+  hideEventDocs: false,
+  hideCssPropertiesDocs: false,
+  hideCssPartsDocs: false,
+  hideMethodDocs: false,
   labels: {
     slots: "Slots",
     events: "Events",
