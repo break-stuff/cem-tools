@@ -9,8 +9,8 @@
     "tools/*"
   ],
   "scripts": {
-    "analyze": "turbo run analyze",
-    "build": "turbo run build",
+    "analyze": "npm run analyze",
+    "build": "npm run build",
     "deploy:expanded-types": "turbo run deploy --filter=cem-plugin-expanded-types",
     "deploy:inheritance": "turbo run deploy --filter=custom-elements-manifest-inheritance",
     "deploy:jet-brains": "turbo run deploy --filter=custom-element-jet-brains-integration",
@@ -28,8 +28,7 @@
   "devDependencies": {
     "eslint-config-custom": "*",
     "prettier": "latest",
-    "tsup": "^7.1.0",
-    "turbo": "^1.10.12"
+    "tsup": "^7.1.0"
   },
   "engines": {
     "node": ">=14.0.0"
