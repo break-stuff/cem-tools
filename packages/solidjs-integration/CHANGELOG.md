@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.6.0
+
+- Added `innerHTML` and `textContent` attributes
+- Removed `htmlFor` attribute as it is not used in SolidJS JSX
+
 ## 1.5.0
 
 - Added additional default attributes - `dir`, `exportparts`, `htmlFor`, `hidden`, `id`, `lang`, `ref`, `tabIndex`, `title`, and `translate`.
