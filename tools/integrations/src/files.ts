@@ -16,9 +16,10 @@ export function saveFile(
   printWidth = 80
 ) {
   const outputPath = path.join(outDir, fileName);
-  prettier.format(contents, { parser, printWidth }).then((formattedContents) => {
-    fs.writeFileSync(outputPath, formattedContents);
-  });
+  fs.writeFileSync(
+    outputPath,
+    prettier.format(contents, { parser, printWidth })
+  );
 
   return outputPath;
 }

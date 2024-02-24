@@ -9,8 +9,8 @@
     "tools/*"
   ],
   "scripts": {
-    "analyze": "pnpm build:packages && pnpm -r analyze --no-bail",
-    "build": "pnpm -r build",
+    "analyze": "pnpm build:packages && pnpm -r --no-bail analyze",
+    "build": "pnpm -r --no-bail build",
     "build:demo": "pnpm --filter './demo/*' build",
     "build:packages": "pnpm --filter './packages/*' build",
     "deploy": "pnpm -r deploy",
@@ -26,11 +26,11 @@
     "dev": "pnpm run dev",
     "lint": "pnpm -r lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "test": "pnpm -r test --no-bail"
+    "test": "pnpm -r --no-bail test"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
-    "prettier": "latest",
+    "prettier": "2.7.1",
     "tsup": "^7.1.0"
   },
   "engines": {

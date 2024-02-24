@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/break-stuff/cem-tools/blob/main/packages/jet-brains-integration/README.md",
   "dependencies": {
-    "prettier": "^2.8.0"
+    "prettier": "^2.7.1"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.3",
