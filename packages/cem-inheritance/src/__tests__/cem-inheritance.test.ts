@@ -1,4 +1,3 @@
-// import { getComponents } from "../../../../tools/cem-utils/index.ts";
 import { getComponents } from "../../../../tools/cem-utils/index";
 import { generateUpdatedCem } from "../cem-inheritance";
 import {
@@ -6,6 +5,8 @@ import {
   baseManifest,
   externalManifest,
 } from "./test-data";
+
+globalThis.structuredClone = v => JSON.parse(JSON.stringify(v));
 
 let singleCEM = structuredClone(standAloneManifest);
 let baseCEM = structuredClone(baseManifest);
