@@ -577,29 +577,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/radio-button/radio-button.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "src/radio-button/radio-button.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "radio-button",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "/src/radio-button/RadioButton.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/radio-group/radio-group.ts",
       "declarations": [],
       "exports": [
@@ -617,6 +594,29 @@
           "declaration": {
             "name": "RadioGroup",
             "module": "/src/radio-group/RadioGroup.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio-button/radio-button.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioButton",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "src/radio-button/radio-button.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "radio-button",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "/src/radio-button/RadioButton.js"
           }
         }
       ]
