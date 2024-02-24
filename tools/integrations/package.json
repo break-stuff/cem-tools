@@ -12,9 +12,9 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
   },
   "devDependencies": {
+    "@types/node": "^20.11.20",
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
-    "testing-config": "*",
     "tsconfig": "*",
     "typescript": "^4.5.2"
   },
