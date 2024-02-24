@@ -9,9 +9,8 @@
     "tools/*"
   ],
   "scripts": {
-    "analyze": "pnpm -r analyze",
-    "build": "pnpm build:packages && pnpm analyze",
-    "build:all": "pnpm -r build",
+    "analyze": "pnpm build:packages && pnpm -r analyze",
+    "build": "pnpm -r build",
     "build:demo": "pnpm --filter './demo/*' build",
     "build:packages": "pnpm --filter './packages/*' build",
     "deploy": "pnpm -r deploy",
