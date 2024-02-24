@@ -1,3 +1,6 @@
+// https://twitter.com/mattpocockuk/status/1506607945445949446
+export type LooseString<T extends string> = T | Omit<string, T>;
+
 export const toKebabCase = (value: string): string =>
   value.replace(/([a-z0–9])([A-Z])/g, "$1-$2").toLowerCase();
 

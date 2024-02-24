@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.1
+
+- Allow any string for `descriptionSrc`
+
 ## 1.3.0
 
 - Added additional default attributes - `className`, `dir`, `exportparts`, `htmlFor`, `hidden`, `id`, `lang`, `ref`, `tabIndex`, `title`, and `translate`.

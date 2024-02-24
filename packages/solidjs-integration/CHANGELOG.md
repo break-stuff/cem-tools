@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.1
+
+- Allow any string for `descriptionSrc`
+
 ## 1.6.0
 
 - Added `innerHTML` and `textContent` attributes

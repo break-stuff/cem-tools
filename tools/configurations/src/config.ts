@@ -1,10 +1,12 @@
+import { LooseString } from "../../utilities";
+
 export interface BaseOptions {
   /** Path to output directory */
   outdir?: string;
   /** Class names of any components you would like to exclude from the custom data */
   exclude?: string[];
   /** The property name from the component object that you would like to use for the description of your component */
-  descriptionSrc?: "description" | "summary";
+  descriptionSrc?: LooseString<"description" | "summary">;
   /** Displays the slot section of the element description */
   hideSlotDocs?: boolean;
   /** Displays the event section of the element description */
