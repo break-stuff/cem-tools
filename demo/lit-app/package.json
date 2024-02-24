@@ -16,6 +16,7 @@
     "lit": "^2.7.6"
   },
   "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.6.6",
     "cem-plugin-expanded-types": "*",
     "custom-element-jet-brains-integration": "*",
     "custom-element-jsx-integration": "*",

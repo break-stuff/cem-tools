@@ -36,6 +36,7 @@
     "@types/prettier": "^2.6.4",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
+    "custom-elements-manifest": "2.0.0",
     "eslint": "^8.32.0",
     "ts-jest": "^29.0.3",
     "tsup": "^7.1.0"

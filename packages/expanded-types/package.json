@@ -26,7 +26,8 @@
     "@typescript-eslint/parser": "^5.48.1",
     "eslint": "^8.32.0",
     "ts-jest": "^29.0.3",
-    "tsup": "^7.1.0"
+    "tsup": "^7.1.0",
+    "typescript": "^5.2.2"
   },
   "author": "",
   "license": "MIT",
