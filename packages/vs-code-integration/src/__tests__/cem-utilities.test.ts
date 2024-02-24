@@ -8,7 +8,10 @@ import { component, customElementsManifest } from "./test-data.js";
 import { Reference } from "../types.js";
 import { getOptions } from "../data-file-generator.js";
 import { updateConfig } from "../../../../tools/configurations/src/config.js";
-import { getComponentMethods, getComponents } from "../../../../tools/cem-utils/index.js";
+import {
+  getComponentMethods,
+  getComponents,
+} from "../../../../tools/cem-utils/index.js";
 
 describe("getCssValues", () => {
   test("given a string with comma separated values, it should return an array of CSS Value objects", () => {
@@ -134,20 +137,17 @@ describe("getTagList", () => {
           name: "Documentation",
           url: `https://example.com/components/${tag}`,
         },
-      ]
+      ],
     });
 
     // Act
-    const tags =
-      getTagList(components, options);
-      const references = tags[0].references;
-      const reference = references ? references[0] : undefined;
+    const tags = getTagList(components, options);
+    const references = tags[0].references;
+    const reference = references ? references[0] : undefined;
 
     // Assert
     expect(reference?.name).toBe("Documentation");
-    expect(reference?.url).toBe(
-      "https://example.com/components/radio-button"
-    );
+    expect(reference?.url).toBe("https://example.com/components/radio-button");
   });
 });
 

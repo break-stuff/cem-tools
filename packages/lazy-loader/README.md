@@ -5,7 +5,6 @@ Create a single entry point to lazy-load your custom elements/web components as 
 As components get loaded the component configurations get removed from the list and when all of the components have been loaded, the loader will shut off to help improve performance.
 
 ```html
-
 <body>
   <my-button>Button</my-button>
   <my-checkbox></my-checkbox>
@@ -207,6 +206,6 @@ There may be instances where you want certain components loaded as soon as possi
 
 ## Scoping Components
 
-If you are using custom tag names with either a prefix or suffix to prevent tag name collisions, you can configure the lazy-loader watch for your scoped tags. Both the build and runtime configurations accept `prefix` and `suffix` options to update the component list with your specified tag names. 
+If you are using custom tag names with either a prefix or suffix to prevent tag name collisions, you can configure the lazy-loader watch for your scoped tags. Both the build and runtime configurations accept `prefix` and `suffix` options to update the component list with your specified tag names.
 
 For example, setting the `prefix` option to `prefix_` will update the tag list so the loader will watch for `prefix_my-element`.

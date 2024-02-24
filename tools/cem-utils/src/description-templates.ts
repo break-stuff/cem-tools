@@ -168,11 +168,11 @@ export function getMemberDescription(
   deprecated?: boolean | string
 ) {
   if (!deprecated) {
-    return description || '';
+    return description || "";
   }
 
   const desc = description ? ` - ${description}` : "";
-  
+
   return typeof deprecated === "string"
     ? `@deprecated ${deprecated}${desc}`
     : `@deprecated${desc}`;

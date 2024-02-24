@@ -8,7 +8,6 @@
   "private": true,
   "scripts": {
     "build": "tsc && cp src/types.d.ts dist/types.d.ts || copy src/types.d.ts dist/types.d.ts",
-    "lint": "eslint \"**/*.ts*\"",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "devDependencies": {

@@ -8,7 +8,6 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "lint": "eslint \"**/*.ts*\"",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "devDependencies": {

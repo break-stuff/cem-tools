@@ -1,7 +1,4 @@
-import {
-  BaseConfiguration,
-  updateConfig,
-} from "../config";
+import { BaseConfiguration, updateConfig } from "../config";
 import { config } from "./test-data.js";
 
 describe("updateConfig", () => {

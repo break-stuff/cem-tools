@@ -29,8 +29,7 @@ export const baseProperties: MappedAttribute[] = [
   {
     name: "dir",
     propName: "dir",
-    description:
-      "Specifies the text direction of the element.",
+    description: "Specifies the text direction of the element.",
     type: {
       text: "'ltr' | 'rtl'",
     },

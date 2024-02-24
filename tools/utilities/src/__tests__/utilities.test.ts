@@ -1,9 +1,14 @@
-import { has, removeQuoteWrappers, toKebabCase, toPascalCase } from "../utilities";
+import {
+  has,
+  removeQuoteWrappers,
+  toKebabCase,
+  toPascalCase,
+} from "../utilities";
 
 describe("toKebabCase", () => {
   test("given a string in Pascal case, it should convert it kebab case", () => {
     // Arrange
-    const input = 'TestExample';
+    const input = "TestExample";
 
     // Act
     const result = toKebabCase(input);
@@ -14,7 +19,7 @@ describe("toKebabCase", () => {
 
   test("given a string in camel case, it should convert it kebab case", () => {
     // Arrange
-    const input = 'testExample';
+    const input = "testExample";
 
     // Act
     const result = toKebabCase(input);
@@ -84,7 +89,7 @@ describe("has", () => {
 
   test("given a string array, it should return true", () => {
     // Arrange
-    const input = ['test 1', 'test 2', 'test 3'];
+    const input = ["test 1", "test 2", "test 3"];
 
     // Act
     const result = has(input);
@@ -95,7 +100,7 @@ describe("has", () => {
 
   test("given an object array, it should return true", () => {
     // Arrange
-    const input = [{test: 'test 1'},{test: 'test 2'},{test: 'test 3'},];
+    const input = [{ test: "test 1" }, { test: "test 2" }, { test: "test 3" }];
 
     // Act
     const result = has(input);
@@ -105,11 +110,10 @@ describe("has", () => {
   });
 });
 
-
 describe("toPascalCase", () => {
   test("given a string in kebab case, it should convert it to pascal case", () => {
     // Arrange
-    const input = 'test-example';
+    const input = "test-example";
 
     // Act
     const result = toPascalCase(input);
@@ -120,7 +124,7 @@ describe("toPascalCase", () => {
 
   test("given a string in snake case, it should convert it to pascal case", () => {
     // Arrange
-    const input = 'test_example';
+    const input = "test_example";
 
     // Act
     const result = toPascalCase(input);
@@ -131,7 +135,7 @@ describe("toPascalCase", () => {
 
   test("given a string in with spaces, it should convert it pascal case", () => {
     // Arrange
-    const input = 'test example';
+    const input = "test example";
 
     // Act
     const result = toPascalCase(input);

@@ -111,7 +111,7 @@ export function getComponentMethods(
       member.kind === "method" &&
       member.privacy !== "private" &&
       member.description?.length &&
-      !member.name.startsWith("#") 
+      !member.name.startsWith("#")
   ) as schema.ClassMethod[];
 }
 

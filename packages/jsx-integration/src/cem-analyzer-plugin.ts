@@ -6,9 +6,7 @@ export function customElementJsxPlugin(options: Options = {}) {
   return {
     name: "custom-element-jsx-integration",
     packageLinkPhase({ customElementsManifest }: Params) {
-      console.log(
-        "[jsx-type-generator] - Generating types..."
-      );
+      console.log("[jsx-type-generator] - Generating types...");
       generateJsxTypes(customElementsManifest, options);
       logGreen("[jsx-type-generator] - Type generation complete.");
     },

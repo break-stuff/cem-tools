@@ -62,7 +62,9 @@ ${
   options.globalTypePath
     ? `import type { ${components
         .map((c) => {
-          const componentType = options.defaultExport ? `default as ${c.name}` : c.name;
+          const componentType = options.defaultExport
+            ? `default as ${c.name}`
+            : c.name;
           const types = getCustomEventTypes(c, componentNames);
           return componentType + (types ? `, ${types}` : "");
         })

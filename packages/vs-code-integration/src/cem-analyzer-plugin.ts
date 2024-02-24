@@ -10,9 +10,7 @@ export function customElementVsCodePlugin(params: Options = {}) {
         "[vs-code-custom-data-generator] - Generating config files..."
       );
       generateVsCodeCustomElementData(customElementsManifest, params);
-      logGreen(
-        "[vs-code-custom-data-generator] - File generation complete."
-      );
+      logGreen("[vs-code-custom-data-generator] - File generation complete.");
     },
   };
 }

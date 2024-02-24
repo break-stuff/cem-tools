@@ -1,38 +1,46 @@
-import { html, LitElement } from 'lit';
-import { property } from 'lit/decorators.js';
-import type { Test, Test3 } from './types.d.ts';
-import { Test2 } from './alt-types.js';
+import { html, LitElement } from "lit";
+import { property } from "lit/decorators.js";
+import type { Test, Test3 } from "./types.d.ts";
+import { Test2 } from "./alt-types.js";
 
-export type Variants = 'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text';
+export type Variants =
+  | "default"
+  | "primary"
+  | "success"
+  | "neutral"
+  | "warning"
+  | "danger"
+  | "text";
 
 export const ComplexObject = {
   /** Designates only a single <he-accordion-item> can be open a time. */
-  single: 'single',
+  single: "single",
 
   /** Designates multiple <he-accordion-items> can be open simultaneously. */
-  multi: 'multi',
+  multi: "multi",
 } as const;
 
 export type DataObject = {
   /** The name. */
-  name?: string,
+  name?: string;
   /** The type. */
-  type?: string,
+  type?: string;
   /** The value. */
-  value?: number,
+  value?: number;
 };
 
-type Size = 'small' | 'medium' | 'large';
-type ChildSize =  Size | 'extra-small';
+type Size = "small" | "medium" | "large";
+type ChildSize = Size | "extra-small";
 
-export type ComplexObjectType = (typeof ComplexObject)[keyof typeof ComplexObject];
+export type ComplexObjectType =
+  typeof ComplexObject[keyof typeof ComplexObject];
 
 export interface InterfaceEventType {
   value: string;
   message?: string;
 }
 
-export type Example = Test2 | 'valueA' | 'valueB';
+export type Example = Test2 | "valueA" | "valueB";
 
 /**
  *
@@ -75,58 +83,58 @@ export class RadioGroup extends LitElement {
 
   /** This will control the size of the radio buttons */
   @property()
-  size: 'sm' | 'md' | 'lg' | 'xl' = 'md';
+  size: "sm" | "md" | "lg" | "xl" = "md";
 
   /** This is a test for internal options */
   @property({ type: String })
-  variants: Variants = 'primary';
+  variants: Variants = "primary";
 
   /** This is a test for external d.ts options */
   @property({ type: String })
-  external: Test = 'value1';
+  external: Test = "value1";
 
   /** This is a test for external .ts options */
   @property({ type: String })
-  external2: Example = 'value4';
+  external2: Example = "value4";
 
   /** This is a test for external .ts options */
   @property({ type: String })
-  external3: Test3 = 'value8';
+  external3: Test3 = "value8";
 
   /** This is a test for options from an object */
   @property({ type: String })
-  complex: ComplexObjectType = 'single';
+  complex: ComplexObjectType = "single";
 
   /** This is a camel-case attribute */
-  @property({ attribute: 'my-attribute' })
+  @property({ attribute: "my-attribute" })
   myAttribute?: string;
 
   /** This is data object */
   @property({ attribute: false })
   data?: {
     // The name.
-    name?: string,
+    name?: string;
     /** The type. */
-    type?: string,
+    type?: string;
     /** The value. */
-    value?: number,
+    value?: number;
   };
 
   /** This is a test for options from an object */
-  @property({ attribute: 'complex-union' })
+  @property({ attribute: "complex-union" })
   complexUnion?: ChildSize;
 
   /** This is a test for a private property */
-  #privateProperty = 'private';
+  #privateProperty = "private";
 
   /** Validated the radio inputs */
   validate() {
-    return '';
+    return "";
   }
 
   /** This is a test method with parameters */
   checkStatus(value: string, message: string): string {
-    return value + message ?? '';
+    return value + message ?? "";
   }
 
   /** This is a test for a private method */
@@ -135,17 +143,15 @@ export class RadioGroup extends LitElement {
   }
 
   get customTag() {
-    return 'custom-tag';
+    return "custom-tag";
   }
 
   /** This is a test method that is protected */
   protected protectedMethod() {
-    return '';
+    return "";
   }
 
   render() {
-    return html`
-      <h2>Hello world! ${this.#privateMethod()}</h2>
-    `;
+    return html` <h2>Hello world! ${this.#privateMethod()}</h2> `;
   }
 }

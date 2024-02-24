@@ -54,7 +54,7 @@ function getCssNameValue(value: string) {
   return !value ? "" : value.startsWith("--") ? `var(${value})` : value;
 }
 
-export function getComponentAttributes(component: Component, typeSrc = 'type') {
+export function getComponentAttributes(component: Component, typeSrc = "type") {
   const attributes: WebTypeAttribute[] = [];
   component?.attributes?.forEach((attr) => {
     const existingAttr = attributes.find(
@@ -68,7 +68,7 @@ export function getComponentAttributes(component: Component, typeSrc = 'type') {
       name: attr.name || attr.fieldName,
       description: attr.description,
       value: {
-        type: (attr as any)[`${typeSrc}`]?.text || attr.type?.text || 'string',
+        type: (attr as any)[`${typeSrc}`]?.text || attr.type?.text || "string",
         default: attr.default,
       },
     } as WebTypeAttribute);

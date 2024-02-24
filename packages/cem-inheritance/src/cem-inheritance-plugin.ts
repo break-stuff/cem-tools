@@ -10,7 +10,9 @@ export function cemInheritancePlugin(options: Options = {}) {
         "[cem-inheritance-generator] - Updating Custom Elements Manifest..."
       );
       updateCemInheritance(customElementsManifest, options);
-      logGreen("[cem-inheritance-generator] - Custom Elements Manifest update complete.");
+      logGreen(
+        "[cem-inheritance-generator] - Custom Elements Manifest update complete."
+      );
     },
   };
 }

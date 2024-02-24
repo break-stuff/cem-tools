@@ -7,8 +7,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "tsc",
-    "lint": "eslint \"**/*.ts*\""
+    "build": "tsc"
   },
   "devDependencies": {
     "@types/node": "^20.11.20",

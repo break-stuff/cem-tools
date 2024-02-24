@@ -26,9 +26,9 @@ import { generateVuejsTypes } from "custom-element-vuejs-integration";
 import manifest from "./path/to/custom-elements.json" assert { type: "json" };
 
 const options = {
-  outdir: './',
-  fileName: 'my-library-vuejs.d.ts',
-  globalTypePath: './dist/components/index.js', // relative to `outdir`
+  outdir: "./",
+  fileName: "my-library-vuejs.d.ts",
+  globalTypePath: "./dist/components/index.js", // relative to `outdir`
 };
 
 generateVuejsTypes(manifest, options);
@@ -41,10 +41,9 @@ Now you can add a reference to the types in your `tsconfig.json`.
 ```json
 {
   "compilerOptions": {
-    "types": ["./my-library-vuejs"],
-  },
+    "types": ["./my-library-vuejs"]
+  }
 }
-
 ```
 
 ### CEM Analyzer
@@ -64,15 +63,13 @@ Ensure the following steps have been taken in your component library prior to us
 import { customElementVuejsPlugin } from "custom-element-vuejs-integration";
 
 const options = {
-  outdir: './dist',
-  fileName: 'my-library-vuejs.d.ts',
-  globalTypePath: './components/index.js', // relative to `outdir`
+  outdir: "./dist",
+  fileName: "my-library-vuejs.d.ts",
+  globalTypePath: "./components/index.js", // relative to `outdir`
 };
 
 export default {
-  plugins: [
-    customElementVuejsPlugin(options)
-  ],
+  plugins: [customElementVuejsPlugin(options)],
 };
 ```
 
@@ -83,10 +80,9 @@ Now you can add a reference to the types in your `tsconfig.json`.
 ```json
 {
   "compilerOptions": {
-    "types": ["my-library/my-library-vuejs"],
-  },
+    "types": ["my-library/my-library-vuejs"]
+  }
 }
-
 ```
 
 ## Configuring Your Vue.js Project
@@ -136,7 +132,6 @@ You can configure the destination and the file name of the generated type file u
 ### Default Exports
 
 If you component class does not provide a named export and is the default export, be sure to set `defaultExport` to `true`. This will endure the import for the class gets resolved correctly.
-
 
 ### Types
 
