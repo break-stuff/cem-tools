@@ -9,9 +9,10 @@
     "tools/*"
   ],
   "scripts": {
-    "analyze": "pnpm build:packages && pnpm -r --no-bail analyze",
+    "analyze": "pnpm build:packages && pnpm build:tools && pnpm -r --no-bail analyze",
     "build": "pnpm -r --no-bail build",
     "build:demo": "pnpm --filter './demo/*' build",
+    "build:tools": "pnpm --filter './tools/*' build",
     "build:packages": "pnpm --filter './packages/*' build",
     "deploy": "pnpm -r deploy",
     "deploy:expanded-types": "pnpm --filter ./packages/expanded-types run deploy",

@@ -31,6 +31,10 @@
     "tsup": "^7.1.0"
   },
   "dependencies": {
+    "@tools/cem-utils": "workspace:*",
+    "@tools/integrations": "workspace:*",
+    "@tools/tsconfig": "workspace:*",
+    "@tools/utilities": "workspace:*",
     "prettier": "^2.7.1"
   },
   "keywords": [

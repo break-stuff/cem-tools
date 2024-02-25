@@ -500,6 +500,18 @@ importers:
 
   packages/vuejs-integration:
     dependencies:
+      '@tools/cem-utils':
+        specifier: workspace:*
+        version: link:../../tools/cem-utils
+      '@tools/integrations':
+        specifier: workspace:*
+        version: link:../../tools/integrations
+      '@tools/tsconfig':
+        specifier: workspace:*
+        version: link:../../tools/tsconfig
+      '@tools/utilities':
+        specifier: workspace:*
+        version: link:../../tools/utilities
       prettier:
         specifier: ^2.7.1
         version: 2.8.0
@@ -612,6 +624,8 @@ importers:
       typescript:
         specifier: ^4.5.2
         version: 4.9.5
+
+  tools/tsconfig: {}
 
   tools/utilities:
     devDependencies:

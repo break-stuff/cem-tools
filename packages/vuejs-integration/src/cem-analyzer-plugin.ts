@@ -1,6 +1,6 @@
 import { generateVuejsTypes } from "./type-generator";
 import type { Options, Params } from "./types";
-import { logGreen } from "../../../tools/integrations";
+import { logGreen } from "@tools/integrations";
 
 export function customElementVuejsPlugin(options: Options = {}) {
   return {
