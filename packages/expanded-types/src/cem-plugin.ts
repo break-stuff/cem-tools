@@ -1,18 +1,40 @@
 import path from "path";
 import fs from "fs";
-import type { Component } from "../../../tools/cem-utils";
+import type { CEM, Component } from "../../../tools/cem-utils";
 
 export interface Options {
   propertyName?: string;
 }
 
-const aliasTypes: any = {};
+interface AliasTypes {
+  [key: string]: {
+    [key: string]: string;
+  };
+}
+
+const aliasTypes: AliasTypes = {};
+const groupedTypes: AliasTypes = {};
+const primitives = [
+  "string",
+  "number",
+  "boolean",
+  "any",
+  "null",
+  "undefined",
+  "unknown",
+  "never",
+  "void",
+  "object",
+  "symbol",
+  "bigint",
+  "true",
+  "false",
+];
 let currentFilename = "";
 let typeChecker: any;
 let options: Options;
 let typeScript: typeof import("typescript");
 let tsConfigFile: any;
-// const typeDefinitions: string[] = [];
 
 /**
  * CEM Analyzer plugin to expand types in component metadata
@@ -59,21 +81,30 @@ export function getTsProgram(
 }
 
 function getExpandedType(fileName: string, typeName: string): string {
-  if (typeof aliasTypes[fileName] === "undefined") {
-    return typeName;
-  }
-
-  if (typeof aliasTypes[fileName][typeName] !== "undefined") {
-    return aliasTypes[fileName][typeName];
-  }
-
   if (typeName?.includes("|")) {
     return getUnionTypes(fileName, typeName);
   }
 
-  return typeName?.startsWith("{") && typeName?.endsWith("}")
-    ? getObjectTypes(fileName, typeName)
-    : typeName;
+  if (typeName?.startsWith("{") && typeName?.endsWith("}")) {
+    return getObjectTypes(fileName, typeName);
+  }
+
+  if (
+    primitives.includes(typeName) ||
+    typeof groupedTypes[typeName] === "undefined"
+  ) {
+    return typeName;
+  }
+
+  if (typeof groupedTypes[typeName][fileName] !== "undefined") {
+    return groupedTypes[typeName][fileName];
+  }
+
+  if (Object.entries(groupedTypes[typeName]).length === 1) {
+    return Object.values(groupedTypes[typeName])[0];
+  }
+
+  return typeName;
 }
 
 function getUnionTypes(fileName: string, typeName: string) {
@@ -98,8 +129,10 @@ function getObjectTypes(fileName: string, typeName: string) {
   ];
   parts.forEach((part) => {
     // remove comments from object
-    const cleanPart = part
-      .replace(/\/\*[\s\S]*?\*\/|(?<=[^:])\/\/.*|^\/\/.*/g, "");
+    const cleanPart = part.replace(
+      /\/\*[\s\S]*?\*\/|(?<=[^:])\/\/.*|^\/\/.*/g,
+      ""
+    );
     typeName = typeName.replace(
       new RegExp(cleanPart, "g"),
       getExpandedType(fileName, cleanPart)
@@ -133,12 +166,28 @@ function parseFileTypes(node: any) {
       setComplexUnionTypes(node);
     }
   }
+
+  groupTypesByName();
+}
+
+function groupTypesByName() {
+  for (const alias in aliasTypes) {
+    for (const type in aliasTypes[alias]) {
+      if (!groupedTypes[type]) {
+        groupedTypes[type] = {};
+      }
+      groupedTypes[type][alias] = aliasTypes[alias][type];
+    }
+  }
+
+  // console.log("groupedTypes", JSON.stringify(groupedTypes, null, 2));
 }
 
 function setEnumTypes(node: any) {
   const name = node.name?.escapedText;
   const shortText =
-    node.members?.map((mem: any) => mem.initializer?.text).join(" | ") || "";
+    node.members?.map((mem: any) => `'${mem.initializer?.text}'`).join(" | ") ||
+    "";
 
   aliasTypes[currentFilename][name] = shortText;
 }
@@ -175,6 +224,7 @@ function setComplexUnionTypes(node: any) {
 }
 
 function analyzePhase({ ts, node, moduleDoc, context }: any) {
+  moduleDoc.path = moduleDoc.path.replace(`${process.cwd()}/`, "");
   if (node.kind === ts.SyntaxKind.SourceFile) {
     currentFilename = path.resolve(node.fileName);
   }

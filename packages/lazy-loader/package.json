@@ -1,6 +1,6 @@
 {
   "name": "custom-element-lazy-loader",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "A tool for generating an entry point for lazy-loading custom elements/web components.",
   "main": "index.js",
   "module": "index.js",

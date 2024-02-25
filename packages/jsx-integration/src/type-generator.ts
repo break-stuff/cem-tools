@@ -30,7 +30,9 @@ export function generateJsxTypes(manifest: any, options: Options) {
 
 function getOptions(options: Options) {
   options.fileName =
-    options.fileName === undefined ? "custom-element-jsx.d.ts" : options.fileName;
+    options.fileName === undefined
+      ? "custom-element-jsx.d.ts"
+      : options.fileName;
   options.exclude = options.exclude === undefined ? [] : options.exclude;
   options.outdir = options.outdir === undefined ? "./" : options.outdir;
   options.prefix = options.prefix === undefined ? "" : options.prefix;
@@ -46,9 +48,12 @@ function getTypeTemplate(components: Component[], options: Options) {
     typeof options.componentTypePath === "function"
       ? components.map((c) => {
           const types = getCustomEventTypes(c, componentNames);
-          return `import type { ${c.name} ${
-            types ? `, ${types}` : ""
-          } } from "${options.componentTypePath?.(c.name, c.tagName)}";`;
+          return `import type { ${
+            options.defaultExport ? `default as ${c.name}` : c.name
+          } ${types ? `, ${types}` : ""} } from "${options.componentTypePath?.(
+            c.name,
+            c.tagName
+          )}";`;
         })
       : [];
 
@@ -57,8 +62,9 @@ ${
   options.globalTypePath
     ? `import type { ${components
         .map((c) => {
+          const componentType = options.defaultExport ? `default as ${c.name}` : c.name;
           const types = getCustomEventTypes(c, componentNames);
-          return c.name + (types ? `, ${types}` : "");
+          return componentType + (types ? `, ${types}` : "");
         })
         .join(", ")} } from "${options.globalTypePath}";`
     : ""
@@ -93,17 +99,37 @@ type BaseProps = {
   /** Content added between the opening and closing tags of the element */
   children?: any;
   /** Used for declaratively styling one or more elements using CSS (Cascading Stylesheets) */
-  class?: string;
+  className?: string;
   /** Takes an object where the key is the class name(s) and the value is a boolean expression. When true, the class is applied, and when false, it is removed. */
   classList?: Record<string, boolean | undefined>;
-  /** Contains a space-separated list of the part names of the element. Part names allows CSS to select and style specific elements in a shadow tree via the ::part pseudo-element. */
-  part?: string;
+  /** Specifies the text direction of the element. */
+  dir?: "ltr" | "rtl";
   /** Contains a space-separated list of the part names of the element that should be exposed on the host element. */
   exportparts?: string;
+  /** For <label> and <output>, lets you associate the label with some control. */
+  htmlFor?: string;
+  /** Specifies whether the element should be hidden. */
+  hidden?: boolean | string;
+  /** A unique identifier for the element. */
+  id?: string;
+  /** Keys tell React which array item each component corresponds to */
+  key?: string | number;
+  /** Specifies the language of the element. */
+  lang?: string;
+  /** Contains a space-separated list of the part names of the element. Part names allows CSS to select and style specific elements in a shadow tree via the ::part pseudo-element. */
+  part?: string;
+  /** Use the ref attribute with a variable to assign a DOM element to the variable once the element is rendered. */
+  ref?: unknown | ((e: unknown) => void);
   /** Adds a reference for a custom element slot */
   slot?: string;
   /** Prop for setting inline styles */
   style?: Record<string, string | number>;
+  /** Overrides the default Tab button behavior. Avoid using values other than -1 and 0. */
+  tabIndex?: number;
+  /** Specifies the tooltip text for the element. */
+  title?: string;
+  /** Passing 'no' excludes the element content from being translated. */
+  translate?: "yes" | "no";
 };
 
 type BaseEvents = {${

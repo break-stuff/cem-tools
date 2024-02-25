@@ -1,8 +1,19 @@
 # Custom Element Lazy Loader
 
-Create a single entry point for your users to lazy-load your custom elements/web components as needed!
+Create a single entry point to lazy-load your custom elements/web components as needed!
 
-As components get loaded the component configurations get removed from the list and when all of the components have been loaded the loader will shut off to help improve performance.
+As components get loaded the component configurations get removed from the list and when all of the components have been loaded, the loader will shut off to help improve performance.
+
+```html
+
+<body>
+  <my-button>Button</my-button>
+  <my-checkbox></my-checkbox>
+
+  <!-- the lazy-loader will only load what gets used -->
+  <script type="module" src="path/to/my/loader.js" />
+</body>
+```
 
 ## Usage
 
@@ -85,6 +96,8 @@ export type Options = {
   prefix?: string;
   /** Adds a suffix to tag name */
   suffix?: string;
+  /** Component tag names that you would like to eager-load */
+  eagerLoad: string[];
 };
 ```
 
@@ -167,8 +180,12 @@ type RuntimeConfiguration = {
   components?: ComponentConfig;
   /** The root element to observe for your custom elements */
   rootElement?: Element;
+  /** Component tag names that you would like to eager-load */
+  eagerLoad: string[];
 };
 ```
+
+> **_NOTE:_** The `updateConfig` function is async, so you can `await` it if you want to ensure load order.
 
 ### Adding Components
 
@@ -183,3 +200,13 @@ The loader will observe the document body for any new components that get added,
   rootElement: document.querySelector("#my-app");
 }
 ```
+
+## Eager-Loading Components
+
+There may be instances where you want certain components loaded as soon as possible. Both the generator and runtime configs accept an `eagerLoad` option. This is a string array of the tag names you would like to eager-load (load immediately) from your list of components.
+
+## Scoping Components
+
+If you are using custom tag names with either a prefix or suffix to prevent tag name collisions, you can configure the lazy-loader watch for your scoped tags. Both the build and runtime configurations accept `prefix` and `suffix` options to update the component list with your specified tag names. 
+
+For example, setting the `prefix` option to `prefix_` will update the tag list so the loader will watch for `prefix_my-element`.

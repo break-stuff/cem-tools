@@ -10,6 +10,8 @@ export interface Options extends BaseOptions {
   globalTypePath?: string;
   /** Used to get a specific path for a given component */
   componentTypePath?: (name: string, tag?: string) => string;
+  /** Indicates if the component classes are a default export rather than a named export */
+  defaultExport?: boolean;
   /** The property form your CEM component object to display your types */
   typesSrc?: string;
   /** Used to add global element props to all component types */

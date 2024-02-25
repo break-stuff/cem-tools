@@ -32,6 +32,8 @@ export interface InterfaceEventType {
   message?: string;
 }
 
+export type Example = Test2 | 'valueA' | 'valueB';
+
 /**
  *
  * Radio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).
@@ -85,7 +87,7 @@ export class RadioGroup extends LitElement {
 
   /** This is a test for external .ts options */
   @property({ type: String })
-  external2: Test2 = 'value4';
+  external2: Example = 'value4';
 
   /** This is a test for external .ts options */
   @property({ type: String })
@@ -114,6 +116,8 @@ export class RadioGroup extends LitElement {
   @property({ attribute: 'complex-union' })
   complexUnion?: ChildSize;
 
+  /** This is a test for a private property */
+  #privateProperty = 'private';
 
   /** Validated the radio inputs */
   validate() {
@@ -123,6 +127,11 @@ export class RadioGroup extends LitElement {
   /** This is a test method with parameters */
   checkStatus(value: string, message: string): string {
     return value + message ?? '';
+  }
+
+  /** This is a test for a private method */
+  #privateMethod() {
+    return this.#privateProperty;
   }
 
   get customTag() {
@@ -136,7 +145,7 @@ export class RadioGroup extends LitElement {
 
   render() {
     return html`
-      <h2>Hello world!</h2>
+      <h2>Hello world! ${this.#privateMethod()}</h2>
     `;
   }
 }

@@ -90,7 +90,9 @@ The configuration has the following optional parameters:
   /** Class names of any components you would like to exclude from the custom data */
   exclude?: string[];
   /** The property name from the component object that you would like to use for the description of your component */
-  descriptionSrc?: "description" | "summary";
+  descriptionSrc?: "description" | "summary" | string;
+  /** Indicates if the component classes are a default export rather than a named export */
+  defaultExport?: boolean;
   /** Displays the slot section of the element description */
   hideSlotDocs?: boolean;
   /** Displays the event section of the element description */
@@ -254,6 +256,10 @@ If no value is provided, the plugin will use the `summary` property and then fal
  *
  * /
 ````
+
+### Default Exports
+
+If you component class does not provide a named export and is the default export, be sure to set `defaultExport` to `true`. This will endure the import for the class gets resolved correctly.
 
 ## Attributes and Properties
 

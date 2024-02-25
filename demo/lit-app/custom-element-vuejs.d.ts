@@ -45,6 +45,8 @@ type RadioButtonProps = {
   target?: RadioButton["target"];
   /** A mapped attribute for react wrapper example */
   for?: RadioButton["for"];
+  /** Enum example */
+  position?: RadioButton["position"];
 };
 
 export type CustomElements = {

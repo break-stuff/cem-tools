@@ -30,7 +30,9 @@ export function generateVuejsTypes(manifest: any, options: Options) {
 
 function getOptions(options: Options) {
   options.fileName =
-    options.fileName === undefined ? "custom-element-vuejs.d.ts" : options.fileName;
+    options.fileName === undefined
+      ? "custom-element-vuejs.d.ts"
+      : options.fileName;
   options.exclude = options.exclude === undefined ? [] : options.exclude;
   options.outdir = options.outdir === undefined ? "./" : options.outdir;
   options.prefix = options.prefix === undefined ? "" : options.prefix;
@@ -46,9 +48,12 @@ function getTypeTemplate(components: Component[], options: Options) {
     typeof options.componentTypePath === "function"
       ? components.map((c) => {
           const types = getCustomEventTypes(c, componentNames);
-          return `import type { ${c.name} ${
-            types ? `, ${types}` : ""
-          } } from "${options.componentTypePath?.(c.name, c.tagName)}";`;
+          return `import type { ${
+            options.defaultExport ? `default as ${c.name}` : c.name
+          } ${types ? `, ${types}` : ""} } from "${options.componentTypePath?.(
+            c.name,
+            c.tagName
+          )}";`;
         })
       : [];
 
@@ -58,8 +63,11 @@ ${
   options.globalTypePath
     ? `import type { ${components
         .map((c) => {
+          const componentType = options.defaultExport
+            ? `default as ${c.name}`
+            : c.name;
           const types = getCustomEventTypes(c, componentNames);
-          return c.name + (types ? `, ${types}` : "");
+          return componentType + (types ? `, ${types}` : "");
         })
         .join(", ")} } from "${options.globalTypePath}";`
     : ""

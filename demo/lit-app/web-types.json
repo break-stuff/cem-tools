@@ -49,7 +49,7 @@
               "name": "external2",
               "description": "This is a test for external .ts options",
               "value": {
-                "type": "'value4' | 'value5' | 'value6'",
+                "type": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'",
                 "default": "'value4'"
               }
             },
@@ -135,7 +135,9 @@
               {
                 "name": "external2",
                 "description": "This is a test for external .ts options",
-                "value": { "type": "'value4' | 'value5' | 'value6'" }
+                "value": {
+                  "type": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'"
+                }
               },
               {
                 "name": "external3",
@@ -202,6 +204,11 @@
               "name": "for",
               "description": "A mapped attribute for react wrapper example",
               "value": { "type": "string | undefined" }
+            },
+            {
+              "name": "position",
+              "description": "Enum example",
+              "value": { "type": "string | undefined" }
             }
           ],
           "slots": [
@@ -233,6 +240,11 @@
               {
                 "name": "for",
                 "description": "A mapped attribute for react wrapper example",
+                "value": { "type": "string | undefined" }
+              },
+              {
+                "name": "position",
+                "description": "Enum example",
                 "value": { "type": "string | undefined" }
               }
             ],

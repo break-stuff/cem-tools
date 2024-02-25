@@ -1,7 +1,7 @@
 {
-  "name": "custom-element-jet-brains-integration",
-  "version": "1.4.4",
-  "description": "Tools for integrating web components/custom elements into JetBrains IDEs",
+  "name": "custom-elements-manifest-inheritance",
+  "version": "1.0.0",
+  "description": "A tool for mapping inherited content (including class members, attributes, CSS parts, CSS variables, slots, and events) from parent classes in the Custom Elements Manifest",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
@@ -25,7 +25,7 @@
   "bugs": {
     "url": "https://github.com/break-stuff/cem-tools/issues"
   },
-  "homepage": "https://github.com/break-stuff/cem-tools/blob/main/packages/jet-brains-integration/README.md",
+  "homepage": "https://github.com/break-stuff/cem-tools/blob/main/packages/cem-inheritance/README.md",
   "dependencies": {
     "prettier": "^2.8.0"
   },
@@ -36,6 +36,7 @@
     "@types/prettier": "^2.6.4",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
+    "custom-elements-manifest": "2.0.0",
     "eslint": "^8.32.0",
     "ts-jest": "^29.0.3",
     "tsup": "^7.1.0"
@@ -44,16 +45,6 @@
     "custom-elements",
     "custom-elements-manifest",
     "web-components",
-    "components",
-    "JetBrains",
-    "phpstorm",
-    "webstorm",
-    "intellij",
-    "rider",
-    "fleet",
-    "pycharm",
-    "rubymine",
-    "autocomplete",
-    "intellisense"
+    "components"
   ]
 }

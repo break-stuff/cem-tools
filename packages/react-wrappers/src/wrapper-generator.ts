@@ -268,30 +268,37 @@ function getMappedAttribute(attr: Attribute): MappedAttribute {
 }
 
 function getEventTemplates(eventNames: EventName[]) {
-  return eventNames.map(
-    (event) => `useEventListener(ref, '${event.name}', ${event.reactName});`
+  return (
+    eventNames.map(
+      (event) =>
+        `useEventListener(ref, '${event.name}', props.${event.reactName});`
+    ) || []
   );
 }
 
 function getBooleanAttributeTemplates(booleanAttributes: MappedAttribute[]) {
-  return booleanAttributes?.map(
-    (attr) => `useBooleanAttribute(ref, '${attr.name}', ${attr?.propName});`
+  return (
+    booleanAttributes?.map(
+      (attr) => `'${attr.name}': props.${attr?.propName}`
+    ) || []
   );
 }
 
 function getAttributeTemplates(attributes: MappedAttribute[]) {
-  return attributes?.map((attr) => {
-    if (attr.name !== "className") {
-      return `useAttribute(ref, '${attr.originalName || attr?.name}', ${
-        attr?.propName
-      });`;
-    }
-  });
+  const excludedProps = ["ref", "children", "key", "style"];
+  return (
+    attributes
+      ?.filter((x) => !excludedProps.includes(x.name))
+      .map(
+        (attr) =>
+          `'${attr.originalName || attr?.name}': props.${attr?.propName}`
+      ) || []
+  );
 }
 
 function getPropTemplates(properties?: ClassField[]) {
   return properties?.map(
-    (member) => `useProperties(ref, '${member.name}', ${member.name});`
+    (member) => `useProperties(ref, '${member.name}', props.${member.name});`
   );
 }
 
@@ -303,51 +310,30 @@ function getReactComponentTemplate(
   modulePath: string,
   properties?: ClassField[]
 ) {
-  const params = getParams(booleanAttributes, attributes, properties, events);
   const eventTemplates = getEventTemplates(events);
   const booleanAttrTemplates = getBooleanAttributeTemplates(booleanAttributes);
   const attrTemplates = getAttributeTemplates(attributes);
   const propTemplates = getPropTemplates(properties);
   const methods = getComponentMethods(component);
-  const useEffect =
-    has(eventTemplates) ||
-    has(propTemplates) ||
-    has(attrTemplates) ||
-    has(booleanAttrTemplates);
+  const useEffect = has(eventTemplates) || has(propTemplates);
 
   return `
     import React, { forwardRef, useImperativeHandle ${
       useEffect ? ", useRef" : ""
     } } from "react";
     import { 
-      ${has(attrTemplates) ? "useAttribute," : ""} 
-      ${has(booleanAttrTemplates) ? "useBooleanAttribute," : ""} 
       ${has(eventTemplates) ? "useEventListener," : ""} 
       ${has(propTemplates) ? "useProperties" : ""}
     } from './react-utils.js';
-    import { ${component.name} as ${
-    component.name
-  }Element } from '${modulePath}';
+    import { ${
+      config.defaultExport ? 'default' : component.name
+    } as ${component.name}Element } from '${modulePath}';
 
-    export const ${component.name} = forwardRef(({${params}}, forwardedRef) => {
+    export const ${component.name} = forwardRef((props, forwardedRef) => {
       ${useEffect ? `const ref = useRef(null);` : ""}
 
       ${has(eventTemplates) ? "/** Event listeners - run once */" : ""}
       ${eventTemplates?.join("") || ""}
-
-      ${
-        has(booleanAttrTemplates)
-          ? "/** Boolean attributes - run whenever an attr has changed */"
-          : ""
-      }
-      ${booleanAttrTemplates?.join("") || ""}
-
-      ${
-        has(attrTemplates)
-          ? "/** Attributes - run whenever an attr has changed */"
-          : ""
-      }
-      ${attrTemplates?.join("") || ""}
 
       ${
         has(propTemplates)
@@ -380,17 +366,11 @@ function getReactComponentTemplate(
         ${component.name}Element.customTag || "${component.tagName}",
         { 
           ${useEffect ? "ref," : ""} 
-          ${attributes
-            .filter((x) => x.name !== "ref")
-            .map((attr) => {
-              return (attr.originalName || attr?.name) === attr?.propName
-                ? attr?.name
-                : `"${attr.originalName || attr?.name}": ${attr?.propName}`;
-            })
-            .join(", ")},
-          ${globalEvents.map((x) => x.event).join(", ")}
+          ${[...attrTemplates, ...booleanAttrTemplates].join(",")},
+          style: {...props.style},
+          ${globalEvents.map((x) => `${x.event}: props.${x.event}`).join(", ")}
         },
-        children
+        props.children
       );
     });
   `;
@@ -415,7 +395,7 @@ function getTypeDefinitionTemplate(
 
   return `
     import { 
-      ${component.name} as ${component.name}Element
+      ${config.defaultExport ? 'default' : component.name} as ${component.name}Element
       ${eventTypes?.length ? `, ${eventTypes}` : ""}
     } from '${modulePath}';
 
@@ -481,7 +461,7 @@ function getAttributePropsTemplate(
       ${attr.propName}?: ${
         baseProperties.some((base) => base.propName === attr.propName)
           ? attr.type?.text || "string"
-          : `${componentName}Element['${attr.propName}']`
+          : `${componentName}Element['${attr.originalName || attr.propName}']`
       };
     `
     ) || []
@@ -533,7 +513,7 @@ function getGlobalEventPropsTemplate(events: GlobalEvent[] | undefined) {
 
 function getManifestContentTemplate(components: Component[]) {
   return components
-    .map((component) => `export * from './${component.name}';`)
+    .map((component) => `export * from './${component.name}.js';`)
     .join("");
 }
 

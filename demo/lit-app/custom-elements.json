@@ -4,13 +4,13 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/alt-types.ts",
+      "path": "src/radio-group/alt-types.ts",
       "declarations": [],
       "exports": []
     },
     {
       "kind": "javascript-module",
-      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts",
+      "path": "src/radio-group/RadioGroup.ts",
       "declarations": [
         {
           "kind": "variable",
@@ -114,13 +114,13 @@
               "kind": "field",
               "name": "external2",
               "type": {
-                "text": "Test2"
+                "text": "Example"
               },
               "default": "'value4'",
               "description": "This is a test for external .ts options",
               "attribute": "external2",
               "expandedType": {
-                "text": "'value4' | 'value5' | 'value6'"
+                "text": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'"
               }
             },
             {
@@ -182,6 +182,16 @@
               }
             },
             {
+              "kind": "field",
+              "name": "#privateProperty",
+              "privacy": "private",
+              "type": {
+                "text": "string"
+              },
+              "default": "'private'",
+              "description": "This is a test for a private property"
+            },
+            {
               "kind": "method",
               "name": "validate",
               "description": "Validated the radio inputs"
@@ -209,6 +219,11 @@
                 }
               ],
               "description": "This is a test method with parameters"
+            },
+            {
+              "kind": "method",
+              "name": "#privateMethod",
+              "description": "This is a test for a private method"
             },
             {
               "kind": "field",
@@ -300,13 +315,13 @@
             {
               "name": "external2",
               "type": {
-                "text": "Test2"
+                "text": "Example"
               },
               "default": "'value4'",
               "description": "This is a test for external .ts options",
               "fieldName": "external2",
               "expandedType": {
-                "text": "'value4' | 'value5' | 'value6'"
+                "text": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'"
               },
               "propName": "external2"
             },
@@ -372,7 +387,7 @@
           "name": "ComplexObject",
           "declaration": {
             "name": "ComplexObject",
-            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
+            "module": "src/radio-group/RadioGroup.ts"
           }
         },
         {
@@ -380,14 +395,14 @@
           "name": "RadioGroup",
           "declaration": {
             "name": "RadioGroup",
-            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-group/RadioGroup.ts"
+            "module": "src/radio-group/RadioGroup.ts"
           }
         }
       ]
     },
     {
       "kind": "javascript-module",
-      "path": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts",
+      "path": "src/radio-button/RadioButton.ts",
       "declarations": [
         {
           "kind": "class",
@@ -439,6 +454,15 @@
               },
               "description": "A mapped attribute for react wrapper example",
               "attribute": "for"
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Enum example",
+              "attribute": "position"
             }
           ],
           "attributes": [
@@ -479,7 +503,17 @@
                 "text": "string | undefined"
               },
               "description": "A mapped attribute for react wrapper example",
-              "fieldName": "for"
+              "fieldName": "for",
+              "propName": "for"
+            },
+            {
+              "name": "position",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Enum example",
+              "fieldName": "position",
+              "propName": "position"
             }
           ],
           "superclass": {
@@ -497,7 +531,7 @@
           "name": "RadioButton",
           "declaration": {
             "name": "RadioButton",
-            "module": "/Users/burtonsmith/Documents/Projects/cem-tools/demo/lit-app/src/radio-button/RadioButton.ts"
+            "module": "src/radio-button/RadioButton.ts"
           }
         }
       ]

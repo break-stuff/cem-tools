@@ -63,7 +63,6 @@ export const RESERVED_WORDS = [
   "final",
   "finally",
   "float",
-  "for",
   "function",
   "goto",
   "if",
@@ -106,24 +105,6 @@ export const RESERVED_WORDS = [
 export function saveReactUtils(outdir: string) {
   const reactUtils = `
 import { useEffect, useLayoutEffect } from "react";
-
-export function useAttribute(targetElement, attrName, value) {
-  useLayoutEffect(() => {
-    if (value !== undefined && attrName !== 'style' && targetElement.current?.getAttribute(attrName) !== String(value)) {
-      targetElement.current?.setAttribute(attrName, String(value));
-    }
-  }, [value]);
-}
-
-export function useBooleanAttribute(targetElement, attrName, propName) {
-  useEffect(() => {
-    if (!propName || propName === 'false') {
-      targetElement.current?.removeAttribute(attrName);
-    } else {
-      targetElement.current?.setAttribute(attrName, '');
-    }
-  }, [propName]);
-}
 
 export function useProperties(targetElement, propName, value) {
   useEffect(() => {

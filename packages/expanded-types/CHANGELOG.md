@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.2.0
+
+- Resolve external types included in union types
+
+## 1.1.6
+
+- Remove console log
+
+## 1.1.5
+
+- Fixed module paths that were preventing inheritance
+- Small performance improvement
+
 ## 1.1.4
 
 - Updated to prevent errors when object types have comments
