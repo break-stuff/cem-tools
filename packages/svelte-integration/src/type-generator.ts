@@ -29,7 +29,7 @@ export function generateSvelteTypes(manifest: any, options: Options) {
 
 function getOptions(options: Options) {
   options.fileName =
-    options.fileName === undefined ? "svelte-custom-elements.d.ts" : options.fileName;
+    options.fileName === undefined ? "custom-elements-svelte.d.ts" : options.fileName;
   options.exclude = options.exclude === undefined ? [] : options.exclude;
   options.outdir = options.outdir === undefined ? "./" : options.outdir;
   options.prefix = options.prefix === undefined ? "" : options.prefix;

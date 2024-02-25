@@ -1,8 +1,8 @@
-# Custom Elements SolidJS Integration
+# Custom Elements Svelte Integration
 
-This package is designed to generate types for your custom elements in a [SolidJS](https://www.solidjs.com/) project. These types will generate inline documentation, autocomplete, and type-safe validation for your custom elements.
+This package is designed to generate types for your custom elements in a [Svelte](https://svelte.dev/) project. These types will generate type validation for your custom elements.
 
-![demo of autocomplete features for custom elements in a solidjs project](https://github.com/break-stuff/cem-tools/blob/main/demo/images/solid-js-integration/solid-js-integration.gif?raw=true)
+> ***NOTE:*** These types only provide type-safety and not documentation or auto-complete. If you would like add these features to your Svelte projects, consider using the [VS Code](https://www.npmjs.com/package/custom-element-vs-code-integration) and and [JetBrains IDE](https://www.npmjs.com/package/custom-element-jet-brains-integration) integration packages.
 
 ## Usage
 
@@ -14,18 +14,18 @@ This package includes two ways to generate the custom data config file:
 ### Install
 
 ```bash
-npm i -D custom-element-solidjs-integration
+npm i -D custom-element-svelte-integration
 ```
 
 ### Build Pipeline
 
 ```js
-import { generateSolidJsTypes } from "custom-element-solidjs-integration";
+import { generateSvelteTypes } from "custom-element-svelte-integration";
 import manifest from "./path/to/custom-elements.json";
 
 const options = {...};
 
-generateSolidJsTypes(manifest, options);
+generateSvelteTypes(manifest, options);
 ```
 
 ### CEM Analyzer
@@ -42,13 +42,13 @@ Ensure the following steps have been taken in your component library prior to us
 ```js
 // custom-elements-manifest.config.js
 
-import { customElementSolidJsPlugin } from "custom-element-solidjs-integration";
+import { customElementSveltePlugin } from "custom-element-svelte-integration";
 
 const options = {...};
 
 export default {
   plugins: [
-    customElementSolidJsPlugin(options)
+    customElementSveltePlugin(options)
   ],
 };
 ```
@@ -98,16 +98,13 @@ The configuration has the following optional parameters:
 
 ## Implementation
 
-In order for teams to take advantage of this, all they need to do is import the types in their project and extend JSX's `IntrinsicElements`. They should immediately begin seeing the type support for your components in the editor.
+Now you can add a reference to the types in your `tsconfig.json`.
 
-```ts
-// custom-elements-types.d.ts
-import type { CustomElements } from "path/to/types/solid-js";
-
-declare module "solid-js" {
-  namespace JSX {
-    interface IntrinsicElements extends CustomElements {}
-  }
+```json
+{
+  "compilerOptions": {
+    "types": ["my-library/custom-elements-svelte"],
+  },
 }
 ```
 
@@ -122,7 +119,7 @@ You can configure the destination and the file name of the generated type file u
   /** Path to output directory */
   outdir: 'dist',
   /** File name for the types */
-  fileName: 'solid-integration.d.ts'
+  fileName: 'svelte-integration.d.ts'
 }
 ```
 
@@ -172,7 +169,7 @@ The contextual information provided when hovering over the custom element can be
 
 ### Types
 
-If your components were built using TypeScript, you should define a path to your type declarations to pass that type-safety on to the SolidJS project.
+If your components were built using TypeScript, you should define a path to your type declarations to pass that type-safety on to the Svelte project.
 
 > _***NOTE:*** All type paths should be relative to the location specified in the `outdir` option._
 
@@ -267,137 +264,3 @@ By default the types will be mapped with the attributes, properties, and custom 
 ```
 
 > _***NOTE:*** It is not required, but highly recommended that you include descriptions for these events as code editors will often provide that information._
-
-#### Native Events Template
-
-Here is a list of some popular native events that are pre-configured for SolidJS. This list is not exhaustive and can be modified to meet your needs.
-
-```ts
-// Mouse Events
-
-/** Triggered when the element is clicked by the user by mouse or keyboard. */
-onClick?: (event: MouseEvent) => void;
-/** Fired when the context menu is triggered, often by right-clicking. */
-onContextMenu?: (event: MouseEvent) => void;
-/** Fired when the element is double-clicked. */
-onDoubleClick?: (event: MouseEvent) => void;
-/** Fired repeatedly as the draggable element is being dragged. */
-onDrag?: (event: DragEvent) => void;
-/** Fired when the dragging of a draggable element is finished. */
-onDragEnd?: (event: DragEvent) => void;
-/** Fired when a dragged element or text selection enters a valid drop target. */
-onDragEnter?: (event: DragEvent) => void;
-/** Fired when a dragged element or text selection leaves a valid drop target. */
-onDragExit?: (event: DragEvent) => void;
-/** Fired when a dragged element or text selection leaves a valid drop target. */
-onDragLeave?: (event: DragEvent) => void;
-/** Fired when an element or text selection is being dragged over a valid drop target (every few hundred milliseconds). */
-onDragOver?: (event: DragEvent) => void;
-/** Fired when a draggable element starts being dragged. */
-onDragStart?: (event: DragEvent) => void;
-/** Fired when a dragged element is dropped onto a drop target. */
-onDrop?: (event: DragEvent) => void;
-/** Fired when a mouse button is pressed down on the element. */
-onMouseDown?: (event: MouseEvent) => void;
-/** Fired when the mouse cursor enters the element. */
-onMouseEnter?: (event: MouseEvent) => void;
-/** Triggered when the mouse cursor leaves the element. */
-onMouseLeave?: (event: MouseEvent) => void;
-/** Fired at an element when a pointing device (usually a mouse) is moved while the cursor's hotspot is inside it. */
-onMouseMove?: (event: MouseEvent) => void;
-/** Fired at an Element when a pointing device (usually a mouse) is used to move the cursor so that it is no longer contained within the element or one of its children. */
-onMouseOut?: (event: MouseEvent) => void;
-/** Fired at an Element when a pointing device (such as a mouse or trackpad) is used to move the cursor onto the element or one of its child elements. */
-onMouseOver?: (event: MouseEvent) => void;
-/** Fired when a mouse button is released on the element. */
-onMouseUp?: (event: MouseEvent) => void;
-
-// Keyboard Events
-
-/** Fired when a key is pressed down. */
-onKeyDown?: (event: KeyboardEvent) => void;
-/** Fired when a key is released.. */
-onKeyUp?: (event: KeyboardEvent) => void;
-/** Fired when a key is pressed down. */
-onKeyPressed?: (event: KeyboardEvent) => void;
-
-// Focus Events
-
-/** Fired when the element receives focus, often triggered by tab navigation. */
-onFocus?: (event: FocusEvent) => void;
-/** Fired when the element loses focus. */
-onBlur?: (event: FocusEvent) => void;
-
-// Form Events
-
-/** Fired when the value of an input element changes, such as with text inputs or select elements. */
-onChange?: (event: Event) => void;
-/** Fires when the value of an <input>, <select>, or <textarea> element has been changed. */
-onInput?: (event: Event) => void;
-/** Fired when a form is submitted, usually on pressing Enter in a text input. */
-onSubmit?: (event: Event) => void;
-/** Fired when a form is reset. */
-onReset?: (event: Event) => void;
-
-// UI Events
-
-/** Fired when the content of an element is scrolled. */
-onScroll?: (event: UIEvent) => void;
-
-// Wheel Events
-
-/** Fired when the mouse wheel is scrolled while the element is focused. */
-onWheel?: (event: WheelEvent) => void;
-
-// Animation Events
-
-/** Fired when a CSS animation starts. */
-onAnimationStart?: (event: AnimationEvent) => void;
-/** Fired when a CSS animation completes. */
-onAnimationEnd?: (event: AnimationEvent) => void;
-/** Fired when a CSS animation completes one iteration. */
-onAnimationIteration?: (event: AnimationEvent) => void;
-
-// Transition Events
-
-/** Fired when a CSS transition has completed. */
-onTransitionEnd?: (event: TransitionEvent) => void;
-
-// Media Events
-
-/** Fired when an element (usually an image) finishes loading */
-onLoad?: (event: Event) => void;
-/** Fired when an error occurs during the loading of an element, like an image not being found. */
-onError?: (event: Event) => void;
-
-// Clipboard Events
-
-/** Fires when the user initiates a copy action through the browser's user interface. */
-onCopy?: (event: ClipboardEvent) => void;
-/** Fired when the user has initiated a "cut" action through the browser's user interface. */
-onCut?: (event: ClipboardEvent) => void;
-/** Fired when the user has initiated a "paste" action through the browser's user interface. */
-onPaste?: (event: ClipboardEvent) => void;
-
-// ... Add more events as needed
-```
-
-## Scoping Types
-
-If your project is scoping components using prefixes or suffixes in the tag name, you can generate a custom data config file using your scoping using the `prefix` or `suffix` option (`prefix: "test_"` => `test_my-element`).
-
-If you are unable to generate a custom type file or provide the means for others to generate their own, you can use the `ScopedElements` utility type to provide types for those elements without having to generate new custom types.
-
-```ts
-// scoped-types.d.ts
-
-import type { ScopedElements } from "path/to/types/solid-js";
-
-declare module "solid-js" {
-  namespace JSX {
-    interface IntrinsicElements extends ScopedElements<"prefix-", "-suffix"> {}
-  }
-}
-```
-
-> _***NOTE:*** The `ScopedElements` utility will lose the contextual information when hovering over the tag in the editor._
