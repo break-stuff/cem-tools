@@ -41,10 +41,9 @@
     "custom-elements-manifest",
     "web-components",
     "components",
-    "solidjs",
-    "solid-js",
-    "autocomplete",
-    "intellisense"
+    "svelte",
+    "typescript",
+    "types"
   ],
   "author": "",
   "license": "MIT"
