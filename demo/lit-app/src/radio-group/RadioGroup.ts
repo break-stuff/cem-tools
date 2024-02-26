@@ -63,6 +63,15 @@ export type Example = Test2 | 'valueA' | 'valueB';
  * @fires {HTMLInputElement } typed-event - some description for typed-event
  * @event {InterfaceEventType} typed-custom-event - some description for typed-custom-event
  *
+ * @since 1.2.5
+ * 
+ * @dependency icon
+ * @dependency button
+ * 
+ * @fancy {string} [custom-tag=default value] - This is a fancy attribute
+ * 
+ * @default - This has no name
+ * 
  */
 export class RadioGroup extends LitElement {
   /** The value assigned to the radio button. This will reflect in the radio group when clicked. */

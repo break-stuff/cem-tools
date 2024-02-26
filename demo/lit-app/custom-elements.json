@@ -378,6 +378,32 @@
             "package": "lit"
           },
           "tagName": "radio-group",
+          "since": {
+            "name": "1.2.5",
+            "description": ""
+          },
+          "dependencies": [
+            {
+              "name": "icon",
+              "description": ""
+            },
+            {
+              "name": "button",
+              "description": ""
+            }
+          ],
+          "fancy": {
+            "name": "custom-tag",
+            "default": "default value",
+            "description": "This is a fancy attribute",
+            "type": {
+              "text": "string"
+            }
+          },
+          "default": {
+            "name": "",
+            "description": "This has no name"
+          },
           "customElement": true
         }
       ],
@@ -522,6 +548,22 @@
           },
           "tagName": "radio-button",
           "summary": "Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\\n\\nUse it like this:\\n```html\\n<radio-button value=\"1\" disabled>Your label</radio-button>\\n```",
+          "dependencies": [
+            {
+              "name": "icon",
+              "description": ""
+            }
+          ],
+          "since": [
+            {
+              "name": "1.2.5",
+              "description": ""
+            },
+            {
+              "name": "1.3.0",
+              "description": "There was a major refactor in this release"
+            }
+          ],
           "customElement": true
         }
       ],
@@ -577,29 +619,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/radio-group/radio-group.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioGroup",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "src/radio-group/radio-group.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "radio-group",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "/src/radio-group/RadioGroup.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/radio-button/radio-button.ts",
       "declarations": [],
       "exports": [
@@ -617,6 +636,29 @@
           "declaration": {
             "name": "RadioButton",
             "module": "/src/radio-button/RadioButton.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio-group/radio-group.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioGroup",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "src/radio-group/radio-group.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "radio-group",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "/src/radio-group/RadioGroup.js"
           }
         }
       ]

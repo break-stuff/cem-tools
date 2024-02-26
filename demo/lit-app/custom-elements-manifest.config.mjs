@@ -7,6 +7,7 @@ import { customElementReactWrapperPlugin } from "custom-element-react-wrappers";
 import { customElementVuejsPlugin } from "custom-element-vuejs-integration";
 import { customElementLazyLoaderPlugin } from "custom-element-lazy-loader";
 import { customElementSveltePlugin } from "custom-element-svelte-integration";
+import { customJSDocTagsPlugin } from "cem-plugin-custom-jsdoc-tags";
 
 export default {
   /** Globs to analyze */
@@ -75,6 +76,17 @@ export default {
     }),
     customElementLazyLoaderPlugin({
       importPathTemplate: (name, tag) => `./dist/${tag}/${name}.js`,
-    })
+    }),
+    customJSDocTagsPlugin({
+      tags: {
+        since: {},
+        dependency: {
+          mappedName: 'dependencies',
+          isArray: true,
+        },
+        fancy: {},
+        default: {}
+      }
+    }),
   ],
 };

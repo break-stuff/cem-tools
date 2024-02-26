@@ -1,0 +1,49 @@
+{
+  "name": "cem-plugin-custom-jsdoc-tags",
+  "version": "1.0.0",
+  "description": "Translates custom JSDoc tags to the Custom Elements Manifest",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "types.d.ts",
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "deploy": "npm run build && npm publish",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.6.3",
+    "@types/jest": "^29.2.3",
+    "@types/node": "^18.6.3",
+    "@types/prettier": "^2.6.4",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
+    "comment-parser": "^1.4.1",
+    "eslint": "^8.32.0",
+    "ts-jest": "^29.0.3",
+    "tsup": "^7.1.0"
+  },
+  "author": "",
+  "license": "MIT",
+  "repository": "https://github.com/break-stuff/cem-tools",
+  "homepage": "https://github.com/break-stuff/cem-tools/blob/main/packages/custom-jsdoc-tags/README.md",
+  "bugs": {
+    "url": "https://github.com/break-stuff/cem-tools/issues"
+  },
+  "keywords": [
+    "custom elements",
+    "custom-elements",
+    "custom elements manifest",
+    "custom-elements-manifest",
+    "jsdoc",
+    "web components",
+    "web-components",
+    "components"
+  ]
+}
