@@ -1,24 +1,21 @@
 # CEM Analyzer Custom JSDoc Plugin
 
-This is a plugin maps custom JSDoc tags you create to properties in Custom Elements Manifest using the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
+This is a plugin maps custom JSDoc tags on your component classes to properties in Custom Elements Manifest using the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
 
-```ts
+```js
 // my-component.ts
 
 /**
- * 
- * @summary Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\n\nUse it like this:\n```html\n<radio-button value="1" disabled>Your label</radio-button>\n```
- * 
- * @tag radio-button
- * @tagname radio-button
  *
- * @slot - add text here to label your radio button
- * 
+ * My custom element does some amazing things
+ *
+ * @tag my-element
+ *
  * @dependency icon
  * @dependency button
- * 
+ *
  * @since 1.2.5
- * 
+ *
  */
 export class MyElement extends HTMLElement {
 
@@ -43,7 +40,71 @@ export class MyElement extends HTMLElement {
       "name": "button",
       "description": ""
     }
-  ],
+  ]
+}
+```
+
+## How It Works
+
+When the analyzer encounters a specified tag, it will add it to a corresponding property in the Custom Elements Manifest for the class with the following data (depending on what you have specified in your tag).
+
+```json
+{
+  "custom": {
+    "name": "tag1",
+    "description": "This tag does something incredible"
+  }
+}
+```
+
+For you TypeScript fans out there...
+
+```ts
+[key: string]: {
+  name?: string;
+  type?: {
+    text: string;
+  };
+  default?: string;
+  description?: string;
+}
+```
+
+If it encounters another tag by the same name, it will convert the value to an array and add the new tag information to it.
+
+```json
+{
+  "custom": [
+    {
+      "name": "tag1",
+      "description": "This tag does something incredible"
+    },
+    {
+      "name": "tag2",
+      "description": "This tag also does something incredible"
+    }
+  ]
+}
+```
+
+The tag accepts the standard JSDoc syntax so you can specify a name, type, default value, and description.
+
+```js
+/**
+ * @custom {string | undefined} [tag1=Hello world!] - This tag does something incredible
+ */
+```
+
+```json
+{
+  "custom": {
+    "name": "tag1",
+    "type": {
+      "text": "string | undefined"
+    },
+    "default": "Hello world!",
+    "description": "This tag does something incredible"
+  }
 }
 ```
 
@@ -67,7 +128,7 @@ npm i -D cem-plugin-custom-jsdoc-tags
 ```js
 // custom-elements-manifest.config.js
 
-import { getTsProgram, expandTypesPlugin } from "cem-plugin-custom-jsdoc-tags";
+import { customJSDocTagsPlugin } from "cem-plugin-custom-jsdoc-tags";
 
 export default {
   ...
@@ -88,34 +149,156 @@ export default {
 
 ## Configuration
 
-You have the ability to change the property name that is assigned to the expanded type. By default it is `expandedType`, but if you wanted to save it as something like `parsedType`, you can set that as part of the plugin options.
+The plugin takes the following options:
+
+```ts
+interface Options {
+  /** The custom JSDoc tags you want mapped */
+  tags?: {
+    /** The name of the JSDoc tag to include in the Custom Elements Manifest */
+    [key: string]: {
+      /** Alternative name to use in the Custom Elements Manifest */
+      mappedName?: string;
+      /** Set to true to always make the property value an array */
+      isArray?: boolean;
+    };
+  };
+}
+```
+
+### Tags
+
+The property used to identify the configuration for your JSDoc is the name of the tag you are using in your component. If you don't have any configurations for the tag, you can just add an empty object as the property value.
+
+```ts
+// my-component.ts
+
+/**
+ *
+ * @since 1.2.5
+ *
+ */
+export class MyElement extends HTMLElement {
+```
 
 ```js
 // custom-elements-manifest.config.js
 
 export default {
   ...
-
-  /** Provide custom plugins */
-  plugins: [expandTypesPlugin({ propertyName: "parsedType" })],
+  plugins: [
+    customJSDocTagsPlugin({
+      tags: {
+        since: {},
+      }
+    }),
+  ],
 };
 ```
 
-Once that has been updated, the expanded type will appear under the new property name.
-
 ```json
 {
-  "kind": "field",
-  "name": "target",
-  "description": "A lookup type for example",
-  "attribute": "target",
-  "type": {
-    "text": "Target | undefined"
-  },
-  "parsedType": {
-    "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
+  "name": "MyElement",
+  "since": {
+    "name": "1.2.5",
+    "description": ""
   }
 }
 ```
 
-> **NOTE:** As you can see in the example above, the structure will follow the same pattern as the `type` object in that your custom name will have a property called `text`.
+### Mapped Name
+
+If you need the property name in the custom Elements Manifest to differ from the JSDoc name, you can use the `mappedName` setting. This is helpful for tags that are singular, but will be accumulated into an array in the manifest, so you want to make the property name plural.
+
+```ts
+// my-component.ts
+
+/**
+ *
+ * @dependency icon
+ * @dependency button
+ *
+ */
+export class MyElement extends HTMLElement {
+```
+
+```js
+// custom-elements-manifest.config.js
+
+export default {
+  ...
+  plugins: [
+    customJSDocTagsPlugin({
+      tags: {
+        dependency: {
+          mappedName: 'dependencies',
+        },
+      }
+    }),
+  ],
+};
+```
+
+```json
+{
+  "name": "MyElement",
+  "dependencies": [
+    {
+      "name": "icon",
+      "description": ""
+    },
+    {
+      "name": "button",
+      "description": ""
+    }
+  ]
+}
+```
+
+
+### Is Array
+
+If you would always like the property value in the manifest to always be an array - even if there is a single value, setting the `isArray` value to `true` will convert the value to an array.
+
+```js
+// custom-elements-manifest.config.js
+
+export default {
+  ...
+  plugins: [
+    customJSDocTagsPlugin({
+      tags: {
+        dependency: {
+          mappedName: 'dependencies',
+          isArray: true,
+        },
+      }
+    }),
+  ],
+};
+```
+
+```ts
+// my-component.ts
+
+/**
+ *
+ * @dependency icon
+ *
+ */
+export class MyElement extends HTMLElement {
+```
+
+```json
+// custom-element.json
+
+{
+  "name": "MyElement",
+  "dependencies": [
+    {
+      "name": "icon",
+      "description": ""
+    }
+  ]
+}
+```

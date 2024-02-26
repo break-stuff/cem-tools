@@ -1,6 +1,6 @@
 {
   "name": "cem-plugin-custom-jsdoc-tags",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0",
   "description": "Translates custom JSDoc tags to the Custom Elements Manifest",
   "main": "index.js",
   "module": "index.js",
@@ -44,7 +44,6 @@
     "jsdoc",
     "web components",
     "web-components",
-    "components",
-    "typescript"
+    "components"
   ]
 }

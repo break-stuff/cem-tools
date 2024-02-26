@@ -44,9 +44,6 @@ export function customJSDocTagsPlugin(
         return;
       }
 
-      console.log(
-        "[custom-jsdoc-tags-plugin] - Updating Custom Elements Manifest..."
-      );
       const className = node.name.getText();
       const component = moduleDoc?.declarations?.find((declaration: Component) => declaration.name === className);
       const customTags = Object.keys(userOptions.tags || {});
@@ -64,7 +61,6 @@ export function customJSDocTagsPlugin(
 
       const parsed = parse(`${customComments}\n */`);
       parsed[0].tags?.forEach(tagMeta => {
-        console.log('NAME', tagMeta);
         const tagOptions  = userOptions.tags![tagMeta.tag]
         if(!tagOptions) {
           return;
@@ -89,10 +85,6 @@ export function customJSDocTagsPlugin(
           component[propName] = cemTag;
         }
       });
-
-      console.log(
-        "[custom-jsdoc-tags-plugin] - Update Custom Elements Manifest complete!"
-      );
     }
   }
 }
