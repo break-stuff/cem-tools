@@ -2,11 +2,25 @@ let observer;
 let components = {
   "radio-group": {
     importPath: "./dist/radio-group/RadioGroup.js",
-    dependencies: [],
+    dependencies: [
+      {
+        name: "icon",
+        description: "",
+      },
+      {
+        name: "button",
+        description: "",
+      },
+    ],
   },
   "radio-button": {
     importPath: "./dist/radio-button/RadioButton.js",
-    dependencies: [],
+    dependencies: [
+      {
+        name: "icon",
+        description: "",
+      },
+    ],
   },
 };
 const eagerLoad = [];

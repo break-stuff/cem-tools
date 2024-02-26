@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "cem-plugin-expanded-types": "*",
+    "cem-plugin-custom-jsdoc-tags": "*",
     "custom-element-jet-brains-integration": "*",
     "custom-element-jsx-integration": "*",
     "custom-element-lazy-loader": "*",
