@@ -65,26 +65,6 @@ The configuration has the following optional parameters:
   fileName?: string | null;
   /** Class names of any components you would like to exclude from the custom data */
   exclude?: string[];
-  /** The property name from the component object that you would like to use for the description of your component */
-  descriptionSrc?: "description" | "summary" | string;
-  /** Displays the slot section of the element description */
-  hideSlotDocs?: boolean;
-  /** Displays the event section of the element description */
-  hideEventDocs?: boolean;
-  /** Displays the CSS custom properties section of the element description */
-  hideCssPropertiesDocs?: boolean;
-  /** Displays the CSS parts section of the element description */
-  hideCssPartsDocs?: boolean;
-  /** Displays the methods section of the element description */
-  hideMethodDocs?: boolean;
-  /** Overrides the default section labels in the component description */
-  labels?: {
-    slots?: string;
-    events?: string;
-    cssProperties?: string;
-    cssParts?: string;
-    methods?: string;
-  };
   /** Used to get type reference for components from a single source */
   globalTypePath?: string;
   /** Used to get types from specific path for a given component */
@@ -122,50 +102,6 @@ You can configure the destination and the file name of the generated type file u
   fileName: 'svelte-integration.d.ts'
 }
 ```
-
-### Descriptions
-
-Using the `descriptionSrc` configuration, you can determine the source of the text that gets displayed in the editor autocomplete bubble. This is useful if you want to provide alternate descriptions for your React users.
-
-If no value is provided, the plugin will use the `summary` property and then fall back to the `description` property if a summary is not available.
-
-![description section of autocomplete popup from vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/description.png?raw=true)
-
-**Note:** _Descriptions support multiple lines by breaking the comment up into multiple lines whereas summaries do not and will need to be manually added using `\n`._
-
-````js
-// description example
-
-/**
- *
- * Radio groups are used to group multiple radios or radio buttons so they function as a single form control. Here is its [documentation](https://my-docsite.com).
- *
- * Use it like this:
- * ```html
- * <radio-group value="2" size="3">
- *   <span slot="label">My Label</span>
- *   <radio-button value="1">Option 1</radio-button>
- *   <radio-button value="2">Option 2</radio-button>
- *   <radio-button value="3">Option 3</radio-button>
- * </radio-group>
- * ```
- *
- */
-````
-
-````js
-// summary example
-
-/**
- *
- * @summary Radios buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\n\nUse it like this:\n```html\n<radio-button value="1" disabled>Your label</radio-button>\n```
- *
- * /
-````
-
-### Contextual Information
-
-The contextual information provided when hovering over the custom element can be configured using the `hideSlotDocs`, `hideEventDocs`, `hideCssPropertiesDocs`, `hideCssPartsDocs`, as well as the `hideMethodDocs`. The headings for each of the sections can also be configured using the `labels` option.
 
 ### Types
 
