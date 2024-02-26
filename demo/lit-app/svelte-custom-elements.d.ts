@@ -1,28 +1,5 @@
-import type { JSX } from "solid-js";
-
 import type { RadioGroup, InterfaceEventType } from "./dist/radio-group/RadioGroup.d.ts";
 import type { RadioButton } from "./dist/radio-button/RadioButton.d.ts";
-
-/**
- * This type can be used to create scoped tags for your components.
- *
- * Usage:
- *
- * ```ts
- * import type { ScopedElements } from "my-app/solid";
- *
- * declare module "solid-js" {
- *   namespace JSX {
- *     interface IntrinsicElements
- *       extends ScopedElements<'prefix-', '-suffix'> {}
- *   }
- * }
- * ```
- *
- */
-export type ScopedElements<Prefix extends string = "", Suffix extends string = ""> = {
-  [Key in keyof CustomElements as `${Prefix}${Key}${Suffix}`]: CustomElements[Key];
-};
 
 type BaseProps = {
   /** Content added between the opening and closing tags of the element */
@@ -85,9 +62,9 @@ type RadioGroupProps = {
   /** This is a test for options from an object */
   "complex-union"?: RadioGroup["complexUnion"];
   /** This is data object */
-  "prop:data"?: RadioGroup["data"];
+  "bind:data"?: RadioGroup["data"];
   /**  */
-  "prop:customTag"?: RadioGroup["customTag"];
+  "bind:customTag"?: RadioGroup["customTag"];
   /** some description for custom-event */
   "on:custom-event"?: (e: CustomEvent<never>) => void;
   /** some description for typed-event */
@@ -164,3 +141,8 @@ export type CustomElements = {
    */
   "radio-button": Partial<RadioButtonProps | BaseProps | BaseEvents>;
 };
+
+declare namespace svelteHTML {
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  interface IntrinsicElements extends CustomElements {}
+}
