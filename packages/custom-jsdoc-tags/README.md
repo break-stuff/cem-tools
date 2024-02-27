@@ -18,7 +18,6 @@ This is a plugin maps custom JSDoc tags on your component classes to properties 
  *
  */
 export class MyElement extends HTMLElement {
-
 ```
 
 ```json
@@ -48,6 +47,17 @@ export class MyElement extends HTMLElement {
 
 When the analyzer encounters a specified tag, it will add it to a corresponding property in the Custom Elements Manifest for the class with the following data (depending on what you have specified in your tag).
 
+```js
+// my-component.ts
+
+/**
+ *
+ * @custom tag1 - This tag does something incredible
+ *
+ */
+export class MyElement extends HTMLElement {
+```
+
 ```json
 {
   "custom": {
@@ -71,6 +81,18 @@ For you TypeScript fans out there...
 ```
 
 If it encounters another tag by the same name, it will convert the value to an array and add the new tag information to it.
+
+```js
+// my-component.ts
+
+/**
+ *
+ * @custom tag1 - This tag does something incredible
+ * @custom tag2 - This tag also does something incredible
+ *
+ */
+export class MyElement extends HTMLElement {
+```
 
 ```json
 {
@@ -290,8 +312,6 @@ export class MyElement extends HTMLElement {
 ```
 
 ```json
-// custom-element.json
-
 {
   "name": "MyElement",
   "dependencies": [
