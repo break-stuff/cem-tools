@@ -2,7 +2,6 @@ import fs from "fs";
 import type {
   JsProperties,
   Options,
-  Reference,
   WebTypeAttribute,
   WebTypeCssProperty,
   WebTypeElement,
@@ -13,6 +12,7 @@ import {
   getComponents,
   type CEM,
   Component,
+  ComponentWithModule,
   getComponentDetailsTemplate,
 } from "../../../tools/cem-utils";
 import type * as schema from "custom-elements-manifest/schema";
@@ -33,20 +33,33 @@ import { updateConfig } from "../../../tools/configurations";
 const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
 
 export function getTagList(
-  components: Component[],
-  options: Options,
-  referenceTemplate?: (name: string, tag?: string) => Reference
+  components: ComponentWithModule[],
+  options: Options
 ): WebTypeElement[] {
-  return components.map((component: Component) => {
-    const reference = referenceTemplate
-      ? referenceTemplate(component.name, component.tagName)
+  return components.map((component: ComponentWithModule) => {
+    const reference = options.referenceTemplate
+      ? options.referenceTemplate(component.name, component.tagName)
       : undefined;
+
+    const sourceModule = options.sourceModuleTemplate
+      ? options.sourceModuleTemplate({
+          name: component.name,
+          tag: component.tagName,
+          modulePath: component.module.path,
+        })
+      : component.module.path;
 
     return {
       name: `${options.prefix}${
         component.tagName || toKebabCase(component.name)
       }${options.suffix}`,
       description: getComponentDetailsTemplate(component, options),
+      source: sourceModule
+        ? {
+            symbol: component.name,
+            module: sourceModule,
+          }
+        : undefined,
       ["doc-url"]: reference?.url || "",
       attributes: getComponentAttributes(component, options.typesSrc),
       slots: component.slots?.map((slot) => {

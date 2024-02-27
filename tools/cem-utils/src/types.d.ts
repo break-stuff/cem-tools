@@ -20,6 +20,10 @@ export interface Component extends schema.CustomElementDeclaration {
   };
 }
 
+export interface ComponentWithModule extends Component {
+  module: CustomModule;
+}
+
 export interface CustomModule extends schema.JavaScriptModule {
   /**
    * The declarations of a module.
