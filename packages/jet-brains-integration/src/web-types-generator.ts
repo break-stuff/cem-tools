@@ -7,6 +7,7 @@ import type {
   WebTypeCssProperty,
   WebTypeElement,
   WebTypeEvent,
+  WebTypeJsProperty,
   WebTypePseudoElement,
 } from "./types";
 import {
@@ -55,7 +56,6 @@ export function getTagList(
           description: slot.description,
         };
       }),
-      events: getWebTypeEvents(component),
       js: getJsProperties(component, options.typesSrc),
     };
   });
@@ -71,22 +71,31 @@ function getJsProperties(
   };
 }
 
+/**
+ * @param field The Custom Elements Manifest class field to evaluate
+ * @return Whether the Custom Elements Manifest class field is considered a JS property by JetBrains
+ * Web Types
+ */
+function isWebTypeProperty(field: schema.ClassField): boolean {
+  // It appears that JetBrains Web Types assumes that all properties are public (TS only) and not
+  // static.
+  return field.static !== true && (field.privacy === 'public' || field.privacy === undefined)
+}
+
 function getWebTypeProperties(
   component: Component,
   typesSrc = "types"
-): WebTypeAttribute[] {
+): WebTypeJsProperty[] {
   return (
-    ((component.attributes || component.members) as schema.Attribute[])?.map(
-      (attr) => {
+    (component.members?.filter((member) => member.kind === 'field') as schema.ClassField[])
+      .filter(isWebTypeProperty)
+      .map((field) => {
         return {
-          name: attr.name,
-          description: attr.description,
-          value: {
-            type: (attr as any)[`${typesSrc}`]?.text || attr.type?.text,
-          },
-        };
-      }
-    ) || []
+          name: field.name,
+          description: field.description,
+          type: field.type?.text,
+        }
+      }) || []
   );
 }
 
