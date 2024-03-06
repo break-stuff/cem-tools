@@ -3,7 +3,6 @@ import type {
   JsProperties,
   Options,
   Reference,
-  WebTypeAttribute,
   WebTypeCssProperty,
   WebTypeElement,
   WebTypeEvent,
@@ -56,17 +55,14 @@ export function getTagList(
           description: slot.description,
         };
       }),
-      js: getJsProperties(component, options.typesSrc),
+      js: getJsProperties(component),
     };
   });
 }
 
-function getJsProperties(
-  component: Component,
-  typesSrc?: string
-): JsProperties {
+function getJsProperties(component: Component): JsProperties {
   return {
-    properties: getWebTypeProperties(component, typesSrc),
+    properties: getWebTypeProperties(component),
     events: getWebTypeEvents(component),
   };
 }
@@ -82,10 +78,7 @@ function isWebTypeProperty(field: schema.ClassField): boolean {
   return field.static !== true && (field.privacy === 'public' || field.privacy === undefined)
 }
 
-function getWebTypeProperties(
-  component: Component,
-  typesSrc = "types"
-): WebTypeJsProperty[] {
+function getWebTypeProperties(component: Component,): WebTypeJsProperty[] {
   return (
     (component.members?.filter((member) => member.kind === 'field') as schema.ClassField[])
       .filter(isWebTypeProperty)
