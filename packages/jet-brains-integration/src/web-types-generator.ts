@@ -101,12 +101,17 @@ function getWebTypeProperties(
 
 function getWebTypeEvents(component: Component): WebTypeEvent[] {
   return (
-    component.events?.map((event) => {
-      return {
-        name: event.name,
-        description: event.description,
-      };
-    }) || []
+    // The CEM analyzer will generate a custom event without a name if it is dispatched inside the
+    // custom element using a predefined constructor, but JetBrains IDEs seemingly can't do anything
+    // with unnamed Web Type events, so ignore them.
+    component.events?.filter((event) => event.name !== undefined && event.name !== null)
+      .map((event) => {
+        return {
+          name: event.name,
+          type: event.type?.text,
+          description: event.description,
+        };
+      }) || []
   );
 }
 
