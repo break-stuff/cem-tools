@@ -59,6 +59,7 @@ export interface JsProperties {
 
 export interface WebTypeEvent {
   name: string;
+  type?: string
   description?: string;
 }
 
