@@ -41,12 +41,19 @@ export interface WebTypeAttribute {
   value: WebTypeValue;
 }
 
+export interface WebTypeJsProperty {
+  name: string;
+  description?: string;
+  type?: string;
+  default?: string;
+}
+
 export interface WebTypeValue {
   type?: string | string[];
 }
 
 export interface JsProperties {
-  properties: WebTypeAttribute[];
+  properties: WebTypeJsProperty[];
   events: WebTypeEvent[];
 }
 
