@@ -69,10 +69,9 @@ function getJsProperties(component: Component): JsProperties {
 
 /**
  * @param field The Custom Elements Manifest class field to evaluate
- * @return Whether the Custom Elements Manifest class field is considered a JS property by JetBrains
- * Web Types
+ * @return Whether the Custom Elements Manifest class field is a public property
  */
-function isWebTypeProperty(field: schema.ClassField): boolean {
+function isPublicProperty(field: schema.ClassField): boolean {
   // It appears that JetBrains Web Types assumes that all properties are public (TS only) and not
   // static.
   return field.static !== true && (field.privacy === 'public' || field.privacy === undefined)
@@ -81,7 +80,7 @@ function isWebTypeProperty(field: schema.ClassField): boolean {
 function getWebTypeProperties(component: Component,): WebTypeJsProperty[] {
   return (
     (component.members?.filter((member) => member.kind === 'field') as schema.ClassField[])
-      .filter(isWebTypeProperty)
+      .filter(isPublicProperty)
       .map((field) => {
         return {
           name: field.name,
