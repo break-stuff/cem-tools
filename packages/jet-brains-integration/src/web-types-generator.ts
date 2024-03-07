@@ -25,6 +25,7 @@ import {
   createOutDir,
   logBlue,
   logRed,
+  logYellow,
   saveFile,
 } from "../../../tools/integrations";
 import { toKebabCase } from "../../../tools/utilities";
@@ -55,14 +56,17 @@ export function getTagList(
           description: slot.description,
         };
       }),
-      js: getJsProperties(component),
+      js: getJsProperties(component, options.typesSrc),
     };
   });
 }
 
-function getJsProperties(component: Component): JsProperties {
+function getJsProperties(
+    component: Component,
+    typesSrc?: string
+): JsProperties {
   return {
-    properties: getWebTypeProperties(component),
+    properties: getWebTypeProperties(component, typesSrc),
     events: getWebTypeEvents(component),
   };
 }
@@ -77,15 +81,30 @@ function isPublicProperty(field: schema.ClassField): boolean {
   return field.static !== true && (field.privacy === 'public' || field.privacy === undefined)
 }
 
-function getWebTypeProperties(component: Component,): WebTypeJsProperty[] {
+function getWebTypeProperties(
+    component: Component,
+    typesSrc?: string
+): WebTypeJsProperty[] {
   return (
     (component.members?.filter((member) => member.kind === 'field') as schema.ClassField[])
       .filter(isPublicProperty)
       .map((field) => {
+        let type: string | undefined = field.type?.text;
+        if (typesSrc) {
+          if (typesSrc in field) {
+            type = (field as any)[typesSrc]?.text;
+          } else {
+            logYellow(
+                `[jet-brains-web-type-generator] - Could not find custom types source CEM property ` +
+                `"${typesSrc}" for property "${field.name}" of custom element "${component.tagName}". ` +
+                `Falling back to "type".`
+            )
+          }
+        }
         return {
           name: field.name,
           description: field.description,
-          type: field.type?.text,
+          type: type,
         }
       }) || []
   );
