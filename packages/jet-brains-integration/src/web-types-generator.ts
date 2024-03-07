@@ -62,8 +62,8 @@ export function getTagList(
 }
 
 function getJsProperties(
-    component: Component,
-    typesSrc?: string
+  component: Component,
+  typesSrc?: string
 ): JsProperties {
   return {
     properties: getWebTypeProperties(component, typesSrc),
@@ -82,8 +82,8 @@ function isPublicProperty(field: schema.ClassField): boolean {
 }
 
 function getWebTypeProperties(
-    component: Component,
-    typesSrc?: string
+  component: Component,
+  typesSrc?: string
 ): WebTypeJsProperty[] {
   return (
     (component.members?.filter((member) => member.kind === 'field') as schema.ClassField[])
