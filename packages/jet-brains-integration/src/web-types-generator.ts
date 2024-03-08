@@ -25,7 +25,6 @@ import {
   createOutDir,
   logBlue,
   logRed,
-  logYellow,
   saveFile,
 } from "../../../tools/integrations";
 import { toKebabCase } from "../../../tools/utilities";
