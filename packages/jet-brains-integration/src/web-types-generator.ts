@@ -83,28 +83,16 @@ function isPublicProperty(field: schema.ClassField): boolean {
 
 function getWebTypeProperties(
   component: Component,
-  typesSrc?: string
+  typesSrc = 'type'
 ): WebTypeJsProperty[] {
   return (
     (component.members?.filter((member) => member.kind === 'field') as schema.ClassField[])
       .filter(isPublicProperty)
       .map((field) => {
-        let type: string | undefined = field.type?.text;
-        if (typesSrc) {
-          if (typesSrc in field) {
-            type = (field as any)[typesSrc]?.text;
-          } else {
-            logYellow(
-                `[jet-brains-web-type-generator] - Could not find custom types source CEM property ` +
-                `"${typesSrc}" for property "${field.name}" of custom element "${component.tagName}". ` +
-                `Falling back to "type".`
-            )
-          }
-        }
         return {
           name: field.name,
           description: field.description,
-          type: type,
+          type: (field as any)[typesSrc]?.text || field.type?.text
         }
       }) || []
   );
