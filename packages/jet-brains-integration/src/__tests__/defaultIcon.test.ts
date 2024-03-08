@@ -2,7 +2,7 @@ import { Options } from "../..";
 import { customElementsManifest } from "./test-data";
 import { getOptions, getTagList, saveWebTypeFile } from "../web-types-generator";
 import { getComponents } from "../../../../tools/cem-utils";
-import fs from "fs";
+import {readFileSync} from "fs";
 
 describe("web-types-generator", () => {
   const components = getComponents(customElementsManifest);
@@ -18,7 +18,7 @@ describe("web-types-generator", () => {
     // Act
     saveWebTypeFile([], [], [], options);
 
-    const data = fs.readFileSync("test_output/web-types.json", 'utf-8')
+    const data = readFileSync("test_output/web-types.json", 'utf-8')
     const wtJson = (JSON.parse(data));
 
     // Assert
