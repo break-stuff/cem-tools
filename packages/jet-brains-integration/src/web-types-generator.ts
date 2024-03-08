@@ -188,8 +188,10 @@ function getWebTypesFileContents(
     "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
     "name": "${packageJson.name}",
     "version": "${packageJson.version}",
-    "description-markup": "markdown",
-    "contributions": {
+    "description-markup": "markdown",${options.defaultIcon ? `
+    "default-icon": "${options.defaultIcon}",
+    ` : ''
+}    "contributions": {
       ${
         options.excludeHtml
           ? ""
