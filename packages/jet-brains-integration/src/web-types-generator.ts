@@ -56,6 +56,7 @@ export function getTagList(
           description: slot.description,
         };
       }),
+      events: getWebTypeEvents(component),
       js: getJsProperties(component, options.typesSrc),
     };
   });
