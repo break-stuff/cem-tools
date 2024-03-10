@@ -86,8 +86,8 @@ function getWebTypeProperties(
   typesSrc = 'type'
 ): WebTypeJsProperty[] {
   return (
-    (component.members?.filter((member) => member.kind === 'field') as schema.ClassField[])
-      .filter(isPublicProperty)
+    (component.members?.filter((member) => member.kind === 'field') as schema.ClassField[] | undefined)
+      ?.filter(isPublicProperty)
       .map((field) => {
         return {
           name: field.name,
