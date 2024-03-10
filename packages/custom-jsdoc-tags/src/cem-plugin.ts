@@ -60,7 +60,7 @@ export function customJSDocTagsPlugin(
       });
 
       const parsed = parse(`${customComments}\n */`);
-      parsed[0].tags?.forEach(tagMeta => {
+      parsed[0]?.tags?.forEach(tagMeta => {
         const tagOptions  = userOptions.tags![tagMeta.tag]
         if(!tagOptions) {
           return;

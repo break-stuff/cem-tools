@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- Prevent crash when no tags exist
+
 ## 1.0.1
 
 - Update examples in docs
