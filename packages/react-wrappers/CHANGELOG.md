@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.4.2
+
+- Fix boolean properties when setting them to `false`
+
 ## 1.4.1
 
 - Allow any string for `descriptionSrc`
