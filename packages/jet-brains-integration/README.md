@@ -108,6 +108,9 @@ export interface Options {
   };
   /** Used to create links within the component info bubble */
   referencesTemplate?: (name: string, tag?: string) => Reference;
+  /** Used to specify the path to the given component's source module, defaults to `module.path` from the CEM.
+   *  When `undefined` is returned, no source reference is generated */
+  sourceModuleTemplate?: (args: {name: string, tag?: string, modulePath: string}) => string | undefined;
   /** The property form your CEM component object to display your types */
   typesSrc?: string;
   /** Automatically adds reference to yor package.json */
@@ -170,6 +173,10 @@ const options = {
     name: 'Documentation',
     url: `https://example.com/components/${tag}`
   },
+
+  /** Used to specify the path to the given component's source module, defaults to `module.path` from the CEM.
+   *  When `undefined` is returned, no source reference is generated */
+  sourceModuleTemplate: ({name, tag, modulePath}) => `src/components/${tag}/${name}.ts`,
 
   /** The property form your CEM component object to display your types */
   typesSrc: 'expandedType'

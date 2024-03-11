@@ -1,6 +1,6 @@
 import { removeQuoteWrappers } from "../../utilities";
 import type * as schema from "custom-elements-manifest";
-import type { CEM, Component } from "./types";
+import type { CEM, Component, ComponentWithModule } from "./types";
 
 export const EXCLUDED_TYPES = [
   "any",
@@ -51,17 +51,18 @@ export function getComponentDescription(
 export function getComponents(
   customElementsManifest: CEM,
   exclude?: string[]
-): Component[] {
+): ComponentWithModule[] {
   return (
     customElementsManifest.modules?.map(
       (mod) =>
-        mod?.declarations?.filter(
-          (dec) =>
-            !exclude?.includes(dec.name) &&
-            ((dec as Component).customElement || (dec as Component).tagName)
-        ) || []
+        mod?.declarations
+          ?.filter(
+            (dec) =>
+              !exclude?.includes(dec.name) && (dec.customElement || dec.tagName)
+          )
+          .map((dec) => ({ ...dec, module: mod })) || []
     ) || []
-  ).flat() as Component[];
+  ).flat();
 }
 /**
  * Gets a list of public properties from a CEM component
@@ -111,7 +112,7 @@ export function getComponentMethods(
       member.kind === "method" &&
       member.privacy !== "private" &&
       member.description?.length &&
-      !member.name.startsWith("#") 
+      !member.name.startsWith("#")
   ) as schema.ClassMethod[];
 }
 

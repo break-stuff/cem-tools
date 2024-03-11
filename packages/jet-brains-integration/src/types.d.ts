@@ -20,6 +20,9 @@ export interface Options extends BaseOptions {
   packageJson?: boolean;
   /** Used to create a link within the component info bubble */
   referenceTemplate?: (name: string, tag?: string) => Reference;
+  /** Used to specify the path to the given component's source module, defaults to `module.path` from the CEM.
+   *  When `undefined` is returned, no source reference is generated */
+  sourceModuleTemplate?: (args: {name: string, tag?: string, modulePath: string}) => string | undefined;
 }
 
 export interface Params {
