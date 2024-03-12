@@ -3,10 +3,10 @@ import type {
   JsProperties,
   Options,
   Reference,
-  WebTypeAttribute,
   WebTypeCssProperty,
   WebTypeElement,
   WebTypeEvent,
+  WebTypeJsProperty,
   WebTypePseudoElement,
 } from "./types";
 import {
@@ -71,33 +71,46 @@ function getJsProperties(
   };
 }
 
+/**
+ * @param field The Custom Elements Manifest class field to evaluate
+ * @return Whether the Custom Elements Manifest class field is a public property
+ */
+function isPublicProperty(field: schema.ClassField): boolean {
+  // It appears that JetBrains Web Types assumes that all properties are public (TS only) and not
+  // static.
+  return field.static !== true && (field.privacy === 'public' || field.privacy === undefined)
+}
+
 function getWebTypeProperties(
   component: Component,
-  typesSrc = "types"
-): WebTypeAttribute[] {
+  typesSrc = 'type'
+): WebTypeJsProperty[] {
   return (
-    ((component.attributes || component.members) as schema.Attribute[])?.map(
-      (attr) => {
+    (component.members?.filter((member) => member.kind === 'field') as schema.ClassField[] | undefined)
+      ?.filter(isPublicProperty)
+      .map((field) => {
         return {
-          name: attr.name,
-          description: attr.description,
-          value: {
-            type: (attr as any)[`${typesSrc}`]?.text || attr.type?.text,
-          },
-        };
-      }
-    ) || []
+          name: field.name,
+          description: field.description,
+          type: (field as any)[typesSrc]?.text || field.type?.text
+        }
+      }) || []
   );
 }
 
 function getWebTypeEvents(component: Component): WebTypeEvent[] {
   return (
-    component.events?.map((event) => {
-      return {
-        name: event.name,
-        description: event.description,
-      };
-    }) || []
+    // The CEM analyzer will generate a custom event without a name if it is dispatched inside the
+    // custom element using a predefined constructor, but JetBrains IDEs seemingly can't do anything
+    // with unnamed Web Type events, so ignore them.
+    component.events?.filter((event) => event.name !== undefined && event.name !== null)
+      .map((event) => {
+        return {
+          name: event.name,
+          type: event.type?.text,
+          description: event.description,
+        };
+      }) || []
   );
 }
 

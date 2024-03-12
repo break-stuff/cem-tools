@@ -107,7 +107,8 @@ export function getMethodsTemplate(
 
 function getEventDocs(events: schema.Event[]) {
   return events
-    ?.map((event) => `- **${event.name}** - ${event.description}`)
+    ?.filter((event) => event.name !== null && event.name !== undefined)
+    .map((event) => `- **${event.name}**${event.description ? ` - ${event.description}` : ''}`)
     .join("\n");
 }
 
