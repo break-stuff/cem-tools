@@ -32,6 +32,7 @@ export interface Params {
 export interface WebTypeElement {
   name: string;
   description: string;
+  source?: WebTypeSource;
   ["doc-url"]?: string;
   attributes: WebTypeAttribute[];
   js?: JsProperties;
@@ -75,4 +76,16 @@ export interface WebTypeCssProperty {
 export interface Reference {
   name: string;
   url: string;
+}
+
+export type WebTypeSource = WebTypeSourceSymbol | WebTypeSourceFile;
+
+export interface WebTypeSourceSymbol {
+  module?: string;
+  symbol: string;
+}
+
+export interface WebTypeSourceFile {
+  file: string;
+  offset: number;
 }
