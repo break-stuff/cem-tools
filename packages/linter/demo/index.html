@@ -1,0 +1,22 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Custom Element Lazy-Loader Test</h1>
+
+    <div id="app">
+      <sl-input type="text" placeholder="Enter a name"></sl-input>
+      <test-component></test-component>
+    </div>
+    <script type="module">
+      import { updateConfig } from "./loader.js";
+      updateConfig({
+        rootElement: document.getElementById("app"),
+        eagerLoad: ["sl-button"]
+      });
+    </script>
+  </body>
+</html>
