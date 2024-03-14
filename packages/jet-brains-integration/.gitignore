@@ -4,10 +4,10 @@
 node_modules
 .pnp
 .pnp.js
-dist
 
 # testing
 coverage
+test_output
 
 # next.js
 .next/
@@ -17,7 +17,6 @@ build
 # misc
 .DS_Store
 *.pem
-.idea
 
 # debug
 npm-debug.log*
@@ -33,6 +32,3 @@ yarn-error.log*
 
 # turbo
 .turbo
-
-# prjects
-dist

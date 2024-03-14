@@ -112,6 +112,8 @@ export interface Options {
   typesSrc?: string;
   /** Automatically adds reference to yor package.json */
   packageJson?: boolean;
+  /** Adds an icon to the webtypes.json  **/
+  defaultIcon?: string;
 }
 ```
 
@@ -367,3 +369,7 @@ If you are generating a custom types property on your CEM component object and y
 ## Scoping Tags
 
 If your project is scoping components using prefixes or suffixes in the tag name, you can generate a custom data config file using your scoping using the `prefix` or `suffix` option (`prefix: "test_"` => `test_my-element`).
+
+## Default Icon
+
+If you want to have your icon in the code completion select dialog. The entry is a relative path to the icon representing the symbol or actual SVG of the icon.
