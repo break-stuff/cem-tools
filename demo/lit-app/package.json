@@ -26,6 +26,7 @@
     "custom-element-svelte-integration": "*",
     "custom-element-vs-code-integration": "*",
     "custom-element-vuejs-integration": "*",
+    "custom-elements-manifest-deprecator": "*",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },

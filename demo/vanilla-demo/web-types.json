@@ -29,21 +29,7 @@
             }
           ],
           "events": [],
-          "js": {
-            "properties": [
-              {
-                "name": "value",
-                "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-                "value": { "type": "string" }
-              },
-              {
-                "name": "disabled",
-                "description": "Disables the radio button",
-                "value": { "type": "boolean" }
-              }
-            ],
-            "events": []
-          }
+          "js": { "properties": [], "events": [] }
         },
         {
           "name": "radio-group",
@@ -90,36 +76,26 @@
             },
             {
               "name": "typed-event",
+              "type": "Event",
               "description": "some description for typed-event"
             },
             {
               "name": "typed-custom-event",
+              "type": "CustomEvent",
               "description": "some description for typed-custom-event"
             }
           ],
           "js": {
             "properties": [
               {
-                "name": "disabled",
-                "description": "Disables the element",
-                "value": { "type": "boolean" }
+                "name": "prop1",
+                "description": "this toggles some unseen feature",
+                "type": "boolean"
               },
               {
-                "name": "value",
-                "description": "The value of the selected radio",
-                "value": { "type": "string" }
-              },
-              {
-                "name": "size",
-                "description": "This will control the size of radio buttons",
-                "value": { "type": "1|2|3|4" }
-              },
-              {
-                "name": "variants",
-                "description": "This is a test for sting values",
-                "value": {
-                  "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
-                }
+                "name": "prop2",
+                "description": "this will adjust thr width of the unit",
+                "type": "number"
               }
             ],
             "events": [
@@ -129,10 +105,12 @@
               },
               {
                 "name": "typed-event",
+                "type": "Event",
                 "description": "some description for typed-event"
               },
               {
                 "name": "typed-custom-event",
+                "type": "CustomEvent",
                 "description": "some description for typed-custom-event"
               }
             ]

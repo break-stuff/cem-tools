@@ -1,0 +1,50 @@
+{
+  "name": "custom-elements-manifest-deprecator",
+  "version": "1.0.0",
+  "description": "A tool for marking Custom Elements Manifest data as 'deprecated'",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "deploy": "npm run build && npm publish",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/break-stuff/cem-tools.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/break-stuff/cem-tools/issues"
+  },
+  "homepage": "https://github.com/break-stuff/cem-tools/blob/main/packages/deprecator/README.md",
+  "dependencies": {
+    "prettier": "^2.8.0"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.6.3",
+    "@types/jest": "^29.2.3",
+    "@types/node": "^18.6.3",
+    "@types/prettier": "^2.6.4",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
+    "@typescript-eslint/parser": "^5.48.1",
+    "custom-elements-manifest": "2.0.0",
+    "eslint": "^8.32.0",
+    "ts-jest": "^29.0.3",
+    "tsup": "^7.1.0"
+  },
+  "keywords": [
+    "custom-elements",
+    "custom-elements-manifest",
+    "web-components",
+    "components"
+  ]
+}

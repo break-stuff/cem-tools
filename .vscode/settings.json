@@ -1,6 +1,6 @@
 {
-  "html.customData": ["./demo/lit-demo/vscode.html-custom-data.json"],
-  "css.customData": ["./demo/lit-demo/vscode.css-custom-data.json"],
+  "html.customData": ["./demo/lit-app/vscode.html-custom-data.json"],
+  "css.customData": ["./demo/lit-app/vscode.css-custom-data.json"],
   "cSpell.words": [
     "exportparts",
     "Outdir",

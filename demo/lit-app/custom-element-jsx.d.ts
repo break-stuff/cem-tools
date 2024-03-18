@@ -70,7 +70,7 @@ type RadioGroupProps = {
   size?: RadioGroup["size"];
   /** This is a test for internal options */
   variants?: RadioGroup["variants"];
-  /** This is a test for external d.ts options */
+  /** @deprecated This is a test for external d.ts options */
   external?: RadioGroup["external"];
   /** This is a test for external .ts options */
   external2?: RadioGroup["external2"];
@@ -90,7 +90,7 @@ type RadioGroupProps = {
   onCustomEvent?: (e: CustomEvent<never>) => void;
   /** some description for typed-event */
   onTypedEvent?: (e: CustomEvent<HTMLInputElement>) => void;
-  /** some description for typed-custom-event */
+  /** (@deprecated) some description for typed-custom-event */
   onTypedCustomEvent?: (e: CustomEvent<InterfaceEventType>) => void;
 };
 
@@ -127,7 +127,7 @@ export type CustomElements = {
    * ### **Events:**
    *  - **custom-event** - some description for custom-event
    * - **typed-event** - some description for typed-event
-   * - **typed-custom-event** - some description for typed-custom-event
+   * - **typed-custom-event** - (@deprecated) some description for typed-custom-event
    *
    * ### **Methods:**
    *  - **validate()** - Validated the radio inputs
