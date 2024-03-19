@@ -5,6 +5,7 @@ This is a collection of tools based off the [Custom Elements Manifest](https://g
 ## Tools
 
 - [CEM Custom JSDoc tags](https://github.com/break-stuff/cem-tools/tree/main/packages/custom-jsdoc-tags#readme) - A tool for mapping custom JSDoc tags to properties in the Custom Elements Manifest.
+- [CEM Deprecator](https://github.com/break-stuff/cem-tools/tree/main/packages/deprecator#readme) - A tool for marking Custom Elements Manifest data as 'deprecated'.
 - [CEM Inheritance](https://github.com/break-stuff/cem-tools/tree/main/packages/cem-inheritance#readme) - A tool for mapping inherited content (including class members, attributes, CSS parts, CSS variables, slots, and events) from parent classes in the Custom Elements Manifest.
 - [Expanded Types](https://github.com/break-stuff/cem-tools/tree/main/packages/expanded-types#readme) - a plugin for the CEM Analyzer to parse TypeScript types and provide usable information for tools.
 - [JetBrains Integration](https://github.com/break-stuff/cem-tools/tree/main/packages/jet-brains-integration#readme) - a mapper to take the information captured in the CEM and generate the appropriate `web-types.json` file for [JetBrains IDEs](https://www.jetbrains.com/)
