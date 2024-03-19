@@ -1,6 +1,6 @@
 {
   "name": "custom-elements-manifest-deprecator",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.0",
   "description": "A tool for marking Custom Elements Manifest data as 'deprecated'",
   "main": "index.js",
   "module": "index.js",

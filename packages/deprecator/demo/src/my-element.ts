@@ -7,7 +7,7 @@ import viteLogo from '/vite.svg'
  * An example element.
  *
  * @slot - This element has a slot
- * @csspart button - The button
+ * @csspart button - (@deprecated) The button
  */
 @customElement('my-element')
 export class MyElement extends LitElement {

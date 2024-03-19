@@ -20,7 +20,6 @@ The problem is that you can't add it to other elements with JSDoc tags.
 ```ts
 /**
  * @attr {boolean} disabled - disables the element
- * @attribute {string} foo - description for foo
  *
  * @csspart bar - Styles the color of bar
  *
@@ -28,13 +27,10 @@ The problem is that you can't add it to other elements with JSDoc tags.
  * @slot container - You can put some elements here
  *
  * @cssprop --text-color - Controls the color of foo
- * @cssproperty [--background-color=red] - Controls the color of bar
  *
  * @prop {boolean} prop1 - some description
- * @property {number} prop2 - some description
  *
  * @fires custom-event - some description for custom-event
- * @fires {Event} typed-event - some description for typed-event
  * @event {MyEventDetail} typed-custom-event - some description for typed-custom-event
  */
 class MyElement extends HTMLElement {}
@@ -45,7 +41,6 @@ This plugin allows you to deprecate these JSDoc elements using the `(@deprecated
 ```ts
 /**
  * @attr {boolean} disabled - (@deprecated) disables the element
- * @attribute {string} foo - (@deprecated) description for foo
  *
  * @csspart bar - (@deprecated) Styles the color of bar
  *
@@ -53,19 +48,25 @@ This plugin allows you to deprecate these JSDoc elements using the `(@deprecated
  * @slot container - (@deprecated) You can put some elements here
  *
  * @cssprop --text-color - (@deprecated) Controls the color of foo
- * @cssproperty [--background-color=red] - (@deprecated) Controls the color of bar
  *
  * @prop {boolean} prop1 - (@deprecated) some description
- * @property {number} prop2 - (@deprecated) some description
  *
  * @fires custom-event - (@deprecated) some description for custom-event
- * @fires {Event} typed-event - (@deprecated) some description for typed-event
  * @event {MyEventDetail} typed-custom-event - (@deprecated) some description for typed-custom-event
  */
 class MyElement extends HTMLElement {}
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/break-stuff/cem-tools/packages/deprecator/demo?title='CEM Deprecator')
+Feel free to test it out in this demo environment.
+
+<div style="text-align: center; margin-top: 32px;">
+  <a href="https://stackblitz.com/github/break-stuff/cem-tools/tree/create-cem-deprecator/packages/deprecator/demo?title='CEM Deprecator'&file=src%2Fmy-element.ts">
+    <img
+      alt="Open in StackBlitz"
+      src="https://developer.stackblitz.com/img/open_in_stackblitz.svg"
+    />
+  </a>
+</div>
 
 ## Usage
 
