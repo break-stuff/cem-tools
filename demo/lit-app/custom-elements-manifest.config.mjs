@@ -8,6 +8,7 @@ import { customElementVuejsPlugin } from "custom-element-vuejs-integration";
 import { customElementLazyLoaderPlugin } from "custom-element-lazy-loader";
 import { customElementSveltePlugin } from "custom-element-svelte-integration";
 import { customJSDocTagsPlugin } from "cem-plugin-custom-jsdoc-tags";
+import { cemDeprecatorPlugin } from "custom-elements-manifest-deprecator";
 
 export default {
   /** Globs to analyze */
@@ -88,5 +89,6 @@ export default {
         default: {}
       }
     }),
+    cemDeprecatorPlugin()
   ],
 };

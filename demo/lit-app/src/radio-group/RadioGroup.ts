@@ -61,7 +61,7 @@ export type Example = Test2 | 'valueA' | 'valueB';
  *
  * @fires custom-event - some description for custom-event
  * @fires {HTMLInputElement } typed-event - some description for typed-event
- * @event {InterfaceEventType} typed-custom-event - some description for typed-custom-event
+ * @event {InterfaceEventType} typed-custom-event - (@deprecated) some description for typed-custom-event
  *
  * @since 1.2.5
  * 
@@ -90,7 +90,7 @@ export class RadioGroup extends LitElement {
   @property({ type: String })
   variants: Variants = 'primary';
 
-  /** This is a test for external d.ts options */
+  /** @deprecated This is a test for external d.ts options */
   @property({ type: String })
   external: Test = 'value1';
 

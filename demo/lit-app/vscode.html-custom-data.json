@@ -4,7 +4,7 @@
   "tags": [
     {
       "name": "radio-group",
-      "description": "\nRadio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).\n\nUse it like this:\n```html\n<radio-group value=\"2\" size=\"3\">\n  <span slot=\"label\">My Label</span>\n  <radio-button value=\"1\">Option 1</radio-button>\n  <radio-button value=\"2\">Option 2</radio-button>\n  <radio-button value=\"3\">Option 3</radio-button>\n</radio-group>\n```\n---\n\n\n### **Events:**\n - **custom-event** - some description for custom-event\n- **typed-event** - some description for typed-event\n- **typed-custom-event** - some description for typed-custom-event\n\n### **Methods:**\n - **validate()** - Validated the radio inputs\n- **checkStatus(value: _string_, message: _string_): _string_** - This is a test method with parameters\n\n\n### **Slots:**\n - _default_ - add radio buttons to the `default` slot to create options to your radio group\n- **label** - placeholder for the radio group label\n\n### **CSS Properties:**\n - **--radio-border-radius** - Controls the border radius of the radio buttons _(default: undefined)_\n- **--radio-background-color** - Controls the color of bar _(default: red)_\n\n### **CSS Parts:**\n - **radio-label** - Applies custom styles the radio group label",
+      "description": "\nRadio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).\n\nUse it like this:\n```html\n<radio-group value=\"2\" size=\"3\">\n  <span slot=\"label\">My Label</span>\n  <radio-button value=\"1\">Option 1</radio-button>\n  <radio-button value=\"2\">Option 2</radio-button>\n  <radio-button value=\"3\">Option 3</radio-button>\n</radio-group>\n```\n---\n\n\n### **Events:**\n - **custom-event** - some description for custom-event\n- **typed-event** - some description for typed-event\n- **typed-custom-event** - (@deprecated) some description for typed-custom-event\n\n### **Methods:**\n - **validate()** - Validated the radio inputs\n- **checkStatus(value: _string_, message: _string_): _string_** - This is a test method with parameters\n\n\n### **Slots:**\n - _default_ - add radio buttons to the `default` slot to create options to your radio group\n- **label** - placeholder for the radio group label\n\n### **CSS Properties:**\n - **--radio-border-radius** - Controls the border radius of the radio buttons _(default: undefined)_\n- **--radio-background-color** - Controls the color of bar _(default: red)_\n\n### **CSS Parts:**\n - **radio-label** - Applies custom styles the radio group label",
       "attributes": [
         {
           "name": "value",
@@ -41,7 +41,6 @@
         },
         {
           "name": "external",
-          "description": "This is a test for external d.ts options",
           "values": [
             { "name": "value1" },
             { "name": "value2" },

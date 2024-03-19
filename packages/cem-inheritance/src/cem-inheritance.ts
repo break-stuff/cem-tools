@@ -1,6 +1,5 @@
 import { CEM, Component } from "../../../tools/cem-utils/index.js";
 import { createOutDir, logBlue, saveFile } from "../../../tools/integrations";
-import fs from "fs";
 import { Options } from "./types.js";
 
 const completedClasses: string[] = [];
