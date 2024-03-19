@@ -11,6 +11,7 @@
   "scripts": {
     "analyze": "turbo run analyze",
     "build": "turbo run build",
+    "deploy:deprecator": "turbo run deploy --filter=custom-elements-manifest-deprecator",
     "deploy:expanded-types": "turbo run deploy --filter=cem-plugin-expanded-types",
     "deploy:inheritance": "turbo run deploy --filter=custom-elements-manifest-inheritance",
     "deploy:jet-brains": "turbo run deploy --filter=custom-element-jet-brains-integration",
