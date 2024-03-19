@@ -60,7 +60,7 @@ class MyElement extends HTMLElement {}
 Feel free to test it out in this demo environment.
 
 <div style="text-align: center; margin-top: 32px;">
-  <a href="https://stackblitz.com/github/break-stuff/cem-tools/tree/create-cem-deprecator/packages/deprecator/demo?title='CEM Deprecator'&file=src%2Fmy-element.ts">
+  <a href="https://stackblitz.com/github/break-stuff/cem-tools/tree/main/packages/deprecator/demo?title='CEM Deprecator'&file=src%2Fmy-element.ts">
     <img
       alt="Open in StackBlitz"
       src="https://developer.stackblitz.com/img/open_in_stackblitz.svg"
