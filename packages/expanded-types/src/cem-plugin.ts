@@ -74,7 +74,7 @@ export function getTsProgram(
     configName
   );
   const { config } = ts.readConfigFile(tsConfigFile, ts.sys.readFile);
-  const compilerOptions = ts.convertCompilerOptionsFromJson(config, ".");
+  const compilerOptions = ts.convertCompilerOptionsFromJson(config.compilerOptions ?? {}, ".");
   const program = ts.createProgram(globs, compilerOptions.options);
   typeChecker = program.getTypeChecker();
   return program;
