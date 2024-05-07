@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## Next
+
+- Added ability to extend react types
+- Added attribute mapping
+
 ## 1.4.2
 
 - Fix boolean properties when setting them to `false`
