@@ -420,3 +420,5 @@ If you would like to extend the types to include those from [React's props list]
   reactProps: ['autoCapitalize', 'draggable', 'onAnimationEnd']
 }
 ```
+
+To include all props and events for the `HTMLElement` type, set the `reactProps` option to `true`.
