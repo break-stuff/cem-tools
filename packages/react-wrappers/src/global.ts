@@ -1,14 +1,6 @@
-import { GlobalEvent, MappedAttribute } from "./types";
+import { MappedAttribute } from "./types";
 
-export const baseProperties: MappedAttribute[] = [
-  {
-    name: "children",
-    propName: "children",
-    description: "Content between the opening and closing component tags.",
-    type: {
-      text: "any",
-    },
-  },
+export const MAPPED_PROPS: MappedAttribute[] = [
   {
     name: "className",
     propName: "className",
@@ -16,25 +8,7 @@ export const baseProperties: MappedAttribute[] = [
     description:
       "A space-separated list of the classes of the element. Classes allows CSS and JavaScript to select and access specific elements via the class selectors or functions like the method `Document.getElementsByClassName()`.",
   },
-  {
-    name: "classList",
-    propName: "classList",
-    originalName: "classList",
-    description:
-      "Takes an object where the key is the class name(s) and the value is a boolean expression. When true, the class is applied, and when false, it is removed.",
-    type: {
-      text: "Record<string, boolean | undefined>",
-    },
-  },
-  {
-    name: "dir",
-    propName: "dir",
-    description:
-      "Specifies the text direction of the element.",
-    type: {
-      text: "'ltr' | 'rtl'",
-    },
-  },
+
   {
     name: "exportparts",
     propName: "exportparts",
@@ -51,20 +25,6 @@ export const baseProperties: MappedAttribute[] = [
     },
   },
   {
-    name: "hidden",
-    propName: "hidden",
-    description: "Prevents content from being rendered by the browser.",
-    type: {
-      text: "boolean",
-    },
-  },
-  {
-    name: "id",
-    propName: "id",
-    description:
-      "Defines a unique identifier (ID) which must be unique in the whole document. Its purpose is to identify the element when linking (using a fragment identifier), scripting, or styling (with CSS).",
-  },
-  {
     name: "key",
     propName: "key",
     description:
@@ -72,11 +32,6 @@ export const baseProperties: MappedAttribute[] = [
     type: {
       text: "number | string",
     },
-  },
-  {
-    name: "lang",
-    propName: "lang",
-    description: "Specifies the language of the element.",
   },
   {
     name: "part",
@@ -92,12 +47,6 @@ export const baseProperties: MappedAttribute[] = [
     type: {
       text: "any",
     },
-  },
-  {
-    name: "slot",
-    propName: "slot",
-    description:
-      "Assigns a slot in a shadow DOM shadow tree to an element: An element with a slot attribute is assigned to the slot created by the `<slot>` element whose [name](https://developer.mozilla.org/docs/Web/HTML/Element/slot#attr-name) attribute's value matches that slot attribute's value.",
   },
   {
     name: "style",
@@ -117,26 +66,26 @@ export const baseProperties: MappedAttribute[] = [
       text: "string",
     },
   },
-  {
-    name: "title",
-    propName: "title",
-    description: "Specifies the tooltip text for the element.",
-  },
-  {
-    name: "translate",
-    propName: "translate",
-    description:
-      "Passing 'no' excludes the element content from being translated.",
-    type: {
-      text: "'yes' | 'no'",
-    },
-  },
 ];
 
-export const baseEvents: GlobalEvent[] = [
-  {
-    event: "onClick",
-    description: "Triggered when a user clicks an element.",
-    type: "React.MouseEventHandler",
-  },
+export const BASE_PROPS = [
+  "children",
+  "className",
+  "dir",
+  "exportparts",
+  "htmlFor",
+  "hidden",
+  "id",
+  "key",
+  "lang",
+  "part",
+  "ref",
+  "slot",
+  "style",
+  "tabIndex",
+  "title",
+  "translate",
+  "onClick",
+  "onFocus",
+  "onBlur",
 ];

@@ -19,8 +19,6 @@ export default {
   dev: false,
   /** Run in watch mode, runs on file changes */
   watch: false,
-  /** Include third party custom elements manifests */
-  dependencies: true,
   /** Output CEM path to `package.json`, defaults to true */
   packagejson: true,
   /** Enable special handling for litelement */
@@ -48,26 +46,7 @@ export default {
     customElementReactWrapperPlugin({
       outdir: "./dist/react",
       modulePath: () => `../index.js`,
-      globalEvents: [
-        {
-          event: "onChange",
-          description: "Fired when the value of an input element changes.",
-          type: "React.ChangeEventHandler",
-        },
-        {
-          event: "onSubmit",
-          description: "Fired when a form is submitted.",
-          type: "React.FormEventHandler",
-        },
-        {
-          event: "onFocus",
-          description: "Triggered when an element receives focus.",
-          type: "React.FocusEventHandler",
-        },
-      ],
-      attributeMapping: {
-        "for": "_for",
-      }
+      reactProps: true,
     }),
     customElementVuejsPlugin({
       componentTypePath: (name, tag) => `./dist/${tag}/${name}.d.ts`,

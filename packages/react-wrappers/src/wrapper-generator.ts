@@ -1,4 +1,4 @@
-import { baseEvents, baseProperties } from "./global.js";
+import { BASE_PROPS, MAPPED_PROPS } from "./global.js";
 import {
   EventName,
   MappedAttribute,
@@ -30,7 +30,7 @@ import type {
 import { has, toCamelCase } from "../../../tools/utilities/index.js";
 
 const packageJson = getPackageJson();
-const config: Options = {};
+let config: Options = {};
 let globalEvents: GlobalEvent[] = [];
 
 export function generateReactWrappers(
@@ -76,12 +76,15 @@ export function generateReactWrappers(
 }
 
 function updateConfig(options: Options) {
-  config.outdir = options.outdir || "./react";
-  config.exclude = options.exclude || [];
-  config.typesSrc = options.typesSrc || "types";
-  config.modulePath = options.modulePath;
-  config.attributeMapping = options.attributeMapping || {};
-  globalEvents = [...baseEvents, ...(options.globalEvents || [])];
+  config = {
+    outdir: "./react",
+    exclude: [],
+    typesSrc: "types",
+    attributeMapping: {},
+    ...options,
+  };
+
+  globalEvents = options.globalEvents || [];
 }
 
 function generateReactWrapper(
@@ -205,28 +208,11 @@ function getAttributes(component: Component): ComponentAttributes {
 }
 
 function addGlobalAttributes(attributes: MappedAttribute[]) {
-  baseProperties.forEach((baseAttr: MappedAttribute) => {
+  MAPPED_PROPS.forEach((baseAttr: MappedAttribute) => {
     if (!attributes.find((x) => x.name === baseAttr.name)) {
       attributes.push(baseAttr);
     }
   });
-}
-
-function getParams(
-  booleanAttributes: MappedAttribute[] = [],
-  attributes: MappedAttribute[] = [],
-  properties: ClassField[] = [],
-  eventNames: EventName[] = []
-) {
-  return [
-    ...[
-      ...booleanAttributes,
-      ...attributes.filter((x) => x.name !== "ref"),
-    ].map((attr) => attr.propName),
-    ...(properties?.map((prop) => prop.name) || []),
-    ...(eventNames?.map((event) => event.reactName) || []),
-    ...globalEvents.map((x) => x.event),
-  ]?.join(", ");
 }
 
 function throwKeywordException(attr: Attribute, component: Component) {
@@ -291,7 +277,9 @@ function getAttributeTemplates(attributes: MappedAttribute[]) {
       ?.filter((x) => !excludedProps.includes(x.name))
       .map(
         (attr) =>
-          `'${attr.originalName || attr?.name}': props.${attr?.propName}`
+          `'${attr.originalName || attr?.name}': props.${attr?.propName} ${
+            attr.name.includes("-") ? `|| props['${attr.name}']` : ""
+          }`
       ) || []
   );
 }
@@ -315,6 +303,19 @@ function getReactComponentTemplate(
   const attrTemplates = getAttributeTemplates(attributes);
   const propTemplates = getPropTemplates(properties);
   const methods = getComponentMethods(component);
+  const props = [
+    "className",
+    ...[...(booleanAttributes || []), ...(attributes || [])].map(
+      (x) => x.propName
+    ),
+    ...(properties || []).map((x) => x.name),
+  ]?.filter(
+    (prop) =>
+      !RESERVED_WORDS.includes(prop!) &&
+      !MAPPED_PROPS.some((x) => x.propName === prop) &&
+      prop !== 'for'
+  );
+
   const useEffect = has(eventTemplates) || has(propTemplates);
 
   return `
@@ -325,12 +326,13 @@ function getReactComponentTemplate(
       ${has(eventTemplates) ? "useEventListener," : ""} 
       ${has(propTemplates) ? "useProperties" : ""}
     } from './react-utils.js';
-    import { ${
-      config.defaultExport ? 'default' : component.name
-    } as ${component.name}Element } from '${modulePath}';
+    import { ${config.defaultExport ? "default" : component.name} as ${
+    component.name
+  }Element } from '${modulePath}';
 
     export const ${component.name} = forwardRef((props, forwardedRef) => {
       ${useEffect ? `const ref = useRef(null);` : ""}
+      const { ${props.join(", ")}, ...filteredProps } = props;
 
       ${has(eventTemplates) ? "/** Event listeners - run once */" : ""}
       ${eventTemplates?.join("") || ""}
@@ -366,6 +368,7 @@ function getReactComponentTemplate(
         ${component.name}Element.customTag || "${component.tagName}",
         { 
           ${useEffect ? "ref," : ""} 
+          ${has(props) ? "...filteredProps" : "...props"},
           ${[...attrTemplates, ...booleanAttrTemplates].join(",")},
           style: {...props.style},
           ${globalEvents.map((x) => `${x.event}: props.${x.event}`).join(", ")}
@@ -395,7 +398,9 @@ function getTypeDefinitionTemplate(
 
   return `
     import { 
-      ${config.defaultExport ? 'default' : component.name} as ${component.name}Element
+      ${config.defaultExport ? "default" : component.name} as ${
+    component.name
+  }Element
       ${eventTypes?.length ? `, ${eventTypes}` : ""}
     } from '${modulePath}';
 
@@ -404,7 +409,7 @@ function getTypeDefinitionTemplate(
       ${eventTypes?.length ? `, ${eventTypes}` : ""}  
     };
     
-    export interface ${component.name}Props { 
+    export interface ${component.name}Props ${getExtendedProps()} { 
       ${props} 
     }
 
@@ -415,6 +420,19 @@ function getTypeDefinitionTemplate(
     component.name
   }Props>;
   `;
+}
+
+function getExtendedProps() {
+  return typeof config.reactProps === "object"
+    ? `extends Pick<React.AllHTMLAttributes<HTMLElement>, ${[
+        ...BASE_PROPS,
+        ...config.reactProps,
+      ]
+        .map((x) => `'${x}'`)
+        .join(" | ")}>`
+    : config.reactProps === true
+    ? "extends React.AllHTMLAttributes<HTMLElement>"
+    : "";
 }
 
 function getMethodParameters(parameters?: Parameter[]) {
@@ -459,7 +477,7 @@ function getAttributePropsTemplate(
       (attr) => `
       /** ${attr.description} */
       ${attr.propName}?: ${
-        baseProperties.some((base) => base.propName === attr.propName)
+        MAPPED_PROPS.some((base) => base.propName === attr.propName)
           ? attr.type?.text || "string"
           : `${componentName}Element['${attr.originalName || attr.propName}']`
       };
@@ -473,11 +491,13 @@ function getPropertyPropsTemplate(
   componentName: string
 ) {
   return (
-    properties?.map(
+    [...(properties || []), ...(config.globalProps || [])]?.map(
       (prop) => `
     /** ${prop.description} */
     ${prop.name}?: ${
-        baseProperties.some((base) => base.propName === prop.name)
+        MAPPED_PROPS.some(
+          (base: MappedAttribute) => base.propName === prop.name
+        )
           ? prop.type?.text || "string"
           : `${componentName}Element['${prop.name}']`
       };

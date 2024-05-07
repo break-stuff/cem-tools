@@ -306,45 +306,15 @@ Event information will display with the element description during autocompletio
 
 ### Global Events
 
-To keep the API clean, standard HTML Element events have been excluded with the exception of `onClick`. All components have a click handler by default, but if you want to include more events, you can use the `globalEvents` option. Pass it an array of events you want to add to your components. Here are some examples:
+If you want to include global custom events, you can use the `globalEvents` option. Pass it an array of events you want to add to your components. Here are some examples:
 
 ```ts
 globalEvents: [
   {
-    event: "onMouseEnter",
-    description: "Triggered when the mouse pointer enters an element.",
-    type: "React.MouseEventHandler",
-  },
-  {
-    event: "onMouseLeave",
-    description: "Fired when the mouse pointer leaves an element.",
-    type: "React.MouseEventHandler",
-  },
-  {
-    event: "onKeyPress",
-    description: "Fired when a key is pressed.",
-    type: "React.KeyboardEventHandler",
-  },
-  {
-    event: "onKeyDown",
-    description: "Triggered when a key is pressed down.",
-    type: "React.KeyboardEventHandler",
-  },
-  {
-    event: "onKeyUp",
-    description: "Fired when a key is released.",
-    type: "React.KeyboardEventHandler",
-  },
-  {
-    event: "onDoubleClick",
-    description: "Triggered when an element is double-clicked.",
-    type: "React.MouseEventHandler",
-  },
-  {
-    event: "onScroll",
-    description: "Triggered when the user scrolls an element.",
-    type: "React.UIEventHandler",
-  },
+    event: "onMyCustomEvent",
+    description: "Triggered when you do a specific thing.",
+    type: "CustomEvent<MyDetails>",
+  }
 ];
 ```
 
@@ -412,4 +382,41 @@ export default () => {
 
   return <MyButton variant={buttonVariant}>Button</MyButton>;
 };
+```
+
+### Extending Types
+
+All components will come with the following default prop types:
+
+```ts
+[
+  "children",
+  "className",
+  "dir",
+  "exportparts",
+  "htmlFor",
+  "hidden",
+  "id",
+  "key",
+  "lang",
+  "part",
+  "ref",
+  "slot",
+  "style",
+  "tabIndex",
+  "title",
+  "translate",
+  "onClick",
+  "onFocus",
+  "onBlur",
+]
+```
+
+If you would like to extend the types to include those from [React's props list](https://react.dev/reference/react-dom/components/common#common-props), they can be added using the `reactProps` option in the configuration. Pass it a string array of the props you would like to include.
+
+```ts
+{
+  /* other config options */
+  reactProps: ['autoCapitalize', 'draggable', 'onAnimationEnd']
+}
 ```
