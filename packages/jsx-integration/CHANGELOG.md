@@ -4,6 +4,7 @@
 
 - Added `class` prop to types
 - Added StackBlitz sandbox
+- Export type of component props.
 
 ## 1.3.1
 
