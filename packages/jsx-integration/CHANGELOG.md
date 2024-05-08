@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.2
+
+- Export type of component props.
+
 ## 1.3.1
 
 - Allow any string for `descriptionSrc`
