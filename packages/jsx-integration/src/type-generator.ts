@@ -142,7 +142,7 @@ ${components
   ?.map((component: Component) => {
     return `
 
-type ${component.name}Props = {
+export type ${component.name}Props = {
 ${
   component.attributes
     ?.map((attr) => {
