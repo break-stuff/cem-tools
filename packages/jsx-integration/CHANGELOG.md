@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.2
+
+- Added `class` prop to types
+
 ## 1.3.1
 
 - Allow any string for `descriptionSrc`

@@ -6,6 +6,12 @@ This package is designed to generate types for your custom elements in a project
 
 ![demo of autocomplete features for custom elements in a solidjs project](https://github.com/break-stuff/cem-tools/blob/main/demo/images/solid-js-integration/solid-js-integration.gif?raw=true)
 
+<a href="https://stackblitz.com/edit/vitejs-vite-cm3xdr">
+  <img
+    alt="Open in StackBlitz"
+    src="https://developer.stackblitz.com/img/open_in_stackblitz.svg"
+  />
+</a>
 
 ## Usage
 
