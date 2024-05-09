@@ -1,7 +1,9 @@
 # CHANGELOG
 
-## 1.3.2
+## 1.4.0
 
+- Added `class` prop back into types
+- Added StackBlitz sandbox to README
 - Export type of component props.
 
 ## 1.3.1

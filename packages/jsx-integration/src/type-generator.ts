@@ -99,6 +99,8 @@ type BaseProps = {
   /** Content added between the opening and closing tags of the element */
   children?: any;
   /** Used for declaratively styling one or more elements using CSS (Cascading Stylesheets) */
+  class?: string;
+  /** Used for declaratively styling one or more elements using CSS (Cascading Stylesheets) */
   className?: string;
   /** Takes an object where the key is the class name(s) and the value is a boolean expression. When true, the class is applied, and when false, it is removed. */
   classList?: Record<string, boolean | undefined>;
