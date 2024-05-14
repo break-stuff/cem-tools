@@ -12,6 +12,7 @@ import {
   getModulePath,
   getPackageJson,
   saveReactUtils,
+  saveScopeProvider,
 } from "./utils.js";
 import { createOutDir, saveFile } from "../../../tools/integrations/index.js";
 import {
@@ -25,6 +26,7 @@ import {
 import type {
   Attribute,
   ClassField,
+  ClassMethod,
   Parameter,
 } from "custom-elements-manifest";
 import { has, toCamelCase } from "../../../tools/utilities/index.js";
@@ -41,6 +43,9 @@ export function generateReactWrappers(
   const components = getComponents(customElementsManifest, config.exclude);
   createOutDir(config.outdir!);
   saveReactUtils(config.outdir!);
+  if(config.scopedTags) {
+    saveScopeProvider(config.outdir!);
+  }
 
   components.forEach((component) => {
     const events = getEventNames(component);
@@ -303,36 +308,24 @@ function getReactComponentTemplate(
   const attrTemplates = getAttributeTemplates(attributes);
   const propTemplates = getPropTemplates(properties);
   const methods = getComponentMethods(component);
-  const props = [
-    "className",
-    ...[...(booleanAttributes || []), ...(attributes || [])].map(
-      (x) => x.propName
-    ),
-    ...(properties || []).map((x) => x.name),
-  ]?.filter(
-    (prop) =>
-      !RESERVED_WORDS.includes(prop!) &&
-      !MAPPED_PROPS.some((x) => x.propName === prop) &&
-      prop !== 'for'
-  );
+  const unusedProps = getUnusedProps(attributes, booleanAttributes, properties);
 
   const useEffect = has(eventTemplates) || has(propTemplates);
 
   return `
     import React, { forwardRef, useImperativeHandle ${
       useEffect ? ", useRef" : ""
-    } } from "react";
+    } ${config.scopedTags ? ", useContext" : ""} } from "react";
     import { 
       ${has(eventTemplates) ? "useEventListener," : ""} 
       ${has(propTemplates) ? "useProperties" : ""}
     } from './react-utils.js';
-    import { ${config.defaultExport ? "default" : component.name} as ${
-    component.name
-  }Element } from '${modulePath}';
+    ${config.scopedTags ? 'import { ScopeContext } from "./ScopeProvider.js";' : ''}
 
     export const ${component.name} = forwardRef((props, forwardedRef) => {
       ${useEffect ? `const ref = useRef(null);` : ""}
-      const { ${props.join(", ")}, ...filteredProps } = props;
+      const { ${unusedProps.join(", ")}, ...filteredProps } = props;
+      ${config.scopedTags ? "const scope = useContext(ScopeContext);" : ""}
 
       ${has(eventTemplates) ? "/** Event listeners - run once */" : ""}
       ${eventTemplates?.join("") || ""}
@@ -350,25 +343,14 @@ function getReactComponentTemplate(
           : ""
       }
       useImperativeHandle(forwardedRef, () => ({
-        ${
-          methods
-            ?.map(
-              (method) =>
-                `${method.name}: ${getMethodParameters(
-                  method.parameters
-                )} => ref.current.${method.name}${getMethodParameters(
-                  method.parameters
-                )}`
-            )
-            .join(",\n") || ""
-        }
+        ${getPublicMethodsForRef(methods)}
       }));
 
       return React.createElement(
-        ${component.name}Element.customTag || "${component.tagName}",
+        ${getTagName(component)},
         { 
           ${useEffect ? "ref," : ""} 
-          ${has(props) ? "...filteredProps" : "...props"},
+          ${has(unusedProps) ? "...filteredProps" : "...props"},
           ${[...attrTemplates, ...booleanAttrTemplates].join(",")},
           style: {...props.style},
           ${globalEvents.map((x) => `${x.event}: props.${x.event}`).join(", ")}
@@ -457,6 +439,46 @@ function getPropsInterface(
   ]?.join("");
 }
 
+function getUnusedProps(
+  attributes: MappedAttribute[],
+  booleanAttributes: MappedAttribute[],
+  properties?: ClassField[]
+) {
+  return [
+    "className",
+    ...[...(booleanAttributes || []), ...(attributes || [])].map(
+      (x) => x.propName
+    ),
+    ...(properties || []).map((x) => x.name),
+  ]?.filter(
+    (prop) =>
+      !RESERVED_WORDS.includes(prop!) &&
+      !MAPPED_PROPS.some((x) => x.propName === prop) &&
+      prop !== "for"
+  );
+}
+
+function getTagName(component: Component) {
+  return config.scopedTags
+    ? `\`\${scope.prefix || ''}${component.tagName}\${scope.suffix || ''}\``
+    : `"${component.tagName}"`;
+}
+
+function getPublicMethodsForRef(methods: ClassMethod[]) {
+  return (
+    methods
+      ?.map(
+        (method) =>
+          `${method.name}: ${getMethodParameters(
+            method.parameters
+          )} => ref.current.${method.name}${getMethodParameters(
+            method.parameters
+          )}`
+      )
+      .join(",\n") || ""
+  );
+}
+
 function getBooleanPropsTemplate(booleanAttributes: MappedAttribute[]) {
   return (
     booleanAttributes?.map(
@@ -532,9 +554,17 @@ function getGlobalEventPropsTemplate(events: GlobalEvent[] | undefined) {
 }
 
 function getManifestContentTemplate(components: Component[]) {
-  return components
+  let exports = components
     .map((component) => `export * from './${component.name}.js';`)
     .join("");
+
+    if(config.scopedTags) {
+      exports += `
+        export * from "./ScopeProvider.js";
+      `;
+    }
+
+  return exports;
 }
 
 function getEventType(eventType?: string, eventCustom?: boolean) {
