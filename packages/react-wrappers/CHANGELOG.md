@@ -4,6 +4,7 @@
 
 - Added ability to extend react types
 - Added attribute mapping
+- Added component tag name scoping 
 
 ## 1.4.2
 

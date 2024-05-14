@@ -139,3 +139,28 @@ export function useEventListener(targetElement, eventName, eventHandler) {
 
   saveFile(outdir, "react-utils.js", reactUtils, "typescript");
 }
+
+export function saveScopeProvider(outdir: string) {
+  const scopeProvider = `
+import { createContext } from 'react';
+import { jsx } from "react/jsx-runtime";
+
+export const ScopeContext = createContext(null);
+
+export function ScopeProvider({ prefix, suffix, children }) {
+  return jsx(ScopeContext.Provider, {
+    value: { prefix, suffix },
+    children,
+  });
+}
+`;
+
+  const scopeProviderTypes = `
+export type ScopeProps = { prefix?: string, suffix?: string, children?: ReactNode }
+
+export function ScopeProvider(props: ScopeProps): JSX.Element;
+`;
+
+  saveFile(outdir, "ScopeProvider.js", scopeProvider, "typescript");
+  saveFile(outdir, "ScopeProvider.d.ts", scopeProviderTypes, "typescript");
+}

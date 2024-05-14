@@ -63,7 +63,7 @@ type BaseProps = {
 
 type BaseEvents = {};
 
-type RadioGroupProps = {
+export type RadioGroupProps = {
   /** The value assigned to the radio button. This will reflect in the radio group when clicked. */
   value?: RadioGroup["value"];
   /** Disables the radio group and all of its radio buttons */
@@ -96,7 +96,7 @@ type RadioGroupProps = {
   onTypedCustomEvent?: (e: CustomEvent<InterfaceEventType>) => void;
 };
 
-type RadioButtonProps = {
+export type RadioButtonProps = {
   /** The value assigned to the radio button. This will reflect in the radio group when clicked. */
   value?: RadioButton["value"];
   /** Disables the radio button */

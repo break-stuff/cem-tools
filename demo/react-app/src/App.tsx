@@ -2,7 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { RadioButton, RadioGroup } from "lit-app/dist/react";
+import { RadioButton, RadioGroup, ScopeProvider } from "lit-app/dist/react";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -29,24 +29,13 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <RadioGroup
-        className={"test-1 test-2"}
-        variants="primary"
-        complexUnion={"large"}
-        complex={"multi"}
-        test-attr={"test"}
-        data={{ name: "test" }}
-        external2="value5"
-        data-test-id={"test"}
-        external="value1"
-        disabled={false}
-        myAttribute="test"
-        my-attribute={"zinger"}
-      >
-        <RadioButton value=""></RadioButton>
-        <RadioButton></RadioButton>
-        <RadioButton></RadioButton>
-      </RadioGroup>
+      <ScopeProvider prefix="test_" suffix="_test2">
+        <RadioGroup>
+          <RadioButton value=""></RadioButton>
+          <RadioButton></RadioButton>
+          <RadioButton></RadioButton>
+        </RadioGroup>
+      </ScopeProvider>
     </>
   );
 }

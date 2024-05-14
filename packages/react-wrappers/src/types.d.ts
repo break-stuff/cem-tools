@@ -15,6 +15,8 @@ export interface Options extends BaseOptions {
   globalEvents?: GlobalEvent[];
   /** Includes React props defined for HTML elements */
   reactProps?: string[] | boolean;
+  /** Generates context provider to scope component tags with a custom prefix or suffix */
+  scopedTags?: boolean;
 }
 
 export interface GlobalEvent {
