@@ -422,3 +422,39 @@ If you would like to extend the types to include those from [React's props list]
 ```
 
 To include all props and events for the `HTMLElement` type, set the `reactProps` option to `true`.
+
+## Component Scoping
+
+One of the challenges with custom elements is that you can only register a tag once. If you have multiple versions of your component library running on a page at the same time, you need to provide a way to prevent tag name collision. A common way to do this is by providing tag names with a prefix or suffix to create custom tag names.
+
+To provide custom prefixes or suffixes to your custom element tag names that are rendered in the react wrappers, first update the config property `scopedTags` to `true`. This will generate a new `ScopeProvider` component where a prefix or suffix can be specified.
+
+```tsx
+<ScopeProvider prefix="test_" suffix="_test2">
+  {/* the rest of your app */}
+</ScopeProvider>
+```
+
+Now you can add your components inside of that scope provider.
+
+```tsx
+<ScopeProvider prefix="test_" suffix="_test2">
+  <RadioGroup>
+    <RadioButton></RadioButton>
+    <RadioButton></RadioButton>
+    <RadioButton></RadioButton>
+  </RadioGroup>
+</ScopeProvider>
+```
+
+The custom elements will now be rendered with the new tag names.
+
+```html
+<test_radio-group_test2>
+  <test_radio-button_test2></test_radio-button_test2>
+  <test_radio-button_test2></test_radio-button_test2>
+  <test_radio-button_test2></test_radio-button_test2>
+</test_radio-group_test2>
+```
+
+> ***IMPORTANT:*** It is important to note that this will not define your elements with scopes. It will also not scope any components used within your components. It only renders the specified tag name.

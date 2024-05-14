@@ -47,6 +47,7 @@ export default {
       outdir: "./dist/react",
       modulePath: () => `../index.js`,
       reactProps: true,
+      scopedTags: true
     }),
     customElementVuejsPlugin({
       componentTypePath: (name, tag) => `./dist/${tag}/${name}.d.ts`,
