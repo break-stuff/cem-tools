@@ -29,7 +29,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-      <ScopeProvider prefix="test_" suffix="_test2">
+      <ScopeProvider>
         <RadioGroup>
           <RadioButton value=""></RadioButton>
           <RadioButton></RadioButton>
