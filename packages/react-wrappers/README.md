@@ -458,3 +458,9 @@ The custom elements will now be rendered with the new tag names.
 ```
 
 > ***IMPORTANT:*** It is important to note that this will not define your elements with scopes. It will also not scope any components used within your components. It only renders the specified tag name.
+
+## SSR Safety
+
+If you or anyone are planning on using your components in an environment where they are being server-side rendered like in [Next.js](https://nextjs.org/) or [Remix](https://remix.run/), be sure to set the config `ssrSafe` to `true`. This will allow your components to run in those environments without throwing any errors.
+
+> ***IMPORTANT:*** This feature does not make your components render on the server (although the tag will be), but instead waits for the client before attempting to register and execute your components.

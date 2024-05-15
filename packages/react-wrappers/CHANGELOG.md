@@ -5,6 +5,7 @@
 - Added ability to extend react types
 - Added attribute mapping
 - Added component tag name scoping 
+- Added SSR Safe rendering to wrappers
 
 ## 1.4.2
 
