@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## Next
+## 1.5.0
 
 - Added ability to extend react types
 - Added attribute mapping
