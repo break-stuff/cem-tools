@@ -104,7 +104,9 @@ export const RESERVED_WORDS = [
 
 export function saveReactUtils(outdir: string, ssrSafe?: boolean) {
   const reactUtils = `
-import { useEffect${ ssrSafe ? '' : ', useLayoutEffect'} } from "react";
+import { useEffect, useLayoutEffect } from "react";
+
+${ssrSafe ? `const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect` : ''}
 
 export function useProperties(targetElement, propName, value) {
   useEffect(() => {
@@ -120,7 +122,7 @@ export function useProperties(targetElement, propName, value) {
 }
 
 export function useEventListener(targetElement, eventName, eventHandler) {
-  ${ssrSafe ? 'useEffect' : 'useLayoutEffect'}(() => {
+  ${ssrSafe ? 'useIsomorphicLayoutEffect' : 'useLayoutEffect'}(() => {
     if (eventHandler !== undefined) {
       targetElement?.current?.addEventListener(eventName, eventHandler);
     }
