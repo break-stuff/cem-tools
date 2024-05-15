@@ -42,7 +42,7 @@ export function generateReactWrappers(
   updateConfig(options);
   const components = getComponents(customElementsManifest, config.exclude);
   createOutDir(config.outdir!);
-  saveReactUtils(config.outdir!);
+  saveReactUtils(config.outdir!, config.ssrSafe);
   if (config.scopedTags) {
     saveScopeProvider(config.outdir!, config.ssrSafe);
   }
