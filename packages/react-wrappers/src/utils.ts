@@ -102,9 +102,9 @@ export const RESERVED_WORDS = [
   "yield",
 ];
 
-export function saveReactUtils(outdir: string) {
+export function saveReactUtils(outdir: string, ssrSafe?: boolean) {
   const reactUtils = `
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect${ ssrSafe ? '' : ', useLayoutEffect'} } from "react";
 
 export function useProperties(targetElement, propName, value) {
   useEffect(() => {
@@ -120,7 +120,7 @@ export function useProperties(targetElement, propName, value) {
 }
 
 export function useEventListener(targetElement, eventName, eventHandler) {
-  useLayoutEffect(() => {
+  ${ssrSafe ? 'useEffect' : 'useLayoutEffect'}(() => {
     if (eventHandler !== undefined) {
       targetElement?.current?.addEventListener(eventName, eventHandler);
     }

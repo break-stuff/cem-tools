@@ -188,7 +188,7 @@
               "type": {
                 "text": "string"
               },
-              "default": "'private'",
+              "default": "'Group'",
               "description": "This is a test for a private property"
             },
             {
