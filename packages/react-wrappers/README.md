@@ -83,8 +83,16 @@ The configuration has the following optional parameters:
   modulePath?: (className: string, tagName: string) => string;
   /** Used to provide alternative property name to prevent name collisions with React */
   attributeMapping?: { [key: string]: string };
+  /** Used to add custom global props to all component types */
+  globalProps?: MappedAttribute[];
   /** Used to add global element props to all component types */
   globalEvents?: GlobalEvent[];
+  /** Includes React props defined for HTML elements */
+  reactProps?: string[] | boolean;
+  /** Generates context provider to scope component tags with a custom prefix or suffix */
+  scopedTags?: boolean;
+  /** Formats wrappers to make them safe to run in environments with Server Side Rendering (SSR) */
+  ssrSafe?: boolean;
   /** Path to output directory */
   outdir?: string;
   /** Class names of any components you would like to exclude from the custom data */
@@ -314,7 +322,7 @@ globalEvents: [
     event: "onMyCustomEvent",
     description: "Triggered when you do a specific thing.",
     type: "CustomEvent<MyDetails>",
-  }
+  },
 ];
 ```
 
@@ -409,7 +417,7 @@ All components will come with the following default prop types:
   "onClick",
   "onFocus",
   "onBlur",
-]
+];
 ```
 
 If you would like to extend the types to include those from [React's props list](https://react.dev/reference/react-dom/components/common#common-props), they can be added using the `reactProps` option in the configuration. Pass it a string array of the props you would like to include.
@@ -417,7 +425,7 @@ If you would like to extend the types to include those from [React's props list]
 ```ts
 {
   /* other config options */
-  reactProps: ['autoCapitalize', 'draggable', 'onAnimationEnd']
+  reactProps: ["autoCapitalize", "draggable", "onAnimationEnd"];
 }
 ```
 
@@ -457,10 +465,10 @@ The custom elements will now be rendered with the new tag names.
 </test_radio-group_test2>
 ```
 
-> ***IMPORTANT:*** It is important to note that this will not define your elements with scopes. It will also not scope any components used within your components. It only renders the specified tag name.
+> **_IMPORTANT:_** It is important to note that this will not define your elements with scopes. It will also not scope any components used within your components. It only renders the specified tag name.
 
 ## SSR Safety
 
 If you or anyone are planning on using your components in an environment where they are being server-side rendered like in [Next.js](https://nextjs.org/) or [Remix](https://remix.run/), be sure to set the config `ssrSafe` to `true`. This will allow your components to run in those environments without throwing any errors.
 
-> ***IMPORTANT:*** This feature does not make your components render on the server (although the tag will be), but instead waits for the client before attempting to register and execute your components.
+> **_IMPORTANT:_** This feature does not make your components render on the server (although the tag will be), but instead waits for the client before attempting to register and execute your components.
