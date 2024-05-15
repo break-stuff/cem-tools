@@ -45,9 +45,10 @@ export default {
     }),
     customElementReactWrapperPlugin({
       outdir: "./dist/react",
-      modulePath: () => `../index.js`,
+      modulePath: (className, tagName) => `../${tagName}/${tagName}.js`,
       reactProps: true,
-      scopedTags: true
+      scopedTags: true,
+      ssrSafe: true
     }),
     customElementVuejsPlugin({
       componentTypePath: (name, tag) => `./dist/${tag}/${name}.d.ts`,

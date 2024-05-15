@@ -17,6 +17,8 @@ export interface Options extends BaseOptions {
   reactProps?: string[] | boolean;
   /** Generates context provider to scope component tags with a custom prefix or suffix */
   scopedTags?: boolean;
+  /** Formats wrappers to make them safe to run in environments with Server Side Rendering (SSR) */
+  ssrSafe?: boolean;
 }
 
 export interface GlobalEvent {

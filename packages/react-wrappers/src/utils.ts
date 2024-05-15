@@ -140,8 +140,9 @@ export function useEventListener(targetElement, eventName, eventHandler) {
   saveFile(outdir, "react-utils.js", reactUtils, "typescript");
 }
 
-export function saveScopeProvider(outdir: string) {
+export function saveScopeProvider(outdir: string, ssrSafe?: boolean) {
   const scopeProvider = `
+${ssrSafe ? '"use client"' : ''}
 import { createContext } from 'react';
 import { jsx } from "react/jsx-runtime";
 
