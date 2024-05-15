@@ -126,7 +126,7 @@ export class RadioGroup extends LitElement {
   complexUnion?: ChildSize;
 
   /** This is a test for a private property */
-  #privateProperty = 'private';
+  #privateProperty = 'Group';
 
   /** Validated the radio inputs */
   validate() {
@@ -154,7 +154,8 @@ export class RadioGroup extends LitElement {
 
   render() {
     return html`
-      <h2>Hello world! ${this.#privateMethod()}</h2>
+      <h2>Radio ${this.#privateMethod()}</h2>
+      <slot></slot>
     `;
   }
 }

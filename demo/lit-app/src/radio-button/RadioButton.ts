@@ -48,7 +48,11 @@ export class RadioButton extends LitElement {
 
   render() {
     return html`
-      <h2>Hello world!</h2>
+      <label>
+        <input type="radio" />
+        Radio button
+      </label>
+      <br>
     `;
   }
 }

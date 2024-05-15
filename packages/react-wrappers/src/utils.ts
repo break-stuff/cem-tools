@@ -102,9 +102,11 @@ export const RESERVED_WORDS = [
   "yield",
 ];
 
-export function saveReactUtils(outdir: string) {
+export function saveReactUtils(outdir: string, ssrSafe?: boolean) {
   const reactUtils = `
 import { useEffect, useLayoutEffect } from "react";
+
+${ssrSafe ? `const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect` : ''}
 
 export function useProperties(targetElement, propName, value) {
   useEffect(() => {
@@ -120,7 +122,7 @@ export function useProperties(targetElement, propName, value) {
 }
 
 export function useEventListener(targetElement, eventName, eventHandler) {
-  useLayoutEffect(() => {
+  ${ssrSafe ? 'useIsomorphicLayoutEffect' : 'useLayoutEffect'}(() => {
     if (eventHandler !== undefined) {
       targetElement?.current?.addEventListener(eventName, eventHandler);
     }
@@ -140,8 +142,9 @@ export function useEventListener(targetElement, eventName, eventHandler) {
   saveFile(outdir, "react-utils.js", reactUtils, "typescript");
 }
 
-export function saveScopeProvider(outdir: string) {
+export function saveScopeProvider(outdir: string, ssrSafe?: boolean) {
   const scopeProvider = `
+${ssrSafe ? '"use client"' : ''}
 import { createContext } from 'react';
 import { jsx } from "react/jsx-runtime";
 
