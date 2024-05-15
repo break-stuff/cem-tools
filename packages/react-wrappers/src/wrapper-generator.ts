@@ -43,8 +43,8 @@ export function generateReactWrappers(
   const components = getComponents(customElementsManifest, config.exclude);
   createOutDir(config.outdir!);
   saveReactUtils(config.outdir!);
-  if(config.scopedTags) {
-    saveScopeProvider(config.outdir!);
+  if (config.scopedTags) {
+    saveScopeProvider(config.outdir!, config.ssrSafe);
   }
 
   components.forEach((component) => {
@@ -310,22 +310,44 @@ function getReactComponentTemplate(
   const methods = getComponentMethods(component);
   const unusedProps = getUnusedProps(attributes, booleanAttributes, properties);
 
-  const useEffect = has(eventTemplates) || has(propTemplates);
+  const useEffect = has(eventTemplates) || has(propTemplates) || config.ssrSafe;
 
   return `
+    ${config.ssrSafe ? '"use client"' : ''}
     import React, { forwardRef, useImperativeHandle ${
-      useEffect ? ", useRef" : ""
+      useEffect ? ", useRef, useEffect" : ""
     } ${config.scopedTags ? ", useContext" : ""} } from "react";
-    import { 
+    ${!config.ssrSafe ? `import '${modulePath}';` : ""}
+    ${
+      has(eventTemplates) || has(propTemplates)
+        ? `import { 
       ${has(eventTemplates) ? "useEventListener," : ""} 
       ${has(propTemplates) ? "useProperties" : ""}
-    } from './react-utils.js';
-    ${config.scopedTags ? 'import { ScopeContext } from "./ScopeProvider.js";' : ''}
+    } from './react-utils.js';`
+        : ""
+    }
+    ${
+      config.scopedTags
+        ? 'import { ScopeContext } from "./ScopeProvider.js";'
+        : ""
+    }
 
     export const ${component.name} = forwardRef((props, forwardedRef) => {
       ${useEffect ? `const ref = useRef(null);` : ""}
       const { ${unusedProps.join(", ")}, ...filteredProps } = props;
       ${config.scopedTags ? "const scope = useContext(ScopeContext);" : ""}
+
+      ${
+        config.ssrSafe
+          ? `
+      /** Waits for the client before loading the custom element */
+      useEffect(() => {
+        import('${modulePath}');
+      }, []);
+      `
+          : ""
+      }
+
 
       ${has(eventTemplates) ? "/** Event listeners - run once */" : ""}
       ${eventTemplates?.join("") || ""}
@@ -558,11 +580,11 @@ function getManifestContentTemplate(components: Component[]) {
     .map((component) => `export * from './${component.name}.js';`)
     .join("");
 
-    if(config.scopedTags) {
-      exports += `
+  if (config.scopedTags) {
+    exports += `
         export * from "./ScopeProvider.js";
       `;
-    }
+  }
 
   return exports;
 }
