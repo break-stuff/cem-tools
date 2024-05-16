@@ -1,9 +1,14 @@
 import path from "path";
 import fs from "fs";
-import type { CEM, Component } from "../../../tools/cem-utils";
+import type { Component } from "../../../tools/cem-utils";
+import { logBlue } from "../../../tools/integrations";
 
 export interface Options {
   propertyName?: string;
+  /** Hides logs produced by the plugin */
+  hideLogs?: boolean;
+  /** Prevents plugin from executing */
+  skip?: boolean;
 }
 
 interface AliasTypes {
@@ -48,6 +53,10 @@ export function expandTypesPlugin(
   }
 ) {
   options = op;
+  logBlue(
+    "[cem-expanded-types] - Updating Custom Elements Manifest...",
+    options.hideLogs
+  );
 
   return {
     name: "expand-types-plugin",
@@ -74,7 +83,10 @@ export function getTsProgram(
     configName
   );
   const { config } = ts.readConfigFile(tsConfigFile, ts.sys.readFile);
-  const compilerOptions = ts.convertCompilerOptionsFromJson(config.compilerOptions ?? {}, ".");
+  const compilerOptions = ts.convertCompilerOptionsFromJson(
+    config.compilerOptions ?? {},
+    "."
+  );
   const program = ts.createProgram(globs, compilerOptions.options);
   typeChecker = program.getTypeChecker();
   return program;
@@ -179,8 +191,6 @@ function groupTypesByName() {
       groupedTypes[type][alias] = aliasTypes[alias][type];
     }
   }
-
-  // console.log("groupedTypes", JSON.stringify(groupedTypes, null, 2));
 }
 
 function setEnumTypes(node: any) {
@@ -239,6 +249,10 @@ function analyzePhase({ ts, node, moduleDoc, context }: any) {
   }
 
   updateExpandedTypes(component, context);
+  logBlue(
+    "[cem-expanded-types] - Custom Elements Manifest updated.",
+    options.hideLogs
+  );
 }
 
 function getComponent(node: any, moduleDoc: any) {

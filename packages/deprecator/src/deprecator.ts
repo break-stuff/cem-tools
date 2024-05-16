@@ -9,7 +9,7 @@ import { Options } from "./types.js";
 let userConfig: Options = {};
 
 export function updateCemDeprecations(cem: CEM, options: Options = {}) {
-  logBlue("[cem-inheritance-generator] - Updating Custom Elements Manifest...");
+  logBlue("[cem-inheritance-generator] - Updating Custom Elements Manifest...", options.hideLogs);
   const newCem = generateUpdatedCem(cem, options);
   createOutDir(userConfig.outdir!);
   saveFile(
@@ -17,7 +17,7 @@ export function updateCemDeprecations(cem: CEM, options: Options = {}) {
     userConfig.fileName!,
     JSON.stringify(newCem, null, 2)
   );
-  logBlue("[cem-inheritance-generator] - Custom Elements Manifest updated.");
+  logBlue("[cem-inheritance-generator] - Custom Elements Manifest updated.", options.hideLogs);
 }
 
 function updateOptions(options: Options = {}) {
