@@ -6,11 +6,20 @@ import {
   getCustomEventTypes,
   getMemberDescription,
 } from "../../../tools/cem-utils";
-import { createOutDir, logBlue, saveFile } from "../../../tools/integrations";
+import { createOutDir, logBlue, logYellow, saveFile } from "../../../tools/integrations";
 import { toPascalCase } from "../../../tools/utilities";
 import { Options } from "./types";
 
 export function generateJsxTypes(manifest: any, options: Options) {
+  if (options.skip) {
+    logYellow("[jsx-type-generator] - Skipped", options.hideLogs);
+    return;
+  }
+  logBlue(
+    "[jsx-type-generator] - Generating types...",
+    options.hideLogs
+  );
+
   options = getOptions(options);
 
   const components = getComponents(manifest, options.exclude).filter(

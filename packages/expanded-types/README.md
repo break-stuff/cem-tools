@@ -71,6 +71,17 @@ export default {
 
 You have the ability to change the property name that is assigned to the expanded type. By default it is `expandedType`, but if you wanted to save it as something like `parsedType`, you can set that as part of the plugin options.
 
+```ts
+interface Options {
+  /** Determines the name of the property used in the manifest to store the expanded type */
+  propertyName?: string;
+  /** Hides logs produced by the plugin */
+  hideLogs?: boolean;
+  /** Prevents plugin from executing */
+  skip?: boolean;
+}
+```
+
 ```js
 // custom-elements-manifest.config.js
 

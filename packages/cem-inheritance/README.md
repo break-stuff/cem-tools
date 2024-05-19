@@ -69,6 +69,10 @@ interface Options {
   ignore?: string[];
   /** External CEMs that your components extend */
   externalManifests?: any[];
+  /** Hides logs produced by the plugin */
+  hideLogs?: boolean;
+  /** Prevents plugin from executing */
+  skip?: boolean;
 }
 ```
 

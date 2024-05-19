@@ -21,7 +21,7 @@ export interface Options extends BaseOptions {
   /** Used to create a link within the component info bubble */
   referenceTemplate?: (name: string, tag?: string) => Reference;
   /** Adds an icon link to the webtypes.json  **/
-  defaultIcon?: string,
+  defaultIcon?: string;
 }
 
 export interface Params {

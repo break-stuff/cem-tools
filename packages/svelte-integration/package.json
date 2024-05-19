@@ -1,6 +1,6 @@
 {
   "name": "custom-element-svelte-integration",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Tools for integrating custom elements into a Svelte project",
   "main": "index.js",
   "module": "index.js",

@@ -1,5 +1,5 @@
 import { CEM, Component } from "../../../tools/cem-utils/index.js";
-import { createOutDir, logBlue, saveFile } from "../../../tools/integrations";
+import { createOutDir, logBlue, logYellow, saveFile } from "../../../tools/integrations";
 import { Options } from "./types.js";
 
 const completedClasses: string[] = [];
@@ -10,6 +10,10 @@ let externalComponents: Component[] = [];
 let updatedCEM: any = {};
 
 export function updateCemInheritance(cem: CEM, options: Options = {}) {
+  if(options.skip) {
+    logYellow("[cem-inheritance-generator] - Skipped", options.hideLogs)
+  }
+  
   logBlue("[cem-inheritance-generator] - Updating Custom Elements Manifest...", options.hideLogs);
   const newCem = generateUpdatedCem(cem, options);
   createOutDir(userConfig.outdir!);

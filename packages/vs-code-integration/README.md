@@ -122,6 +122,10 @@ The configuration has the following optional parameters:
   referencesTemplate?: (name: string, tag?: string) => Reference[];
   /** The property form your CEM component object to display your types */
   typesSrc?: string;
+  /** Hides logs produced by the plugin */
+  hideLogs?: boolean;
+  /** Prevents plugin from executing */
+  skip?: boolean;
 }
 ```
 

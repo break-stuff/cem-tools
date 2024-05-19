@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.6.0
+
+- Added the ability to hide logs
+- Added the ability to skip the plugin
+
 ## 1.5.0
 
 - Added ability to extend react types

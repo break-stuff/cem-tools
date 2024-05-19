@@ -2,7 +2,7 @@
 
 This package is designed to generate types for your custom elements in a project using [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html). These types will generate inline documentation, autocomplete, and type-safe validation for your custom elements in non-react frameworks that use JSX like [Preact](https://preactjs.com/) and [StencilJS](https://stenciljs.com/).
 
-> ***NOTE:*** THIS IS FOR NON-REACT PROJECTS THAT USE JSX/TSX TEMPLATES
+> **_NOTE:_** THIS IS FOR NON-REACT PROJECTS THAT USE JSX/TSX TEMPLATES
 
 ![demo of autocomplete features for custom elements in a solidjs project](https://github.com/break-stuff/cem-tools/blob/main/demo/images/solid-js-integration/solid-js-integration.gif?raw=true)
 
@@ -104,6 +104,10 @@ The configuration has the following optional parameters:
   typesSrc?: string;
   /** Used to add global element props to all component types */
   globalEvents?: string;
+  /** Hides logs produced by the plugin */
+  hideLogs?: boolean;
+  /** Prevents plugin from executing */
+  skip?: boolean;
 }
 ```
 
@@ -122,7 +126,7 @@ declare module "my-app" {
 }
 ```
 
-> ***NOTE:*** Libraries will often have their own module names you will need to use when extending the `IntrinsicElements` interface. For example, Preact requires you to use the `"preact"` module name instead of `"my-app"` (`declare module "preact"`) and StencilJS uses "@stencil/core" (`declare module "@stencil/core"`).
+> **_NOTE:_** Libraries will often have their own module names you will need to use when extending the `IntrinsicElements` interface. For example, Preact requires you to use the `"preact"` module name instead of `"my-app"` (`declare module "preact"`) and StencilJS uses "@stencil/core" (`declare module "@stencil/core"`).
 
 ## Configuration
 
@@ -197,7 +201,7 @@ If your types are rolled up into a single type declaration file, you can set the
 
 ```ts
 {
-  globalTypePath: ".dist/types.d.ts"
+  globalTypePath: ".dist/types.d.ts";
 }
 ```
 
@@ -205,7 +209,7 @@ If each of the component type definitions are split out by each component, you c
 
 ```ts
 {
-  componentTypePath: (name, tag) => `./types/${tag}/${name}.d.ts`
+  componentTypePath: (name, tag) => `./types/${tag}/${name}.d.ts`;
 }
 ```
 
@@ -373,8 +377,7 @@ import type { ScopedElements } from "path/to/jsx-types";
 
 declare module "my-app" {
   namespace JSX {
-    interface IntrinsicElements
-      extends ScopedElements<'prefix-', '-suffix'> {}
+    interface IntrinsicElements extends ScopedElements<"prefix-", "-suffix"> {}
   }
 }
 ```
