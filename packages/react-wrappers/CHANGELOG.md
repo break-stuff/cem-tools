@@ -5,6 +5,11 @@
 - Added the ability to hide logs
 - Added the ability to skip the plugin
 
+## 1.5.1
+
+- Fixed issue when there are no unused props
+- Fixed issue when there are no added types
+
 ## 1.5.0
 
 - Added ability to extend react types

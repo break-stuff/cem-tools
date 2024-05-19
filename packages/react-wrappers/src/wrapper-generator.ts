@@ -323,7 +323,7 @@ function getReactComponentTemplate(
   const useEffect = has(eventTemplates) || has(propTemplates) || config.ssrSafe;
 
   return `
-    ${config.ssrSafe ? '"use client"' : ''}
+    ${config.ssrSafe ? '"use client"' : ""}
     import React, { forwardRef, useImperativeHandle ${
       useEffect ? ", useRef, useEffect" : ""
     } ${config.scopedTags ? ", useContext" : ""} } from "react";
@@ -344,7 +344,7 @@ function getReactComponentTemplate(
 
     export const ${component.name} = forwardRef((props, forwardedRef) => {
       ${useEffect ? `const ref = useRef(null);` : ""}
-      const { ${unusedProps.join(", ")}, ...filteredProps } = props;
+      ${has(unusedProps) ? `const { ${unusedProps.join(", ")}, ...filteredProps } = props;` : ''}
       ${config.scopedTags ? "const scope = useContext(ScopeContext);" : ""}
 
       ${
@@ -437,16 +437,14 @@ function getTypeDefinitionTemplate(
 }
 
 function getExtendedProps() {
-  return typeof config.reactProps === "object"
-    ? `extends Pick<React.AllHTMLAttributes<HTMLElement>, ${[
+  return config.reactProps === true
+    ? "extends React.AllHTMLAttributes<HTMLElement>"
+    : `extends Pick<React.AllHTMLAttributes<HTMLElement>, ${[
         ...BASE_PROPS,
-        ...config.reactProps,
+        ...(config.reactProps || []),
       ]
         .map((x) => `'${x}'`)
-        .join(" | ")}>`
-    : config.reactProps === true
-    ? "extends React.AllHTMLAttributes<HTMLElement>"
-    : "";
+        .join(" | ")}>`;
 }
 
 function getMethodParameters(parameters?: Parameter[]) {
