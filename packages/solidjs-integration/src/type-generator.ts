@@ -6,10 +6,19 @@ import {
   getCustomEventTypes,
   getMemberDescription,
 } from "../../../tools/cem-utils";
-import { createOutDir, logBlue, saveFile } from "../../../tools/integrations";
+import { createOutDir, logBlue, logYellow, saveFile } from "../../../tools/integrations";
 import { Options } from "./types";
 
 export function generateSolidJsTypes(manifest: any, options: Options) {
+  if (options.skip) {
+    logYellow("[solidjs-type-generator] - Skipped", options.hideLogs);
+    return;
+  }
+  logBlue(
+    "[solidjs-type-generator] - Updating Custom Elements Manifest...",
+    options.hideLogs
+  );
+  
   options = getOptions(options);
 
   const components = getComponents(manifest, options.exclude).filter(
@@ -24,7 +33,7 @@ export function generateSolidJsTypes(manifest: any, options: Options) {
     "typescript",
     120
   );
-  logBlue(`[solidjs-type-generator] - Generated "${outputPath}".`);
+  logBlue(`[solidjs-type-generator] - Generated "${outputPath}".`, options.hideLogs);
 }
 
 function getOptions(options: Options) {

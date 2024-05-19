@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.2.0
+
+- Added the ability to hide logs
+- Added the ability to skip the plugin
+
 ## 1.1.0
 
 - Add `defaultExport` options to resolve imports without named exports.

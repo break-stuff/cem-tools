@@ -1,6 +1,6 @@
 {
   "name": "custom-element-jsx-integration",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Tools for integrating custom elements into JSX projects",
   "main": "index.js",
   "module": "index.js",

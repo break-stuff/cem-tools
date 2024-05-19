@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.5.0
+
+- Added the ability to hide logs
+- Added the ability to skip the plugin
+
 ## 1.4.0
 
 - Added `class` prop back into types

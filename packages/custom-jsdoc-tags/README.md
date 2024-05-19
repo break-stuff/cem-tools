@@ -185,6 +185,10 @@ interface Options {
       isArray?: boolean;
     };
   };
+  /** Hides logs produced by the plugin */
+  hideLogs: boolean;
+  /** Prevents plugin from executing */
+  skip: boolean;
 }
 ```
 

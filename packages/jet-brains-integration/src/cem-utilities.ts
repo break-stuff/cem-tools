@@ -1,5 +1,4 @@
 import {
-  getAttributeValueOptions,
   type Component,
 } from "../../../tools/cem-utils";
 import type {

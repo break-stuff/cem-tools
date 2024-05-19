@@ -7,6 +7,7 @@ import {
 import {
   createOutDir,
   logBlue,
+  logYellow,
   saveFile,
 } from "../../../tools/integrations/index.js";
 import path from "path";
@@ -51,6 +52,10 @@ export type Options = {
   additionalComponents: ComponentConfig;
   /** Component tag names that you would like to eager-load */
   eagerLoad: string[];
+  /** Hides logs produced by the plugin */
+  hideLogs?: boolean;
+  /** Prevents plugin from executing */
+  skip?: boolean;
 };
 
 let userOptions: Options;
@@ -181,6 +186,15 @@ start();
 `;
 
 export function generateCustomElementLazyLoader(cem: CEM, options: Options) {
+  if (options.skip) {
+    logYellow("[custom-element-lazy-loader] - Skipped", options.hideLogs);
+    return;
+  }
+  logBlue(
+    "[custom-element-lazy-loader] - Updating Custom Elements Manifest...",
+    options.hideLogs
+  );
+
   userOptions = {
     outdir: "./",
     fileName: "loader.js",
@@ -225,6 +239,7 @@ export function generateCustomElementLazyLoader(cem: CEM, options: Options) {
     `[custom-element-lazy-loader] - Generated "${path.join(
       userOptions.outdir!,
       userOptions.fileName!
-    )}".`
+    )}".`,
+    options.hideLogs
   );
 }

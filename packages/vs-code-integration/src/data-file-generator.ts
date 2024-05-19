@@ -3,6 +3,7 @@ import {
   createOutDir,
   logBlue,
   logRed,
+  logYellow,
   saveFile,
 } from "../../../tools/integrations";
 import {
@@ -18,6 +19,15 @@ export function generateVsCodeCustomElementData(
   customElementsManifest: CEM,
   options: Options
 ) {
+  if (options.skip) {
+    logYellow("[custom-element-vs-code-integration] - Skipped", options.hideLogs);
+    return;
+  }
+  logBlue(
+    "[custom-element-vs-code-integration] - Updating Custom Elements Manifest...",
+    options.hideLogs
+  );
+
   options = getOptions(options);
   const components = getComponents(
     customElementsManifest,

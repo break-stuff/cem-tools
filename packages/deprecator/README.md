@@ -133,6 +133,10 @@ interface Options {
   outdir?: string;
   /** Class names of any components you would like to exclude from inheritance */
   exclude?: string[];
+  /** Hides logs produced by the plugin */
+  hideLogs?: boolean;
+  /** Prevents plugin from executing */
+  skip?: boolean;
 }
 ```
 

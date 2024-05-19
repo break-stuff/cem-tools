@@ -98,6 +98,10 @@ export type Options = {
   suffix?: string;
   /** Component tag names that you would like to eager-load */
   eagerLoad: string[];
+  /** Hides logs produced by the plugin */
+  hideLogs?: boolean;
+  /** Prevents plugin from executing */
+  skip?: boolean;
 };
 ```
 

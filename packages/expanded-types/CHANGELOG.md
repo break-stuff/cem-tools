@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.0
+
+- Added the ability to hide logs
+- Added the ability to skip the plugin
+
 ## 1.2.0
 
 - Resolve external types included in union types

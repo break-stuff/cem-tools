@@ -6,11 +6,20 @@ import {
   getCustomEventTypes,
   getMemberDescription,
 } from "../../../tools/cem-utils";
-import { createOutDir, logBlue, saveFile } from "../../../tools/integrations";
+import { createOutDir, logBlue, logYellow, saveFile } from "../../../tools/integrations";
 import { toPascalCase } from "../../../tools/utilities";
 import { Options } from "./types";
 
 export function generateVuejsTypes(manifest: any, options: Options) {
+  if (options.skip) {
+    logYellow("[vuejs-type-generator] - Skipped", options.hideLogs);
+    return;
+  }
+  logBlue(
+    "[vuejs-type-generator] - Updating Custom Elements Manifest...",
+    options.hideLogs
+  );
+
   options = getOptions(options);
 
   const components = getComponents(manifest, options.exclude).filter(
@@ -25,6 +34,7 @@ export function generateVuejsTypes(manifest: any, options: Options) {
     "typescript",
     120
   );
+  
   logBlue(`[vuejs-type-generator] - Generated "${outputPath}".`);
 }
 

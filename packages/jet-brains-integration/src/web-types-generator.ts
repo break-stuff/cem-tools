@@ -25,6 +25,7 @@ import {
   createOutDir,
   logBlue,
   logRed,
+  logYellow,
   saveFile,
 } from "../../../tools/integrations";
 import { toKebabCase } from "../../../tools/utilities";
@@ -118,6 +119,15 @@ export function generateJetBrainsWebTypes(
   customElementsManifest: CEM,
   options: Options
 ) {
+  if (options.skip) {
+    logYellow("[jet-brains-web-type-generator] - Skipped", options.hideLogs);
+    return;
+  }
+  logBlue(
+    "[jet-brains-web-type-generator] - Updating Custom Elements Manifest...",
+    options.hideLogs
+  );
+
   options = getOptions(options);
   const components = getComponents(
     customElementsManifest,
@@ -125,7 +135,7 @@ export function generateJetBrainsWebTypes(
   ).filter((x) => x.tagName);
 
   if (!components.length) {
-    logRed("No components found in custom-elements.json");
+    logRed("[jet-brains-web-type-generator] - No components found in custom-elements.json");
     return;
   }
 
