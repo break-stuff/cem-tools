@@ -119,6 +119,10 @@ The configuration has the following optional parameters:
     cssParts?: string;
     methods?: string;
   };
+  /** Hides logs produced by the plugin */
+  hideLogs?: boolean;
+  /** Prevents plugin from executing */
+  skip?: boolean;
 }
 ```
 

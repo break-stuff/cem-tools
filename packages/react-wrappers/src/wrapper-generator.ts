@@ -14,7 +14,7 @@ import {
   saveReactUtils,
   saveScopeProvider,
 } from "./utils.js";
-import { createOutDir, saveFile } from "../../../tools/integrations/index.js";
+import { createOutDir, logBlue, logYellow, saveFile } from "../../../tools/integrations/index.js";
 import {
   CEM,
   Component,
@@ -39,6 +39,15 @@ export function generateReactWrappers(
   customElementsManifest: CEM,
   options: Options
 ) {
+  if (options.skip) {
+    logYellow("[react-wrappers] - Skipped", options.hideLogs);
+    return;
+  }
+  logBlue(
+    "[react-wrappers] - Generating wrappers...",
+    options.hideLogs
+  );
+
   updateConfig(options);
   const components = getComponents(customElementsManifest, config.exclude);
   createOutDir(config.outdir!);
@@ -78,6 +87,7 @@ export function generateReactWrappers(
   });
 
   generateManifests(components, config.outdir!);
+  logBlue(`[react-wrappers] - Generated wrappers in "${config.outdir}".`, config.hideLogs);
 }
 
 function updateConfig(options: Options) {

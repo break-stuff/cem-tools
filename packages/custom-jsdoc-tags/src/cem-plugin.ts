@@ -1,6 +1,6 @@
 import { parse } from "comment-parser";
 import type { Component } from "../../../tools/cem-utils";
-import { logBlue } from "../../../tools/integrations";
+import { logBlue, logYellow } from "../../../tools/integrations";
 
 export interface Options {
   tags?: CustomTag;
@@ -40,6 +40,11 @@ export function customJSDocTagsPlugin(
     tags: {},
   }
 ) {
+  if(options.skip) {
+    logYellow("[custom-jsdoc-tags] - Skipped", options.hideLogs);
+    return;
+  }
+  
   logBlue("[custom-jsdoc-tags] - Updating Custom Elements Manifest...", options.hideLogs);
   userOptions = options;
 

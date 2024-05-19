@@ -114,6 +114,10 @@ export interface Options {
   packageJson?: boolean;
   /** Adds an icon to the webtypes.json  **/
   defaultIcon?: string;
+  /** Hides logs produced by the plugin */
+  hideLogs?: boolean;
+  /** Prevents plugin from executing */
+  skip?: boolean;
 }
 ```
 

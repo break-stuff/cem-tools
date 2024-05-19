@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.3.0
+
+- Added the ability to hide logs
+- Added the ability to skip the plugin
+
 ## 1.2.3
 
 - Allow any string for `descriptionSrc`

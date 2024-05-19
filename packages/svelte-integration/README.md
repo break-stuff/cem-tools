@@ -73,6 +73,10 @@ The configuration has the following optional parameters:
   typesSrc?: string;
   /** Used to add global element props to all component types */
   globalEvents?: string;
+  /** Hides logs produced by the plugin */
+  hideLogs?: boolean;
+  /** Prevents plugin from executing */
+  skip?: boolean;
 }
 ```
 
