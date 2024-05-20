@@ -1,6 +1,6 @@
 import { parse } from "comment-parser";
 import type { Component } from "../../../tools/cem-utils";
-import { logBlue, logYellow } from "../../../tools/integrations";
+import { logBlue, logYellow } from "../../../tools/integrations/src/logs";
 
 export interface Options {
   tags?: CustomTag;
