@@ -4,849 +4,9 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "build.js",
+      "path": "src/radio-group/alt-types.ts",
       "declarations": [],
       "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "\"./src/index.js\""
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "loader.js",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "updateConfig",
-          "parameters": [
-            {
-              "name": "config"
-            }
-          ],
-          "description": "Update the lazy-loader configuration at runtime"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "updateConfig",
-          "declaration": {
-            "name": "updateConfig",
-            "module": "loader.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "test.ts",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/index.js",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioGroup",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "./radio-group/RadioGroup"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "./radio-button/RadioButton"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/lit-app.js",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "l",
-          "members": [
-            {
-              "kind": "method",
-              "name": "validate",
-              "description": "Validated the radio inputs"
-            },
-            {
-              "kind": "method",
-              "name": "checkStatus",
-              "parameters": [
-                {
-                  "name": "e"
-                },
-                {
-                  "name": "o"
-                }
-              ],
-              "description": "This is a test method with parameters"
-            },
-            {
-              "kind": "method",
-              "name": "protectedMethod",
-              "description": "This is a test method that is protected"
-            },
-            {
-              "kind": "method",
-              "name": "render"
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\""
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"md\""
-            },
-            {
-              "kind": "field",
-              "name": "variants",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"primary\""
-            },
-            {
-              "kind": "field",
-              "name": "external",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"value1\""
-            },
-            {
-              "kind": "field",
-              "name": "external2",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"value4\""
-            },
-            {
-              "kind": "field",
-              "name": "complex",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"single\""
-            }
-          ],
-          "superclass": {
-            "name": "v",
-            "package": "lit"
-          }
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "y",
-          "members": [
-            {
-              "kind": "method",
-              "name": "render"
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\""
-            }
-          ],
-          "superclass": {
-            "name": "v",
-            "package": "lit"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "y",
-            "module": "dist/lit-app.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RadioGroup",
-          "declaration": {
-            "name": "l",
-            "module": "dist/lit-app.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/index.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioGroup",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "./radio-group/RadioGroup"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ComplexObjectType",
-          "declaration": {
-            "name": "ComplexObjectType",
-            "module": "./radio-group/RadioGroup"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "InterfaceEventType",
-          "declaration": {
-            "name": "InterfaceEventType",
-            "module": "./radio-group/RadioGroup"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "./radio-button/RadioButton"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/lazy/loader.js",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "updateConfig",
-          "parameters": [
-            {
-              "name": "config"
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "updateConfig",
-          "declaration": {
-            "name": "updateConfig",
-            "module": "dist/lazy/loader.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/radio-button/RadioButton.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "Direction"
-        },
-        {
-          "kind": "class",
-          "description": "",
-          "name": "RadioButton",
-          "slots": [
-            {
-              "description": "add text here to label your radio button",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "method",
-              "name": "render"
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "default": "\"\""
-            },
-            {
-              "kind": "field",
-              "name": "position",
-              "description": "Enum example"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "radio-button",
-          "summary": "Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\\n\\nUse it like this:\\n```html\\n<radio-button value=\"1\" disabled>Your label</radio-button>\\n```",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Direction",
-          "declaration": {
-            "name": "Direction",
-            "module": "dist/radio-button/RadioButton.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "dist/radio-button/RadioButton.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/radio-button/radio-button.js",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "dist/radio-button/radio-button.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "radio-button",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "/dist/radio-button/RadioButton.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/radio-group/RadioGroup.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "ComplexObject",
-          "type": {
-            "text": "object"
-          },
-          "default": "{\n    /** Designates only a single <he-accordion-item> can be open a time. */\n    single: 'single',\n    /** Designates multiple <he-accordion-items> can be open simultaneously. */\n    multi: 'multi',\n}"
-        },
-        {
-          "kind": "class",
-          "description": "\nRadio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).\n\nUse it like this:\n```html\n<radio-group value=\"2\" size=\"3\">\n  <span slot=\"label\">My Label</span>\n  <radio-button value=\"1\">Option 1</radio-button>\n  <radio-button value=\"2\">Option 2</radio-button>\n  <radio-button value=\"3\">Option 3</radio-button>\n</radio-group>\n```",
-          "name": "RadioGroup",
-          "cssProperties": [
-            {
-              "type": {
-                "text": "set:radiuses"
-              },
-              "description": "Controls the border radius of the radio buttons",
-              "name": "--radio-border-radius"
-            },
-            {
-              "description": "Controls the color of bar",
-              "name": "--radio-background-color",
-              "default": "red"
-            }
-          ],
-          "cssParts": [
-            {
-              "description": "Applies custom styles the radio group label",
-              "name": "radio-label"
-            }
-          ],
-          "slots": [
-            {
-              "description": "add radio buttons to the `default` slot to create options to your radio group",
-              "name": ""
-            },
-            {
-              "description": "placeholder for the radio group label",
-              "name": "label"
-            }
-          ],
-          "members": [
-            {
-              "kind": "method",
-              "name": "validate",
-              "description": "Validated the radio inputs"
-            },
-            {
-              "kind": "method",
-              "name": "checkStatus",
-              "parameters": [
-                {
-                  "name": "value"
-                },
-                {
-                  "name": "message"
-                }
-              ],
-              "description": "This is a test method with parameters"
-            },
-            {
-              "kind": "field",
-              "name": "customTag"
-            },
-            {
-              "kind": "method",
-              "name": "protectedMethod",
-              "description": "This is a test method that is protected"
-            },
-            {
-              "kind": "method",
-              "name": "render"
-            },
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
-              "default": "\"\""
-            },
-            {
-              "kind": "field",
-              "name": "size",
-              "type": {
-                "text": "string"
-              },
-              "description": "This will control the size of the radio buttons",
-              "default": "'md'"
-            },
-            {
-              "kind": "field",
-              "name": "variants",
-              "type": {
-                "text": "string"
-              },
-              "description": "This is a test for internal options",
-              "default": "'primary'"
-            },
-            {
-              "kind": "field",
-              "name": "external",
-              "type": {
-                "text": "string"
-              },
-              "deprecated": "This is a test for external d.ts options",
-              "default": "'value1'"
-            },
-            {
-              "kind": "field",
-              "name": "external2",
-              "type": {
-                "text": "string"
-              },
-              "description": "This is a test for external .ts options",
-              "default": "'value4'"
-            },
-            {
-              "kind": "field",
-              "name": "external3",
-              "type": {
-                "text": "string"
-              },
-              "description": "This is a test for external .ts options",
-              "default": "'value8'"
-            },
-            {
-              "kind": "field",
-              "name": "complex",
-              "type": {
-                "text": "string"
-              },
-              "description": "This is a test for options from an object",
-              "default": "'single'"
-            }
-          ],
-          "events": [
-            {
-              "description": "some description for custom-event",
-              "name": "custom-event"
-            },
-            {
-              "type": {
-                "text": "HTMLInputElement"
-              },
-              "description": "some description for typed-event",
-              "name": "typed-event"
-            },
-            {
-              "type": {
-                "text": "InterfaceEventType"
-              },
-              "description": "(@deprecated) some description for typed-custom-event",
-              "name": "typed-custom-event"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "radio-group",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ComplexObject",
-          "declaration": {
-            "name": "ComplexObject",
-            "module": "dist/radio-group/RadioGroup.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "RadioGroup",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "dist/radio-group/RadioGroup.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/radio-group/alt-types.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/radio-group/radio-group.js",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioGroup",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "dist/radio-group/radio-group.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "radio-group",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "/dist/radio-group/RadioGroup.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/react/RadioButton.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "RadioButton"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "dist/react/RadioButton.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/react/RadioGroup.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "RadioGroup"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioGroup",
-          "declaration": {
-            "name": "RadioGroup",
-            "module": "dist/react/RadioGroup.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/react/ScopeProvider.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "ScopeContext"
-        },
-        {
-          "kind": "function",
-          "name": "ScopeProvider",
-          "parameters": [
-            {
-              "name": "{ prefix, suffix, children }"
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ScopeContext",
-          "declaration": {
-            "name": "ScopeContext",
-            "module": "dist/react/ScopeProvider.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "ScopeProvider",
-          "declaration": {
-            "name": "ScopeProvider",
-            "module": "dist/react/ScopeProvider.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/react/index.js",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "\"./RadioGroup.js\""
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "\"./RadioButton.js\""
-          }
-        },
-        {
-          "kind": "js",
-          "name": "*",
-          "declaration": {
-            "name": "*",
-            "package": "\"./ScopeProvider.js\""
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/react/react-utils.js",
-      "declarations": [
-        {
-          "kind": "function",
-          "name": "useProperties",
-          "parameters": [
-            {
-              "name": "targetElement"
-            },
-            {
-              "name": "propName"
-            },
-            {
-              "name": "value"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "useEventListener",
-          "parameters": [
-            {
-              "name": "targetElement"
-            },
-            {
-              "name": "eventName"
-            },
-            {
-              "name": "eventHandler"
-            }
-          ]
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "useProperties",
-          "declaration": {
-            "name": "useProperties",
-            "module": "dist/react/react-utils.js"
-          }
-        },
-        {
-          "kind": "js",
-          "name": "useEventListener",
-          "declaration": {
-            "name": "useEventListener",
-            "module": "dist/react/react-utils.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/radio-button/RadioButton.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "",
-          "name": "RadioButton",
-          "slots": [
-            {
-              "description": "add text here to label your radio button",
-              "name": ""
-            }
-          ],
-          "members": [
-            {
-              "kind": "field",
-              "name": "value",
-              "type": {
-                "text": "string"
-              },
-              "default": "\"\"",
-              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked."
-            },
-            {
-              "kind": "field",
-              "name": "disabled",
-              "type": {
-                "text": "boolean | undefined"
-              },
-              "description": "Disables the radio button"
-            },
-            {
-              "kind": "field",
-              "name": "target",
-              "type": {
-                "text": "Target | undefined"
-              },
-              "description": "A lookup type for example"
-            },
-            {
-              "kind": "field",
-              "name": "for",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "A mapped attribute for react wrapper example"
-            },
-            {
-              "kind": "field",
-              "name": "position",
-              "type": {
-                "text": "string | undefined"
-              },
-              "description": "Enum example"
-            },
-            {
-              "kind": "method",
-              "name": "render"
-            }
-          ],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "radio-button",
-          "summary": "Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\\n\\nUse it like this:\\n```html\\n<radio-button value=\"1\" disabled>Your label</radio-button>\\n```",
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "src/radio-button/RadioButton.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/radio-button/radio-button.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "src/radio-button/radio-button.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "radio-button",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "/src/radio-button/RadioButton.js"
-          }
-        }
-      ]
     },
     {
       "kind": "javascript-module",
@@ -902,7 +62,8 @@
                 "text": "string"
               },
               "default": "\"\"",
-              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked."
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+              "attribute": "value"
             },
             {
               "kind": "field",
@@ -910,7 +71,8 @@
               "type": {
                 "text": "boolean | undefined"
               },
-              "description": "Disables the radio group and all of its radio buttons"
+              "description": "Disables the radio group and all of its radio buttons",
+              "attribute": "disabled"
             },
             {
               "kind": "field",
@@ -919,7 +81,8 @@
                 "text": "'sm' | 'md' | 'lg' | 'xl'"
               },
               "default": "'md'",
-              "description": "This will control the size of the radio buttons"
+              "description": "This will control the size of the radio buttons",
+              "attribute": "size"
             },
             {
               "kind": "field",
@@ -928,7 +91,11 @@
                 "text": "Variants"
               },
               "default": "'primary'",
-              "description": "This is a test for internal options"
+              "description": "This is a test for internal options",
+              "attribute": "variants",
+              "expandedType": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+              }
             },
             {
               "kind": "field",
@@ -937,7 +104,11 @@
                 "text": "Test"
               },
               "default": "'value1'",
-              "deprecated": "This is a test for external d.ts options"
+              "deprecated": "This is a test for external d.ts options",
+              "attribute": "external",
+              "expandedType": {
+                "text": "'value1' | 'value2' | 'value3'"
+              }
             },
             {
               "kind": "field",
@@ -946,7 +117,11 @@
                 "text": "Example"
               },
               "default": "'value4'",
-              "description": "This is a test for external .ts options"
+              "description": "This is a test for external .ts options",
+              "attribute": "external2",
+              "expandedType": {
+                "text": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'"
+              }
             },
             {
               "kind": "field",
@@ -955,7 +130,11 @@
                 "text": "Test3"
               },
               "default": "'value8'",
-              "description": "This is a test for external .ts options"
+              "description": "This is a test for external .ts options",
+              "attribute": "external3",
+              "expandedType": {
+                "text": "'value7' | 'value8' | 'value9'"
+              }
             },
             {
               "kind": "field",
@@ -964,7 +143,11 @@
                 "text": "ComplexObjectType"
               },
               "default": "'single'",
-              "description": "This is a test for options from an object"
+              "description": "This is a test for options from an object",
+              "attribute": "complex",
+              "expandedType": {
+                "text": "'single' | 'multi'"
+              }
             },
             {
               "kind": "field",
@@ -972,7 +155,8 @@
               "type": {
                 "text": "string | undefined"
               },
-              "description": "This is a camel-case attribute"
+              "description": "This is a camel-case attribute",
+              "attribute": "my-attribute"
             },
             {
               "kind": "field",
@@ -980,7 +164,10 @@
               "type": {
                 "text": "{\n    // The name.\n    name?: string,\n    /** The type. */\n    type?: string,\n    /** The value. */\n    value?: number,\n  } | undefined"
               },
-              "description": "This is data object"
+              "description": "This is data object",
+              "expandedType": {
+                "text": "{\n    // The name.\n    name??: string,\n    /** The type. */\n    type?: string,\n    /** The value. */\n    value?: number,\n  } | undefined"
+              }
             },
             {
               "kind": "field",
@@ -988,7 +175,11 @@
               "type": {
                 "text": "ChildSize | undefined"
               },
-              "description": "This is a test for options from an object"
+              "description": "This is a test for options from an object",
+              "attribute": "complex-union",
+              "expandedType": {
+                "text": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
+              }
             },
             {
               "kind": "field",
@@ -1043,10 +234,6 @@
               "name": "protectedMethod",
               "privacy": "protected",
               "description": "This is a test method that is protected"
-            },
-            {
-              "kind": "method",
-              "name": "render"
             }
           ],
           "events": [
@@ -1065,8 +252,126 @@
               "type": {
                 "text": "InterfaceEventType"
               },
-              "description": "(@deprecated) some description for typed-custom-event",
-              "name": "typed-custom-event"
+              "description": "",
+              "name": "typed-custom-event",
+              "deprecated": "some description for typed-custom-event"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+              "fieldName": "value",
+              "propName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the radio group and all of its radio buttons",
+              "fieldName": "disabled",
+              "propName": "disabled"
+            },
+            {
+              "name": "size",
+              "type": {
+                "text": "'sm' | 'md' | 'lg' | 'xl'"
+              },
+              "default": "'md'",
+              "description": "This will control the size of the radio buttons",
+              "fieldName": "size",
+              "propName": "size"
+            },
+            {
+              "name": "variants",
+              "type": {
+                "text": "Variants"
+              },
+              "default": "'primary'",
+              "description": "This is a test for internal options",
+              "fieldName": "variants",
+              "expandedType": {
+                "text": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+              },
+              "propName": "variants"
+            },
+            {
+              "name": "external",
+              "type": {
+                "text": "Test"
+              },
+              "default": "'value1'",
+              "deprecated": "This is a test for external d.ts options",
+              "fieldName": "external",
+              "expandedType": {
+                "text": "'value1' | 'value2' | 'value3'"
+              },
+              "propName": "external"
+            },
+            {
+              "name": "external2",
+              "type": {
+                "text": "Example"
+              },
+              "default": "'value4'",
+              "description": "This is a test for external .ts options",
+              "fieldName": "external2",
+              "expandedType": {
+                "text": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'"
+              },
+              "propName": "external2"
+            },
+            {
+              "name": "external3",
+              "type": {
+                "text": "Test3"
+              },
+              "default": "'value8'",
+              "description": "This is a test for external .ts options",
+              "fieldName": "external3",
+              "expandedType": {
+                "text": "'value7' | 'value8' | 'value9'"
+              },
+              "propName": "external3"
+            },
+            {
+              "name": "complex",
+              "type": {
+                "text": "ComplexObjectType"
+              },
+              "default": "'single'",
+              "description": "This is a test for options from an object",
+              "fieldName": "complex",
+              "expandedType": {
+                "text": "'single' | 'multi'"
+              },
+              "propName": "complex"
+            },
+            {
+              "name": "my-attribute",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "This is a camel-case attribute",
+              "fieldName": "myAttribute",
+              "propName": "myAttribute"
+            },
+            {
+              "name": "complex-union",
+              "type": {
+                "text": "ChildSize | undefined"
+              },
+              "description": "This is a test for options from an object",
+              "fieldName": "complexUnion",
+              "expandedType": {
+                "text": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
+              },
+              "propName": "complexUnion"
             }
           ],
           "superclass": {
@@ -1074,6 +379,32 @@
             "package": "lit"
           },
           "tagName": "radio-group",
+          "since": {
+            "name": "1.2.5",
+            "description": ""
+          },
+          "dependencies": [
+            {
+              "name": "icon",
+              "description": ""
+            },
+            {
+              "name": "button",
+              "description": ""
+            }
+          ],
+          "fancy": {
+            "name": "custom-tag",
+            "default": "default value",
+            "description": "This is a fancy attribute",
+            "type": {
+              "text": "string"
+            }
+          },
+          "default": {
+            "name": "",
+            "description": "This has no name"
+          },
           "customElement": true
         }
       ],
@@ -1098,9 +429,217 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/radio-group/alt-types.ts",
+      "path": "src/radio-button/RadioButton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "RadioButton",
+          "slots": [
+            {
+              "description": "add text here to label your radio button",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+              "attribute": "value"
+            },
+            {
+              "kind": "field",
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the radio button",
+              "attribute": "disabled"
+            },
+            {
+              "kind": "field",
+              "name": "target",
+              "type": {
+                "text": "Target | undefined"
+              },
+              "description": "A lookup type for example",
+              "attribute": "target",
+              "expandedType": {
+                "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
+              }
+            },
+            {
+              "kind": "field",
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A mapped attribute for react wrapper example",
+              "attribute": "for"
+            },
+            {
+              "kind": "field",
+              "name": "position",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Enum example",
+              "attribute": "position"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
+              "fieldName": "value",
+              "propName": "value"
+            },
+            {
+              "name": "disabled",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Disables the radio button",
+              "fieldName": "disabled",
+              "propName": "disabled"
+            },
+            {
+              "name": "target",
+              "type": {
+                "text": "Target | undefined"
+              },
+              "description": "A lookup type for example",
+              "fieldName": "target",
+              "expandedType": {
+                "text": "'_blank' | '_self' | '_parent' | '_top' | undefined"
+              },
+              "propName": "target"
+            },
+            {
+              "name": "for",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "A mapped attribute for react wrapper example",
+              "fieldName": "for",
+              "propName": "for"
+            },
+            {
+              "name": "position",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Enum example",
+              "fieldName": "position",
+              "propName": "position"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "radio-button",
+          "summary": "Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).\\n\\nUse it like this:\\n```html\\n<radio-button value=\"1\" disabled>Your label</radio-button>\\n```",
+          "dependencies": [
+            {
+              "name": "icon",
+              "description": ""
+            }
+          ],
+          "since": [
+            {
+              "name": "1.2.5",
+              "description": ""
+            },
+            {
+              "name": "1.3.0",
+              "description": "There was a major refactor in this release"
+            }
+          ],
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioButton",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "src/radio-button/RadioButton.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
       "declarations": [],
-      "exports": []
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioGroup",
+          "declaration": {
+            "name": "RadioGroup",
+            "module": "./radio-group/RadioGroup"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "ComplexObjectType",
+          "declaration": {
+            "name": "ComplexObjectType",
+            "module": "./radio-group/RadioGroup"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "InterfaceEventType",
+          "declaration": {
+            "name": "InterfaceEventType",
+            "module": "./radio-group/RadioGroup"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "RadioButton",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "./radio-button/RadioButton"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/radio-button/radio-button.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioButton",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "src/radio-button/radio-button.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "radio-button",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "/src/radio-button/RadioButton.js"
+          }
+        }
+      ]
     },
     {
       "kind": "javascript-module",
