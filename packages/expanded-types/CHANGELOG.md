@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1
+
+- Fixed build error for "path" import
+
 ## 1.3.0
 
 - Added the ability to hide logs
