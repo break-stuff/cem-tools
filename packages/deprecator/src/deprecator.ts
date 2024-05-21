@@ -9,15 +9,24 @@ import { Options } from "./types.js";
 let userConfig: Options = {};
 
 export function updateCemDeprecations(cem: CEM, options: Options = {}) {
-  logBlue("[cem-deprecator] - Updating Custom Elements Manifest...", options.hideLogs);
-  const newCem = generateUpdatedCem(cem, options);
-  createOutDir(userConfig.outdir!);
-  saveFile(
-    userConfig.outdir!,
-    userConfig.fileName!,
-    JSON.stringify(newCem, null, 2)
+  logBlue(
+    "[cem-deprecator] - Updating Custom Elements Manifest...",
+    options.hideLogs
   );
-  logBlue("[cem-deprecator] - Custom Elements Manifest updated.", options.hideLogs);
+  const newCem = generateUpdatedCem(cem, options);
+  if (!options.usedByPlugin) {
+    createOutDir(userConfig.outdir!);
+    saveFile(
+      userConfig.outdir!,
+      userConfig.fileName!,
+      JSON.stringify(newCem, null, 2)
+    );
+  }
+
+  logBlue(
+    "[cem-deprecator] - Custom Elements Manifest updated.",
+    options.hideLogs
+  );
 }
 
 function updateOptions(options: Options = {}) {

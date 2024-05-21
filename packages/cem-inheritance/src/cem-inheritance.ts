@@ -1,5 +1,10 @@
 import { CEM, Component } from "../../../tools/cem-utils/index.js";
-import { createOutDir, logBlue, logYellow, saveFile } from "../../../tools/integrations";
+import {
+  createOutDir,
+  logBlue,
+  logYellow,
+  saveFile,
+} from "../../../tools/integrations";
 import { Options } from "./types.js";
 
 const completedClasses: string[] = [];
@@ -10,19 +15,27 @@ let externalComponents: Component[] = [];
 let updatedCEM: any = {};
 
 export function updateCemInheritance(cem: CEM, options: Options = {}) {
-  if(options.skip) {
-    logYellow("[cem-inheritance-generator] - Skipped", options.hideLogs)
+  if (options.skip) {
+    logYellow("[cem-inheritance-generator] - Skipped", options.hideLogs);
   }
-  
-  logBlue("[cem-inheritance-generator] - Updating Custom Elements Manifest...", options.hideLogs);
-  const newCem = generateUpdatedCem(cem, options);
-  createOutDir(userConfig.outdir!);
-  saveFile(
-    userConfig.outdir!,
-    userConfig.fileName!,
-    JSON.stringify(newCem, null, 2)
+
+  logBlue(
+    "[cem-inheritance-generator] - Updating Custom Elements Manifest...",
+    options.hideLogs
   );
-  logBlue("[cem-inheritance-generator] - Custom Elements Manifest updated.", options.hideLogs);
+  const newCem = generateUpdatedCem(cem, options);
+  if (!options.usedByPlugin) {
+    createOutDir(userConfig.outdir!);
+    saveFile(
+      userConfig.outdir!,
+      userConfig.fileName!,
+      JSON.stringify(newCem, null, 2)
+    );
+  }
+  logBlue(
+    "[cem-inheritance-generator] - Custom Elements Manifest updated.",
+    options.hideLogs
+  );
 }
 
 function updateOptions(options: Options = {}) {
