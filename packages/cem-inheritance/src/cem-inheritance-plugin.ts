@@ -5,6 +5,7 @@ export function cemInheritancePlugin(options: Options = {}) {
   return {
     name: "cem-inheritance",
     packageLinkPhase({ customElementsManifest }: Params) {
+      options.usedByPlugin = true;
       updateCemInheritance(customElementsManifest, options);
     },
   };

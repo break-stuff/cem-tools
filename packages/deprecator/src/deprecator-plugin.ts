@@ -5,6 +5,7 @@ export function cemDeprecatorPlugin(options: Options = {}) {
   return {
     name: "cem-deprecator",
     packageLinkPhase({ customElementsManifest }: Params) {
+      options.usedByPlugin = true;
       updateCemDeprecations(customElementsManifest, options);
     },
   };
