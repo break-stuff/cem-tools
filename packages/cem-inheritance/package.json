@@ -1,6 +1,6 @@
 {
   "name": "custom-elements-manifest-inheritance",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A tool for mapping inherited content (including class members, attributes, CSS parts, CSS variables, slots, and events) from parent classes in the Custom Elements Manifest",
   "main": "index.js",
   "module": "index.js",

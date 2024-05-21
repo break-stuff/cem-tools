@@ -15,6 +15,8 @@ export interface Options {
   hideLogs?: boolean;
   /** Prevents plugin from executing */
   skip?: boolean;
+  /** @internal Used to indicate if this is used as a CEM a plugin */
+  usedByPlugin?: boolean;
 }
 
 export interface Params {
