@@ -1,3 +1,3 @@
-export { customElementLazyLoaderPlugin } from './cem-analyzer-plugin.js';
-export { generateCustomElementLazyLoader } from './linter-generator.js';
-export type { ComponentConfig, Options, RuntimeConfiguration } from './linter-generator.js';
+export { customEsLintRuleGeneratorPlugin } from './cem-analyzer-plugin.js';
+export { generateEsLintLintRules } from './linter-generator.js';
+export type { Options } from './linter-generator.js';
