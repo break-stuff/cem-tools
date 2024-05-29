@@ -1,7 +1,7 @@
 {
-  "name": "custom-element-eslint",
+  "name": "eslint-plugin-custom-element",
   "version": "1.0.0-alpha.0",
-  "description": "A tool for generating eslint rules for your custom elements.",
+  "description": "This plugin creates rules specific for validating custom element implementation in HTML",
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
@@ -19,17 +19,12 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
   },
   "devDependencies": {
-    "@custom-elements-manifest/analyzer": "^0.6.3",
+    "@types/eslint": "^8.56.10",
     "@types/jest": "^29.2.3",
-    "@types/node": "^18.6.3",
-    "@types/prettier": "^2.6.4",
-    "@typescript-eslint/eslint-plugin": "^5.48.1",
-    "@typescript-eslint/parser": "^5.48.1",
-    "eslint": "^8.32.0",
+    "eslint": "^9.3.0",
     "ts-jest": "^29.0.3",
-    "tsup": "^7.1.0"
+    "tsup": "^8.0.2"
   },
-  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/break-stuff/cem-tools.git"
@@ -39,5 +34,5 @@
   "bugs": {
     "url": "https://github.com/break-stuff/cem-tools/issues"
   },
-  "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/;azy-loader#readme"
+  "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/eslint-plugin#readme"
 }
