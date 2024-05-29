@@ -4,13 +4,13 @@ import { Rule } from "eslint";
 type Node = { name?: any; attributes?: never[], type: any };
 type ContextOption = { tag: string };
 
-export const noDeprecatedAttrs: Rule.RuleModule = {
+export const noDeprecatedTags: Rule.RuleModule = {
   meta: {
-    type: "suggestion",
+    type: 'suggestion',
     docs: {
-      description: "Indicates attributes that have been deprecated",
+      description: "Indicates deprecated custom elements",
       category: RULE_CATEGORIES.DEPRECATED,
-      recommended: false,
+      recommended: true,
     },
     schema: {
       type: "array",
@@ -18,14 +18,13 @@ export const noDeprecatedAttrs: Rule.RuleModule = {
         type: "object",
         properties: {
           tag: { type: "string" },
-          attr: { type: "string" },
         },
-        required: ["tag", "attr"],
+        required: ["tag"],
         additionalProperties: false,
       },
     },
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "Attribute '{{attr}}' is deprecated",
+      [MESSAGE_IDS.UNEXPECTED]: "Unexpected use of deprecated tag <{{tag}}>",
     },
   },
 
@@ -47,24 +46,14 @@ export const noDeprecatedAttrs: Rule.RuleModule = {
       tagName: string
     ) {
       const tagOptions = tagOptionsMap.get(tagName);
-      const attributes = node.attributes || [];
-
-      tagOptions.forEach((option: { attr: any }) => {
-        const attrName = option.attr;
-        const attr = attributes.find(
-          (attr: any) => attr.key && attr.key.value === attrName
-        );
-
-        if (attr) {
-          context.report({
-            messageId: MESSAGE_IDS.UNEXPECTED,
-            node,
-            data: {
-              attr: attrName,
-              tag: tagName,
-            },
-          });
-        }
+      tagOptions.forEach(() => {
+        context.report({
+          node,
+          data: {
+            tag: node.name,
+          },
+          messageId: MESSAGE_IDS.UNEXPECTED,
+        });
       });
     }
 

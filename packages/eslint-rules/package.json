@@ -1,5 +1,5 @@
 {
-  "name": "custom-element-eslint-rules",
+  "name": "custom-element-eslint-rule-generator",
   "version": "1.0.0-alpha.0",
   "description": "A tool for generating eslint rules for your custom elements.",
   "main": "index.js",

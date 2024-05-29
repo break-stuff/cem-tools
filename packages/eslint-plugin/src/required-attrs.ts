@@ -8,8 +8,8 @@ export const noDeprecatedAttrs: Rule.RuleModule = {
   meta: {
     type: "suggestion",
     docs: {
-      description: "Indicates attributes that have been deprecated",
-      category: RULE_CATEGORIES.DEPRECATED,
+      description: "Require specified attribute",
+      category: RULE_CATEGORIES.BEST_PRACTICE,
       recommended: false,
     },
     schema: {
@@ -19,13 +19,16 @@ export const noDeprecatedAttrs: Rule.RuleModule = {
         properties: {
           tag: { type: "string" },
           attr: { type: "string" },
+          value: { type: "string" },
         },
         required: ["tag", "attr"],
         additionalProperties: false,
       },
     },
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "Attribute '{{attr}}' is deprecated",
+      [MESSAGE_IDS.MISSING]: "'{{tag}}' tag is missing '{{attr}}' attribute",
+      [MESSAGE_IDS.UNEXPECTED]:
+        "Unexpected '{{attr}}' attribute value. '{{expected}}' is expected",
     },
   },
 
