@@ -1,7 +1,8 @@
 import { MESSAGE_IDS, RULE_CATEGORIES } from "./constants";
 import { Rule } from "eslint";
+import { getRuleListener, getTagOptionsMap } from "./utilities";
 
-type Node = { name?: any; attributes?: never[], type: any };
+type Node = { name?: any; attributes?: never[]; type: any };
 type ContextOption = { tag: string };
 
 export const noDeprecatedAttrs: Rule.RuleModule = {
@@ -30,22 +31,9 @@ export const noDeprecatedAttrs: Rule.RuleModule = {
   },
 
   create(context: Rule.RuleContext): Rule.RuleListener {
-    const options = context.options || [];
-    const tagOptionsMap = new Map();
+    const tagOptionsMap = getTagOptionsMap(context);
 
-    options.forEach((option: ContextOption) => {
-      const tagName = option.tag.toLowerCase();
-      if (tagOptionsMap.has(tagName)) {
-        tagOptionsMap.set(tagName, [...tagOptionsMap.get(tagName), option]);
-      } else {
-        tagOptionsMap.set(tagName, [option]);
-      }
-    });
-
-    function check(
-      node: Node,
-      tagName: string
-    ) {
+    const check = (node: Node, tagName: string) => {
       const tagOptions = tagOptionsMap.get(tagName);
       const attributes = node.attributes || [];
 
@@ -66,23 +54,8 @@ export const noDeprecatedAttrs: Rule.RuleModule = {
           });
         }
       });
-    }
-
-    return {
-      [["StyleTag", "ScriptTag"].join(",")](node: Node) {
-        const tagName = node.type === "StyleTag" ? "style" : "script";
-        if (!tagOptionsMap.has(tagName)) {
-          return;
-        }
-        check(node, tagName);
-      },
-      Tag(node: Node) {
-        const tagName = node.name.toLowerCase();
-        if (!tagOptionsMap.has(tagName)) {
-          return;
-        }
-        check(node, tagName);
-      },
     };
+
+    return getRuleListener(tagOptionsMap, check);
   },
 };

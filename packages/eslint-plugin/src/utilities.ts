@@ -1,10 +1,10 @@
 import { Rule } from "eslint";
 
-type ContextOption = { tag: string };
+export type ContextOption = { tag: string, attr: string, values: string[] };
 type Node = { name?: any; attributes?: never[], type: any };
 
 export function getTagOptionsMap(context: Rule.RuleContext) {
-  const options = context.options || [];
+  const options: ContextOption[] = context.options || [];
   const tagOptionsMap = new Map();
 
   options.forEach((option: ContextOption) => {
