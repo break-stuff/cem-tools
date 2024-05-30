@@ -3,7 +3,6 @@ import { Rule } from "eslint";
 import { getRuleListener, getTagOptionsMap } from "./utilities";
 
 type Node = { name?: any; attributes?: never[]; type: any };
-type ContextOption = { tag: string };
 
 export const noDeprecatedAttrs: Rule.RuleModule = {
   meta: {
@@ -35,9 +34,9 @@ export const noDeprecatedAttrs: Rule.RuleModule = {
 
     const check = (node: Node, tagName: string) => {
       const tagOptions = tagOptionsMap.get(tagName);
-      const attributes = node.attributes || [];
+      const attributes: any[] = node.attributes || [];
 
-      tagOptions?.forEach((option: { attr: any }) => {
+      tagOptions?.forEach((option) => {
         const attrName = option.attr;
         const attr = attributes.find(
           (attr: any) => attr.key && attr.key.value === attrName
@@ -46,7 +45,7 @@ export const noDeprecatedAttrs: Rule.RuleModule = {
         if (attr) {
           context.report({
             messageId: MESSAGE_IDS.UNEXPECTED,
-            node,
+            loc: attr.loc,
             data: {
               attr: attrName,
               tag: tagName,

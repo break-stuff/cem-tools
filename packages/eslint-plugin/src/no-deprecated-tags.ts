@@ -1,6 +1,6 @@
 import { MESSAGE_IDS, RULE_CATEGORIES } from "./constants";
 import { Rule } from "eslint";
-import { ContextOption, getRuleListener, getTagOptionsMap } from "./utilities";
+import { getRuleListener, getTagOptionsMap } from "./utilities";
 
 type Node = { name?: any; attributes?: never[], type: any };
 

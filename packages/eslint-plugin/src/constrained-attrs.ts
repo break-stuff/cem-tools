@@ -42,13 +42,15 @@ export const constrainedAttrs: Rule.RuleModule = {
       const attributes: any[] = node.attributes || [];
 
       tagOptions?.forEach(({ tag, attr, values }) => {
-        const attributeValue = attributes.find(
+        const attribute = attributes.find(
           (attribute) => attribute.key && attribute.key.value === attr
-        )?.value?.value;
-
-        if (!values.includes(attributeValue)) {
+        )
+        const attributeValue = attribute?.value?.value;
+        
+        
+        if (attribute && !values.includes(attributeValue)) {
           context.report({
-            node,
+            loc: attribute.loc,
             message: `Invalid value "${attributeValue}" for "${attr}" attribute in "<${tag}>" element. Valid values are: ${values.join(
               ", "
             )}`,

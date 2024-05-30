@@ -45,7 +45,5 @@ export function getRuleListener(
     },
   };
 
-  console.log('RESULT', result);
-
   return result;
 }
