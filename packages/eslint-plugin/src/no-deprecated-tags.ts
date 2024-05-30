@@ -1,9 +1,8 @@
 import { MESSAGE_IDS, RULE_CATEGORIES } from "./constants";
 import { Rule } from "eslint";
-import { getRuleListener, getTagOptionsMap } from "./utilities";
+import { ContextOption, getRuleListener, getTagOptionsMap } from "./utilities";
 
 type Node = { name?: any; attributes?: never[], type: any };
-type ContextOption = { tag: string };
 
 export const noDeprecatedTags: Rule.RuleModule = {
   meta: {
@@ -25,7 +24,7 @@ export const noDeprecatedTags: Rule.RuleModule = {
       },
     },
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "Unexpected use of deprecated tag <{{tag}}>",
+      [MESSAGE_IDS.UNEXPECTED]: "Unexpected use of deprecated tag `<{{tag}}>`",
     },
   },
 
@@ -37,7 +36,7 @@ export const noDeprecatedTags: Rule.RuleModule = {
       tagName: string
     ) => {
       const tagOptions = tagOptionsMap.get(tagName);
-      tagOptions.forEach(() => {
+      tagOptions?.forEach(() => {
         context.report({
           node,
           data: {
@@ -46,6 +45,7 @@ export const noDeprecatedTags: Rule.RuleModule = {
           messageId: MESSAGE_IDS.UNEXPECTED,
         });
       });
+
     }
 
     return getRuleListener(tagOptionsMap, check)

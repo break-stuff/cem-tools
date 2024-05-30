@@ -1,6 +1,6 @@
-import { MESSAGE_IDS, RULE_CATEGORIES } from "./constants";
+import { RULE_CATEGORIES } from "./constants";
 import { Rule } from "eslint";
-import { ContextOption, getRuleListener, getTagOptionsMap } from "./utilities";
+import { getRuleListener, getTagOptionsMap } from "./utilities";
 
 type Node = { name?: any; attributes?: never[]; type: any };
 
@@ -38,10 +38,10 @@ export const constrainedAttrs: Rule.RuleModule = {
     const tagOptionsMap = getTagOptionsMap(context);
 
     const check = (node: Node, tagName: string) => {
-      const tagOptions: ContextOption[] = tagOptionsMap.get(tagName);
+      const tagOptions = tagOptionsMap.get(tagName);
       const attributes: any[] = node.attributes || [];
 
-      tagOptions.forEach(({ tag, attr, values }) => {
+      tagOptions?.forEach(({ tag, attr, values }) => {
         const attributeValue = attributes.find(
           (attribute) => attribute.key && attribute.key.value === attr
         )?.value?.value;
@@ -49,7 +49,7 @@ export const constrainedAttrs: Rule.RuleModule = {
         if (!values.includes(attributeValue)) {
           context.report({
             node,
-            message: `Invalid value "${attributeValue}" for "${attr}" attribute in "${tag}" element. Valid values are: ${values.join(
+            message: `Invalid value "${attributeValue}" for "${attr}" attribute in "<${tag}>" element. Valid values are: ${values.join(
               ", "
             )}`,
           });
