@@ -1,29 +1,19 @@
 {
-  "name": "eslint-plugin-custom-element",
+  "name": "demo",
   "version": "1.0.0-alpha.0",
-  "description": "This plugin creates rules specific for validating custom element implementation in HTML",
-  "main": "index.js",
-  "module": "index.js",
-  "types": "index.d.ts",
   "type": "module",
-  "files": [
-    "index.js",
-    "index.d.ts",
-    "types.d.ts",
-    "/dist"
-  ],
   "scripts": {
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "demo": "cd demo && npx http-server --cors",
     "deploy": "npm run build && npm publish",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests",
+    "lint": "eslint"
   },
   "devDependencies": {
-    "@types/eslint": "^8.56.10",
-    "@types/jest": "^29.2.3",
+    "@html-eslint/parser": "^0.24.1",
     "eslint": "^9.3.0",
-    "ts-jest": "^29.0.3",
-    "tsup": "^8.0.2"
+    "eslint-plugin-html": "^8.1.1",
+    "eslint-plugin-custom-element": "file:./../"
   },
   "repository": {
     "type": "git",
