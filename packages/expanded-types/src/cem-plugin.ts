@@ -329,7 +329,7 @@ function parseTypeDefinitionTypes(source: string) {
 
 function updateExpandedTypes(component: Component, context: any) {
   const typedMembers = getTypedMembers(component);
-  const propName = options.propertyName || "expandedTypes";
+  const propName = options.propertyName || "expandedType";
 
   typedMembers.forEach((member) => {
     const typeValue = getTypeValue(member, context);
