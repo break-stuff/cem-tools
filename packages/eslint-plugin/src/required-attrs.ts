@@ -1,4 +1,4 @@
-import { MESSAGE_IDS, RULE_CATEGORIES } from "./constants";
+import { RULE_CATEGORIES } from "./constants";
 import { Rule } from "eslint";
 import { getRuleListener, getTagOptionsMap } from "./utilities";
 
@@ -25,11 +25,6 @@ export const requiredAttrs: Rule.RuleModule = {
         additionalProperties: false,
       },
     },
-    messages: {
-      [MESSAGE_IDS.MISSING]: "'{{tag}}' tag is missing '{{attr}}' attribute",
-      [MESSAGE_IDS.UNEXPECTED]:
-        "Unexpected '{{attr}}' attribute value. '{{expected}}' is expected",
-    },
   },
 
   create(context: Rule.RuleContext): Rule.RuleListener {
@@ -45,9 +40,9 @@ export const requiredAttrs: Rule.RuleModule = {
           (attr: any) => attr.key && attr.key.value === attrName
         );
 
-        if (attr) {
+        if (!attr) {
           context.report({
-            messageId: MESSAGE_IDS.UNEXPECTED,
+            message: `'<${tagName}>' tag is missing '${attrName}' attribute`,
             node,
             data: {
               attr: attrName,
