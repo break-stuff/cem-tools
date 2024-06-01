@@ -1,5 +1,5 @@
 import customElement from "eslint-plugin-custom-element";
-import html from "eslint-plugin-html";
+import html from "@html-eslint/eslint-plugin";
 import htmlParser from "@html-eslint/parser";
 
 export default [

@@ -24,7 +24,7 @@ export const noDeprecatedTags: Rule.RuleModule = {
       },
     },
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "Unexpected use of deprecated tag `<{{tag}}>`",
+      [MESSAGE_IDS.UNEXPECTED]: `"<{{tag}}>" element is deprecated`,
     },
   },
 

@@ -25,7 +25,7 @@ export const noDeprecatedAttrs: Rule.RuleModule = {
       },
     },
     messages: {
-      [MESSAGE_IDS.UNEXPECTED]: "Attribute `{{attr}}` is deprecated",
+      [MESSAGE_IDS.UNEXPECTED]: `Attribute "{{attr}}" for element "<{{tag}}>" is deprecated`,
     },
   },
 

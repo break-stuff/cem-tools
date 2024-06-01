@@ -51,7 +51,7 @@ export const constrainedAttrs: Rule.RuleModule = {
         if (attribute && !values.includes(attributeValue)) {
           context.report({
             loc: attribute.loc,
-            message: `Invalid value "${attributeValue}" for "${attr}" attribute in "<${tag}>" element. Valid values are: ${values.join(
+            message: `"${attributeValue}" is an invalid value for "${attr}" attribute in "<${tag}>" element. Valid values are: ${values.join(
               ", "
             )}`,
           });
