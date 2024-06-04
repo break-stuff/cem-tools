@@ -32,7 +32,7 @@
     "eslint-config-custom": "*",
     "prettier": "latest",
     "tsup": "^7.1.0",
-    "turbo": "^1.10.12"
+    "turbo": "^1.13.3"
   },
   "engines": {
     "node": ">=14.0.0"

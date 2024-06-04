@@ -30,7 +30,9 @@
     "ts-jest": "^29.0.3",
     "tsup": "^7.1.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "prettier": "^2.7.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/break-stuff/cem-tools.git"

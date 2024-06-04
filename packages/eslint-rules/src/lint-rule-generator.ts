@@ -3,12 +3,7 @@ import {
   type CEM,
   Component,
 } from "../../../tools/cem-utils/index.js";
-import {
-  createOutDir,
-  logBlue,
-  saveFile,
-} from "../../../tools/integrations/index.js";
-import path from "path";
+import { createOutDir, logBlue, saveFile } from "../../../tools/integrations";
 import { Options } from "./types.js";
 
 let userOptions: Options;
@@ -64,19 +59,12 @@ export function generateEsLintLintRules(cem: CEM, options: Options) {
   const components = getComponents(cem, userOptions.exclude).filter(
     (x) => x.tagName
   );
+  const template = getRulesTemplate(components);
 
-  saveFile(
-    userOptions.outdir!,
-    userOptions.fileName!,
-    getRulesTemplate(components),
-    "typescript"
-  );
+  saveFile(userOptions.outdir!, userOptions.fileName!, template, "typescript");
 
   logBlue(
-    `[custom-element-lazy-loader] - Generated "${path.join(
-      userOptions.outdir!,
-      userOptions.fileName!
-    )}".`
+    `[custom-element-lazy-loader] - Generated "${userOptions.outdir!}/${userOptions.fileName!}".`
   );
 }
 
@@ -93,7 +81,7 @@ function setUserOptions(options: Options) {
 
   userOptions.defaultRuleErrorLevels = {
     ...defaultRuleValues,
-    ...options.defaultRuleErrorLevels,
+    ...(options?.defaultRuleErrorLevels || {}),
   };
 }
 
@@ -143,9 +131,11 @@ function getRequiredAttrsTemplate(components: Component[]) {
           attr: "${attr}",
         }`;
               })
+              .filter((x) => x)
               .join(",\n");
           }
         })
+        .filter((x) => x)
         .join(",\n")}
   ],`;
 }
@@ -158,20 +148,21 @@ function getConstrainedAttrsTemplate(components: Component[]) {
         .map((component) => {
           component.attributes
             ?.map((attr) => {
-              const types = (attr as any)[userOptions.typesSrc!]?.text?.split(
-                "|"
-              );
+              const types =
+                (attr as any)[userOptions.typesSrc!]?.text?.split("|") || [];
               if (types.length > 1) {
                 return `
         {
           tag: "${component.tagName}",
-          attr: "${attr}",
+          attr: "${attr.name}",
           values: ${JSON.stringify(types.map((x: string) => x.trim()))},
         }`;
               }
             })
+            .filter((x) => x)
             .join(",\n");
         })
+        .filter((x) => x)
         .join(",\n")}
   ],`;
 }
@@ -188,12 +179,14 @@ function getNoBooleanAttrValuesTemplate(components: Component[]) {
                 return `
         {
           tag: "${component.tagName}",
-          attr: "${attr}",
+          attr: "${attr.name}",
         }`;
               }
             })
+            .filter((x) => x)
             .join(",\n");
         })
+        .filter((x) => x)
         .join(",\n")}
   ],`;
 }
@@ -205,17 +198,17 @@ function getNoDeprecatedAttrsTemplate(components: Component[]) {
       ${components
         .map((component) => {
           return component.attributes
+            ?.filter((attr) => attr.deprecated)
             ?.map((attr) => {
-              if (attr.deprecated) {
-                return `
+              return `
         {
           tag: "${component.tagName}",
-          attr: "${attr}",
+          attr: "${attr.name}",
         }`;
-              }
             })
             .join(",\n");
         })
+        .filter((x) => x)
         .join(",\n")}
   ],`;
 }
@@ -225,13 +218,12 @@ function getNoDeprecatedTagsTemplate(components: Component[]) {
   "custom-element/no-deprecated-tags": [
     "${userOptions.defaultRuleErrorLevels.noDeprecatedTags}",
       ${components
+        .filter((x) => x.deprecated)
         .map((component) => {
-          if (component.deprecated) {
-            return `
+          return `
         {
           tag: "${component.tagName}",
         }`;
-          }
         })
         .join(",\n")}
   ],`;

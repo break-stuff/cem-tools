@@ -11,8 +11,8 @@
     "outDir": "dist",
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022"
+    "target": "ES2019"
   },
-  "include": ["src/**/*.ts", "src/types.d.ts"],
+  "include": ["src/**/*.ts", "types.d.ts"],
   "exclude": ["dist", "build", "node_modules", "src/__tests__"]
 }

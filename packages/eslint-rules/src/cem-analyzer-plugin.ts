@@ -8,7 +8,7 @@ export interface Params {
 
 export function customEsLintRuleGeneratorPlugin(options: Options) {
   return {
-    name: "custom-element-eslint",
+    name: "custom-element-eslint-rules-generator",
     packageLinkPhase({ customElementsManifest }: Params) {
       generateEsLintLintRules(customElementsManifest, options);
     },
