@@ -3,7 +3,12 @@ import {
   type CEM,
   Component,
 } from "../../../tools/cem-utils/index.js";
-import { createOutDir, log, logGreen, saveFile } from "../../../tools/integrations";
+import {
+  createOutDir,
+  log,
+  logGreen,
+  saveFile,
+} from "../../../tools/integrations";
 import { Options } from "./types.js";
 import path from "path";
 
@@ -58,15 +63,16 @@ export function generateEsLintLintRules(cem: CEM, options: Options) {
   setUserOptions(options);
   createOutDir(userOptions.outdir!);
 
-  const components = getComponents(cem, userOptions.exclude).filter(
-    (x) => x.tagName
-  );
+  const components = getComponents(cem, userOptions.exclude);
   const template = getRulesTemplate(components);
 
   saveFile(userOptions.outdir!, userOptions.fileName!, template, "typescript");
 
   logGreen(
-    `[custom-element-eslint-rule-generator] - Generated "${path.join(userOptions.outdir!, userOptions.fileName!)}".`
+    `[custom-element-eslint-rule-generator] - Generated "${path.join(
+      userOptions.outdir!,
+      userOptions.fileName!
+    )}"`
   );
 }
 
