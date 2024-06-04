@@ -3,8 +3,9 @@ import {
   type CEM,
   Component,
 } from "../../../tools/cem-utils/index.js";
-import { createOutDir, logBlue, saveFile } from "../../../tools/integrations";
+import { createOutDir, log, logGreen, saveFile } from "../../../tools/integrations";
 import { Options } from "./types.js";
+import path from "path";
 
 let userOptions: Options;
 const defaultRuleValues = {
@@ -53,6 +54,7 @@ const defaultRuleValues = {
 };
 
 export function generateEsLintLintRules(cem: CEM, options: Options) {
+  log("[custom-element-eslint-rule-generator] - Generating ESLint rules...");
   setUserOptions(options);
   createOutDir(userOptions.outdir!);
 
@@ -63,8 +65,8 @@ export function generateEsLintLintRules(cem: CEM, options: Options) {
 
   saveFile(userOptions.outdir!, userOptions.fileName!, template, "typescript");
 
-  logBlue(
-    `[custom-element-lazy-loader] - Generated "${userOptions.outdir!}/${userOptions.fileName!}".`
+  logGreen(
+    `[custom-element-eslint-rule-generator] - Generated "${path.join(userOptions.outdir!, userOptions.fileName!)}".`
   );
 }
 
@@ -125,11 +127,10 @@ function getRequiredAttrsTemplate(components: Component[]) {
           if (requiredAttrs.length) {
             return requiredAttrs
               .map((attr) => {
-                return `
-        {
-          tag: "${component.tagName}",
-          attr: "${attr}",
-        }`;
+                return `{
+                  tag: "${component.tagName}",
+                  attr: "${attr}",
+                }`;
               })
               .filter((x) => x)
               .join(",\n");
@@ -151,12 +152,11 @@ function getConstrainedAttrsTemplate(components: Component[]) {
               const types =
                 (attr as any)[userOptions.typesSrc!]?.text?.split("|") || [];
               if (types.length > 1) {
-                return `
-        {
-          tag: "${component.tagName}",
-          attr: "${attr.name}",
-          values: ${JSON.stringify(types.map((x: string) => x.trim()))},
-        }`;
+                return `{
+                  tag: "${component.tagName}",
+                  attr: "${attr.name}",
+                  values: ${JSON.stringify(types.map((x: string) => x.trim()))},
+                }`;
               }
             })
             .filter((x) => x)
@@ -176,11 +176,10 @@ function getNoBooleanAttrValuesTemplate(components: Component[]) {
           component.attributes
             ?.map((attr) => {
               if (attr.type?.text?.includes("boolean")) {
-                return `
-        {
-          tag: "${component.tagName}",
-          attr: "${attr.name}",
-        }`;
+                return `{
+                  tag: "${component.tagName}",
+                  attr: "${attr.name}",
+                }`;
               }
             })
             .filter((x) => x)
@@ -200,11 +199,10 @@ function getNoDeprecatedAttrsTemplate(components: Component[]) {
           return component.attributes
             ?.filter((attr) => attr.deprecated)
             ?.map((attr) => {
-              return `
-        {
-          tag: "${component.tagName}",
-          attr: "${attr.name}",
-        }`;
+              return `{
+                tag: "${component.tagName}",
+                attr: "${attr.name}",
+              }`;
             })
             .join(",\n");
         })
@@ -220,10 +218,9 @@ function getNoDeprecatedTagsTemplate(components: Component[]) {
       ${components
         .filter((x) => x.deprecated)
         .map((component) => {
-          return `
-        {
-          tag: "${component.tagName}",
-        }`;
+          return `{
+            tag: "${component.tagName}",
+          }`;
         })
         .join(",\n")}
   ],`;
