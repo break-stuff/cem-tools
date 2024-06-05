@@ -2,8 +2,8 @@ import type { DefineComponent } from "vue";
 
 import type { RadioGroup, InterfaceEventType } from "./dist/radio-group/RadioGroup.d.ts";
 import type { RadioButton } from "./dist/radio-button/RadioButton.d.ts";
-import type { Button } from "./dist/my-button/Button.d.ts";
 import type { DeprecatedElement } from "./dist/deprecated-element/DeprecatedElement.d.ts";
+import type { MyButton } from "./dist/my-button/MyButton.d.ts";
 
 type RadioGroupProps = {
   /** The value assigned to the radio button. This will reflect in the radio group when clicked. */
@@ -53,9 +53,9 @@ type RadioButtonProps = {
   position?: RadioButton["position"];
 };
 
-type ButtonProps = {};
-
 type DeprecatedElementProps = {};
+
+type MyButtonProps = {};
 
 export type CustomElements = {
   /**
@@ -113,14 +113,6 @@ export type CustomElements = {
   "radio-button": DefineComponent<RadioButtonProps>;
 
   /**
-   *
-   * A basic button element
-   * ---
-   *
-   */
-  "my-button": DefineComponent<ButtonProps>;
-
-  /**
    * @deprecated An example of a deprecated element
    *
    *
@@ -128,6 +120,14 @@ export type CustomElements = {
    *
    */
   "deprecated-element": DefineComponent<DeprecatedElementProps>;
+
+  /**
+   *
+   * A basic button element
+   * ---
+   *
+   */
+  "my-button": DefineComponent<MyButtonProps>;
 };
 
 declare module "vue" {

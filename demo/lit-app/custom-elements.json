@@ -646,65 +646,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "src/button/Button.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "description": "\nA basic button element",
-          "name": "Button",
-          "members": [],
-          "superclass": {
-            "name": "LitElement",
-            "package": "lit"
-          },
-          "tagName": "my-button",
-          "since": [
-            {
-              "name": "1.2.5",
-              "description": ""
-            },
-            {
-              "name": "1.3.0",
-              "description": "There was a major refactor in this release"
-            }
-          ],
-          "required": [
-            {
-              "name": "type",
-              "description": ""
-            }
-          ],
-          "customElement": true
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "Button",
-          "declaration": {
-            "name": "Button",
-            "module": "src/button/Button.ts"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/button/button.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "my-button",
-          "declaration": {
-            "name": "Button",
-            "module": "/src/button/Button.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "src/deprecated-element/DeprecatedElement.ts",
       "declarations": [
         {
@@ -753,6 +694,65 @@
           "declaration": {
             "name": "DeprecatedElement",
             "module": "/src/deprecated-element/DeprecatedElement.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/my-button/MyButton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "\nA basic button element",
+          "name": "MyButton",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "my-button",
+          "since": [
+            {
+              "name": "1.2.5",
+              "description": ""
+            },
+            {
+              "name": "1.3.0",
+              "description": "There was a major refactor in this release"
+            }
+          ],
+          "required": [
+            {
+              "name": "type",
+              "description": ""
+            }
+          ],
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MyButton",
+          "declaration": {
+            "name": "MyButton",
+            "module": "src/my-button/MyButton.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/my-button/my-button.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "my-button",
+          "declaration": {
+            "name": "MyButton",
+            "module": "/src/my-button/MyButton.js"
           }
         }
       ]

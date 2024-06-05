@@ -133,14 +133,14 @@
       "references": []
     },
     {
-      "name": "my-button",
-      "description": "\nA basic button element\n---\n",
+      "name": "deprecated-element",
+      "description": "@deprecated An example of a deprecated element\n\n\n---\n",
       "attributes": [],
       "references": []
     },
     {
-      "name": "deprecated-element",
-      "description": "@deprecated An example of a deprecated element\n\n\n---\n",
+      "name": "my-button",
+      "description": "\nA basic button element\n---\n",
       "attributes": [],
       "references": []
     }

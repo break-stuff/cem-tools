@@ -22,12 +22,12 @@ let components = {
       },
     ],
   },
-  "my-button": {
-    importPath: "./dist/my-button/Button.js",
-    dependencies: [],
-  },
   "deprecated-element": {
     importPath: "./dist/deprecated-element/DeprecatedElement.js",
+    dependencies: [],
+  },
+  "my-button": {
+    importPath: "./dist/my-button/MyButton.js",
     dependencies: [],
   },
 };

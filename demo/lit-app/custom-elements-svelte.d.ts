@@ -1,7 +1,7 @@
 import type { RadioGroup, InterfaceEventType } from "./dist/radio-group/RadioGroup.d.ts";
 import type { RadioButton } from "./dist/radio-button/RadioButton.d.ts";
-import type { Button } from "./dist/my-button/Button.d.ts";
 import type { DeprecatedElement } from "./dist/deprecated-element/DeprecatedElement.d.ts";
+import type { MyButton } from "./dist/my-button/MyButton.d.ts";
 
 type BaseProps = {
   /** Content added between the opening and closing tags of the element */
@@ -90,9 +90,9 @@ type RadioButtonProps = {
   position?: RadioButton["position"];
 };
 
-type ButtonProps = {};
-
 type DeprecatedElementProps = {};
+
+type MyButtonProps = {};
 
 export type CustomElements = {
   /**
@@ -150,14 +150,6 @@ export type CustomElements = {
   "radio-button": Partial<RadioButtonProps | BaseProps | BaseEvents>;
 
   /**
-   *
-   * A basic button element
-   * ---
-   *
-   */
-  "my-button": Partial<ButtonProps | BaseProps | BaseEvents>;
-
-  /**
    * @deprecated An example of a deprecated element
    *
    *
@@ -165,6 +157,14 @@ export type CustomElements = {
    *
    */
   "deprecated-element": Partial<DeprecatedElementProps | BaseProps | BaseEvents>;
+
+  /**
+   *
+   * A basic button element
+   * ---
+   *
+   */
+  "my-button": Partial<MyButtonProps | BaseProps | BaseEvents>;
 };
 
 declare namespace svelteHTML {
