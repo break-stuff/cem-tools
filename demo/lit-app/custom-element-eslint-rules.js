@@ -9,13 +9,18 @@ const rules = {
     "warn",
     {
       tag: "radio-group",
-      attr: "external",
+      attr: "deprecated-attribute",
     },
   ],
 
   "custom-element/constrained-attrs": ["error"],
 
-  "custom-element/no-deprecated-tags": ["warn"],
+  "custom-element/no-deprecated-tags": [
+    "warn",
+    {
+      tag: "deprecated-element",
+    },
+  ],
 
   "custom-element/no-boolean-attr-values": ["error"],
 

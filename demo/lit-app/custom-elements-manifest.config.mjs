@@ -68,7 +68,10 @@ export default {
           isArray: true,
         },
         fancy: {},
-        default: {}
+        default: {},
+        required: {
+          isArray: true
+        }
       }
     }),
     cemDeprecatorPlugin(),

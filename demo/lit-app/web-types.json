@@ -39,6 +39,14 @@
             },
             {
               "name": "external",
+              "description": "This is a test for external d.ts options",
+              "value": {
+                "type": "'value1' | 'value2' | 'value3'",
+                "default": "'value1'"
+              }
+            },
+            {
+              "name": "deprecated-attribute",
               "value": {
                 "type": "'value1' | 'value2' | 'value3'",
                 "default": "'value1'"
@@ -126,7 +134,15 @@
                 "description": "This is a test for internal options",
                 "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
               },
-              { "name": "external", "type": "'value1' | 'value2' | 'value3'" },
+              {
+                "name": "external",
+                "description": "This is a test for external d.ts options",
+                "type": "'value1' | 'value2' | 'value3'"
+              },
+              {
+                "name": "deprecatedAttribute",
+                "type": "'value1' | 'value2' | 'value3'"
+              },
               {
                 "name": "external2",
                 "description": "This is a test for external .ts options",
@@ -247,6 +263,22 @@
             ],
             "events": []
           }
+        },
+        {
+          "name": "my-button",
+          "description": "\nA basic button element\n---\n",
+          "doc-url": "",
+          "attributes": [],
+          "events": [],
+          "js": { "properties": [], "events": [] }
+        },
+        {
+          "name": "deprecated-element",
+          "description": "@deprecated An example of a deprecated element\n\n\n---\n",
+          "doc-url": "",
+          "attributes": [],
+          "events": [],
+          "js": { "properties": [], "events": [] }
         }
       ]
     },
