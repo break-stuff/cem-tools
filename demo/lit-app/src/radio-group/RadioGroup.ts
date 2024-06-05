@@ -90,9 +90,13 @@ export class RadioGroup extends LitElement {
   @property({ type: String })
   variants: Variants = 'primary';
 
-  /** @deprecated This is a test for external d.ts options */
+  /** This is a test for external d.ts options */
   @property({ type: String })
   external: Test = 'value1';
+
+  /** @deprecated This is a deprecated attribute */
+  @property({ type: String, attribute: 'deprecated-attribute' })
+  deprecatedAttribute: Test = 'value1';
 
   /** This is a test for external .ts options */
   @property({ type: String })
