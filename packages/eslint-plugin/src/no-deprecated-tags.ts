@@ -1,4 +1,4 @@
-import { MESSAGE_IDS, RULE_CATEGORIES } from "./constants";
+import { RULE_CATEGORIES } from "./constants";
 import { Rule } from "eslint";
 import { getRuleListener, getTagOptionsMap } from "./utilities";
 
@@ -23,9 +23,6 @@ export const noDeprecatedTags: Rule.RuleModule = {
         additionalProperties: false,
       },
     },
-    messages: {
-      [MESSAGE_IDS.UNEXPECTED]: `"<{{tag}}>" element is deprecated`,
-    },
   },
 
   create(context: Rule.RuleContext): Rule.RuleListener {
@@ -38,11 +35,8 @@ export const noDeprecatedTags: Rule.RuleModule = {
       const tagOptions = tagOptionsMap.get(tagName);
       tagOptions?.forEach(() => {
         context.report({
-          node,
-          data: {
-            tag: node.name,
-          },
-          messageId: MESSAGE_IDS.UNEXPECTED,
+          message: `'<${node.name}>' element is deprecated`,
+          node
         });
       });
 

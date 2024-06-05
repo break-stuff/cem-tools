@@ -10,7 +10,7 @@ export const requiredAttrs: Rule.RuleModule = {
     docs: {
       description: "Require specified attribute",
       category: RULE_CATEGORIES.BEST_PRACTICE,
-      recommended: false,
+      recommended: true,
     },
     schema: {
       type: "array",
@@ -19,7 +19,6 @@ export const requiredAttrs: Rule.RuleModule = {
         properties: {
           tag: { type: "string" },
           attr: { type: "string" },
-          value: { type: "string" },
         },
         required: ["tag", "attr"],
         additionalProperties: false,
@@ -44,10 +43,6 @@ export const requiredAttrs: Rule.RuleModule = {
           context.report({
             message: `'<${tagName}>' tag is missing '${attrName}' attribute`,
             node,
-            data: {
-              attr: attrName,
-              tag: tagName,
-            },
           });
         }
       });
