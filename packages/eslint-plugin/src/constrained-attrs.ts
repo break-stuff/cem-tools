@@ -47,7 +47,6 @@ export const constrainedAttrs: Rule.RuleModule = {
         )
         const attributeValue = attribute?.value?.value;
         
-        
         if (attribute && !values.includes(attributeValue)) {
           context.report({
             loc: attribute.loc,

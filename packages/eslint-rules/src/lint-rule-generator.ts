@@ -179,16 +179,14 @@ function getNoBooleanAttrValuesTemplate(components: Component[]) {
     "${userOptions.defaultRuleErrorLevels.noBooleanAttrValues}",
       ${components
         .map((component) => {
-          component.attributes
+          return component.attributes
+            ?.filter((attr) => attr.type?.text?.includes("boolean"))
             ?.map((attr) => {
-              if (attr.type?.text?.includes("boolean")) {
-                return `{
+              return `{
                   tag: "${component.tagName}",
                   attr: "${attr.name}",
                 }`;
-              }
             })
-            .filter((x) => x)
             .join(",\n");
         })
         .filter((x) => x)

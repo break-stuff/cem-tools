@@ -45,7 +45,7 @@ export const noBooleanAttrValues: Rule.RuleModule = {
         if (attribute && attributeValue) {
           context.report({
             loc: attribute.loc,
-            message: `Setting a value for "${attr}" will make the value true in "<${tag}>" element. Use the presence of the attribute without a value to indicate truthiness instead.`,
+            message: `Setting a value for "${attribute.key.value}" will make the value true in "<${tag}>" element. Use the presence of the attribute without a value to indicate truthiness instead.`,
           });
         }
       });

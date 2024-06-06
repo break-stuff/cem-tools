@@ -22,7 +22,17 @@ const rules = {
     },
   ],
 
-  "custom-element/no-boolean-attr-values": ["error"],
+  "custom-element/no-boolean-attr-values": [
+    "error",
+    {
+      tag: "radio-group",
+      attr: "disabled",
+    },
+    {
+      tag: "radio-button",
+      attr: "disabled",
+    },
+  ],
 
   "@html-eslint/no-duplicate-attrs": "off",
   "@html-eslint/no-duplicate-id": "off",

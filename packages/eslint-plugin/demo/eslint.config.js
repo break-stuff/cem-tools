@@ -3,9 +3,9 @@ import html from "@html-eslint/eslint-plugin";
 import htmlParser from "@html-eslint/parser";
 
 export default [
-  html.configs["flat/recommended"],
+  // html.configs["flat/recommended"],
   {
-    files: ["**/*.html"],
+    files: ["**/*.html", "**/*.php"],
     languageOptions: {
       parser: htmlParser,
     },
@@ -32,7 +32,7 @@ export default [
       "custom-element/constrained-attrs": [
         "error",
         {
-          tag: "your-element",
+          tag: "my-element",
           attr: "species",
           values: ["human", "droid", "wookie", "ewok"],
         },
