@@ -152,8 +152,7 @@ function getConstrainedAttrsTemplate(components: Component[]) {
   "custom-element/constrained-attrs": [
     "${userOptions.defaultRuleErrorLevels.constrainedAttrs}",
       ${components
-        .map((component) => {
-          component.attributes
+        .map((component) => component.attributes
             ?.map((attr) => {
               const types =
                 (attr as any)[userOptions.typesSrc!]?.text?.split("|") || [];
@@ -161,13 +160,12 @@ function getConstrainedAttrsTemplate(components: Component[]) {
                 return `{
                   tag: "${component.tagName}",
                   attr: "${attr.name}",
-                  values: ${JSON.stringify(types.map((x: string) => x.trim()))},
+                  values: ${JSON.stringify(types.map((x: string) => x.replace(/['"]+/g, '').trim()))},
                 }`;
               }
             })
             .filter((x) => x)
-            .join(",\n");
-        })
+            .join(",\n"))
         .filter((x) => x)
         .join(",\n")}
   ],`;

@@ -75,6 +75,8 @@ export default {
       }
     }),
     cemDeprecatorPlugin(),
-    customEsLintRuleGeneratorPlugin()
+    customEsLintRuleGeneratorPlugin({
+      typesSrc: "expandedType"
+    })
   ],
 };

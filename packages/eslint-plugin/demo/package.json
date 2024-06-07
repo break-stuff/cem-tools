@@ -3,10 +3,6 @@
   "version": "1.0.0-alpha.0",
   "type": "module",
   "scripts": {
-    "build": "tsup src/index.ts --dts --format cjs,esm",
-    "demo": "cd demo && npx http-server --cors",
-    "deploy": "npm run build && npm publish",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests",
     "lint": "eslint"
   },
   "devDependencies": {

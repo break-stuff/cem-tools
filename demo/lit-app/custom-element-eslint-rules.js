@@ -13,7 +13,57 @@ const rules = {
     },
   ],
 
-  "custom-element/constrained-attrs": ["error"],
+  "custom-element/constrained-attrs": [
+    "error",
+    {
+      tag: "radio-group",
+      attr: "variants",
+      values: [
+        "default",
+        "primary",
+        "success",
+        "neutral",
+        "warning",
+        "danger",
+        "text",
+      ],
+    },
+    {
+      tag: "radio-group",
+      attr: "external",
+      values: ["value1", "value2", "value3"],
+    },
+    {
+      tag: "radio-group",
+      attr: "deprecated-attribute",
+      values: ["value1", "value2", "value3"],
+    },
+    {
+      tag: "radio-group",
+      attr: "external2",
+      values: ["value4", "value5", "value6", "valueA", "valueB"],
+    },
+    {
+      tag: "radio-group",
+      attr: "external3",
+      values: ["value7", "value8", "value9"],
+    },
+    {
+      tag: "radio-group",
+      attr: "complex",
+      values: ["single", "multi"],
+    },
+    {
+      tag: "radio-group",
+      attr: "complex-union",
+      values: ["small", "medium", "large", "extra-small", "undefined"],
+    },
+    {
+      tag: "radio-button",
+      attr: "target",
+      values: ["_blank", "_self", "_parent", "_top", "undefined"],
+    },
+  ],
 
   "custom-element/no-deprecated-tags": [
     "warn",
