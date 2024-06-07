@@ -95,11 +95,11 @@ function setUserOptions(options: Options) {
 
 function getRulesTemplate(components: Component[]) {
   return `
-const customElement = require("eslint-plugin-custom-element");
-const html = require("@html-eslint/eslint-plugin");
-const htmlParser = require("@html-eslint/parser");
-  
-const rules = {
+import customElement from "eslint-plugin-custom-element";
+import html from "@html-eslint/eslint-plugin";
+import htmlParser from "@html-eslint/parser";
+    
+export const rules = {
   ${getRequiredAttrsTemplate(components)}
   ${getNoDeprecatedAttrsTemplate(components)}
   ${getConstrainedAttrsTemplate(components)}
@@ -108,7 +108,7 @@ const rules = {
   ${getHtmlLintRules()}
 };
 
-module.exports = {
+export default {
   rules,
   recommendedConfig: {
     files: ["**/*.html"],

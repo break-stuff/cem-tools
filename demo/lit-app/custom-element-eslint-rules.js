@@ -1,8 +1,8 @@
-const customElement = require("eslint-plugin-custom-element");
-const html = require("@html-eslint/eslint-plugin");
-const htmlParser = require("@html-eslint/parser");
+import customElement from "eslint-plugin-custom-element";
+import html from "@html-eslint/eslint-plugin";
+import htmlParser from "@html-eslint/parser";
 
-const rules = {
+export const rules = {
   "custom-element/required-attrs": ["error"],
 
   "custom-element/no-deprecated-attrs": [
@@ -123,7 +123,7 @@ const rules = {
   "@html-eslint/sort-attrs": "off",
 };
 
-module.exports = {
+export default {
   rules,
   recommendedConfig: {
     files: ["**/*.html"],

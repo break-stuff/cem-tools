@@ -165,7 +165,7 @@ For VS Code, be sure to install the [ESLint Extension](https://marketplace.visua
 {
   "eslint.enable": true,
   "eslint.validate": [
-    "javascript", // ...
+    "javascript",
     "html" // Add "html" to enable linting `.html` files.
   ],
 }
