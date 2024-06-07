@@ -1,4 +1,4 @@
-# Custom Element ES Lint Plugin
+# Custom Element ESLint Plugin
 
 This plugin creates custom rules to lint custom elements in HTML.
 

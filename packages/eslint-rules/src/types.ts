@@ -1,6 +1,6 @@
 export type ErrorLevel = "off" | "warn" | "error" | 0 | 1 | 2;
 
-/** Configuration options for the `updateConfig` function */
+/** Configuration options */
 export type Options = {
   /** Path to output directory */
   outdir?: string;
