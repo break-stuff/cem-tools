@@ -703,7 +703,7 @@ function getGlobalEventPropsTemplate(events: GlobalEvent[] | undefined) {
 
 function getManifestContentTemplate(
   components: Component[],
-  outdir: (className: string, tagName: string) => string | string,
+  outdir: ((className: string, tagName: string) => string) | string,
   commonRoot: string
 ) {
   const resolveOutDir = typeof outdir === "function" ? outdir : () => outdir;
@@ -711,16 +711,20 @@ function getManifestContentTemplate(
   let exports = components
     .map((component) => {
       const componentOutDir = resolveOutDir(component.name, component.tagName!);
-      const relativePath = path
-        .relative(commonRoot, componentOutDir)
-        .replace(/\\/g, "/");
-      return `export * from './${relativePath}/${component.name}.js';`;
+      let relativePath = path.relative(commonRoot, componentOutDir).replace(/\\/g, "/");
+      if (!relativePath.startsWith('.')) {
+        relativePath = `./${relativePath}`;
+      }
+      return `export * from '${relativePath}/${component.name}.js';`;
     })
     .join("\n");
 
   if (config.scopedTags) {
     exports += `\nexport * from './ScopeProvider.js';`;
   }
+
+  // Remove any duplicate slashes in the path
+  exports = exports.replace(/\/\//g, '/');
 
   return exports;
 }
