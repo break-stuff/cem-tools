@@ -155,14 +155,14 @@ function generateReactWrapper(
   relativePathToCommonRoot: string,
   properties?: ClassField[]
 ) {
-  // Ensure outdir is always treated as a function
+  /**  Ensure outdir is always treated as a function */
   const outdir = config.outdir!;
   const componentOutDir =
     typeof outdir === "function"
       ? outdir(component.name, component.tagName!)
       : outdir;
 
-  // Handle empty relative path case
+  /** Handle empty relative path case */
   const adjustedRelativePathToCommonRoot =
     relativePathToCommonRoot === "" ? "." : relativePathToCommonRoot;
 
@@ -718,7 +718,6 @@ function getManifestContentTemplate(
     })
     .join("\n");
 
-  // Add ScopeProvider export directly
   if (config.scopedTags) {
     exports += `\nexport * from './ScopeProvider.js';`;
   }
