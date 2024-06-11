@@ -11,6 +11,7 @@ import {
   createEventName,
   getModulePath,
   getPackageJson,
+  normalizeOutdir,
   saveReactUtils,
   saveScopeProvider,
 } from "./utils.js";
@@ -30,33 +31,47 @@ import type {
   Parameter,
 } from "custom-elements-manifest";
 import { has, toCamelCase } from "../../../tools/utilities/index.js";
+import path from "path";
+import { BaseOptions } from "../../../tools/configurations/index.js";
 
 const packageJson = getPackageJson();
-let config: Options = {};
+let config: Options = {
+  outdir: (className: string, tagName: string) => `./react`
+};
 let globalEvents: GlobalEvent[] = [];
 
-export function generateReactWrappers(
-  customElementsManifest: CEM,
-  options: Options
-) {
+export function generateReactWrappers(customElementsManifest: CEM, options: Options) {
   if (options.skip) {
     logYellow("[react-wrappers] - Skipped", options.hideLogs);
     return;
   }
-  logBlue(
-    "[react-wrappers] - Generating wrappers...",
-    options.hideLogs
-  );
+  logBlue("[react-wrappers] - Generating wrappers...", options.hideLogs);
 
   updateConfig(options);
+
   const components = getComponents(customElementsManifest, config.exclude);
-  createOutDir(config.outdir!);
-  saveReactUtils(config.outdir!, config.ssrSafe);
-  if (config.scopedTags) {
-    saveScopeProvider(config.outdir!, config.ssrSafe);
+
+  const uniqueOutDirs = new Set<string>(components.map(c => {
+    const outdir = config.outdir;
+    return typeof outdir === 'function' ? outdir(c.name, c.tagName!) : outdir;
+  }).filter((dir): dir is string => typeof dir === 'string'));
+
+  const commonRoot = getCommonRoot(Array.from(uniqueOutDirs));
+
+  if (!commonRoot) {
+    throw new Error("Common root directory could not be determined. Ensure all component directories have a common path.");
   }
 
+  createOutDir(commonRoot);
+  saveScopeProvider(commonRoot, config.ssrSafe);
+
   components.forEach((component) => {
+    const componentOutDir = typeof config.outdir === 'function' ? config.outdir(component.name, component.tagName!) : config.outdir;
+    if (!componentOutDir) return;
+
+    createOutDir(componentOutDir);
+    saveReactUtils(commonRoot, config.ssrSafe);
+
     const events = getEventNames(component);
     const { booleanAttributes, attributes } = getAttributes(component);
     const properties = getProperties(component, attributes, booleanAttributes);
@@ -67,12 +82,15 @@ export function generateReactWrappers(
       packageJson
     );
 
+    const relativePathToCommonRoot = path.relative(componentOutDir, commonRoot).replace(/\\/g, '/');
+
     generateReactWrapper(
       component,
       events,
       booleanAttributes,
       attributes,
       componentModulePath,
+      relativePathToCommonRoot,
       properties
     );
 
@@ -86,13 +104,15 @@ export function generateReactWrappers(
     );
   });
 
-  generateManifests(components, config.outdir!);
+  generateManifests(components, config.outdir!, commonRoot);
+
   logBlue(`[react-wrappers] - Generated wrappers in "${config.outdir}".`, config.hideLogs);
 }
 
 function updateConfig(options: Options) {
   config = {
-    outdir: "./react",
+    ...config,
+    outdir: normalizeOutdir(options.outdir || config.outdir),
     exclude: [],
     typesSrc: "types",
     attributeMapping: {},
@@ -100,6 +120,7 @@ function updateConfig(options: Options) {
   };
 
   globalEvents = options.globalEvents || [];
+
 }
 
 function generateReactWrapper(
@@ -108,18 +129,27 @@ function generateReactWrapper(
   booleanAttributes: Attribute[],
   attributes: Attribute[],
   componentModulePath: string,
+  relativePathToCommonRoot: string,
   properties?: ClassField[]
 ) {
+  // Ensure outdir is always treated as a function
+  const outdir = config.outdir!;
+  const componentOutDir = typeof outdir === 'function' ? outdir(component.name, component.tagName!) : outdir;
+
+  // Handle empty relative path case
+  const adjustedRelativePathToCommonRoot = relativePathToCommonRoot === "" ? "." : relativePathToCommonRoot;
+
   const result = getReactComponentTemplate(
     component,
     events,
     booleanAttributes,
     attributes,
     componentModulePath,
+    adjustedRelativePathToCommonRoot,
     properties
   );
 
-  saveFile(config.outdir!, `${component.name}.js`, result, "typescript");
+  saveFile(componentOutDir, `${component.name}.js`, result, "typescript");
 }
 
 function generateTypeDefinition(
@@ -127,7 +157,7 @@ function generateTypeDefinition(
   events: EventName[],
   booleanAttributes: Attribute[],
   attributes: Attribute[],
-  componentModulePath: string,
+  modulePath: string,
   properties?: ClassField[]
 ) {
   const result = getTypeDefinitionTemplate(
@@ -135,26 +165,56 @@ function generateTypeDefinition(
     events,
     booleanAttributes,
     attributes,
-    componentModulePath,
+    modulePath,
     properties
   );
 
-  saveFile(config.outdir!, `${component.name}.d.ts`, result, "typescript");
+  const componentOutDir = typeof config.outdir === 'function' ? config.outdir(component.name, component.tagName!) : config.outdir;
+  saveFile(componentOutDir!, `${component.name}.d.ts`, result, "typescript");
 }
 
-function generateManifests(components: Component[], outdir: string) {
-  saveFile(
-    outdir,
-    "index.js",
-    getManifestContentTemplate(components),
-    "typescript"
-  );
-  saveFile(
-    outdir,
-    "index.d.ts",
-    getManifestContentTemplate(components),
-    "typescript"
-  );
+function generateManifests(components: Component[], outdir: (className: string, tagName: string) => string | string, commonRoot: string) {
+  const uniqueOutDirs = new Set<string>();
+
+  components.forEach(component => {
+    const componentOutDir = typeof outdir === 'function' ? outdir(component.name, component.tagName!) : outdir;
+    uniqueOutDirs.add(componentOutDir);
+  });
+
+  createOutDir(commonRoot);
+
+  const manifestContent = getManifestContentTemplate(components, outdir, commonRoot);
+
+  saveFile(commonRoot, "index.js", manifestContent, "typescript");
+  saveFile(commonRoot, "index.d.ts", manifestContent, "typescript");
+}
+
+function getCommonRoot(dirs: string[]): string {
+  if (!dirs.length) return "./react";
+
+  const normalizedDirs = dirs.map(dir => path.normalize(dir));
+  const splitDirs = normalizedDirs.map(dir => dir.split(path.sep));
+  const minLength = Math.min(...splitDirs.map(split => split.length));
+  const commonRootSegments: string[] = [];
+
+  for (let i = 0; i < minLength; i++) {
+    const segment = splitDirs[0][i];
+    if (splitDirs.every(split => split[i] === segment)) {
+      commonRootSegments.push(segment);
+      logBlue(`Common segment '${segment}' found at index ${i}`);
+    } else {
+      logBlue(`Segment mismatch at index ${i}, stopping`);
+      break;
+    }
+  }
+
+  let commonRoot = commonRootSegments.join(path.sep);
+  if (!commonRoot) {
+    commonRoot = "./react";
+  }
+
+  logBlue(`Calculated common root: ${commonRoot}`);
+  return commonRoot;
 }
 
 function getProperties(
@@ -311,6 +371,7 @@ function getReactComponentTemplate(
   booleanAttributes: MappedAttribute[],
   attributes: MappedAttribute[],
   modulePath: string,
+  relativePathToCommonRoot: string,
   properties?: ClassField[]
 ) {
   const eventTemplates = getEventTemplates(events);
@@ -324,22 +385,15 @@ function getReactComponentTemplate(
 
   return `
     ${config.ssrSafe ? '"use client"' : ""}
-    import React, { forwardRef, useImperativeHandle ${
-      useEffect ? ", useRef, useEffect" : ""
-    } ${config.scopedTags ? ", useContext" : ""} } from "react";
+    import React, { forwardRef, useImperativeHandle ${config.scopedTags ? ", useContext" : ""} ${useEffect ? ", useRef, useEffect" : ""} } from "react";
     ${!config.ssrSafe ? `import '${modulePath}';` : ""}
-    ${
-      has(eventTemplates) || has(propTemplates)
-        ? `import { 
-      ${has(eventTemplates) ? "useEventListener," : ""} 
-      ${has(propTemplates) ? "useProperties" : ""}
-    } from './react-utils.js';`
-        : ""
-    }
-    ${
-      config.scopedTags
-        ? 'import { ScopeContext } from "./ScopeProvider.js";'
-        : ""
+    ${config.scopedTags ? `import { ScopeContext } from "${relativePathToCommonRoot}/ScopeProvider.js";` : ""}
+    ${has(eventTemplates) || has(propTemplates)
+      ? `import { 
+          ${has(eventTemplates) ? "useEventListener," : ""} 
+          ${has(propTemplates) ? "useProperties" : ""}
+        } from '${relativePathToCommonRoot}/react-utils.js';`
+      : ""
     }
 
     export const ${component.name} = forwardRef((props, forwardedRef) => {
@@ -347,8 +401,7 @@ function getReactComponentTemplate(
       ${has(unusedProps) ? `const { ${unusedProps.join(", ")}, ...filteredProps } = props;` : ''}
       ${config.scopedTags ? "const scope = useContext(ScopeContext);" : ""}
 
-      ${
-        config.ssrSafe
+      ${config.ssrSafe
           ? `
       /** Waits for the client before loading the custom element */
       useEffect(() => {
@@ -358,22 +411,13 @@ function getReactComponentTemplate(
           : ""
       }
 
-
       ${has(eventTemplates) ? "/** Event listeners - run once */" : ""}
       ${eventTemplates?.join("") || ""}
 
-      ${
-        has(propTemplates)
-          ? "/** Properties - run whenever a property has changed */"
-          : ""
-      }
+      ${has(propTemplates) ? "/** Properties - run whenever a property has changed */" : ""}
       ${propTemplates?.join("") || ""}
 
-      ${
-        has(methods)
-          ? "/** Methods - uses `useImperativeHandle` hook to pass ref to component */"
-          : ""
-      }
+      ${has(methods) ? "/** Methods - uses `useImperativeHandle` hook to pass ref to component */" : ""}
       useImperativeHandle(forwardedRef, () => ({
         ${getPublicMethodsForRef(methods)}
       }));
@@ -392,6 +436,12 @@ function getReactComponentTemplate(
     });
   `;
 }
+function convertOptionsToBaseOptions(options: Options): BaseOptions {
+  return {
+    ...options,
+    outdir: typeof options.outdir === 'string' ? options.outdir : options.outdir ? options.outdir('', '') : undefined
+  };
+}
 
 function getTypeDefinitionTemplate(
   component: Component,
@@ -409,6 +459,7 @@ function getTypeDefinitionTemplate(
     properties
   );
   const eventTypes = getCustomEventTypes(component);
+  const baseConfig = convertOptionsToBaseOptions(config);
 
   return `
     import { 
@@ -428,7 +479,7 @@ function getTypeDefinitionTemplate(
     }
 
     /**
-     ${getComponentDetailsTemplate(component, config, true)}
+     ${getComponentDetailsTemplate(component, baseConfig, true)}
      */
      export const ${component.name}: React.ForwardRefExoticComponent<${
     component.name
@@ -583,19 +634,25 @@ function getGlobalEventPropsTemplate(events: GlobalEvent[] | undefined) {
   );
 }
 
-function getManifestContentTemplate(components: Component[]) {
-  let exports = components
-    .map((component) => `export * from './${component.name}.js';`)
-    .join("");
+function getManifestContentTemplate(components: Component[], outdir: (className: string, tagName: string) => string | string, commonRoot: string) {
+  const resolveOutDir = typeof outdir === 'function' ? outdir : () => outdir;
 
+  let exports = components
+    .map(component => {
+      const componentOutDir = resolveOutDir(component.name, component.tagName!);
+      const relativePath = path.relative(commonRoot, componentOutDir).replace(/\\/g, '/');
+      return `export * from './${relativePath}/${component.name}.js';`;
+    })
+    .join("\n");
+
+  // Add ScopeProvider export directly
   if (config.scopedTags) {
-    exports += `
-        export * from "./ScopeProvider.js";
-      `;
+    exports += `\nexport * from './ScopeProvider.js';`;
   }
 
   return exports;
 }
+
 
 function getEventType(eventType?: string, eventCustom?: boolean) {
   if (eventCustom) {

@@ -12,7 +12,7 @@ export function getPackageJson(): any {
 export function getModulePath(
   modulePath: ((className: string, tagName: string) => string) | undefined,
   component: Component,
-  outdir: string,
+  outdir: (className: string, tagName: string) => string | string,
   packageJson: any
 ) {
   if (modulePath instanceof Function) {
@@ -25,8 +25,20 @@ export function getModulePath(
     );
   }
 
-  const directories = outdir?.split("/");
+  const outdirPath = typeof outdir === 'function' ? outdir(component.name, component.tagName!) : outdir;
+  const directories = outdirPath?.split("/");
   return path.join(directories.map((_) => "../").join(""), packageJson.module);
+}
+
+export function normalizeOutdir(outdir: any) {
+  console.log("Normalizing outdir:", outdir, "Type:", typeof outdir);
+  if (typeof outdir === 'function') {
+    return outdir;
+  }
+  if (typeof outdir === 'string') {
+    return () => outdir;
+  }
+  throw new TypeError('The outdir property must be either a string or a function.');
 }
 
 export const createEventName = (event: any) => `on${toPascalCase(event.name)}`;
