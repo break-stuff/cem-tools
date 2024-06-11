@@ -41,7 +41,7 @@ import { BaseOptions } from "../../../tools/configurations/index.js";
 
 const packageJson = getPackageJson();
 let config: Options = {
-  outdir: (className: string, tagName: string) => `./react`,
+  outdir: () => `./react`,
 };
 let globalEvents: GlobalEvent[] = [];
 
