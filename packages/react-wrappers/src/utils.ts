@@ -31,7 +31,6 @@ export function getModulePath(
 }
 
 export function normalizeOutdir(outdir: any) {
-  console.log("Normalizing outdir:", outdir, "Type:", typeof outdir);
   if (typeof outdir === 'function') {
     return outdir;
   }
