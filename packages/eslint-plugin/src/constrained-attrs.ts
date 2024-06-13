@@ -1,10 +1,8 @@
 import { RULE_CATEGORIES } from "./constants";
 import { Rule } from "eslint";
-import { BaseContextOption, getRuleListener, getTagOptionsMap } from "./utilities";
+import { getRuleListener, getTagOptionsMap } from "./utilities";
 
 type Node = { name?: any; attributes?: never[]; type: any };
-type Attribute = {attrs: string, values: string[]};
-type ContextOptions = BaseContextOption & { attrs: Attribute[] };
 
 export const constrainedAttrs: Rule.RuleModule = {
   meta: {
@@ -22,21 +20,13 @@ export const constrainedAttrs: Rule.RuleModule = {
           tag: {
             type: "string",
           },
-          attrs: {
+          attr: {
+            type: "string",
+          },
+          values: {
             type: "array",
             items: {
-              type: "object",
-              properties: {
-                attr: {
-                  type: "string",
-                },
-                values: {
-                  type: "array",
-                  items: {
-                    type: "string",
-                  },
-                },
-              },
+              type: "string",
             },
           },
         },

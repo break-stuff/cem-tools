@@ -1,18 +1,13 @@
 import { Rule } from "eslint";
 
-export interface BaseContextOption {
-  tag: string;
-}
-
+export type ContextOption = { tag: string; attr: string; values: string[] };
 type Node = { name?: any; attributes?: never[]; type: any };
-// type ContextOptionsMap = Map<string, BaseContextOption[]>;
+type ContextOptionsMap = Map<string, ContextOption[]>;
 type CheckValidation = (node: Node, tagName: string) => void;
 
-export function getTagOptionsMap<T extends BaseContextOption>(
-  context: Rule.RuleContext
-): Map<string, T[]>{
-  const options: T[] = context.options || [];
-  const tagOptionsMap = new Map<string, T[]>();
+export function getTagOptionsMap(context: Rule.RuleContext) {
+  const options: ContextOption[] = context.options || [];
+  const tagOptionsMap: ContextOptionsMap = new Map();
 
   options.forEach((option) => {
     const tagName = option.tag.toLowerCase();
