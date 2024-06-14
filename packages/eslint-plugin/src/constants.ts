@@ -3,8 +3,3 @@ export const RULE_CATEGORIES = {
   DEPRECATED: "Deprecated",
   ACCESSIBILITY: "Accessibility",
 };
-
-export const MESSAGE_IDS = {
-  MISSING: "missing",
-  UNEXPECTED: "unexpected",
-};
