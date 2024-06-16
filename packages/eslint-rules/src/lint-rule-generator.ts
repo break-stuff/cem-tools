@@ -131,7 +131,7 @@ function getRequiredAttrsTemplate(components: Component[]) {
             return requiredAttrs
               .map((attr) => {
                 return `{
-                  tag: "${component.tagName}",
+                  tag: "${userOptions.prefix}${component.tagName}${userOptions.suffix}",
                   attr: "${attr}",
                 }`;
               })
@@ -158,7 +158,7 @@ function getConstrainedAttrsTemplate(components: Component[]) {
                 ) || [];
               if (types.length > 1) {
                 return `{
-                  tag: "${component.tagName}",
+                  tag: "${userOptions.prefix}${component.tagName}${userOptions.suffix}",
                   attr: "${attr.name}",
                   values: ${JSON.stringify(
                     types.map((x: string) => x.replace(/['"]+/g, "").trim())
@@ -184,7 +184,7 @@ function getNoBooleanAttrValuesTemplate(components: Component[]) {
             ?.filter((attr) => attr.type?.text?.includes("boolean"))
             ?.map((attr) => {
               return `{
-                  tag: "${component.tagName}",
+                  tag: "${userOptions.prefix}${component.tagName}${userOptions.suffix}",
                   attr: "${attr.name}",
                 }`;
             })
@@ -205,7 +205,7 @@ function getNoDeprecatedAttrsTemplate(components: Component[]) {
             ?.filter((attr) => attr.deprecated)
             ?.map((attr) => {
               return `{
-                tag: "${component.tagName}",
+                tag: "${userOptions.prefix}${component.tagName}${userOptions.suffix}",
                 attr: "${attr.name}",
               }`;
             })
@@ -224,7 +224,7 @@ function getNoDeprecatedTagsTemplate(components: Component[]) {
         .filter((x) => x.deprecated)
         .map((component) => {
           return `{
-            tag: "${component.tagName}",
+            tag: "${userOptions.prefix}${component.tagName}${userOptions.suffix}",
           }`;
         })
         .join(",\n")}
