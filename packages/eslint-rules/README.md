@@ -1,6 +1,6 @@
 # Custom Element ESLint Rule Generator
 
-This package takes information in your Custom Elements Manifest and generates rules for the Custom Element ESLint Plugin. These rules validate the custom elements in your HTML.
+This package takes information in your Custom Elements Manifest and generates rules that can be used in the [Custom Element ESLint Plugin](https://www.npmjs.com/package/eslint-plugin-custom-element). These rules validate the custom elements in your HTML.
 
 ## Usage
 
@@ -10,15 +10,8 @@ This package includes two ways to generate the custom data config file:
 
 ### Install
 
-To use this package, you will need to install the following packages:  
-
-- `eslint` - to handle the linting and error reporting
-- `@html-eslint/eslint-plugin` and `@html-eslint/parser` - to parse the DOM and leverage ESLint for validation
-- `eslint-plugin-custom-element` - provides the required validation for the generated rules
-
-
 ```bash
-npm install -D custom-element-eslint-rule-generator eslint-plugin-custom-element eslint @html-eslint/eslint-plugin @html-eslint/parser
+npm install -D custom-element-eslint-rule-generator
 ```
 
 ### Build Pipeline
@@ -58,6 +51,16 @@ export default {
 ```
 
 ## Implementation
+
+To use this package, you will need to install the following packages:  
+
+- `eslint` - to handle the linting and error reporting
+- `@html-eslint/eslint-plugin` and `@html-eslint/parser` - to parse the DOM and leverage ESLint for validation
+- `eslint-plugin-custom-element` - provides the required validation for the generated rules
+
+```bash
+npm install -D eslint-plugin-custom-element eslint @html-eslint/eslint-plugin @html-eslint/parser
+```
 
 The following is a basic setup to use the custom rules
 
