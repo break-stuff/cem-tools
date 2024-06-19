@@ -52,7 +52,7 @@ export default {
 
 ## Implementation
 
-To use this package, you will need to install the following packages:  
+To use these rules, you will need to install the following packages:  
 
 - `eslint` - to handle the linting and error reporting
 - `@html-eslint/eslint-plugin` and `@html-eslint/parser` - to parse the DOM and leverage ESLint for validation
@@ -70,7 +70,7 @@ The following is a basic setup to use the custom rules
 import customElementRules from "path/to/custom-rules.js";
 
 export default [
-  /* Other ESLint rules */
+  /* ... other ESLint rules */
   customElementRules.recommendedConfig
 ];
 ```
