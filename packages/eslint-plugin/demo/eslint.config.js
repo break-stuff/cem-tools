@@ -14,33 +14,36 @@ export default [
       "custom-element/required-attrs": [
         "error",
         {
-          tag: "your-element",
+          tag: "my-input",
           attr: "aria-label",
-        },
-        {
-          tag: "your-element",
-          attr: "aria-labelledby",
         },
       ],
       "custom-element/no-deprecated-attrs": [
-        "error",
+        "warn",
         {
-          tag: "my-element",
+          tag: "my-button",
           attr: "size",
         },
       ],
       "custom-element/constrained-attrs": [
         "error",
         {
-          tag: "my-element",
-          attr: "species",
-          values: ["human", "droid", "wookie", "ewok"],
+          tag: "my-button",
+          attr: "variant",
+          values: ["default", "primary", "outline", "transparent"],
         },
       ],
       "custom-element/no-deprecated-tags": [
+        "warn",
+        {
+          tag: "my-element",
+        },
+      ],
+      "custom-element/no-boolean-attr-values": [
         "error",
         {
-          tag: "your-element",
+          tag: "my-button",
+          attr: "disabled",
         },
       ],
     },
