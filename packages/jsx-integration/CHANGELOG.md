@@ -5,11 +5,16 @@
 - Added the ability to hide logs
 - Added the ability to skip the plugin
 
+## 1.4.0
+
+- Added `class` prop back into types
+- Added StackBlitz sandbox to README
+- Export type of component props.
+
 ## 1.3.2
 
 - Added `class` prop to types
 - Added StackBlitz sandbox
-- Export type of component props.
 
 ## 1.3.1
 

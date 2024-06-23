@@ -41,7 +41,6 @@
         },
         {
           "name": "external",
-          "description": "This is a test for external d.ts options",
           "values": [
             { "name": "value1" },
             { "name": "value2" },

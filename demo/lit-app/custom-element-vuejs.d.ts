@@ -14,7 +14,7 @@ type RadioGroupProps = {
   size?: RadioGroup["size"];
   /** This is a test for internal options */
   variants?: RadioGroup["variants"];
-  /** This is a test for external d.ts options */
+  /** @deprecated This is a test for external d.ts options */
   external?: RadioGroup["external"];
   /** @deprecated This is a deprecated attribute */
   "deprecated-attribute"?: RadioGroup["deprecatedAttribute"];

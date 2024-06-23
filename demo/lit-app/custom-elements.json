@@ -104,7 +104,7 @@
                 "text": "Test"
               },
               "default": "'value1'",
-              "description": "This is a test for external d.ts options",
+              "deprecated": "This is a test for external d.ts options",
               "attribute": "external",
               "expandedType": {
                 "text": "'value1' | 'value2' | 'value3'"
@@ -319,7 +319,7 @@
                 "text": "Test"
               },
               "default": "'value1'",
-              "description": "This is a test for external d.ts options",
+              "deprecated": "This is a test for external d.ts options",
               "fieldName": "external",
               "expandedType": {
                 "text": "'value1' | 'value2' | 'value3'"

@@ -9,6 +9,7 @@
         {
           "name": "radio-group",
           "description": "\nRadio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).\n\nUse it like this:\n```html\n<radio-group value=\"2\" size=\"3\">\n  <span slot=\"label\">My Label</span>\n  <radio-button value=\"1\">Option 1</radio-button>\n  <radio-button value=\"2\">Option 2</radio-button>\n  <radio-button value=\"3\">Option 3</radio-button>\n</radio-group>\n```\n---\n\n\n### **Events:**\n - **custom-event** - some description for custom-event\n- **typed-event** - some description for typed-event\n- **typed-custom-event** - (@deprecated) some description for typed-custom-event\n\n### **Methods:**\n - **validate()** - Validated the radio inputs\n- **checkStatus(value: _string_, message: _string_): _string_** - This is a test method with parameters\n\n\n### **Slots:**\n - _default_ - add radio buttons to the `default` slot to create options to your radio group\n- **label** - placeholder for the radio group label\n\n### **CSS Properties:**\n - **--radio-border-radius** - Controls the border radius of the radio buttons _(default: undefined)_\n- **--radio-background-color** - Controls the color of bar _(default: red)_\n\n### **CSS Parts:**\n - **radio-label** - Applies custom styles the radio group label",
+          "description": "\nRadio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).\n\nUse it like this:\n```html\n<radio-group value=\"2\" size=\"3\">\n  <span slot=\"label\">My Label</span>\n  <radio-button value=\"1\">Option 1</radio-button>\n  <radio-button value=\"2\">Option 2</radio-button>\n  <radio-button value=\"3\">Option 3</radio-button>\n</radio-group>\n```\n---\n\n\n### **Events:**\n - **custom-event** - some description for custom-event\n- **typed-event** - some description for typed-event\n- **typed-custom-event** - (@deprecated) some description for typed-custom-event\n\n### **Methods:**\n - **validate()** - Validated the radio inputs\n- **checkStatus(value: _string_, message: _string_): _string_** - This is a test method with parameters\n\n\n### **Slots:**\n - _default_ - add radio buttons to the `default` slot to create options to your radio group\n- **label** - placeholder for the radio group label\n\n### **CSS Properties:**\n - **--radio-border-radius** - Controls the border radius of the radio buttons _(default: undefined)_\n- **--radio-background-color** - Controls the color of bar _(default: red)_\n\n### **CSS Parts:**\n - **radio-label** - Applies custom styles the radio group label",
           "doc-url": "",
           "attributes": [
             {
@@ -104,10 +105,13 @@
             {
               "name": "typed-event",
               "type": "HTMLInputElement",
+              "type": "HTMLInputElement",
               "description": "some description for typed-event"
             },
             {
               "name": "typed-custom-event",
+              "type": "InterfaceEventType",
+              "description": "(@deprecated) some description for typed-custom-event"
               "type": "InterfaceEventType",
               "description": "(@deprecated) some description for typed-custom-event"
             }
@@ -118,20 +122,24 @@
                 "name": "value",
                 "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
                 "type": "string"
+                "type": "string"
               },
               {
                 "name": "disabled",
                 "description": "Disables the radio group and all of its radio buttons",
+                "type": "boolean | undefined"
                 "type": "boolean | undefined"
               },
               {
                 "name": "size",
                 "description": "This will control the size of the radio buttons",
                 "type": "'sm' | 'md' | 'lg' | 'xl'"
+                "type": "'sm' | 'md' | 'lg' | 'xl'"
               },
               {
                 "name": "variants",
                 "description": "This is a test for internal options",
+                "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
                 "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
               },
               {
@@ -147,20 +155,30 @@
                 "name": "external2",
                 "description": "This is a test for external .ts options",
                 "type": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'"
+                "type": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'"
               },
               {
                 "name": "external3",
                 "description": "This is a test for external .ts options",
+                "type": "'value7' | 'value8' | 'value9'"
                 "type": "'value7' | 'value8' | 'value9'"
               },
               {
                 "name": "complex",
                 "description": "This is a test for options from an object",
                 "type": "'single' | 'multi'"
+                "type": "'single' | 'multi'"
               },
               {
                 "name": "myAttribute",
+                "name": "myAttribute",
                 "description": "This is a camel-case attribute",
+                "type": "string | undefined"
+              },
+              {
+                "name": "data",
+                "description": "This is data object",
+                "type": "{\n    // The name.\n    name??: string,\n    /** The type. */\n    type?: string,\n    /** The value. */\n    value?: number,\n  } | undefined"
                 "type": "string | undefined"
               },
               {
@@ -170,7 +188,11 @@
               },
               {
                 "name": "complexUnion",
+                "name": "complexUnion",
                 "description": "This is a test for options from an object",
+                "type": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
+              },
+              { "name": "customTag" }
                 "type": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
               },
               { "name": "customTag" }
@@ -183,10 +205,13 @@
               {
                 "name": "typed-event",
                 "type": "HTMLInputElement",
+                "type": "HTMLInputElement",
                 "description": "some description for typed-event"
               },
               {
                 "name": "typed-custom-event",
+                "type": "InterfaceEventType",
+                "description": "(@deprecated) some description for typed-custom-event"
                 "type": "InterfaceEventType",
                 "description": "(@deprecated) some description for typed-custom-event"
               }
@@ -239,25 +264,30 @@
                 "name": "value",
                 "description": "The value assigned to the radio button. This will reflect in the radio group when clicked.",
                 "type": "string"
+                "type": "string"
               },
               {
                 "name": "disabled",
                 "description": "Disables the radio button",
+                "type": "boolean | undefined"
                 "type": "boolean | undefined"
               },
               {
                 "name": "target",
                 "description": "A lookup type for example",
                 "type": "'_blank' | '_self' | '_parent' | '_top' | undefined"
+                "type": "'_blank' | '_self' | '_parent' | '_top' | undefined"
               },
               {
                 "name": "for",
                 "description": "A mapped attribute for react wrapper example",
                 "type": "string | undefined"
+                "type": "string | undefined"
               },
               {
                 "name": "position",
                 "description": "Enum example",
+                "type": "string | undefined"
                 "type": "string | undefined"
               }
             ],
