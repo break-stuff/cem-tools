@@ -8,7 +8,7 @@ describe("web-types-generator", () => {
   const components = getComponents(customElementsManifest);
 
 
-  test("given a config to set the defaultIcon, the default-icon: should have the icon", () => {
+  test("given a config to set the defaultIcon, the default-icon: should have the icon", async () => {
     // Arrange
     const options = getOptions({
       defaultIcon: "icon.svg",
@@ -16,7 +16,7 @@ describe("web-types-generator", () => {
     });
 
     // Act
-    saveWebTypeFile([], [], [], options);
+    await saveWebTypeFile([], [], [], options);
 
     const data = readFileSync("test_output/web-types.json", 'utf-8')
     const wtJson = (JSON.parse(data));
