@@ -1,0 +1,39 @@
+{
+  "name": "eslint-plugin-custom-element",
+  "version": "1.0.0-beta.0",
+  "description": "This plugin creates rules specific for validating custom element implementation in HTML",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
+  "type": "module",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "types.d.ts",
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "demo": "cd demo && npx http-server --cors",
+    "deploy": "npm run build && npm publish",
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.56.10",
+    "@types/jest": "^29.2.3",
+    "eslint": "^9.3.0",
+    "ts-jest": "^29.0.3",
+    "tsup": "^8.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/break-stuff/cem-tools.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/break-stuff/cem-tools/issues"
+  },
+  "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/eslint-plugin#readme",
+  "keywords": []
+}

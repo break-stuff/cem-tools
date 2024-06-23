@@ -11,6 +11,11 @@
 - Added StackBlitz sandbox to README
 - Export type of component props.
 
+## 1.3.2
+
+- Added `class` prop to types
+- Added StackBlitz sandbox
+
 ## 1.3.1
 
 - Allow any string for `descriptionSrc`

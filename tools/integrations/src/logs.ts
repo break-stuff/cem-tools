@@ -1,5 +1,5 @@
 
-export function log(message: string, skip?: boolean, color = '\x1b') {
+export function log(message: string, skip?: boolean, color = '\x1b[30m%s\x1b[0m') {
   if(skip) {
     return;
   }

@@ -1,0 +1,25 @@
+{
+  "name": "demo",
+  "version": "1.0.0-alpha.0",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint"
+  },
+  "devDependencies": {
+    "@html-eslint/eslint-plugin": "^0.24.1",
+    "@html-eslint/parser": "^0.24.1",
+    "eslint": "^9.3.0",
+    "eslint-plugin-custom-element": "file:./../"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/break-stuff/cem-tools.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/break-stuff/cem-tools/issues"
+  },
+  "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/eslint-plugin#readme",
+  "keywords": []
+}

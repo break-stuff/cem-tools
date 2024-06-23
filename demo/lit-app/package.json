@@ -16,9 +16,12 @@
     "lit": "^2.7.6"
   },
   "devDependencies": {
+    "@html-eslint/eslint-plugin": "^0.24.1",
+    "@html-eslint/parser": "^0.24.1",
     "@types/react-dom": "^18.2.24",
     "cem-plugin-expanded-types": "*",
     "cem-plugin-custom-jsdoc-tags": "*",
+    "custom-element-eslint-rule-generator": "*",
     "custom-element-jet-brains-integration": "*",
     "custom-element-jsx-integration": "*",
     "custom-element-lazy-loader": "*",
@@ -28,6 +31,8 @@
     "custom-element-vs-code-integration": "*",
     "custom-element-vuejs-integration": "*",
     "custom-elements-manifest-deprecator": "*",
+    "eslint": "^9.3.0",
+    "eslint-plugin-custom-element": "*",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   },

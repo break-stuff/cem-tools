@@ -9,6 +9,7 @@ import { customElementLazyLoaderPlugin } from "custom-element-lazy-loader";
 import { customElementSveltePlugin } from "custom-element-svelte-integration";
 import { customJSDocTagsPlugin } from "cem-plugin-custom-jsdoc-tags";
 import { cemDeprecatorPlugin } from "custom-elements-manifest-deprecator";
+import { customEsLintRuleGeneratorPlugin } from "custom-element-eslint-rule-generator";
 
 export default {
   /** Globs to analyze */
@@ -67,9 +68,15 @@ export default {
           isArray: true,
         },
         fancy: {},
-        default: {}
+        default: {},
+        required: {
+          isArray: true
+        }
       }
     }),
-    cemDeprecatorPlugin()
+    cemDeprecatorPlugin(),
+    customEsLintRuleGeneratorPlugin({
+      typesSrc: "expandedType"
+    })
   ],
 };

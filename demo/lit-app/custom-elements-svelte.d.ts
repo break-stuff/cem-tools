@@ -1,5 +1,7 @@
 import type { RadioGroup, InterfaceEventType } from "./dist/radio-group/RadioGroup.d.ts";
 import type { RadioButton } from "./dist/radio-button/RadioButton.d.ts";
+import type { DeprecatedElement } from "./dist/deprecated-element/DeprecatedElement.d.ts";
+import type { MyButton } from "./dist/my-button/MyButton.d.ts";
 
 type BaseProps = {
   /** Content added between the opening and closing tags of the element */
@@ -51,6 +53,8 @@ type RadioGroupProps = {
   variants?: RadioGroup["variants"];
   /** @deprecated This is a test for external d.ts options */
   external?: RadioGroup["external"];
+  /** @deprecated This is a deprecated attribute */
+  "deprecated-attribute"?: RadioGroup["deprecatedAttribute"];
   /** This is a test for external .ts options */
   external2?: RadioGroup["external2"];
   /** This is a test for external .ts options */
@@ -85,6 +89,10 @@ type RadioButtonProps = {
   /** Enum example */
   position?: RadioButton["position"];
 };
+
+type DeprecatedElementProps = {};
+
+type MyButtonProps = {};
 
 export type CustomElements = {
   /**
@@ -140,6 +148,23 @@ export type CustomElements = {
    *  - _default_ - add text here to label your radio button
    */
   "radio-button": Partial<RadioButtonProps | BaseProps | BaseEvents>;
+
+  /**
+   * @deprecated An example of a deprecated element
+   *
+   *
+   * ---
+   *
+   */
+  "deprecated-element": Partial<DeprecatedElementProps | BaseProps | BaseEvents>;
+
+  /**
+   *
+   * A basic button element
+   * ---
+   *
+   */
+  "my-button": Partial<MyButtonProps | BaseProps | BaseEvents>;
 };
 
 declare namespace svelteHTML {

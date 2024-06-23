@@ -48,6 +48,14 @@
           ]
         },
         {
+          "name": "deprecated-attribute",
+          "values": [
+            { "name": "value1" },
+            { "name": "value2" },
+            { "name": "value3" }
+          ]
+        },
+        {
           "name": "external2",
           "description": "This is a test for external .ts options",
           "values": [
@@ -121,6 +129,18 @@
         },
         { "name": "position", "description": "Enum example", "values": [] }
       ],
+      "references": []
+    },
+    {
+      "name": "deprecated-element",
+      "description": "@deprecated An example of a deprecated element\n\n\n---\n",
+      "attributes": [],
+      "references": []
+    },
+    {
+      "name": "my-button",
+      "description": "\nA basic button element\n---\n",
+      "attributes": [],
       "references": []
     }
   ]

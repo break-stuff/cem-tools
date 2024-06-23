@@ -112,6 +112,19 @@
             },
             {
               "kind": "field",
+              "name": "deprecatedAttribute",
+              "type": {
+                "text": "Test"
+              },
+              "default": "'value1'",
+              "deprecated": "This is a deprecated attribute",
+              "attribute": "deprecated-attribute",
+              "expandedType": {
+                "text": "'value1' | 'value2' | 'value3'"
+              }
+            },
+            {
+              "kind": "field",
               "name": "external2",
               "type": {
                 "text": "Example"
@@ -312,6 +325,19 @@
                 "text": "'value1' | 'value2' | 'value3'"
               },
               "propName": "external"
+            },
+            {
+              "name": "deprecated-attribute",
+              "type": {
+                "text": "Test"
+              },
+              "default": "'value1'",
+              "deprecated": "This is a deprecated attribute",
+              "fieldName": "deprecatedAttribute",
+              "expandedType": {
+                "text": "'value1' | 'value2' | 'value3'"
+              },
+              "propName": "deprecatedAttribute"
             },
             {
               "name": "external2",
@@ -614,6 +640,119 @@
           "declaration": {
             "name": "RadioButton",
             "module": "./radio-button/RadioButton"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/deprecated-element/DeprecatedElement.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "DeprecatedElement",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "deprecated": "An example of a deprecated element",
+          "tagName": "deprecated-element",
+          "since": [
+            {
+              "name": "1.2.5",
+              "description": ""
+            },
+            {
+              "name": "1.3.0",
+              "description": "There was a major refactor in this release"
+            }
+          ],
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DeprecatedElement",
+          "declaration": {
+            "name": "DeprecatedElement",
+            "module": "src/deprecated-element/DeprecatedElement.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/deprecated-element/deprecated-element.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "deprecated-element",
+          "declaration": {
+            "name": "DeprecatedElement",
+            "module": "/src/deprecated-element/DeprecatedElement.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/my-button/MyButton.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "\nA basic button element",
+          "name": "MyButton",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "my-button",
+          "since": [
+            {
+              "name": "1.2.5",
+              "description": ""
+            },
+            {
+              "name": "1.3.0",
+              "description": "There was a major refactor in this release"
+            }
+          ],
+          "required": [
+            {
+              "name": "type",
+              "description": ""
+            }
+          ],
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MyButton",
+          "declaration": {
+            "name": "MyButton",
+            "module": "src/my-button/MyButton.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/my-button/my-button.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "my-button",
+          "declaration": {
+            "name": "MyButton",
+            "module": "/src/my-button/MyButton.js"
           }
         }
       ]
