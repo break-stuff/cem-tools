@@ -9,6 +9,10 @@ export const rules = {
     "warn",
     {
       tag: "radio-group",
+      attr: "external",
+    },
+    {
+      tag: "radio-group",
       attr: "deprecated-attribute",
     },
   ],

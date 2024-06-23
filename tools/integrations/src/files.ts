@@ -8,7 +8,7 @@ export function createOutDir(outDir: string) {
   }
 }
 
-export function saveFile(
+export async function saveFile(
   outDir: string,
   fileName: string,
   contents: string,
@@ -16,9 +16,10 @@ export function saveFile(
   printWidth = 80
 ) {
   const outputPath = path.join(outDir, fileName);
+  
   fs.writeFileSync(
     outputPath,
-    prettier.format(contents, { parser, printWidth })
+    await prettier.format(contents, { parser, printWidth })
   );
 
   return outputPath;

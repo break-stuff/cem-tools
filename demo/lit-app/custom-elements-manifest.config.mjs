@@ -50,10 +50,6 @@ export default {
       reactProps: true,
       scopedTags: true,
       ssrSafe: true
-      modulePath: (className, tagName) => `../${tagName}/${tagName}.js`,
-      reactProps: true,
-      scopedTags: true,
-      ssrSafe: true
     }),
     customElementVuejsPlugin({
       componentTypePath: (name, tag) => `./dist/${tag}/${name}.d.ts`,
