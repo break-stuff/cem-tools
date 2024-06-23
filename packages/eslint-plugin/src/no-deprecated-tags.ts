@@ -35,7 +35,7 @@ export const noDeprecatedTags: Rule.RuleModule = {
       const tagOptions = tagOptionsMap.get(tagName);
       tagOptions?.forEach(() => {
         context.report({
-          message: `'<${node.name}>' element is deprecated`,
+          message: `<${node.name}> is deprecated\n`,
           node
         });
       });

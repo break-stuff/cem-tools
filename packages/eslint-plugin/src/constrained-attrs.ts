@@ -44,15 +44,20 @@ export const constrainedAttrs: Rule.RuleModule = {
       tagOptions?.forEach(({ tag, attr, values }) => {
         const attribute = attributes.find(
           (attribute) => attribute.key && attribute.key.value === attr
-        )
+        );
         const attributeValue = attribute?.value?.value;
-        
+
         if (attribute && !values.includes(attributeValue)) {
+          const formatter = new Intl.ListFormat("en", {
+            style: "long",
+            type: "conjunction",
+          });
+
           context.report({
             loc: attribute.loc,
-            message: `"${attributeValue}" is an invalid value for "${attr}" attribute in "<${tag}>" element. Valid values are: ${values.join(
-              ", "
-            )}`,
+            message: `"${attributeValue}" is an invalid value for the "${attr}" attribute on <${tag}>. \nValid values are: ${formatter.format(
+              values.map((x) => `"${x}"`)
+            )}\n`,
           });
         }
       });

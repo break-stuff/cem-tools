@@ -1,16 +1,10 @@
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Custom Element ESLint Plugin Demo</title>
   </head>
   <body>
-    <my-element size="small" species="yoda" disabled="false">
-      <h1>character</h1>
-    </my-element>
-
-    <your-element>
-      <h1>species</h1>
-    </your-element>
+    <my-input></my-input>
+    <my-element></my-element>
+    <my-button size="small" variant="pink" disabled="false"></my-button>
   </body>
 </html>

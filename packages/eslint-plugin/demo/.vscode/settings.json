@@ -1,7 +1,7 @@
 {
   "eslint.enable": true,
   "eslint.validate": [
-    "javascript", // ...
+    "javascript",
     "html", // Add "html" to enable linting `.html` files.
     "php"
   ],

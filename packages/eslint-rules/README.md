@@ -2,6 +2,8 @@
 
 This package takes information in your Custom Elements Manifest and generates rules that can be used in the [Custom Element ESLint Plugin](https://www.npmjs.com/package/eslint-plugin-custom-element). These rules validate the custom elements in your HTML.
 
+![demo of autocomplete features for custom elements in vs code](https://github.com/break-stuff/cem-tools/blob/main/demo/images/eslint/demo.gif?raw=true)
+
 ## Usage
 
 This package includes two ways to generate the custom data config file: 

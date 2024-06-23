@@ -41,7 +41,7 @@ export const requiredAttrs: Rule.RuleModule = {
 
         if (!attr) {
           context.report({
-            message: `'<${tagName}>' tag is missing '${attrName}' attribute`,
+            message: `<${tagName}> is missing the "${attrName}" attribute.\n`,
             node,
           });
         }

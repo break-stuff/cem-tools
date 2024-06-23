@@ -41,7 +41,7 @@ export const noDeprecatedAttrs: Rule.RuleModule = {
 
         if (attr) {
           context.report({
-            message: `Attribute "${attr.key.value}" for element "<${tagName}>" is deprecated`,
+            message: `"${attr.key.value}" for <${tagName}> is deprecated\n`,
             loc: attr.loc,
           });
         }

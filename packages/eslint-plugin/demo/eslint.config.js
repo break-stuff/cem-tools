@@ -3,7 +3,6 @@ import html from "@html-eslint/eslint-plugin";
 import htmlParser from "@html-eslint/parser";
 
 export default [
-  // html.configs["flat/recommended"],
   {
     files: ["**/*.html", "**/*.php"],
     languageOptions: {
@@ -16,6 +15,12 @@ export default [
         {
           tag: "my-input",
           attr: "aria-label",
+        },
+      ],
+      "custom-element/no-deprecated-tags": [
+        "warn",
+        {
+          tag: "my-element",
         },
       ],
       "custom-element/no-deprecated-attrs": [
@@ -31,12 +36,6 @@ export default [
           tag: "my-button",
           attr: "variant",
           values: ["default", "primary", "outline", "transparent"],
-        },
-      ],
-      "custom-element/no-deprecated-tags": [
-        "warn",
-        {
-          tag: "my-element",
         },
       ],
       "custom-element/no-boolean-attr-values": [
