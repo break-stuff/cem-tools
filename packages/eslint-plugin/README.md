@@ -2,7 +2,7 @@
 
 This plugin creates custom rules to lint custom elements in HTML.
 
-![demo of eslint validation for custom elements](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/eslint/custom_element_eslint_demo.gif?raw=true)
+![demo of eslint validation for custom elements](https://github.com/break-stuff/cem-tools/blob/main/demo/images/eslint/custom_element_eslint_demo.gif?raw=true)
 
 ## Usage
 

@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-custom-element",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.1",
   "description": "This plugin creates rules specific for validating custom element implementation in HTML",
   "main": "index.js",
   "module": "index.js",
