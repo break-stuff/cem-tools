@@ -4,7 +4,7 @@ This package generates custom data config files for [VS Code](https://code.visua
 
 This config enables VS Code to display autocomplete and contextual information about your custom elements.
 
-![demo of eslint validation for custom elements](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/eslint/custom_element_eslint_demo.gif?raw=true)
+![demo of autocomplete features for custom elements in vs code](https://github.com/break-stuff/cem-plugin-vs-code-custom-data-generator/blob/main/demo/images/demo.gif?raw=true)
 
 ## Usage
 
