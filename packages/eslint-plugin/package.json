@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-custom-element",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "description": "This plugin creates rules specific for validating custom element implementation in HTML",
   "main": "index.js",
   "module": "index.js",
@@ -35,5 +35,17 @@
     "url": "https://github.com/break-stuff/cem-tools/issues"
   },
   "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/eslint-plugin#readme",
-  "keywords": []
+  "keywords": [
+    "web components",
+    "custom elements",
+    "eslint",
+    "plugin",
+    "web components eslint",
+    "web components lint",
+    "custom elements eslint",      
+    "web components eslint",
+    "custom elements lint",
+    "web components validation",
+    "custom elements validation"
+  ]
 }

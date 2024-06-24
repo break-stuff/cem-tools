@@ -1,6 +1,6 @@
 {
   "name": "custom-element-eslint-rule-generator",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "description": "A tool for generating eslint rules for your custom elements.",
   "main": "index.js",
   "module": "index.js",
@@ -42,5 +42,18 @@
   "bugs": {
     "url": "https://github.com/break-stuff/cem-tools/issues"
   },
-  "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/;azy-loader#readme"
+  "homepage": "https://github.com/break-stuff/cem-tools/tree/main/packages/eslint-rules#readme",
+  "keywords": [
+    "web components",
+    "custom elements",
+    "eslint",
+    "plugin",
+    "web components eslint",
+    "web components lint",
+    "custom elements eslint",      
+    "web components eslint",
+    "custom elements lint",
+    "web components validation",
+    "custom elements validation"
+  ]
 }

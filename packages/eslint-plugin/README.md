@@ -4,13 +4,22 @@ This plugin creates custom rules to lint custom elements in HTML.
 
 ![demo of eslint validation for custom elements](https://github.com/break-stuff/cem-tools/blob/main/demo/images/eslint/custom_element_eslint_demo.gif?raw=true)
 
+<!-- <a href="https://stackblitz.com/github/break-stuff/cem-tools/tree/main/packages/eslint-plugin/demo">
+  <img
+    alt="Open in StackBlitz"
+    src="https://developer.stackblitz.com/img/open_in_stackblitz.svg"
+  />
+</a> -->
+
 ## Usage
 
-This plugin leverages the `@html-eslint/eslint-plugin` and `@html-eslint/parser` packages to parse the DOM and leverage ESLint for validation
+This plugin leverages the `@html-eslint/eslint-plugin` and `@html-eslint/parser` packages to parse the DOM.
 
 ```bash
 npm install -D eslint-plugin-custom-element eslint @html-eslint/eslint-plugin @html-eslint/parser
 ```
+
+> ***NOTE:*** If you would like to have these rules automatically generated for you, check out the [Custom Element ESLint Rule Generator](https://www.npmjs.com/package/custom-element-eslint-rule-generator).
 
 ### Configuration
 
@@ -129,6 +138,30 @@ export default [
         {
           tag: "my-button",
           attr: "type",
+        },
+      ],
+    },
+  },
+];
+```
+
+### Boolean Attribute Values
+
+The `custom-element/no-boolean-attr-values` rule notifies users that setting a value on `boolean` attributes will result in it always being `true` (ie - `<my-button disabled="false"></my-button>` will result in a disabled button).
+
+
+```js
+// eslint.config.js
+
+export default [
+  {
+    /* ...plugin config... */
+    rules: {
+      "custom-element/no-boolean-attr-values": [
+        "error",
+        {
+          tag: "my-button",
+          attr: "disabled",
         },
       ],
     },
