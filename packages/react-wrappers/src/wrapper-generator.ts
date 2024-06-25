@@ -490,7 +490,7 @@ function getUnusedProps(
 
 function getTagName(component: Component) {
   return config.scopedTags
-    ? `\`\${scope.prefix || ''}${component.tagName}\${scope.suffix || ''}\``
+    ? `\`\${scope?.prefix || ''}${component.tagName}\${scope?.suffix || ''}\``
     : `"${component.tagName}"`;
 }
 

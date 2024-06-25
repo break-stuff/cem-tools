@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.1
+
+- Fixed null scope error
+
 ## 1.6.0
 
 - Added the ability to hide logs
