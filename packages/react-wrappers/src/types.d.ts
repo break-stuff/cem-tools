@@ -3,6 +3,8 @@ import { BaseOptions } from "../../../tools/configurations";
 import type { Attribute } from "custom-elements-manifest";
 
 export interface Options extends BaseOptions {
+  /** Path to output directory */
+  outdir?: (className: string, tagName: string) => string | string;
   /** Used to get a specific path for a given component */
   modulePath?: (className: string, tagName: string) => string;
   /** Indicates if the component classes are a default export rather than a named export */

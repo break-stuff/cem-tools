@@ -12,7 +12,7 @@ export function getPackageJson(): any {
 export function getModulePath(
   modulePath: ((className: string, tagName: string) => string) | undefined,
   component: Component,
-  outdir: string,
+  outdir: (className: string, tagName: string) => string | string,
   packageJson: any
 ) {
   if (modulePath instanceof Function) {
@@ -25,8 +25,24 @@ export function getModulePath(
     );
   }
 
-  const directories = outdir?.split("/");
+  const outdirPath =
+    typeof outdir === "function"
+      ? outdir(component.name, component.tagName!)
+      : outdir;
+  const directories = outdirPath?.split("/");
   return path.join(directories.map((_) => "../").join(""), packageJson.module);
+}
+
+export function normalizeOutdir(outdir: any) {
+  if (typeof outdir === "function") {
+    return outdir;
+  }
+  if (typeof outdir === "string") {
+    return () => outdir;
+  }
+  throw new TypeError(
+    "The outdir property must be either a string or a function."
+  );
 }
 
 export const createEventName = (event: any) => `on${toPascalCase(event.name)}`;
@@ -106,7 +122,11 @@ export function saveReactUtils(outdir: string, ssrSafe?: boolean) {
   const reactUtils = `
 import { useEffect, useLayoutEffect } from "react";
 
-${ssrSafe ? `const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect` : ''}
+${
+  ssrSafe
+    ? `const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect`
+    : ""
+}
 
 export function useProperties(targetElement, propName, value) {
   useEffect(() => {
@@ -122,7 +142,7 @@ export function useProperties(targetElement, propName, value) {
 }
 
 export function useEventListener(targetElement, eventName, eventHandler) {
-  ${ssrSafe ? 'useIsomorphicLayoutEffect' : 'useLayoutEffect'}(() => {
+  ${ssrSafe ? "useIsomorphicLayoutEffect" : "useLayoutEffect"}(() => {
     if (eventHandler !== undefined) {
       targetElement?.current?.addEventListener(eventName, eventHandler);
     }
@@ -144,7 +164,7 @@ export function useEventListener(targetElement, eventName, eventHandler) {
 
 export function saveScopeProvider(outdir: string, ssrSafe?: boolean) {
   const scopeProvider = `
-${ssrSafe ? '"use client"' : ''}
+${ssrSafe ? '"use client"' : ""}
 import { createContext } from 'react';
 import { jsx } from "react/jsx-runtime";
 
