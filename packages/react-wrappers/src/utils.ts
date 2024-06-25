@@ -159,8 +159,18 @@ export function ScopeProvider({ prefix, suffix, children }) {
 `;
 
   const scopeProviderTypes = `
-export type ScopeProps = { prefix?: string, suffix?: string, children?: ReactNode }
+export type ScopeProps = { 
+  /** Adds a prefix to the custom element tag name */
+  prefix?: string, 
+  /** Adds a prefix to the custom element tag name */
+  suffix?: string, 
+  children?: ReactNode 
+};
 
+/** 
+ * Provides a mechanism to add a custom prefix or suffix to to child components. 
+ * This prevents tag name collisions with components from different versions of the same library. 
+ */
 export function ScopeProvider(props: ScopeProps): JSX.Element;
 `;
 

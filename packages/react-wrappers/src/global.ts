@@ -89,3 +89,5 @@ export const BASE_PROPS = [
   "onFocus",
   "onBlur",
 ];
+
+export const NON_ATTR_BASE_PROPS = ["exportparts", "key", "part", "ref"];

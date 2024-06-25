@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.6.2
+
+- Fix redundant base types
+- Add docs to `ScopeProvider` component
+
 ## 1.6.1
 
 - Fixed null scope error

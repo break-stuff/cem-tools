@@ -1,4 +1,4 @@
-import { BASE_PROPS, MAPPED_PROPS } from "./global.js";
+import { BASE_PROPS, MAPPED_PROPS, NON_ATTR_BASE_PROPS } from "./global.js";
 import {
   EventName,
   MappedAttribute,
@@ -440,7 +440,7 @@ function getExtendedProps() {
   return config.reactProps === true
     ? "extends React.AllHTMLAttributes<HTMLElement>"
     : `extends Pick<React.AllHTMLAttributes<HTMLElement>, ${[
-        ...BASE_PROPS,
+        ...BASE_PROPS.filter(x => !NON_ATTR_BASE_PROPS.includes(x)),
         ...(config.reactProps || []),
       ]
         .map((x) => `'${x}'`)

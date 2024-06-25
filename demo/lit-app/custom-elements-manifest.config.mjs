@@ -46,8 +46,7 @@ export default {
     }),
     customElementReactWrapperPlugin({
       outdir: "./dist/react",
-      modulePath: (className, tagName) => `../${tagName}/${tagName}.js`,
-      reactProps: true,
+      modulePath: (className, tagName) => `../${tagName}/${className}.js`,
       scopedTags: true,
       ssrSafe: true
     }),
