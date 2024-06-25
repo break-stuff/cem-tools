@@ -49,21 +49,12 @@ export const MAPPED_PROPS: MappedAttribute[] = [
     },
   },
   {
-    name: "style",
-    propName: "style",
-    description:
-      "Contains CSS styling declarations to be applied to the element. Note that it is recommended for styles to be defined in a separate file or files. This attribute and the <style> element have mainly the purpose of allowing for quick styling, for example for testing purposes.",
-    type: {
-      text: "string | object",
-    },
-  },
-  {
     name: "tabindex",
     propName: "tabIndex",
     description:
       "Allows developers to make HTML elements focusable, allow or prevent them from being sequentially focusable (usually with the `Tab` key, hence the name) and determine their relative ordering for sequential focus navigation.",
     type: {
-      text: "string",
+      text: "number",
     },
   },
 ];
