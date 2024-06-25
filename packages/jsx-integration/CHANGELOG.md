@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.1
+
+- Fixed event names
+
 ## 1.5.0
 
 - Added the ability to hide logs

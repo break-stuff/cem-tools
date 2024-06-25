@@ -1,3 +1,4 @@
+import path from "path";
 import {
   Component,
   getComponentDetailsTemplate,
@@ -6,8 +7,7 @@ import {
   getCustomEventTypes,
   getMemberDescription,
 } from "../../../tools/cem-utils";
-import { createOutDir, logBlue, logYellow, saveFile } from "../../../tools/integrations";
-import { toPascalCase } from "../../../tools/utilities";
+import { createOutDir, log, logGreen, logYellow, saveFile } from "../../../tools/integrations";
 import { Options } from "./types";
 
 export function generateJsxTypes(manifest: any, options: Options) {
@@ -15,7 +15,7 @@ export function generateJsxTypes(manifest: any, options: Options) {
     logYellow("[jsx-type-generator] - Skipped", options.hideLogs);
     return;
   }
-  logBlue(
+  log(
     "[jsx-type-generator] - Generating types...",
     options.hideLogs
   );
@@ -34,7 +34,7 @@ export function generateJsxTypes(manifest: any, options: Options) {
     "typescript",
     120
   );
-  logBlue(`[jsx-type-generator] - Generated "${outputPath}".`);
+  logGreen(`[jsx-type-generator] - Generated "${path.join(options.outdir!, options.fileName!)}".`);
 }
 
 function getOptions(options: Options) {
@@ -189,7 +189,7 @@ ${
         event.description,
         event.deprecated
       )} */
-  "on${toPascalCase(event.name)}"?: (e: CustomEvent<${
+  "on${event.name}"?: (e: CustomEvent<${
         event.type?.text || "never"
       }>) => void;`;
     })
