@@ -93,11 +93,11 @@ export type RadioGroupProps = {
   /**  */
   customTag?: RadioGroup["customTag"];
   /** some description for custom-event */
-  onCustomEvent?: (e: CustomEvent<never>) => void;
+  "oncustom-event"?: (e: CustomEvent<never>) => void;
   /** some description for typed-event */
-  onTypedEvent?: (e: CustomEvent<HTMLInputElement>) => void;
+  "ontyped-event"?: (e: CustomEvent<HTMLInputElement>) => void;
   /** (@deprecated) some description for typed-custom-event */
-  onTypedCustomEvent?: (e: CustomEvent<InterfaceEventType>) => void;
+  "ontyped-custom-event"?: (e: CustomEvent<InterfaceEventType>) => void;
 };
 
 export type RadioButtonProps = {
