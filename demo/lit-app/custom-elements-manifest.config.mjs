@@ -48,7 +48,7 @@ export default {
       outdir: "./dist/react",
       modulePath: (className, tagName) => `../${tagName}/${className}.js`,
       scopedTags: true,
-      ssrSafe: true
+      ssrSafe: true,
     }),
     customElementVuejsPlugin({
       componentTypePath: (name, tag) => `./dist/${tag}/${name}.d.ts`,
@@ -63,19 +63,19 @@ export default {
       tags: {
         since: {},
         dependency: {
-          mappedName: 'dependencies',
+          mappedName: "dependencies",
           isArray: true,
         },
         fancy: {},
         default: {},
         required: {
-          isArray: true
-        }
-      }
+          isArray: true,
+        },
+      },
     }),
     cemDeprecatorPlugin(),
     customEsLintRuleGeneratorPlugin({
-      typesSrc: "expandedType"
-    })
+      typesSrc: "expandedType",
+    }),
   ],
 };

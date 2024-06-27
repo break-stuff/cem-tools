@@ -7,7 +7,13 @@ import {
   getCustomEventTypes,
   getMemberDescription,
 } from "../../../tools/cem-utils";
-import { createOutDir, log, logGreen, logYellow, saveFile } from "../../../tools/integrations";
+import {
+  createOutDir,
+  log,
+  logGreen,
+  logYellow,
+  saveFile,
+} from "../../../tools/integrations";
 import { Options } from "./types";
 
 export function generateJsxTypes(manifest: any, options: Options) {
@@ -15,15 +21,12 @@ export function generateJsxTypes(manifest: any, options: Options) {
     logYellow("[jsx-type-generator] - Skipped", options.hideLogs);
     return;
   }
-  log(
-    "[jsx-type-generator] - Generating types...",
-    options.hideLogs
-  );
+  log("[jsx-type-generator] - Generating types...", options.hideLogs);
 
   options = getOptions(options);
 
   const components = getComponents(manifest, options.exclude).filter(
-    (x) => x.tagName
+    (x) => x.tagName,
   );
   const template = getTypeTemplate(components, options);
   createOutDir(options.outdir!);
@@ -32,9 +35,11 @@ export function generateJsxTypes(manifest: any, options: Options) {
     options.fileName!,
     template,
     "typescript",
-    120
+    120,
   );
-  logGreen(`[jsx-type-generator] - Generated "${path.join(options.outdir!, options.fileName!)}".`);
+  logGreen(
+    `[jsx-type-generator] - Generated "${path.join(options.outdir!, options.fileName!)}".`,
+  );
 }
 
 function getOptions(options: Options) {
@@ -61,7 +66,7 @@ function getTypeTemplate(components: Component[], options: Options) {
             options.defaultExport ? `default as ${c.name}` : c.name
           } ${types ? `, ${types}` : ""} } from "${options.componentTypePath?.(
             c.name,
-            c.tagName
+            c.tagName,
           )}";`;
         })
       : [];
@@ -71,7 +76,9 @@ ${
   options.globalTypePath
     ? `import type { ${components
         .map((c) => {
-          const componentType = options.defaultExport ? `default as ${c.name}` : c.name;
+          const componentType = options.defaultExport
+            ? `default as ${c.name}`
+            : c.name;
           const types = getCustomEventTypes(c, componentNames);
           return componentType + (types ? `, ${types}` : "");
         })
@@ -159,8 +166,8 @@ ${
         options.globalTypePath || options.componentTypePath
           ? `${component.name}['${attr.fieldName}']`
           : options.typesSrc
-          ? (attr as any)[`${options.typesSrc}`]?.text
-          : attr.type?.text || "string";
+            ? (attr as any)[`${options.typesSrc}`]?.text
+            : attr.type?.text || "string";
 
       return `/** ${getMemberDescription(attr.description, attr.deprecated)} */
   "${attr.name}"?: ${type};`;
@@ -174,8 +181,8 @@ ${
         options.globalTypePath || options.componentTypePath
           ? `${component.name}['${prop.name}']`
           : options.typesSrc
-          ? (prop as any)[`${options.typesSrc}`]?.text
-          : (prop as any).type?.text || "string";
+            ? (prop as any)[`${options.typesSrc}`]?.text
+            : (prop as any).type?.text || "string";
 
       return `/** ${getMemberDescription(prop.description, prop.deprecated)} */
   "${prop.name}"?: ${type};`;
@@ -187,11 +194,11 @@ ${
     ?.map((event) => {
       return `/** ${getMemberDescription(
         event.description,
-        event.deprecated
+        event.deprecated,
       )} */
   "on${event.name}"?: (e: CustomEvent<${
-        event.type?.text || "never"
-      }>) => void;`;
+    event.type?.text || "never"
+  }>) => void;`;
     })
     .join("\n") || ""
 }

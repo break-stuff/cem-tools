@@ -1,6 +1,4 @@
-import {
-  getComponentMethods,
-} from "../cem-utilities";
+import { getComponentMethods } from "../cem-utilities";
 import { component, customElementsManifest } from "./test-data.js";
 
 describe("getMethods", () => {

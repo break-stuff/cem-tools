@@ -12,7 +12,7 @@ let components = {
       "https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.12.0/cdn/components/input/input.js",
   },
 };
-const eagerLoad = ['sl-button'];
+const eagerLoad = ["sl-button"];
 
 let observer;
 
@@ -34,7 +34,7 @@ export function updateConfig(config) {
 async function load(root) {
   const rootTagName = root instanceof Element ? root.tagName.toLowerCase() : "";
   const tags = [...root.querySelectorAll(":not(:defined)")].map((el) =>
-    el.tagName.toLowerCase()
+    el.tagName.toLowerCase(),
   );
   if (rootTagName.includes("-") && !customElements.get(rootTagName)) {
     tags.push(rootTagName);
@@ -63,7 +63,7 @@ function register(tagName) {
       })
       .catch(() => {
         console.error(
-          `Unable to load <${tagName}> from ${component.importPath}`
+          `Unable to load <${tagName}> from ${component.importPath}`,
         );
         reject();
       });

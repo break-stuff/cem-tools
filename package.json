@@ -25,16 +25,23 @@
     "deploy:svelte": "pnpm --filter './packages/custom-element-svelte-integration' deploy",
     "deploy:vue": "pnpm --filter './packages/custom-element-vuejs-integration' deploy",
     "deploy:vs-code": "pnpm --filter './packages/custom-element-vs-code-integration' deploy",
-    "lint": "pnpm --filter './packages/**' --filter './demo/**' lint",
-    "format": "pnpm  --filter './packages/**' --filter './demo/**' prettier --write \"**/*.{ts,tsx,md}\"",
-    "test": "pnpm --filter './packages/**' --filter './demo/**' test"
+    "lint": "npx eslint --fix",
+    "format": "pnpm exec prettier . --write",
+    "test": "pnpm --filter './packages/**' --filter './demo/**' test",
+    "prepare": "husky && husky install"
   },
   "devDependencies": {
-    "prettier": "latest",
-    "tsup": "^7.1.0"
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "prettier": "3.3.2",
+    "tsup": "^7.1.0",
+    "typescript-eslint": "^7.14.1"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "packageManager": "npm@8.19.2"
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown",
+    "*.--write": "prettier --write"
+  }
 }

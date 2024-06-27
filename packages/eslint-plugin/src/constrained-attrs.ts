@@ -43,7 +43,7 @@ export const constrainedAttrs: Rule.RuleModule = {
 
       tagOptions?.forEach(({ tag, attr, values }) => {
         const attribute = attributes.find(
-          (attribute) => attribute.key && attribute.key.value === attr
+          (attribute) => attribute.key && attribute.key.value === attr,
         );
         const attributeValue = attribute?.value?.value;
 
@@ -56,7 +56,7 @@ export const constrainedAttrs: Rule.RuleModule = {
           context.report({
             loc: attribute.loc,
             message: `"${attributeValue}" is an invalid value for the "${attr}" attribute on <${tag}>. \nValid values are: ${formatter.format(
-              values.map((x) => `"${x}"`)
+              values.map((x) => `"${x}"`),
             )}\n`,
           });
         }

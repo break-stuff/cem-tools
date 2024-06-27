@@ -26,7 +26,7 @@ export function getTagOptionsMap(context: Rule.RuleContext) {
 
 export function getRuleListener(
   tagOptionsMap: ContextOptionsMap,
-  check: CheckValidation
+  check: CheckValidation,
 ) {
   const result = {
     [["StyleTag", "ScriptTag"].join(",")](node: Node) {

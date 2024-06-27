@@ -225,8 +225,8 @@ export class MyComponent extents HTMLElement
 ```ts
 // DO THIS
 
-export type MyComponentUpdateEvent = { 
-  message: string 
+export type MyComponentUpdateEvent = {
+  message: string
 };
 
 export type MyComponentInputEvent = "value1" | "value2" | "value3";

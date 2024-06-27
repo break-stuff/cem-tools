@@ -36,7 +36,7 @@ export const noDeprecatedAttrs: Rule.RuleModule = {
       tagOptions?.forEach((option) => {
         const attrName = option.attr;
         const attr = attributes.find(
-          (attr: any) => attr.key && attr.key.value === attrName
+          (attr: any) => attr.key && attr.key.value === attrName,
         );
 
         if (attr) {

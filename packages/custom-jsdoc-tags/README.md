@@ -281,7 +281,6 @@ export default {
 }
 ```
 
-
 ### Is Array
 
 If you would always like the property value in the manifest to always be an array - even if there is a single value, setting the `isArray` value to `true` will convert the value to an array.

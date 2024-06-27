@@ -192,7 +192,7 @@ export function generateCustomElementLazyLoader(cem: CEM, options: Options) {
   }
   logBlue(
     "[custom-element-lazy-loader] - Updating Custom Elements Manifest...",
-    options.hideLogs
+    options.hideLogs,
   );
 
   userOptions = {
@@ -207,7 +207,7 @@ export function generateCustomElementLazyLoader(cem: CEM, options: Options) {
 
   if (!userOptions.importPathTemplate) {
     throw new Error(
-      "The `importPathTemplate` configuration option is required"
+      "The `importPathTemplate` configuration option is required",
     );
   }
 
@@ -223,7 +223,7 @@ export function generateCustomElementLazyLoader(cem: CEM, options: Options) {
       ] = {
         importPath: userOptions.importPathTemplate(
           component.name,
-          component.tagName!
+          component.tagName!,
         ),
         dependencies: (component as any)["dependencies"] || [],
       };
@@ -233,13 +233,13 @@ export function generateCustomElementLazyLoader(cem: CEM, options: Options) {
     userOptions.outdir!,
     userOptions.fileName!,
     loaderTemplate(components),
-    "typescript"
+    "typescript",
   );
   logBlue(
     `[custom-element-lazy-loader] - Generated "${path.join(
       userOptions.outdir!,
-      userOptions.fileName!
+      userOptions.fileName!,
     )}".`,
-    options.hideLogs
+    options.hideLogs,
   );
 }

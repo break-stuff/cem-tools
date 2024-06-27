@@ -1,1 +1,1 @@
-export { customJSDocTagsPlugin } from './cem-plugin'
+export { customJSDocTagsPlugin } from "./cem-plugin";

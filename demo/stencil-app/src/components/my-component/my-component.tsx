@@ -31,8 +31,8 @@ export class MyComponent {
     return (
       <div>
         <div>Hello, World! I'm {this.getText()}</div>
-        <radio-group disabled variants='default'>
-          <radio-button value='1'>Option 1</radio-button>
+        <radio-group disabled variants="default">
+          <radio-button value="1">Option 1</radio-button>
         </radio-group>
       </div>
     );

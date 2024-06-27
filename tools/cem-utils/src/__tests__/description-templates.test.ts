@@ -186,7 +186,7 @@ describe("getMethodsTemplate", () => {
 
     // Act
     const methods = getComponentMethods(component);
-    const result = getMethodsTemplate(methods)?.trim();    
+    const result = getMethodsTemplate(methods)?.trim();
 
     // Assert
     expect(result.startsWith("### **Methods:**")).toBe(true);
@@ -198,7 +198,7 @@ describe("getMethodsTemplate", () => {
 
     // Act
     const methods = getComponentMethods(component);
-    const result = getMethodsTemplate(methods, true)?.trim();    
+    const result = getMethodsTemplate(methods, true)?.trim();
 
     // Assert
     expect(result).toBe("");
@@ -208,7 +208,7 @@ describe("getMethodsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getMethodsTemplate(undefined)?.trim();    
+    const result = getMethodsTemplate(undefined)?.trim();
 
     // Assert
     expect(result).toBe("");
@@ -218,7 +218,7 @@ describe("getMethodsTemplate", () => {
     // Arrange
 
     // Act
-    const result = getMethodsTemplate([])?.trim();    
+    const result = getMethodsTemplate([])?.trim();
 
     // Assert
     expect(result).toBe("");

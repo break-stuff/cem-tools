@@ -51,7 +51,6 @@ describe("web-types-generator", () => {
       expect(JSON.stringify(tagList).includes("**Slots:**")).toBe(false);
     });
 
-
     test("given a config to hide events, the Events section should not be in the docs", () => {
       // Arrange
       const options = getOptions({
@@ -76,7 +75,7 @@ describe("web-types-generator", () => {
 
       // Assert
       expect(JSON.stringify(tagList).includes("**CSS Properties:**")).toBe(
-        false
+        false,
       );
     });
 

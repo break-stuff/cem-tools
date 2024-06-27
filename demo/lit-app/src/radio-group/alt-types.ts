@@ -1,1 +1,1 @@
-export type Test2 = 'value4' | 'value5' | 'value6';
+export type Test2 = "value4" | "value5" | "value6";

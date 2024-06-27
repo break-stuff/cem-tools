@@ -25,7 +25,6 @@ export interface Params {
   customElementsManifest: CEM;
 }
 
-
 export interface Omit {
   [key: string]: {
     cssProperties?: string[];
@@ -34,5 +33,5 @@ export interface Omit {
     attributes?: string[];
     events?: string[];
     slots?: string[];
-  }
+  };
 }

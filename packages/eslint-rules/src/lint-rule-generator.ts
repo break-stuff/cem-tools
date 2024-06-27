@@ -27,8 +27,8 @@ export function generateEsLintLintRules(cem: CEM, options: Options = {}) {
   logGreen(
     `[custom-element-eslint-rule-generator] - Generated "${path.join(
       userOptions.outdir!,
-      userOptions.fileName!
-    )}"`
+      userOptions.fileName!,
+    )}"`,
   );
 }
 
@@ -154,20 +154,20 @@ function getConstrainedAttrsTemplate(components: Component[]) {
             ?.map((attr) => {
               const types =
                 (attr as any)[userOptions.typesSrc || "types"]?.text?.split(
-                  "|"
+                  "|",
                 ) || [];
               if (types.length > 1) {
                 return `{
                   tag: "${userOptions.prefix}${component.tagName}${userOptions.suffix}",
                   attr: "${attr.name}",
                   values: ${JSON.stringify(
-                    types.map((x: string) => x.replace(/['"]+/g, "").trim())
+                    types.map((x: string) => x.replace(/['"]+/g, "").trim()),
                   )},
                 }`;
               }
             })
             .filter((x) => x)
-            .join(",\n")
+            .join(",\n"),
         )
         .filter((x) => x)
         .join(",\n")}

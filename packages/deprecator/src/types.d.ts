@@ -31,5 +31,5 @@ export interface Omit {
     attributes?: string[];
     events?: string[];
     slots?: string[];
-  }
+  };
 }

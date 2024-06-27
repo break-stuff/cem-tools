@@ -7,15 +7,15 @@ import {
   externalManifest,
 } from "./test-data";
 
-let singleCEM = {...standAloneManifest};
-let baseCEM = {...baseManifest};
-let externalCEM = {...externalManifest};
+let singleCEM = { ...standAloneManifest };
+let baseCEM = { ...baseManifest };
+let externalCEM = { ...externalManifest };
 
 describe("cem-inheritance", () => {
   afterEach(() => {
-    singleCEM = {...standAloneManifest};
-    baseCEM = {...baseManifest};
-    externalCEM = {...externalManifest};
+    singleCEM = { ...standAloneManifest };
+    baseCEM = { ...baseManifest };
+    externalCEM = { ...externalManifest };
   });
 
   describe("inherit within same file", () => {
@@ -145,7 +145,7 @@ describe("cem-inheritance", () => {
 
       // Assert
       expect(
-        myExtElement?.attributes?.find((x) => x.name === "dir")
+        myExtElement?.attributes?.find((x) => x.name === "dir"),
       ).toBeUndefined();
     });
 
@@ -165,7 +165,7 @@ describe("cem-inheritance", () => {
 
       // Assert
       expect(
-        myExtInput?.members?.find((x) => x.name === "disabled")
+        myExtInput?.members?.find((x) => x.name === "disabled"),
       ).toBeUndefined();
     });
 

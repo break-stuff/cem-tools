@@ -13,13 +13,13 @@ export async function saveFile(
   fileName: string,
   contents: string,
   parser: "json" | "typescript" = "json",
-  printWidth = 80
+  printWidth = 80,
 ) {
   const outputPath = path.join(outDir, fileName);
-  
+
   fs.writeFileSync(
     outputPath,
-    await prettier.format(contents, { parser, printWidth })
+    await prettier.format(contents, { parser, printWidth }),
   );
 
   return outputPath;

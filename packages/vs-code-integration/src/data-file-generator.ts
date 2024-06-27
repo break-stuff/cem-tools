@@ -17,21 +17,24 @@ import { updateConfig } from "../../../tools/configurations";
 
 export function generateVsCodeCustomElementData(
   customElementsManifest: CEM,
-  options: Options
+  options: Options,
 ) {
   if (options.skip) {
-    logYellow("[custom-element-vs-code-integration] - Skipped", options.hideLogs);
+    logYellow(
+      "[custom-element-vs-code-integration] - Skipped",
+      options.hideLogs,
+    );
     return;
   }
   logBlue(
     "[custom-element-vs-code-integration] - Updating Custom Elements Manifest...",
-    options.hideLogs
+    options.hideLogs,
   );
 
   options = getOptions(options);
   const components = getComponents(
     customElementsManifest,
-    options.exclude
+    options.exclude,
   ).filter((x) => x.tagName);
 
   if (!components.length) {
@@ -49,7 +52,7 @@ export function generateVsCodeCustomElementData(
     options,
     htmlTags,
     cssProperties,
-    cssParts
+    cssParts,
   );
   logBlue(`[vs-code-custom-data-generator] - Generated ${outputPath}.`);
 }
@@ -74,7 +77,7 @@ function saveCustomDataFiles(
   options: Options,
   tags: Tag[],
   cssProperties: VsCssProperty[],
-  cssParts: VsCssProperty[]
+  cssParts: VsCssProperty[],
 ) {
   const outputPaths = [];
   createOutDir(options.outdir!);
@@ -83,7 +86,7 @@ function saveCustomDataFiles(
     const htmlOutput = saveFile(
       options.outdir!,
       options.htmlFileName!,
-      getCustomHtmlDataFileContents(tags)
+      getCustomHtmlDataFileContents(tags),
     );
 
     outputPaths.push(`"${htmlOutput}"`);
@@ -93,7 +96,7 @@ function saveCustomDataFiles(
     const cssOutput = saveFile(
       options.outdir!,
       options.cssFileName!,
-      getCustomCssDataFileContents(cssProperties, cssParts)
+      getCustomCssDataFileContents(cssProperties, cssParts),
     );
 
     outputPaths.push(`"${cssOutput}"`);
@@ -112,7 +115,7 @@ function getCustomHtmlDataFileContents(tags: Tag[]) {
 
 function getCustomCssDataFileContents(
   properties: VsCssProperty[],
-  parts: VsCssProperty[]
+  parts: VsCssProperty[],
 ) {
   return `{
       "$schema": "https://raw.githubusercontent.com/microsoft/vscode-css-languageservice/main/docs/customData.schema.json",

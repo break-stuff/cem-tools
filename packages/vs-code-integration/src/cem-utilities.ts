@@ -17,7 +17,7 @@ import { toKebabCase } from "../../../tools/utilities";
 
 export function getCssPropertyList(
   components: Component[],
-  cssSets?: CssSet[]
+  cssSets?: CssSet[],
 ): VsCssProperty[] {
   return (
     components?.map((component) => {
@@ -51,7 +51,7 @@ export function getCssPartList(components: Component[]) {
 
 export function getCssPropertyValues(
   value?: string,
-  cssSets?: CssSet[]
+  cssSets?: CssSet[],
 ): CssValue[] {
   if (!value) {
     return [];
@@ -111,11 +111,14 @@ export function getTagList(components: Component[], options: Options): Tag[] {
   );
 }
 
-export function getComponentAttributes(component: Component, typesSrc?: string) {
+export function getComponentAttributes(
+  component: Component,
+  typesSrc?: string,
+) {
   const attributes: TagAttribute[] = [];
   component?.attributes?.forEach((attr) => {
     const existingAttr = attributes.find(
-      (x) => x.name === attr.name || x.name === attr.fieldName
+      (x) => x.name === attr.name || x.name === attr.fieldName,
     );
     if (existingAttr) {
       return;
@@ -131,7 +134,10 @@ export function getComponentAttributes(component: Component, typesSrc?: string) 
   return attributes;
 }
 
-export function getAttributeValues(attr: schema.Attribute, typesSrc?: string): Value[] {
+export function getAttributeValues(
+  attr: schema.Attribute,
+  typesSrc?: string,
+): Value[] {
   const options = getAttributeValueOptions(attr, typesSrc);
   return (
     options?.map((option) => {

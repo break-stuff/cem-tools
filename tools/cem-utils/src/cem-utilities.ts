@@ -23,7 +23,7 @@ export const EXCLUDED_TYPES = [
  */
 export function getComponentDescription(
   component: Component,
-  descriptionSrc?: string
+  descriptionSrc?: string,
 ): string {
   let description =
     (descriptionSrc
@@ -50,7 +50,7 @@ export function getComponentDescription(
  */
 export function getComponents(
   customElementsManifest: CEM,
-  exclude?: string[]
+  exclude?: string[],
 ): Component[] {
   return (
     customElementsManifest.modules?.map(
@@ -58,8 +58,8 @@ export function getComponents(
         mod?.declarations?.filter(
           (dec) =>
             !exclude?.includes(dec.name) &&
-            ((dec as Component).customElement || (dec as Component).tagName)
-        ) || []
+            ((dec as Component).customElement || (dec as Component).tagName),
+        ) || [],
     ) || []
   ).flat() as Component[];
 }
@@ -76,7 +76,7 @@ export function getComponentProperties(component: Component) {
       member.privacy !== "protected" &&
       !member.static &&
       !(member as schema.CustomElementField).attribute &&
-      !member.name.startsWith("#")
+      !member.name.startsWith("#"),
   ) as schema.ClassMember[];
 }
 
@@ -88,7 +88,7 @@ export function getComponentProperties(component: Component) {
  */
 export function getAttributeValueOptions(
   attr: schema.Attribute,
-  typeSrc: string = "type"
+  typeSrc: string = "type",
 ): string[] {
   const value: string = (attr as any)[`${typeSrc}`]?.text || attr.type?.text;
   return !value
@@ -104,14 +104,14 @@ export function getAttributeValueOptions(
  * @returns ClassMethod[]
  */
 export function getComponentMethods(
-  component: Component
+  component: Component,
 ): schema.ClassMethod[] {
   return component.members?.filter(
     (member) =>
       member.kind === "method" &&
       member.privacy !== "private" &&
       member.description?.length &&
-      !member.name.startsWith("#") 
+      !member.name.startsWith("#"),
   ) as schema.ClassMethod[];
 }
 
@@ -123,7 +123,7 @@ export function getComponentMethods(
  */
 export function getCustomEventTypes(
   component: Component,
-  excludedTypes?: string[]
+  excludedTypes?: string[],
 ) {
   const types = component.events
     ?.map((e) => {

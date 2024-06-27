@@ -36,7 +36,7 @@ const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
 export function getTagList(
   components: Component[],
   options: Options,
-  referenceTemplate?: (name: string, tag?: string) => Reference
+  referenceTemplate?: (name: string, tag?: string) => Reference,
 ): WebTypeElement[] {
   return components.map((component: Component) => {
     const reference = referenceTemplate
@@ -64,7 +64,7 @@ export function getTagList(
 
 function getJsProperties(
   component: Component,
-  typesSrc?: string
+  typesSrc?: string,
 ): JsProperties {
   return {
     properties: getWebTypeProperties(component, typesSrc),
@@ -79,22 +79,29 @@ function getJsProperties(
 function isPublicProperty(field: schema.ClassField): boolean {
   // It appears that JetBrains Web Types assumes that all properties are public (TS only) and not
   // static.
-  return field.static !== true && (field.privacy === 'public' || field.privacy === undefined)
+  return (
+    field.static !== true &&
+    (field.privacy === "public" || field.privacy === undefined)
+  );
 }
 
 function getWebTypeProperties(
   component: Component,
-  typesSrc = 'type'
+  typesSrc = "type",
 ): WebTypeJsProperty[] {
   return (
-    (component.members?.filter((member) => member.kind === 'field') as schema.ClassField[] | undefined)
+    (
+      component.members?.filter((member) => member.kind === "field") as
+        | schema.ClassField[]
+        | undefined
+    )
       ?.filter(isPublicProperty)
       .map((field) => {
         return {
           name: field.name,
           description: field.description,
-          type: (field as any)[typesSrc]?.text || field.type?.text
-        }
+          type: (field as any)[typesSrc]?.text || field.type?.text,
+        };
       }) || []
   );
 }
@@ -104,7 +111,8 @@ function getWebTypeEvents(component: Component): WebTypeEvent[] {
     // The CEM analyzer will generate a custom event without a name if it is dispatched inside the
     // custom element using a predefined constructor, but JetBrains IDEs seemingly can't do anything
     // with unnamed Web Type events, so ignore them.
-    component.events?.filter((event) => event.name !== undefined && event.name !== null)
+    component.events
+      ?.filter((event) => event.name !== undefined && event.name !== null)
       .map((event) => {
         return {
           name: event.name,
@@ -117,7 +125,7 @@ function getWebTypeEvents(component: Component): WebTypeEvent[] {
 
 export function generateJetBrainsWebTypes(
   customElementsManifest: CEM,
-  options: Options
+  options: Options,
 ) {
   if (options.skip) {
     logYellow("[jet-brains-web-type-generator] - Skipped", options.hideLogs);
@@ -125,17 +133,19 @@ export function generateJetBrainsWebTypes(
   }
   logBlue(
     "[jet-brains-web-type-generator] - Updating Custom Elements Manifest...",
-    options.hideLogs
+    options.hideLogs,
   );
 
   options = getOptions(options);
   const components = getComponents(
     customElementsManifest,
-    options.exclude
+    options.exclude,
   ).filter((x) => x.tagName);
 
   if (!components.length) {
-    logRed("[jet-brains-web-type-generator] - No components found in custom-elements.json");
+    logRed(
+      "[jet-brains-web-type-generator] - No components found in custom-elements.json",
+    );
     return;
   }
 
@@ -149,7 +159,7 @@ export function generateJetBrainsWebTypes(
     elements,
     cssProperties,
     cssParts,
-    options
+    options,
   );
   logBlue(`[jet-brains-web-type-generator] - Generated "${outputPath}".`);
 }
@@ -174,7 +184,7 @@ export function saveWebTypeFile(
   tags: WebTypeElement[],
   cssProperties: WebTypeCssProperty[],
   parts: WebTypePseudoElement[],
-  options: Options
+  options: Options,
 ) {
   createOutDir(options.outdir!);
 
@@ -186,7 +196,7 @@ export function saveWebTypeFile(
     return saveFile(
       options.outdir!,
       options.webTypesFileName!,
-      getWebTypesFileContents(tags, cssProperties, parts, options)
+      getWebTypesFileContents(tags, cssProperties, parts, options),
     );
   }
 
@@ -205,16 +215,19 @@ function getWebTypesFileContents(
   tags: WebTypeElement[],
   cssProperties: WebTypeCssProperty[],
   parts: WebTypePseudoElement[],
-  options: Options
+  options: Options,
 ) {
   return `{
     "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
     "name": "${packageJson.name}",
     "version": "${packageJson.version}",
-    "description-markup": "markdown",${options.defaultIcon ? `
+    "description-markup": "markdown",${
+      options.defaultIcon
+        ? `
     "default-icon": "${options.defaultIcon}",
-    ` : ''
-}    "contributions": {
+    `
+        : ""
+    }    "contributions": {
       ${
         options.excludeHtml
           ? ""
