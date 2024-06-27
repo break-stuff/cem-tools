@@ -30,13 +30,7 @@ export function generateJsxTypes(manifest: any, options: Options) {
   );
   const template = getTypeTemplate(components, options);
   createOutDir(options.outdir!);
-  saveFile(
-    options.outdir!,
-    options.fileName!,
-    template,
-    "typescript",
-    120,
-  );
+  saveFile(options.outdir!, options.fileName!, template, "typescript", 120);
   logGreen(
     `[jsx-type-generator] - Generated "${path.join(options.outdir!, options.fileName!)}".`,
   );

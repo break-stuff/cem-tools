@@ -70,7 +70,10 @@
             {
               "name": "complex",
               "description": "This is a test for options from an object",
-              "value": { "type": "'single' | 'multi'", "default": "'single'" }
+              "value": {
+                "type": "'single' | 'multi'",
+                "default": "'single'"
+              }
             },
             {
               "name": "my-attribute",
@@ -133,7 +136,10 @@
                 "description": "This is a test for internal options",
                 "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
               },
-              { "name": "external", "type": "'value1' | 'value2' | 'value3'" },
+              {
+                "name": "external",
+                "type": "'value1' | 'value2' | 'value3'"
+              },
               {
                 "name": "deprecatedAttribute",
                 "type": "'value1' | 'value2' | 'value3'"
