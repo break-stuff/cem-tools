@@ -470,7 +470,7 @@ function getPropsInterface(
     ...getAttributePropsTemplate(attributes, componentName),
     ...getPropertyPropsTemplate(properties, componentName),
     ...getEventPropsTemplate(events),
-    ...getGlobalEventPropsTemplate(globalEvents),
+    ...getGlobalEventPropsTemplate(),
   ]?.join("");
 }
 
@@ -575,7 +575,7 @@ function getEventPropsTemplate(events: EventName[] | undefined) {
   );
 }
 
-function getGlobalEventPropsTemplate(events: GlobalEvent[] | undefined) {
+function getGlobalEventPropsTemplate() {
   return (
     globalEvents?.map(
       (event) => `

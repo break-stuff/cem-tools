@@ -25,8 +25,8 @@
     "deploy:svelte": "pnpm --filter './packages/custom-element-svelte-integration' deploy",
     "deploy:vue": "pnpm --filter './packages/custom-element-vuejs-integration' deploy",
     "deploy:vs-code": "pnpm --filter './packages/custom-element-vs-code-integration' deploy",
-    "lint": "npx eslint --fix",
-    "format": "pnpm exec prettier . --write",
+    "lint": "npx eslint . --fix",
+    "format": "prettier . --write",
     "test": "pnpm --filter './packages/**' --filter './demo/**' test",
     "prepare": "husky && husky install"
   },

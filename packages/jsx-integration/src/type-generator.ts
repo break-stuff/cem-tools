@@ -30,7 +30,7 @@ export function generateJsxTypes(manifest: any, options: Options) {
   );
   const template = getTypeTemplate(components, options);
   createOutDir(options.outdir!);
-  const outputPath = saveFile(
+  saveFile(
     options.outdir!,
     options.fileName!,
     template,

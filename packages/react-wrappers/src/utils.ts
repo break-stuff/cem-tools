@@ -26,7 +26,7 @@ export function getModulePath(
   }
 
   const directories = outdir?.split("/");
-  return path.join(directories.map((_) => "../").join(""), packageJson.module);
+  return path.join(directories.map(() => "../").join(""), packageJson.module);
 }
 
 export const createEventName = (event: any) => `on${toPascalCase(event.name)}`;
