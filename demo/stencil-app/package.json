@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@stencil/core": "^4.0.0",
-    "lit-app": "*"
+    "lit-app": "workspace:*"
   },
   "devDependencies": {
     "@types/jest": "^27.5.2",

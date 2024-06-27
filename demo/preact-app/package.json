@@ -8,7 +8,7 @@
 	},
 	"dependencies": {
 		"preact": "^10.13.1",
-		"lit-app": "*"
+		"lit-app": "workspace:*"
 	},
 	"devDependencies": {
 		"@preact/preset-vite": "^2.5.0",

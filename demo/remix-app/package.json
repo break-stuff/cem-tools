@@ -11,7 +11,7 @@
     "typecheck": "tsc"
   },
   "dependencies": {
-    "lit-app": "*",
+    "lit-app": "workspace:*",
     "@remix-run/node": "^2.9.2",
     "@remix-run/react": "^2.9.2",
     "@remix-run/serve": "^2.9.2",

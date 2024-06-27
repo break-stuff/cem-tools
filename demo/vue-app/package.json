@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "lit-app": "*",
+    "lit-app": "workspace:*",
     "vue": "^3.3.10"
   },
   "devDependencies": {

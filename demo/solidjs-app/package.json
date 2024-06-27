@@ -17,6 +17,6 @@
   },
   "dependencies": {
     "solid-js": "^1.7.6",
-    "lit-app": "*"
+    "lit-app": "workspace:*"
   }
 }

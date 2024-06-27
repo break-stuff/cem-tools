@@ -8,9 +8,9 @@
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.6",
-    "custom-element-vs-code-integration": "*",
-    "custom-element-jet-brains-integration": "*",
-    "custom-element-react-wrappers": "*"
+    "custom-element-vs-code-integration": "workspace:*",
+    "custom-element-jet-brains-integration": "workspace:*",
+    "custom-element-react-wrappers": "workspace:*"
   },
   "keywords": [],
   "author": "",
