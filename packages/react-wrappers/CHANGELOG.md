@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.3
+
+- Remove conflicting types
+
 ## 1.6.2
 
 - Fix redundant base types
