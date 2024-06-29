@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
+  "name": "cem-tools",
+  "version": "0.0.0",
+  "description-markup": "markdown",
+  "default-icon": "icon.svg",
+  "contributions": {
+    "html": {
+      "elements": []
+    },
+    "css": {
+      "properties": [],
+      "pseudo-elements": []
+    }
+  }
+}

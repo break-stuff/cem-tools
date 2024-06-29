@@ -9,12 +9,11 @@
   "scripts": {
     "build": "tsc && cp src/types.d.ts dist/types.d.ts || copy src/types.d.ts dist/types.d.ts",
     "lint": "eslint \"**/*.ts*\"",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest"
+    "test": "vitest --run"
   },
   "devDependencies": {
     "custom-elements-manifest": "2.0.0",
     "eslint": "^7.32.0",
-    "ts-jest": "^29.0.3",
     "tsconfig": "*",
     "typescript": "^4.5.2"
   },

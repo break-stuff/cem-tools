@@ -27,7 +27,7 @@
     "deploy:vs-code": "pnpm --filter './packages/custom-element-vs-code-integration' deploy",
     "lint": "npx eslint . --fix",
     "format": "prettier . --write",
-    "test": "pnpm --filter './packages/**' --filter './demo/**' test",
+    "test": "vitest --run",
     "prepare": "husky && husky install"
   },
   "devDependencies": {
@@ -35,7 +35,8 @@
     "lint-staged": "^15.2.7",
     "prettier": "3.3.2",
     "tsup": "^7.1.0",
-    "typescript-eslint": "^7.14.1"
+    "typescript-eslint": "^7.14.1",
+    "vitest": "^1.6.0"
   },
   "engines": {
     "node": ">=14.0.0"

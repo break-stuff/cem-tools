@@ -1,4 +1,4 @@
-// import { getComponents } from "../../../../tools/cem-utils/index.ts";
+import { afterEach, expect, describe, test } from "vitest";
 import { getComponents } from "../../../../tools/cem-utils/index";
 import { generateUpdatedCem } from "../cem-inheritance";
 import {
@@ -91,7 +91,7 @@ describe("cem-inheritance", () => {
         const dir = members?.find((p) => p.name === "_dir");
 
         // Assert
-        expect(dir).toBeUndefined();
+        expect(dir).toBe(undefined);
       });
     });
 
@@ -133,7 +133,7 @@ describe("cem-inheritance", () => {
   });
 
   describe("options", () => {
-    it("should exclude entries from excluded components", () => {
+    test("should exclude entries from excluded components", () => {
       // Arrange
       const options = {
         exclude: ["MyElement"],
@@ -149,7 +149,7 @@ describe("cem-inheritance", () => {
       ).toBeUndefined();
     });
 
-    it.skip("should exclude entries from omitted aspects", () => {
+    test("should exclude entries from omitted aspects", () => {
       // Arrange
       const options = {
         omit: {
@@ -169,7 +169,7 @@ describe("cem-inheritance", () => {
       ).toBeUndefined();
     });
 
-    it.skip("should exclude entries from ignored aspects", () => {
+    test("should exclude entries from ignored aspects", () => {
       // Arrange
       const options = {
         ignore: ["cssProperties"],
@@ -183,8 +183,7 @@ describe("cem-inheritance", () => {
       expect(myExtInput?.cssProperties?.length).toBeUndefined();
     });
 
-    // skipped because it fails when other tests run, but passes in isolation
-    it.skip("should exclude entries from external CEM", () => {
+    test("should exclude entries from external CEM", () => {
       // Arrange
       const options = {
         externalManifests: [externalCEM],

@@ -1,3 +1,4 @@
+import { expect, describe, test } from "vitest";
 import {
   getCssPropertyValues,
   getCssValues,

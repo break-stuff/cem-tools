@@ -1,4 +1,4 @@
-import { Options } from "../..";
+import { expect, describe, test } from "vitest";
 import { customElementsManifest } from "./test-data";
 import { getOptions, getTagList } from "../web-types-generator";
 import { getComponents } from "../../../../tools/cem-utils";
