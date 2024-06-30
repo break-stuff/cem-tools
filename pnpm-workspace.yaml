@@ -3,3 +3,5 @@ packages:
   - "packages/*"
   # all packages in subdirs of demo/
   - "demo/**"
+  # all packages in subdirs of demo/
+  - "tools/**"
