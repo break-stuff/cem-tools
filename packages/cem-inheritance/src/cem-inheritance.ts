@@ -1,7 +1,8 @@
 import { CEM, Component } from "../../../tools/cem-utils/index.js";
 import {
   createOutDir,
-  logBlue,
+  log,
+  logGreen,
   logYellow,
   saveFile,
 } from "../../../tools/integrations";
@@ -19,7 +20,7 @@ export function updateCemInheritance(cem: CEM, options: Options = {}) {
     logYellow("[cem-inheritance-generator] - Skipped", options.hideLogs);
   }
 
-  logBlue(
+  log(
     "[cem-inheritance-generator] - Updating Custom Elements Manifest...",
     options.hideLogs,
   );
@@ -32,7 +33,7 @@ export function updateCemInheritance(cem: CEM, options: Options = {}) {
       JSON.stringify(newCem, null, 2),
     );
   }
-  logBlue(
+  logGreen(
     "[cem-inheritance-generator] - Custom Elements Manifest updated.",
     options.hideLogs,
   );
@@ -226,6 +227,7 @@ function updateMembers(component: Component, parent: Component) {
       const existingMember = component.members?.find(
         (member) => member.name === parentMember.name,
       );
+
       if (!existingMember) {
         const member = addInheritedFromInfo(parentMember, component);
         component.members?.push(member);
