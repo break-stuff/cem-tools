@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.0
+
+- Add tag name prefix and suffix support
+
 ## 1.2.0
 
 - Added the ability to hide logs

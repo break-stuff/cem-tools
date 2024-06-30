@@ -45,15 +45,14 @@ export function generateVuejsTypes(manifest: any, options: Options) {
 }
 
 function getOptions(options: Options) {
-  options.fileName =
-    options.fileName === undefined
-      ? "custom-element-vuejs.d.ts"
-      : options.fileName;
-  options.exclude = options.exclude === undefined ? [] : options.exclude;
-  options.outdir = options.outdir === undefined ? "./" : options.outdir;
-  options.prefix = options.prefix === undefined ? "" : options.prefix;
-  options.suffix = options.suffix === undefined ? "" : options.suffix;
-  return options;
+  return {
+    fileName: "custom-element-vuejs.d.ts",
+    exclude: [],
+    outdir: "./",
+    prefix: "",
+    suffix: "",
+    ...options,
+  };
 }
 
 function getTypeTemplate(components: Component[], options: Options) {
