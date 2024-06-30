@@ -115,6 +115,10 @@ The configuration has the following optional parameters:
   hideLogs?: boolean;
   /** Prevents plugin from executing */
   skip?: boolean;
+  /** Adds a prefix to tag name references */
+  prefix?: string;
+  /** Adds a suffix to tag name references */
+  suffix?: string;
 }
 ```
 

@@ -1,4 +1,7 @@
-import type { RadioGroup, InterfaceEventType } from "./dist/radio-group/RadioGroup.d.ts";
+import type {
+  RadioGroup,
+  InterfaceEventType,
+} from "./dist/radio-group/RadioGroup.d.ts";
 import type { RadioButton } from "./dist/radio-button/RadioButton.d.ts";
 import type { DeprecatedElement } from "./dist/deprecated-element/DeprecatedElement.d.ts";
 import type { MyButton } from "./dist/my-button/MyButton.d.ts";
@@ -20,7 +23,10 @@ import type { MyButton } from "./dist/my-button/MyButton.d.ts";
  * ```
  *
  */
-export type ScopedElements<Prefix extends string = "", Suffix extends string = ""> = {
+export type ScopedElements<
+  Prefix extends string = "",
+  Suffix extends string = "",
+> = {
   [Key in keyof CustomElements as `${Prefix}${Key}${Suffix}`]: CustomElements[Key];
 };
 
@@ -179,7 +185,9 @@ export type CustomElements = {
    * ---
    *
    */
-  "deprecated-element": Partial<DeprecatedElementProps | BaseProps | BaseEvents>;
+  "deprecated-element": Partial<
+    DeprecatedElementProps | BaseProps | BaseEvents
+  >;
 
   /**
    *
