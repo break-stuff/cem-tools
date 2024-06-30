@@ -1,6 +1,6 @@
 import { parse } from "comment-parser";
 import type { Component } from "../../../tools/cem-utils";
-import { logBlue, logYellow } from "../../../tools/integrations/src/logs";
+import { log, logGreen, logYellow } from "../../../tools/integrations/src/logs";
 
 export interface Options {
   tags?: CustomTag;
@@ -45,7 +45,7 @@ export function customJSDocTagsPlugin(
     return;
   }
 
-  logBlue(
+  log(
     "[custom-jsdoc-tags] - Updating Custom Elements Manifest...",
     options.hideLogs,
   );
@@ -102,7 +102,7 @@ export function customJSDocTagsPlugin(
         }
       });
 
-      logBlue(
+      logGreen(
         "[custom-jsdoc-tags] - Custom Elements Manifest updated.",
         options.hideLogs,
       );

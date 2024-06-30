@@ -23,7 +23,8 @@ import {
 } from "./cem-utilities";
 import {
   createOutDir,
-  logBlue,
+  log,
+  logGreen,
   logRed,
   logYellow,
   saveFile,
@@ -131,7 +132,7 @@ export function generateJetBrainsWebTypes(
     logYellow("[jet-brains-web-type-generator] - Skipped", options.hideLogs);
     return;
   }
-  logBlue(
+  log(
     "[jet-brains-web-type-generator] - Updating Custom Elements Manifest...",
     options.hideLogs,
   );
@@ -161,7 +162,7 @@ export function generateJetBrainsWebTypes(
     cssParts,
     options,
   );
-  logBlue(`[jet-brains-web-type-generator] - Generated "${outputPath}".`);
+  logGreen(`[jet-brains-web-type-generator] - Generated "${outputPath}".`);
 }
 
 export function getOptions(options: Options) {

@@ -1,7 +1,8 @@
 import { CEM, Component } from "../../../tools/cem-utils/index.js";
 import {
   createOutDir,
-  logBlue,
+  log,
+  logGreen,
   saveFile,
 } from "../../../tools/integrations/index.js";
 import { Options } from "./types.js";
@@ -9,7 +10,7 @@ import { Options } from "./types.js";
 let userConfig: Options = {};
 
 export function updateCemDeprecations(cem: CEM, options: Options = {}) {
-  logBlue(
+  log(
     "[cem-deprecator] - Updating Custom Elements Manifest...",
     options.hideLogs,
   );
@@ -23,7 +24,7 @@ export function updateCemDeprecations(cem: CEM, options: Options = {}) {
     );
   }
 
-  logBlue(
+  logGreen(
     "[cem-deprecator] - Custom Elements Manifest updated.",
     options.hideLogs,
   );

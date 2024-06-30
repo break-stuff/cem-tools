@@ -5,7 +5,8 @@ import {
 } from "../../../tools/cem-utils/index.js";
 import {
   createOutDir,
-  logBlue,
+  log,
+  logGreen,
   logYellow,
   saveFile,
 } from "../../../tools/integrations/index.js";
@@ -189,7 +190,7 @@ export function generateCustomElementLazyLoader(cem: CEM, options: Options) {
     logYellow("[custom-element-lazy-loader] - Skipped", options.hideLogs);
     return;
   }
-  logBlue(
+  log(
     "[custom-element-lazy-loader] - Updating Custom Elements Manifest...",
     options.hideLogs,
   );
@@ -234,7 +235,7 @@ export function generateCustomElementLazyLoader(cem: CEM, options: Options) {
     loaderTemplate(components),
     "typescript",
   );
-  logBlue(
+  logGreen(
     `[custom-element-lazy-loader] - Generated "${path.join(
       userOptions.outdir!,
       userOptions.fileName!,

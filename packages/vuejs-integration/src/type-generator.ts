@@ -8,7 +8,8 @@ import {
 } from "../../../tools/cem-utils";
 import {
   createOutDir,
-  logBlue,
+  log,
+  logGreen,
   logYellow,
   saveFile,
 } from "../../../tools/integrations";
@@ -20,7 +21,7 @@ export function generateVuejsTypes(manifest: any, options: Options) {
     logYellow("[vuejs-type-generator] - Skipped", options.hideLogs);
     return;
   }
-  logBlue(
+  log(
     "[vuejs-type-generator] - Updating Custom Elements Manifest...",
     options.hideLogs,
   );
@@ -40,7 +41,7 @@ export function generateVuejsTypes(manifest: any, options: Options) {
     120,
   );
 
-  logBlue(`[vuejs-type-generator] - Generated "${outputPath}".`);
+  logGreen(`[vuejs-type-generator] - Generated "${outputPath}".`);
 }
 
 function getOptions(options: Options) {

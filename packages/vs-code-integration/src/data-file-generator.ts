@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   createOutDir,
-  logBlue,
+  log,
+  logGreen,
   logRed,
   logYellow,
   saveFile,
@@ -26,7 +27,7 @@ export function generateVsCodeCustomElementData(
     );
     return;
   }
-  logBlue(
+  log(
     "[custom-element-vs-code-integration] - Updating Custom Elements Manifest...",
     options.hideLogs,
   );
@@ -54,7 +55,7 @@ export function generateVsCodeCustomElementData(
     cssProperties,
     cssParts,
   );
-  logBlue(`[vs-code-custom-data-generator] - Generated ${outputPath}.`);
+  logGreen(`[vs-code-custom-data-generator] - Generated ${outputPath}.`);
 }
 
 export function getOptions(options: Options) {

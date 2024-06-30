@@ -8,7 +8,8 @@ import {
 } from "../../../tools/cem-utils";
 import {
   createOutDir,
-  logBlue,
+  log,
+  logGreen,
   logYellow,
   saveFile,
 } from "../../../tools/integrations";
@@ -19,7 +20,7 @@ export function generateSolidJsTypes(manifest: any, options: Options) {
     logYellow("[solidjs-type-generator] - Skipped", options.hideLogs);
     return;
   }
-  logBlue(
+  log(
     "[solidjs-type-generator] - Updating Custom Elements Manifest...",
     options.hideLogs,
   );
@@ -38,7 +39,7 @@ export function generateSolidJsTypes(manifest: any, options: Options) {
     "typescript",
     120,
   );
-  logBlue(
+  logGreen(
     `[solidjs-type-generator] - Generated "${outputPath}".`,
     options.hideLogs,
   );

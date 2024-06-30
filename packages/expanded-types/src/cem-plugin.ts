@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import type { Component } from "../../../tools/cem-utils";
-import { logBlue, logYellow } from "../../../tools/integrations/src/logs";
+import { log, logGreen, logYellow } from "../../../tools/integrations/src/logs";
 
 export interface Options {
   /** Determines the name of the property used in the manifest to store the expanded type */
@@ -58,7 +58,7 @@ export function expandTypesPlugin(
     logYellow("[cem-expanded-types] - Skipped", options.hideLogs);
     return;
   }
-  logBlue(
+  log(
     "[cem-expanded-types] - Updating Custom Elements Manifest...",
     options.hideLogs,
   );
@@ -254,7 +254,7 @@ function analyzePhase({ ts, node, moduleDoc, context }: any) {
   }
 
   updateExpandedTypes(component, context);
-  logBlue(
+  logGreen(
     "[cem-expanded-types] - Custom Elements Manifest updated.",
     options.hideLogs,
   );
