@@ -18,7 +18,7 @@
           "type": {
             "text": "{\n  /** Designates only a single <he-accordion-item> can be open a time. */\n  single: \"single\",\n\n  /** Designates multiple <he-accordion-items> can be open simultaneously. */\n  multi: \"multi\",\n}"
           },
-          "default": "{\n  /** Designates only a single <he-accordion-item> can be open a time. */\n  single: \"single\",\n\n  /** Designates multiple <he-accordion-items> can be open simultaneously. */\n  multi: \"multi\",\n}"
+          "default": "{ /** Designates only a single <he-accordion-item> can be open a time. */ single: \"single\", /** Designates multiple <he-accordion-items> can be open simultaneously. */ multi: \"multi\", }"
         },
         {
           "kind": "class",
@@ -236,11 +236,13 @@
             {
               "kind": "method",
               "name": "#privateMethod",
+              "privacy": "private",
               "description": "This is a test for a private method"
             },
             {
               "kind": "field",
-              "name": "customTag"
+              "name": "customTag",
+              "readonly": true
             },
             {
               "kind": "method",
@@ -700,6 +702,29 @@
     },
     {
       "kind": "javascript-module",
+      "path": "src/radio-button/radio-button.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "RadioButton",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "src/radio-button/radio-button.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "radio-button",
+          "declaration": {
+            "name": "RadioButton",
+            "module": "/src/radio-button/RadioButton.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/my-button/MyButton.ts",
       "declarations": [
         {
@@ -753,29 +778,6 @@
           "declaration": {
             "name": "MyButton",
             "module": "/src/my-button/MyButton.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "src/radio-button/radio-button.ts",
-      "declarations": [],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "RadioButton",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "src/radio-button/radio-button.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "radio-button",
-          "declaration": {
-            "name": "RadioButton",
-            "module": "/src/radio-button/RadioButton.js"
           }
         }
       ]
