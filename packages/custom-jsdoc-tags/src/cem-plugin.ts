@@ -1,6 +1,6 @@
 import { parse } from "comment-parser";
 import type { Component } from "../../../tools/cem-utils";
-import { logBlue, logYellow } from "../../../tools/integrations/src/logs";
+import { log, logGreen, logYellow } from "../../../tools/integrations/src/logs";
 
 export interface Options {
   tags?: CustomTag;
@@ -38,14 +38,17 @@ let userOptions: Options = {
 export function customJSDocTagsPlugin(
   options: Options = {
     tags: {},
-  }
+  },
 ) {
-  if(options.skip) {
+  if (options.skip) {
     logYellow("[custom-jsdoc-tags] - Skipped", options.hideLogs);
     return;
   }
-  
-  logBlue("[custom-jsdoc-tags] - Updating Custom Elements Manifest...", options.hideLogs);
+
+  log(
+    "[custom-jsdoc-tags] - Updating Custom Elements Manifest...",
+    options.hideLogs,
+  );
   userOptions = options;
 
   return {
@@ -57,7 +60,7 @@ export function customJSDocTagsPlugin(
 
       const className = node.name.getText();
       const component = moduleDoc?.declarations?.find(
-        (declaration: Component) => declaration.name === className
+        (declaration: Component) => declaration.name === className,
       );
       const customTags = Object.keys(userOptions.tags || {});
       let customComments = "/**";
@@ -99,7 +102,10 @@ export function customJSDocTagsPlugin(
         }
       });
 
-      logBlue("[custom-jsdoc-tags] - Custom Elements Manifest updated.", options.hideLogs);
+      logGreen(
+        "[custom-jsdoc-tags] - Custom Elements Manifest updated.",
+        options.hideLogs,
+      );
     },
   };
 }

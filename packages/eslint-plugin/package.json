@@ -16,13 +16,11 @@
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "demo": "cd demo && npx http-server --cors",
     "deploy": "npm run build && npm publish",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
+    "test": "vitest --run"
   },
   "devDependencies": {
     "@types/eslint": "^8.56.10",
-    "@types/jest": "^29.2.3",
     "eslint": "^9.3.0",
-    "ts-jest": "^29.0.3",
     "tsup": "^8.0.2"
   },
   "repository": {
@@ -42,7 +40,7 @@
     "plugin",
     "web components eslint",
     "web components lint",
-    "custom elements eslint",      
+    "custom elements eslint",
     "web components eslint",
     "custom elements lint",
     "web components validation",

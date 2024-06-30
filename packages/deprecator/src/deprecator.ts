@@ -1,7 +1,8 @@
 import { CEM, Component } from "../../../tools/cem-utils/index.js";
 import {
   createOutDir,
-  logBlue,
+  log,
+  logGreen,
   saveFile,
 } from "../../../tools/integrations/index.js";
 import { Options } from "./types.js";
@@ -9,9 +10,9 @@ import { Options } from "./types.js";
 let userConfig: Options = {};
 
 export function updateCemDeprecations(cem: CEM, options: Options = {}) {
-  logBlue(
+  log(
     "[cem-deprecator] - Updating Custom Elements Manifest...",
-    options.hideLogs
+    options.hideLogs,
   );
   const newCem = generateUpdatedCem(cem, options);
   if (!options.usedByPlugin) {
@@ -19,13 +20,13 @@ export function updateCemDeprecations(cem: CEM, options: Options = {}) {
     saveFile(
       userConfig.outdir!,
       userConfig.fileName!,
-      JSON.stringify(newCem, null, 2)
+      JSON.stringify(newCem, null, 2),
     );
   }
 
-  logBlue(
+  logGreen(
     "[cem-deprecator] - Custom Elements Manifest updated.",
-    options.hideLogs
+    options.hideLogs,
   );
 }
 
@@ -42,7 +43,7 @@ function updateOptions(options: Options = {}) {
 export function generateUpdatedCem(cem: any, options: Options = {}) {
   if (!cem) {
     throw new Error(
-      "Custom Elements Manifest is required to update inheritance."
+      "Custom Elements Manifest is required to update inheritance.",
     );
   }
 
@@ -77,12 +78,12 @@ function updateMetaData(data: any) {
  */
 export function getDeclarations(
   customElementsManifest: CEM,
-  exclude?: string[]
+  exclude?: string[],
 ): Component[] {
   return (
     customElementsManifest.modules?.map(
       (mod) =>
-        mod?.declarations?.filter((dec) => !exclude?.includes(dec.name)) || []
+        mod?.declarations?.filter((dec) => !exclude?.includes(dec.name)) || [],
     ) || []
   ).flat() as Component[];
 }

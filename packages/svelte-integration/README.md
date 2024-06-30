@@ -2,7 +2,7 @@
 
 This package is designed to generate types for your custom elements in a [Svelte](https://svelte.dev/) project. These types will generate type validation for your custom elements.
 
-> ***NOTE:*** These types only provide type-safety and not documentation or auto-complete. If you would like add these features to your Svelte projects, consider using the [VS Code](https://www.npmjs.com/package/custom-element-vs-code-integration) and and [JetBrains IDE](https://www.npmjs.com/package/custom-element-jet-brains-integration) integration packages.
+> **_NOTE:_** These types only provide type-safety and not documentation or auto-complete. If you would like add these features to your Svelte projects, consider using the [VS Code](https://www.npmjs.com/package/custom-element-vs-code-integration) and and [JetBrains IDE](https://www.npmjs.com/package/custom-element-jet-brains-integration) integration packages.
 
 ## Usage
 
@@ -87,8 +87,8 @@ Now you can add a reference to the types in your `tsconfig.json`.
 ```json
 {
   "compilerOptions": {
-    "types": ["my-library/custom-elements-svelte"],
-  },
+    "types": ["my-library/custom-elements-svelte"]
+  }
 }
 ```
 
@@ -152,8 +152,8 @@ export class MyComponent extents HTMLElement
 ```ts
 // DO THIS
 
-export type MyComponentUpdateEvent = { 
-  message: string 
+export type MyComponentUpdateEvent = {
+  message: string
 };
 
 export type MyComponentInputEvent = "value1" | "value2" | "value3";

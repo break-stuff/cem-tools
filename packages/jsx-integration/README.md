@@ -246,7 +246,7 @@ By default the types will be mapped with the attributes, properties, and custom 
   onFocus?: (event: FocusEvent) => void;
   /** Fired when the element loses focus. */
   onBlur?: (event: FocusEvent) => void;
-  `
+  `;
 }
 ```
 

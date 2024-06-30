@@ -1,6 +1,4 @@
-import {
-  type Component,
-} from "../../../tools/cem-utils";
+import { type Component } from "../../../tools/cem-utils";
 import type {
   WebTypeAttribute,
   WebTypeCssProperty,
@@ -8,7 +6,7 @@ import type {
 } from "./types";
 
 export function getCssPropertyList(
-  components: Component[]
+  components: Component[],
 ): WebTypeCssProperty[] {
   return (
     components?.map((component: Component) => {
@@ -25,7 +23,7 @@ export function getCssPropertyList(
 }
 
 export function getCssPartList(
-  components: Component[]
+  components: Component[],
 ): WebTypePseudoElement[] {
   return (
     components?.map((component: Component) => {
@@ -44,7 +42,7 @@ export function getCssPartList(
 export function getCssPropertyValues(value?: string): string[] {
   return value
     ? (value.includes("|") ? value.split("|") : value.split(",")).map((x) =>
-        getCssNameValue(x.trim())
+        getCssNameValue(x.trim()),
       )
     : [];
 }
@@ -53,11 +51,11 @@ function getCssNameValue(value: string) {
   return !value ? "" : value.startsWith("--") ? `var(${value})` : value;
 }
 
-export function getComponentAttributes(component: Component, typeSrc = 'type') {
+export function getComponentAttributes(component: Component, typeSrc = "type") {
   const attributes: WebTypeAttribute[] = [];
   component?.attributes?.forEach((attr) => {
     const existingAttr = attributes.find(
-      (x) => x.name === attr.name || x.name === attr.fieldName
+      (x) => x.name === attr.name || x.name === attr.fieldName,
     );
     if (existingAttr) {
       return;
@@ -67,7 +65,7 @@ export function getComponentAttributes(component: Component, typeSrc = 'type') {
       name: attr.name || attr.fieldName,
       description: attr.description,
       value: {
-        type: (attr as any)[`${typeSrc}`]?.text || attr.type?.text || 'string',
+        type: (attr as any)[`${typeSrc}`]?.text || attr.type?.text || "string",
         default: attr.default,
       },
     } as WebTypeAttribute);

@@ -1,4 +1,7 @@
-import { Options, generateCustomElementLazyLoader } from "./loader-generator.js";
+import {
+  Options,
+  generateCustomElementLazyLoader,
+} from "./loader-generator.js";
 import type { CEM } from "../../../tools/cem-utils/index.js";
 
 export interface Params {

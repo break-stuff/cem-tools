@@ -1,4 +1,4 @@
-// import { getComponents } from "../../../../tools/cem-utils/index.ts";
+import { afterEach, expect, describe, test } from "vitest";
 import { getComponents } from "../../../../tools/cem-utils/index";
 import { generateUpdatedCem } from "../cem-inheritance";
 import {
@@ -7,15 +7,15 @@ import {
   externalManifest,
 } from "./test-data";
 
-let singleCEM = {...standAloneManifest};
-let baseCEM = {...baseManifest};
-let externalCEM = {...externalManifest};
+let singleCEM = structuredClone(standAloneManifest);
+let baseCEM = structuredClone(baseManifest);
+let externalCEM = structuredClone(externalManifest);
 
 describe("cem-inheritance", () => {
   afterEach(() => {
-    singleCEM = {...standAloneManifest};
-    baseCEM = {...baseManifest};
-    externalCEM = {...externalManifest};
+    singleCEM = { ...standAloneManifest };
+    baseCEM = { ...baseManifest };
+    externalCEM = { ...externalManifest };
   });
 
   describe("inherit within same file", () => {
@@ -91,7 +91,7 @@ describe("cem-inheritance", () => {
         const dir = members?.find((p) => p.name === "_dir");
 
         // Assert
-        expect(dir).toBeUndefined();
+        expect(dir).toBe(undefined);
       });
     });
 
@@ -133,7 +133,7 @@ describe("cem-inheritance", () => {
   });
 
   describe("options", () => {
-    it("should exclude entries from excluded components", () => {
+    test("should exclude entries from excluded components", () => {
       // Arrange
       const options = {
         exclude: ["MyElement"],
@@ -145,11 +145,11 @@ describe("cem-inheritance", () => {
 
       // Assert
       expect(
-        myExtElement?.attributes?.find((x) => x.name === "dir")
+        myExtElement?.attributes?.find((x) => x.name === "dir"),
       ).toBeUndefined();
     });
 
-    it.skip("should exclude entries from omitted aspects", () => {
+    test("should exclude entries from omitted aspects", () => {
       // Arrange
       const options = {
         omit: {
@@ -165,11 +165,11 @@ describe("cem-inheritance", () => {
 
       // Assert
       expect(
-        myExtInput?.members?.find((x) => x.name === "disabled")
+        myExtInput?.members?.find((x) => x.name === "disabled"),
       ).toBeUndefined();
     });
 
-    it.skip("should exclude entries from ignored aspects", () => {
+    test("should exclude entries from ignored aspects", () => {
       // Arrange
       const options = {
         ignore: ["cssProperties"],
@@ -184,7 +184,7 @@ describe("cem-inheritance", () => {
     });
 
     // skipped because it fails when other tests run, but passes in isolation
-    it.skip("should exclude entries from external CEM", () => {
+    test.skip("should exclude entries from external CEM", () => {
       // Arrange
       const options = {
         externalManifests: [externalCEM],

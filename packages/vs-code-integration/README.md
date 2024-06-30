@@ -8,8 +8,9 @@ This config enables VS Code to display autocomplete and contextual information a
 
 ## Usage
 
-This package includes two ways to generate the custom data config file: 
-1. calling a function in your build pipeline 
+This package includes two ways to generate the custom data config file:
+
+1. calling a function in your build pipeline
 2. as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/)
 
 ### Install
@@ -171,7 +172,7 @@ The configuration has the following optional parameters:
     cssParts: "Style Hooks",
     methods: "Functions",
   },
-  
+
   /** Creates reusable CSS values for consistency in components */
   cssSets: [
     {

@@ -37,7 +37,7 @@ let globalEvents: GlobalEvent[] = [];
 
 export function generateReactWrappers(
   customElementsManifest: CEM,
-  options: Options
+  options: Options,
 ) {
   if (options.skip) {
     logYellow("[react-wrappers] - Skipped", options.hideLogs);
@@ -64,7 +64,7 @@ export function generateReactWrappers(
       config.modulePath,
       component,
       config.outdir!,
-      packageJson
+      packageJson,
     );
 
     generateReactWrapper(
@@ -73,7 +73,7 @@ export function generateReactWrappers(
       booleanAttributes,
       attributes,
       componentModulePath,
-      properties
+      properties,
     );
 
     generateTypeDefinition(
@@ -82,7 +82,7 @@ export function generateReactWrappers(
       booleanAttributes,
       attributes,
       componentModulePath,
-      properties
+      properties,
     );
   });
 
@@ -108,7 +108,7 @@ function generateReactWrapper(
   booleanAttributes: Attribute[],
   attributes: Attribute[],
   componentModulePath: string,
-  properties?: ClassField[]
+  properties?: ClassField[],
 ) {
   const result = getReactComponentTemplate(
     component,
@@ -116,7 +116,7 @@ function generateReactWrapper(
     booleanAttributes,
     attributes,
     componentModulePath,
-    properties
+    properties,
   );
 
   saveFile(config.outdir!, `${component.name}.js`, result, "typescript");
@@ -128,7 +128,7 @@ function generateTypeDefinition(
   booleanAttributes: Attribute[],
   attributes: Attribute[],
   componentModulePath: string,
-  properties?: ClassField[]
+  properties?: ClassField[],
 ) {
   const result = getTypeDefinitionTemplate(
     component,
@@ -136,7 +136,7 @@ function generateTypeDefinition(
     booleanAttributes,
     attributes,
     componentModulePath,
-    properties
+    properties,
   );
 
   saveFile(config.outdir!, `${component.name}.d.ts`, result, "typescript");
@@ -147,20 +147,20 @@ function generateManifests(components: Component[], outdir: string) {
     outdir,
     "index.js",
     getManifestContentTemplate(components),
-    "typescript"
+    "typescript",
   );
   saveFile(
     outdir,
     "index.d.ts",
     getManifestContentTemplate(components),
-    "typescript"
+    "typescript",
   );
 }
 
 function getProperties(
   component: Component,
   attributes: MappedAttribute[],
-  booleanAttributes: MappedAttribute[]
+  booleanAttributes: MappedAttribute[],
 ) {
   const attributeFieldNames = attributes.map((attr) => attr.fieldName);
   return component?.members?.filter(
@@ -172,7 +172,7 @@ function getProperties(
       !attributeFieldNames.includes(member.name) &&
       (member.description || member.deprecated) &&
       !booleanAttributes.find((x) => x.propName === member.name) &&
-      !attributes.find((x) => x.propName === member.name)
+      !attributes.find((x) => x.propName === member.name),
   ) as ClassField[];
 }
 
@@ -232,19 +232,19 @@ function addGlobalAttributes(attributes: MappedAttribute[]) {
 
 function throwKeywordException(attr: Attribute, component: Component) {
   throw new Error(
-    `Attribute \`${attr.name}\` in custom element \`${component.name}\` is a reserved keyword and cannot be used. Please provide an \`attributeMapping\` in the plugin options to rename the JavaScript variable that gets passed to the attribute.`
+    `Attribute \`${attr.name}\` in custom element \`${component.name}\` is a reserved keyword and cannot be used. Please provide an \`attributeMapping\` in the plugin options to rename the JavaScript variable that gets passed to the attribute.`,
   );
 }
 
 function addAttribute(
   attribute: MappedAttribute,
-  componentAttributes: ComponentAttributes
+  componentAttributes: ComponentAttributes,
 ) {
   const existingAttr = componentAttributes.attributes.find(
-    (x) => x.name === attribute.name
+    (x) => x.name === attribute.name,
   );
   const existingBool = componentAttributes.booleanAttributes.find(
-    (x) => x.name === attribute.name
+    (x) => x.name === attribute.name,
   );
 
   if (existingAttr || existingBool) {
@@ -272,7 +272,7 @@ function getEventTemplates(eventNames: EventName[]) {
   return (
     eventNames.map(
       (event) =>
-        `useEventListener(ref, '${event.name}', props.${event.reactName});`
+        `useEventListener(ref, '${event.name}', props.${event.reactName});`,
     ) || []
   );
 }
@@ -280,7 +280,7 @@ function getEventTemplates(eventNames: EventName[]) {
 function getBooleanAttributeTemplates(booleanAttributes: MappedAttribute[]) {
   return (
     booleanAttributes?.map(
-      (attr) => `'${attr.name}': props.${attr?.propName} ? '' : undefined`
+      (attr) => `'${attr.name}': props.${attr?.propName} ? '' : undefined`,
     ) || []
   );
 }
@@ -294,14 +294,14 @@ function getAttributeTemplates(attributes: MappedAttribute[]) {
         (attr) =>
           `'${attr.originalName || attr?.name}': props.${attr?.propName} ${
             attr.name.includes("-") ? `|| props['${attr.name}']` : ""
-          }`
+          }`,
       ) || []
   );
 }
 
 function getPropTemplates(properties?: ClassField[]) {
   return properties?.map(
-    (member) => `useProperties(ref, '${member.name}', props.${member.name});`
+    (member) => `useProperties(ref, '${member.name}', props.${member.name});`,
   );
 }
 
@@ -311,7 +311,7 @@ function getReactComponentTemplate(
   booleanAttributes: MappedAttribute[],
   attributes: MappedAttribute[],
   modulePath: string,
-  properties?: ClassField[]
+  properties?: ClassField[],
 ) {
   const eventTemplates = getEventTemplates(events);
   const booleanAttrTemplates = getBooleanAttributeTemplates(booleanAttributes);
@@ -344,7 +344,7 @@ function getReactComponentTemplate(
 
     export const ${component.name} = forwardRef((props, forwardedRef) => {
       ${useEffect ? `const ref = useRef(null);` : ""}
-      ${has(unusedProps) ? `const { ${unusedProps.join(", ")}, ...filteredProps } = props;` : ''}
+      ${has(unusedProps) ? `const { ${unusedProps.join(", ")}, ...filteredProps } = props;` : ""}
       ${config.scopedTags ? "const scope = useContext(ScopeContext);" : ""}
 
       ${
@@ -399,22 +399,22 @@ function getTypeDefinitionTemplate(
   booleanAttributes: Attribute[],
   attributes: Attribute[],
   modulePath: string,
-  properties?: ClassField[]
+  properties?: ClassField[],
 ) {
   const props = getPropsInterface(
     component.name,
     booleanAttributes,
     attributes,
     events,
-    properties
+    properties,
   );
   const eventTypes = getCustomEventTypes(component);
 
   return `
     import { 
       ${config.defaultExport ? "default" : component.name} as ${
-    component.name
-  }Element
+        component.name
+      }Element
       ${eventTypes?.length ? `, ${eventTypes}` : ""}
     } from '${modulePath}';
 
@@ -431,8 +431,8 @@ function getTypeDefinitionTemplate(
      ${getComponentDetailsTemplate(component, config, true)}
      */
      export const ${component.name}: React.ForwardRefExoticComponent<${
-    component.name
-  }Props>;
+       component.name
+     }Props>;
   `;
 }
 
@@ -440,7 +440,7 @@ function getExtendedProps() {
   return config.reactProps === true
     ? "extends React.AllHTMLAttributes<HTMLElement>"
     : `extends Pick<React.AllHTMLAttributes<HTMLElement>, ${[
-        ...BASE_PROPS.filter(x => !NON_ATTR_BASE_PROPS.includes(x)),
+        ...BASE_PROPS.filter((x) => !NON_ATTR_BASE_PROPS.includes(x)),
         ...(config.reactProps || []),
       ]
         .map((x) => `'${x}'`)
@@ -458,33 +458,33 @@ function getPropsInterface(
   booleanAttributes: MappedAttribute[],
   attributes: MappedAttribute[],
   events: EventName[],
-  properties?: ClassField[]
+  properties?: ClassField[],
 ) {
   return [
     ...getBooleanPropsTemplate(booleanAttributes),
     ...getAttributePropsTemplate(attributes, componentName),
     ...getPropertyPropsTemplate(properties, componentName),
     ...getEventPropsTemplate(events),
-    ...getGlobalEventPropsTemplate(globalEvents),
+    ...getGlobalEventPropsTemplate(),
   ]?.join("");
 }
 
 function getUnusedProps(
   attributes: MappedAttribute[],
   booleanAttributes: MappedAttribute[],
-  properties?: ClassField[]
+  properties?: ClassField[],
 ) {
   return [
     "className",
     ...[...(booleanAttributes || []), ...(attributes || [])].map(
-      (x) => x.propName
+      (x) => x.propName,
     ),
     ...(properties || []).map((x) => x.name),
   ]?.filter(
     (prop) =>
       !RESERVED_WORDS.includes(prop!) &&
       !MAPPED_PROPS.some((x) => x.propName === prop) &&
-      prop !== "for"
+      prop !== "for",
   );
 }
 
@@ -500,10 +500,10 @@ function getPublicMethodsForRef(methods: ClassMethod[]) {
       ?.map(
         (method) =>
           `${method.name}: ${getMethodParameters(
-            method.parameters
+            method.parameters,
           )} => ref.current.${method.name}${getMethodParameters(
-            method.parameters
-          )}`
+            method.parameters,
+          )}`,
       )
       .join(",\n") || ""
   );
@@ -515,14 +515,14 @@ function getBooleanPropsTemplate(booleanAttributes: MappedAttribute[]) {
       (attr) => `
       /** ${attr.description} */
       ${attr?.propName}?: ${attr?.type?.text || "boolean"};
-    `
+    `,
     ) || []
   );
 }
 
 function getAttributePropsTemplate(
   attributes: MappedAttribute[],
-  componentName: string
+  componentName: string,
 ) {
   return (
     (attributes || []).map(
@@ -533,27 +533,25 @@ function getAttributePropsTemplate(
           ? attr.type?.text || "string"
           : `${componentName}Element['${attr.originalName || attr.propName}']`
       };
-    `
+    `,
     ) || []
   );
 }
 
 function getPropertyPropsTemplate(
   properties: ClassField[] | undefined,
-  componentName: string
+  componentName: string,
 ) {
   return (
     [...(properties || []), ...(config.globalProps || [])]?.map(
       (prop) => `
     /** ${prop.description} */
     ${prop.name}?: ${
-        MAPPED_PROPS.some(
-          (base: MappedAttribute) => base.propName === prop.name
-        )
-          ? prop.type?.text || "string"
-          : `${componentName}Element['${prop.name}']`
-      };
-  `
+      MAPPED_PROPS.some((base: MappedAttribute) => base.propName === prop.name)
+        ? prop.type?.text || "string"
+        : `${componentName}Element['${prop.name}']`
+    };
+  `,
     ) || []
   );
 }
@@ -565,20 +563,20 @@ function getEventPropsTemplate(events: EventName[] | undefined) {
       /** ${event.description} */
       ${event.reactName}?: (event: ${getEventType(
         event.type,
-        event.custom
+        event.custom,
       )}) => void;
-    `
+    `,
     ) || []
   );
 }
 
-function getGlobalEventPropsTemplate(events: GlobalEvent[] | undefined) {
+function getGlobalEventPropsTemplate() {
   return (
     globalEvents?.map(
       (event) => `
       /** ${event.description} */
       ${event.event}?: (event: ${event.type}) => void;
-    `
+    `,
     ) || []
   );
 }

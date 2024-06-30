@@ -6,7 +6,13 @@ import {
   getCustomEventTypes,
   getMemberDescription,
 } from "../../../tools/cem-utils";
-import { createOutDir, logBlue, logYellow, saveFile } from "../../../tools/integrations";
+import {
+  createOutDir,
+  log,
+  logGreen,
+  logYellow,
+  saveFile,
+} from "../../../tools/integrations";
 import { Options } from "./types";
 
 export function generateSvelteTypes(manifest: any, options: Options) {
@@ -14,15 +20,15 @@ export function generateSvelteTypes(manifest: any, options: Options) {
     logYellow("[svelte-type-generator] - Skipped", options.hideLogs);
     return;
   }
-  logBlue(
+  log(
     "[svelte-type-generator] - Updating Custom Elements Manifest...",
-    options.hideLogs
+    options.hideLogs,
   );
-  
+
   options = getOptions(options);
 
   const components = getComponents(manifest, options.exclude).filter(
-    (x) => x.tagName
+    (x) => x.tagName,
   );
   const template = getTypeTemplate(components, options);
   createOutDir(options.outdir!);
@@ -31,14 +37,19 @@ export function generateSvelteTypes(manifest: any, options: Options) {
     options.fileName!,
     template,
     "typescript",
-    120
+    120,
   );
-  logBlue(`[svelte-type-generator] - Generated "${outputPath}".`, options.hideLogs);
+  logGreen(
+    `[svelte-type-generator] - Generated "${outputPath}".`,
+    options.hideLogs,
+  );
 }
 
 function getOptions(options: Options) {
   options.fileName =
-    options.fileName === undefined ? "custom-elements-svelte.d.ts" : options.fileName;
+    options.fileName === undefined
+      ? "custom-elements-svelte.d.ts"
+      : options.fileName;
   options.exclude = options.exclude === undefined ? [] : options.exclude;
   options.outdir = options.outdir === undefined ? "./" : options.outdir;
   options.prefix = options.prefix === undefined ? "" : options.prefix;
@@ -126,8 +137,8 @@ ${
         options.globalTypePath || options.componentTypePath
           ? `${component.name}['${attr.fieldName}']`
           : options.typesSrc
-          ? (attr as any)[`${options.typesSrc}`]?.text
-          : attr.type?.text || "string";
+            ? (attr as any)[`${options.typesSrc}`]?.text
+            : attr.type?.text || "string";
 
       return `/** ${getMemberDescription(attr.description, attr.deprecated)} */
   "${attr.name}"?: ${type};`;
@@ -141,8 +152,8 @@ ${
         options.globalTypePath || options.componentTypePath
           ? `${component.name}['${prop.name}']`
           : options.typesSrc
-          ? (prop as any)[`${options.typesSrc}`]?.text
-          : (prop as any).type?.text || "string";
+            ? (prop as any)[`${options.typesSrc}`]?.text
+            : (prop as any).type?.text || "string";
 
       return `/** ${getMemberDescription(prop.description, prop.deprecated)} */
   "bind:${prop.name}"?: ${type};`;
@@ -154,11 +165,11 @@ ${
     ?.map((event) => {
       return `/** ${getMemberDescription(
         event.description,
-        event.deprecated
+        event.deprecated,
       )} */
   "on:${event.name}"?: (e: CustomEvent<${
-        event.type?.text || "never"
-      }>) => void;`;
+    event.type?.text || "never"
+  }>) => void;`;
     })
     .join("\n") || ""
 }

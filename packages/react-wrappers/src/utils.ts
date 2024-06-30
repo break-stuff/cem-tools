@@ -13,7 +13,7 @@ export function getModulePath(
   modulePath: ((className: string, tagName: string) => string) | undefined,
   component: Component,
   outdir: string,
-  packageJson: any
+  packageJson: any,
 ) {
   if (modulePath instanceof Function) {
     return modulePath(component.name, component.tagName!);
@@ -21,12 +21,12 @@ export function getModulePath(
 
   if (!packageJson.module) {
     throw new Error(
-      "You must define a module path in order to generate React wrappers."
+      "You must define a module path in order to generate React wrappers.",
     );
   }
 
   const directories = outdir?.split("/");
-  return path.join(directories.map((_) => "../").join(""), packageJson.module);
+  return path.join(directories.map(() => "../").join(""), packageJson.module);
 }
 
 export const createEventName = (event: any) => `on${toPascalCase(event.name)}`;
@@ -106,7 +106,7 @@ export function saveReactUtils(outdir: string, ssrSafe?: boolean) {
   const reactUtils = `
 import { useEffect, useLayoutEffect } from "react";
 
-${ssrSafe ? `const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect` : ''}
+${ssrSafe ? `const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect` : ""}
 
 export function useProperties(targetElement, propName, value) {
   useEffect(() => {
@@ -122,7 +122,7 @@ export function useProperties(targetElement, propName, value) {
 }
 
 export function useEventListener(targetElement, eventName, eventHandler) {
-  ${ssrSafe ? 'useIsomorphicLayoutEffect' : 'useLayoutEffect'}(() => {
+  ${ssrSafe ? "useIsomorphicLayoutEffect" : "useLayoutEffect"}(() => {
     if (eventHandler !== undefined) {
       targetElement?.current?.addEventListener(eventName, eventHandler);
     }
@@ -144,7 +144,7 @@ export function useEventListener(targetElement, eventName, eventHandler) {
 
 export function saveScopeProvider(outdir: string, ssrSafe?: boolean) {
   const scopeProvider = `
-${ssrSafe ? '"use client"' : ''}
+${ssrSafe ? '"use client"' : ""}
 import { createContext } from 'react';
 import { jsx } from "react/jsx-runtime";
 

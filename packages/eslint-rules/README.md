@@ -6,8 +6,9 @@ This package takes information in your Custom Elements Manifest and generates ru
 
 ## Usage
 
-This package includes two ways to generate the custom data config file: 
-1. calling a function in your build pipeline 
+This package includes two ways to generate the custom data config file:
+
+1. calling a function in your build pipeline
 2. as a plugin for the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/)
 
 ### Install
@@ -54,7 +55,7 @@ export default {
 
 ## Implementation
 
-To use these rules, you will need to install the following packages:  
+To use these rules, you will need to install the following packages:
 
 - `eslint` - to handle the linting and error reporting
 - `@html-eslint/eslint-plugin` and `@html-eslint/parser` - to parse the DOM and leverage ESLint for validation
@@ -73,7 +74,7 @@ import customElementRules from "path/to/custom-rules.js";
 
 export default [
   /* ... other ESLint rules */
-  customElementRules.recommendedConfig
+  customElementRules.recommendedConfig,
 ];
 ```
 
@@ -172,6 +173,6 @@ For VS Code, be sure to install the [ESLint Extension](https://marketplace.visua
   "eslint.validate": [
     "javascript",
     "html" // Add "html" to enable linting `.html` files.
-  ],
+  ]
 }
 ```

@@ -8,32 +8,32 @@ import { getComponentDescription, getComponentMethods } from "./cem-utilities";
 export function getComponentDetailsTemplate(
   component: Component,
   options: BaseOptions,
-  isComment = false
+  isComment = false,
 ) {
   const slots = getSlotsTemplate(
     component?.slots,
     options?.hideSlotDocs,
-    options?.labels?.slots
+    options?.labels?.slots,
   );
   const events = getEventsTemplate(
     component?.events,
     options?.hideEventDocs,
-    options?.labels?.events
+    options?.labels?.events,
   );
   const cssProps = getCssPropsTemplate(
     component?.cssProperties,
     options?.hideCssPropertiesDocs,
-    options?.labels?.cssProperties
+    options?.labels?.cssProperties,
   );
   const parts = getPartsTemplate(
     component?.cssParts,
     options?.hideCssPartsDocs,
-    options?.labels?.cssParts
+    options?.labels?.cssParts,
   );
   const methods = getMethodsTemplate(
     getComponentMethods(component),
     options?.hideMethodDocs,
-    options?.labels?.methods
+    options?.labels?.methods,
   );
 
   let description =
@@ -58,7 +58,7 @@ export function getComponentDetailsTemplate(
 export function getSlotsTemplate(
   slots?: schema.Slot[],
   hide?: boolean,
-  label = "Slots"
+  label = "Slots",
 ): string {
   return has(slots) && !hide
     ? `\n\n### **${label}:**\n ${getSlotDocs(slots!)}`
@@ -68,7 +68,7 @@ export function getSlotsTemplate(
 export function getEventsTemplate(
   events?: schema.Event[],
   hide?: boolean,
-  label = "Events"
+  label = "Events",
 ): string {
   return has(events) && !hide
     ? `\n\n### **${label}:**\n ${getEventDocs(events!)}`
@@ -78,7 +78,7 @@ export function getEventsTemplate(
 export function getCssPropsTemplate(
   cssProperties?: schema.CssCustomProperty[],
   hide?: boolean,
-  label = "CSS Properties"
+  label = "CSS Properties",
 ): string {
   return has(cssProperties) && !hide
     ? `\n\n### **${label}:**\n ${getCssPropertyDocs(cssProperties!)}`
@@ -88,7 +88,7 @@ export function getCssPropsTemplate(
 export function getPartsTemplate(
   cssParts?: schema.CssPart[],
   hide?: boolean,
-  label = "CSS Parts"
+  label = "CSS Parts",
 ): string {
   return has(cssParts) && !hide
     ? `\n\n### **${label}:**\n ${getCssPartsDocs(cssParts!)}`
@@ -98,7 +98,7 @@ export function getPartsTemplate(
 export function getMethodsTemplate(
   methods?: schema.ClassMethod[],
   hide?: boolean,
-  label = "Methods"
+  label = "Methods",
 ): string {
   return has(methods) && !hide
     ? `\n\n### **${label}:**\n ${getMethodDocs(methods!)}`
@@ -108,7 +108,10 @@ export function getMethodsTemplate(
 function getEventDocs(events: schema.Event[]) {
   return events
     ?.filter((event) => event.name !== null && event.name !== undefined)
-    .map((event) => `- **${event.name}**${event.description ? ` - ${event.description}` : ''}`)
+    .map(
+      (event) =>
+        `- **${event.name}**${event.description ? ` - ${event.description}` : ""}`,
+    )
     .join("\n");
 }
 
@@ -116,7 +119,7 @@ function getCssPropertyDocs(properties: schema.CssCustomProperty[]) {
   return properties
     ?.map(
       (prop) =>
-        `- **${prop.name}** - ${prop.description} _(default: ${prop.default})_`
+        `- **${prop.name}** - ${prop.description} _(default: ${prop.default})_`,
     )
     .join("\n");
 }
@@ -133,7 +136,7 @@ function getSlotDocs(slots: schema.Slot[]) {
       (slot) =>
         `- ${slot.name ? `**${slot.name}**` : "_default_"} - ${
           slot.description
-        }`
+        }`,
     )
     .join("\n");
 }
@@ -157,7 +160,7 @@ function getParameters(parameters?: schema.Parameter[]): string {
     ? "(" +
         parameters
           .map(
-            (x) => `${x.name + (x?.type?.text ? `: _${x?.type?.text}_` : "")}`
+            (x) => `${x.name + (x?.type?.text ? `: _${x?.type?.text}_` : "")}`,
           )
           .join(", ") +
         ")"
@@ -166,14 +169,14 @@ function getParameters(parameters?: schema.Parameter[]): string {
 
 export function getMemberDescription(
   description?: string,
-  deprecated?: boolean | string
+  deprecated?: boolean | string,
 ) {
   if (!deprecated) {
-    return description || '';
+    return description || "";
   }
 
   const desc = description ? ` - ${description}` : "";
-  
+
   return typeof deprecated === "string"
     ? `@deprecated ${deprecated}${desc}`
     : `@deprecated${desc}`;

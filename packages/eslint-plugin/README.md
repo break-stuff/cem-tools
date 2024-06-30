@@ -19,7 +19,7 @@ This plugin leverages the `@html-eslint/eslint-plugin` and `@html-eslint/parser`
 npm install -D eslint-plugin-custom-element eslint @html-eslint/eslint-plugin @html-eslint/parser
 ```
 
-> ***NOTE:*** If you would like to have these rules automatically generated for you, check out the [Custom Element ESLint Rule Generator](https://www.npmjs.com/package/custom-element-eslint-rule-generator).
+> **_NOTE:_** If you would like to have these rules automatically generated for you, check out the [Custom Element ESLint Rule Generator](https://www.npmjs.com/package/custom-element-eslint-rule-generator).
 
 ### Configuration
 
@@ -148,7 +148,6 @@ export default [
 ### Boolean Attribute Values
 
 The `custom-element/no-boolean-attr-values` rule notifies users that setting a value on `boolean` attributes will result in it always being `true` (ie - `<my-button disabled="false"></my-button>` will result in a disabled button).
-
 
 ```js
 // eslint.config.js

@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "lit-app": "*",
+    "lit-app": "workspace:*",
     "react": "^18",
     "react-dom": "^18",
     "next": "14.2.3"

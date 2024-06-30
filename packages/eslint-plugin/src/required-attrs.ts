@@ -36,7 +36,7 @@ export const requiredAttrs: Rule.RuleModule = {
       tagOptions?.forEach((option: { attr: any }) => {
         const attrName = option.attr;
         const attr = attributes.find(
-          (attr: any) => attr.key && attr.key.value === attrName
+          (attr: any) => attr.key && attr.key.value === attrName,
         );
 
         if (!attr) {

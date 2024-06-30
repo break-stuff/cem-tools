@@ -37,11 +37,10 @@ export const noBooleanAttrValues: Rule.RuleModule = {
 
       tagOptions?.forEach(({ tag, attr }) => {
         const attribute = attributes.find(
-          (attribute) => attribute.key && attribute.key.value === attr
-        )
+          (attribute) => attribute.key && attribute.key.value === attr,
+        );
         const attributeValue = attribute?.value?.value;
-        
-        
+
         if (attribute && attributeValue) {
           context.report({
             loc: attribute.loc,

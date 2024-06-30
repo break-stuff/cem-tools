@@ -1,4 +1,7 @@
-import type { RadioGroup, InterfaceEventType } from "./dist/radio-group/RadioGroup.d.ts";
+import type {
+  RadioGroup,
+  InterfaceEventType,
+} from "./dist/radio-group/RadioGroup.d.ts";
 import type { RadioButton } from "./dist/radio-button/RadioButton.d.ts";
 
 type BaseProps = {

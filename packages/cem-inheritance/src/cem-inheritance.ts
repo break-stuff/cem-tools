@@ -1,7 +1,8 @@
 import { CEM, Component } from "../../../tools/cem-utils/index.js";
 import {
   createOutDir,
-  logBlue,
+  log,
+  logGreen,
   logYellow,
   saveFile,
 } from "../../../tools/integrations";
@@ -19,9 +20,9 @@ export function updateCemInheritance(cem: CEM, options: Options = {}) {
     logYellow("[cem-inheritance-generator] - Skipped", options.hideLogs);
   }
 
-  logBlue(
+  log(
     "[cem-inheritance-generator] - Updating Custom Elements Manifest...",
-    options.hideLogs
+    options.hideLogs,
   );
   const newCem = generateUpdatedCem(cem, options);
   if (!options.usedByPlugin) {
@@ -29,12 +30,12 @@ export function updateCemInheritance(cem: CEM, options: Options = {}) {
     saveFile(
       userConfig.outdir!,
       userConfig.fileName!,
-      JSON.stringify(newCem, null, 2)
+      JSON.stringify(newCem, null, 2),
     );
   }
-  logBlue(
+  logGreen(
     "[cem-inheritance-generator] - Custom Elements Manifest updated.",
-    options.hideLogs
+    options.hideLogs,
   );
 }
 
@@ -56,14 +57,14 @@ function setExternalManifests(manifests?: any[]) {
   }
 
   externalComponents = manifests.flatMap((manifest) =>
-    getDeclarations(manifest)
+    getDeclarations(manifest),
   );
 }
 
 export function generateUpdatedCem(cem: any, options: Options = {}) {
   if (!cem) {
     throw new Error(
-      "Custom Elements Manifest is required to update inheritance."
+      "Custom Elements Manifest is required to update inheritance.",
     );
   }
 
@@ -134,7 +135,7 @@ function updateCssProperties(component: Component, parent: Component) {
     }
 
     const existingProp = component.cssProperties?.find(
-      (prop) => prop.name === parentCssProp.name
+      (prop) => prop.name === parentCssProp.name,
     );
     if (!existingProp) {
       const prop = addInheritedFromInfo(parentCssProp, component);
@@ -156,7 +157,7 @@ function updateCssParts(component: Component, parent: Component) {
     }
 
     const existingPart = component.cssParts?.find(
-      (part) => part.name === parentCssPart.name
+      (part) => part.name === parentCssPart.name,
     );
     if (!existingPart) {
       const part = addInheritedFromInfo(parentCssPart, component);
@@ -178,7 +179,7 @@ function updateAttributes(component: Component, parent: Component) {
     }
 
     const existingAttr = component.attributes?.find(
-      (attr) => attr.name === parentAttr.name
+      (attr) => attr.name === parentAttr.name,
     );
     if (!existingAttr) {
       const attr = addInheritedFromInfo(parentAttr, component);
@@ -200,7 +201,7 @@ function updateEvents(component: Component, parent: Component) {
     }
 
     const existingEvent = component.events?.find(
-      (event) => event.name === parentEvent.name
+      (event) => event.name === parentEvent.name,
     );
     if (!existingEvent) {
       const event = addInheritedFromInfo(parentEvent, component);
@@ -224,8 +225,9 @@ function updateMembers(component: Component, parent: Component) {
       }
 
       const existingMember = component.members?.find(
-        (member) => member.name === parentMember.name
+        (member) => member.name === parentMember.name,
       );
+
       if (!existingMember) {
         const member = addInheritedFromInfo(parentMember, component);
         component.members?.push(member);
@@ -246,7 +248,7 @@ function updateSlots(component: Component, parent: Component) {
     }
 
     const existingSlot = component.slots?.find(
-      (slot) => slot.name === parentSlot.name
+      (slot) => slot.name === parentSlot.name,
     );
     if (!existingSlot) {
       const slot = addInheritedFromInfo(parentSlot, component);
@@ -273,12 +275,12 @@ function addInheritedFromInfo(member: any, component: Component) {
  */
 export function getDeclarations(
   customElementsManifest: CEM,
-  exclude?: string[]
+  exclude?: string[],
 ): Component[] {
   return (
     customElementsManifest.modules?.map(
       (mod) =>
-        mod?.declarations?.filter((dec) => !exclude?.includes(dec.name)) || []
+        mod?.declarations?.filter((dec) => !exclude?.includes(dec.name)) || [],
     ) || []
   ).flat() as Component[];
 }

@@ -1,6 +1,10 @@
 import { Rule } from "eslint";
 
-export type ContextOption = { tag: string; attr: string; values: string[] };
+export type ContextOption = {
+  tag: string;
+  attr: string;
+  values: string[];
+};
 type Node = { name?: any; attributes?: never[]; type: any };
 type ContextOptionsMap = Map<string, ContextOption[]>;
 type CheckValidation = (node: Node, tagName: string) => void;
@@ -26,7 +30,7 @@ export function getTagOptionsMap(context: Rule.RuleContext) {
 
 export function getRuleListener(
   tagOptionsMap: ContextOptionsMap,
-  check: CheckValidation
+  check: CheckValidation,
 ) {
   const result = {
     [["StyleTag", "ScriptTag"].join(",")](node: Node) {

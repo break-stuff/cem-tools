@@ -1,4 +1,3 @@
-
 import './additional-svelte-typings';
 
 // See https://kit.svelte.dev/docs/types#app

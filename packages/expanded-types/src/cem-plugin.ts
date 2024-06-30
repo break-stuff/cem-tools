@@ -1,7 +1,7 @@
 import path from "path";
 import fs from "fs";
 import type { Component } from "../../../tools/cem-utils";
-import { logBlue, logYellow } from "../../../tools/integrations/src/logs";
+import { log, logGreen, logYellow } from "../../../tools/integrations/src/logs";
 
 export interface Options {
   /** Determines the name of the property used in the manifest to store the expanded type */
@@ -51,16 +51,16 @@ let tsConfigFile: any;
 export function expandTypesPlugin(
   op: Options = {
     propertyName: "expandedType",
-  }
+  },
 ) {
   options = op;
   if (options.skip) {
     logYellow("[cem-expanded-types] - Skipped", options.hideLogs);
     return;
   }
-  logBlue(
+  log(
     "[cem-expanded-types] - Updating Custom Elements Manifest...",
-    options.hideLogs
+    options.hideLogs,
   );
 
   return {
@@ -80,17 +80,17 @@ export function expandTypesPlugin(
 export function getTsProgram(
   ts: typeof import("typescript"),
   globs: string[],
-  configName = "tsconfig.json"
+  configName = "tsconfig.json",
 ) {
   tsConfigFile = ts.findConfigFile(
     process.cwd(),
     ts.sys.fileExists,
-    configName
+    configName,
   );
   const { config } = ts.readConfigFile(tsConfigFile, ts.sys.readFile);
   const compilerOptions = ts.convertCompilerOptionsFromJson(
     config.compilerOptions ?? {},
-    "."
+    ".",
   );
   const program = ts.createProgram(globs, compilerOptions.options);
   typeChecker = program.getTypeChecker();
@@ -141,18 +141,18 @@ function getObjectTypes(fileName: string, typeName: string) {
       typeName
         ?.split(/[:{}]/)
         .map((part) => part.trim())
-        .filter((part) => part.length > 0)
+        .filter((part) => part.length > 0),
     ),
   ];
   parts.forEach((part) => {
     // remove comments from object
     const cleanPart = part.replace(
       /\/\*[\s\S]*?\*\/|(?<=[^:])\/\/.*|^\/\/.*/g,
-      ""
+      "",
     );
     typeName = typeName.replace(
       new RegExp(cleanPart, "g"),
-      getExpandedType(fileName, cleanPart)
+      getExpandedType(fileName, cleanPart),
     );
   });
   return typeName;
@@ -226,12 +226,12 @@ function setBasicUnionTypes(node: any) {
 function setComplexUnionTypes(node: any) {
   const name = node?.name?.escapedText;
   const resolvedTypes = typeChecker.getDeclaredTypeOfSymbol(
-    typeChecker.getSymbolAtLocation(node.name)
+    typeChecker.getSymbolAtLocation(node.name),
   );
   const unionTypes =
     resolvedTypes.types
       ?.map((type: any) =>
-        typeof type.value === "string" ? `'${type.value}'` : type.value
+        typeof type.value === "string" ? `'${type.value}'` : type.value,
       )
       .join(" | ") || "";
 
@@ -254,16 +254,16 @@ function analyzePhase({ ts, node, moduleDoc, context }: any) {
   }
 
   updateExpandedTypes(component, context);
-  logBlue(
+  logGreen(
     "[cem-expanded-types] - Custom Elements Manifest updated.",
-    options.hideLogs
+    options.hideLogs,
   );
 }
 
 function getComponent(node: any, moduleDoc: any) {
   const className = node.name.getText();
   return moduleDoc.declarations.find(
-    (dec: Component) => dec.name === className
+    (dec: Component) => dec.name === className,
   ) as Component | undefined;
 }
 
@@ -279,7 +279,7 @@ function getTypedMembers(component: Component) {
 
 function getTypeValue(item: any, context: any) {
   const importedType = context?.imports?.find(
-    (i: any) => i.name === item.type?.text
+    (i: any) => i.name === item.type?.text,
   );
 
   if (!importedType) {
@@ -294,7 +294,7 @@ function getTypeValue(item: any, context: any) {
 function getResolvedImportPath(importPath: string, importedType: any) {
   let resolvedPath = path.resolve(
     path.dirname(currentFilename),
-    importedType.importPath
+    importedType.importPath,
   );
 
   if (aliasTypes[resolvedPath]) {

@@ -16,9 +16,9 @@
           "kind": "variable",
           "name": "ComplexObject",
           "type": {
-            "text": "{\n  /** Designates only a single <he-accordion-item> can be open a time. */\n  single: 'single',\n\n  /** Designates multiple <he-accordion-items> can be open simultaneously. */\n  multi: 'multi',\n}"
+            "text": "{\n  /** Designates only a single <he-accordion-item> can be open a time. */\n  single: \"single\",\n\n  /** Designates multiple <he-accordion-items> can be open simultaneously. */\n  multi: \"multi\",\n}"
           },
-          "default": "{\n  /** Designates only a single <he-accordion-item> can be open a time. */\n  single: 'single',\n\n  /** Designates multiple <he-accordion-items> can be open simultaneously. */\n  multi: 'multi',\n}"
+          "default": "{ /** Designates only a single <he-accordion-item> can be open a time. */ single: \"single\", /** Designates multiple <he-accordion-items> can be open simultaneously. */ multi: \"multi\", }"
         },
         {
           "kind": "class",
@@ -78,9 +78,9 @@
               "kind": "field",
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg' | 'xl'"
+                "text": "\"sm\" | \"md\" | \"lg\" | \"xl\""
               },
-              "default": "'md'",
+              "default": "\"md\"",
               "description": "This will control the size of the radio buttons",
               "attribute": "size"
             },
@@ -90,7 +90,7 @@
               "type": {
                 "text": "Variants"
               },
-              "default": "'primary'",
+              "default": "\"primary\"",
               "description": "This is a test for internal options",
               "attribute": "variants",
               "expandedType": {
@@ -103,7 +103,7 @@
               "type": {
                 "text": "Test"
               },
-              "default": "'value1'",
+              "default": "\"value1\"",
               "deprecated": "This is a test for external d.ts options",
               "attribute": "external",
               "expandedType": {
@@ -116,7 +116,7 @@
               "type": {
                 "text": "Test"
               },
-              "default": "'value1'",
+              "default": "\"value1\"",
               "deprecated": "This is a deprecated attribute",
               "attribute": "deprecated-attribute",
               "expandedType": {
@@ -129,7 +129,7 @@
               "type": {
                 "text": "Example"
               },
-              "default": "'value4'",
+              "default": "\"value4\"",
               "description": "This is a test for external .ts options",
               "attribute": "external2",
               "expandedType": {
@@ -142,7 +142,7 @@
               "type": {
                 "text": "Test3"
               },
-              "default": "'value8'",
+              "default": "\"value8\"",
               "description": "This is a test for external .ts options",
               "attribute": "external3",
               "expandedType": {
@@ -155,7 +155,7 @@
               "type": {
                 "text": "ComplexObjectType"
               },
-              "default": "'single'",
+              "default": "\"single\"",
               "description": "This is a test for options from an object",
               "attribute": "complex",
               "expandedType": {
@@ -175,11 +175,11 @@
               "kind": "field",
               "name": "data",
               "type": {
-                "text": "{\n    // The name.\n    name?: string,\n    /** The type. */\n    type?: string,\n    /** The value. */\n    value?: number,\n  } | undefined"
+                "text": "{\n    // The name.\n    name?: string;\n    /** The type. */\n    type?: string;\n    /** The value. */\n    value?: number;\n  } | undefined"
               },
               "description": "This is data object",
               "expandedType": {
-                "text": "{\n    // The name.\n    name??: string,\n    /** The type. */\n    type?: string,\n    /** The value. */\n    value?: number,\n  } | undefined"
+                "text": "{\n    // The name.\n    name??: string;\n    /** The type. */\n    type?: string;\n    /** The value. */\n    value?: number;\n  } | undefined"
               }
             },
             {
@@ -201,7 +201,7 @@
               "type": {
                 "text": "string"
               },
-              "default": "'Group'",
+              "default": "\"Group\"",
               "description": "This is a test for a private property"
             },
             {
@@ -236,11 +236,13 @@
             {
               "kind": "method",
               "name": "#privateMethod",
+              "privacy": "private",
               "description": "This is a test for a private method"
             },
             {
               "kind": "field",
-              "name": "customTag"
+              "name": "customTag",
+              "readonly": true
             },
             {
               "kind": "method",
@@ -293,9 +295,9 @@
             {
               "name": "size",
               "type": {
-                "text": "'sm' | 'md' | 'lg' | 'xl'"
+                "text": "\"sm\" | \"md\" | \"lg\" | \"xl\""
               },
-              "default": "'md'",
+              "default": "\"md\"",
               "description": "This will control the size of the radio buttons",
               "fieldName": "size",
               "propName": "size"
@@ -305,7 +307,7 @@
               "type": {
                 "text": "Variants"
               },
-              "default": "'primary'",
+              "default": "\"primary\"",
               "description": "This is a test for internal options",
               "fieldName": "variants",
               "expandedType": {
@@ -318,7 +320,7 @@
               "type": {
                 "text": "Test"
               },
-              "default": "'value1'",
+              "default": "\"value1\"",
               "deprecated": "This is a test for external d.ts options",
               "fieldName": "external",
               "expandedType": {
@@ -331,7 +333,7 @@
               "type": {
                 "text": "Test"
               },
-              "default": "'value1'",
+              "default": "\"value1\"",
               "deprecated": "This is a deprecated attribute",
               "fieldName": "deprecatedAttribute",
               "expandedType": {
@@ -344,7 +346,7 @@
               "type": {
                 "text": "Example"
               },
-              "default": "'value4'",
+              "default": "\"value4\"",
               "description": "This is a test for external .ts options",
               "fieldName": "external2",
               "expandedType": {
@@ -357,7 +359,7 @@
               "type": {
                 "text": "Test3"
               },
-              "default": "'value8'",
+              "default": "\"value8\"",
               "description": "This is a test for external .ts options",
               "fieldName": "external3",
               "expandedType": {
@@ -370,7 +372,7 @@
               "type": {
                 "text": "ComplexObjectType"
               },
-              "default": "'single'",
+              "default": "\"single\"",
               "description": "This is a test for options from an object",
               "fieldName": "complex",
               "expandedType": {
@@ -615,7 +617,7 @@
           "name": "RadioGroup",
           "declaration": {
             "name": "RadioGroup",
-            "module": "./radio-group/RadioGroup"
+            "module": "\"./radio-group/RadioGroup\""
           }
         },
         {
@@ -623,7 +625,7 @@
           "name": "ComplexObjectType",
           "declaration": {
             "name": "ComplexObjectType",
-            "module": "./radio-group/RadioGroup"
+            "module": "\"./radio-group/RadioGroup\""
           }
         },
         {
@@ -631,7 +633,7 @@
           "name": "InterfaceEventType",
           "declaration": {
             "name": "InterfaceEventType",
-            "module": "./radio-group/RadioGroup"
+            "module": "\"./radio-group/RadioGroup\""
           }
         },
         {
@@ -639,7 +641,7 @@
           "name": "RadioButton",
           "declaration": {
             "name": "RadioButton",
-            "module": "./radio-button/RadioButton"
+            "module": "\"./radio-button/RadioButton\""
           }
         }
       ]
