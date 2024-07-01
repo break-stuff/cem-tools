@@ -164,7 +164,7 @@ export type ScopeProps = {
   prefix?: string, 
   /** Adds a prefix to the custom element tag name */
   suffix?: string, 
-  children?: ReactNode 
+  children?: React.ReactNode 
 };
 
 /** 

@@ -140,7 +140,23 @@
     {
       "name": "my-button",
       "description": "\nA basic button element\n---\n",
-      "attributes": [],
+      "attributes": [
+        {
+          "name": "formaction",
+          "description": "Used to override the form owner's `action` attribute.",
+          "values": []
+        },
+        {
+          "name": "formmethod",
+          "description": "Used to override the form owner's `method` attribute.",
+          "values": [{ "name": "post" }, { "name": "get" }]
+        },
+        {
+          "name": "formnovalidate",
+          "description": "Used to override the form owner's `novalidate` attribute.",
+          "values": []
+        }
+      ],
       "references": []
     }
   ]

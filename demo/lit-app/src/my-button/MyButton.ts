@@ -1,4 +1,5 @@
 import { html, LitElement } from "lit";
+import { property } from "lit/decorators.js";
 
 /**
  *
@@ -12,6 +13,16 @@ import { html, LitElement } from "lit";
  * @required type
  */
 export class MyButton extends LitElement {
+  /** Used to override the form owner's `action` attribute. */
+  @property({ attribute: "formaction" }) formAction?: string;
+
+  /** Used to override the form owner's `method` attribute. */
+  @property({ attribute: "formmethod" }) formMethod?: "post" | "get";
+
+  /** Used to override the form owner's `novalidate` attribute. */
+  @property({ attribute: "formnovalidate", type: Boolean, reflect: true })
+  formNoValidate?: boolean;
+
   render() {
     return html` <div>Deprecated Element</div> `;
   }

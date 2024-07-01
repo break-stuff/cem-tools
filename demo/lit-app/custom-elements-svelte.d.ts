@@ -95,7 +95,14 @@ type RadioButtonProps = {
 
 type DeprecatedElementProps = {};
 
-type MyButtonProps = {};
+type MyButtonProps = {
+  /** Used to override the form owner's `action` attribute. */
+  formaction?: MyButton["formAction"];
+  /** Used to override the form owner's `method` attribute. */
+  formmethod?: MyButton["formMethod"];
+  /** Used to override the form owner's `novalidate` attribute. */
+  formnovalidate?: MyButton["formNoValidate"];
+};
 
 export type CustomElements = {
   /**

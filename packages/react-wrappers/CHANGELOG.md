@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.4
+
+- Fixed prop name mapping in types
+
 ## 1.6.3
 
 - Remove conflicting types
