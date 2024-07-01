@@ -494,6 +494,7 @@ function getUnusedProps(
     ...(properties || []).map((x) => x.name),
   ]?.filter(
     (prop) =>
+      prop &&
       !RESERVED_WORDS.includes(prop!) &&
       !MAPPED_PROPS.some((x) => x.propName === prop) &&
       prop !== "for",
