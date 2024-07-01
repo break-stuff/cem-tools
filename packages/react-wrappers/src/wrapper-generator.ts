@@ -177,8 +177,10 @@ function getProperties(
       member.privacy !== "protected" &&
       !attributeFieldNames.includes(member.name) &&
       (member.description || member.deprecated) &&
-      !booleanAttributes.find((x) => x.propName === member.name) &&
-      !attributes.find((x) => x.propName === member.name),
+      !booleanAttributes.find(
+        (x) => (x.fieldName || x.propName) === member.name,
+      ) &&
+      !attributes.find((x) => (x.fieldName || x.propName) === member.name),
   ) as ClassField[];
 }
 
@@ -286,7 +288,7 @@ function getEventTemplates(eventNames: EventName[]) {
 function getBooleanAttributeTemplates(booleanAttributes: MappedAttribute[]) {
   return (
     booleanAttributes?.map(
-      (attr) => `'${attr.name}': props.${attr?.propName} ? '' : undefined`,
+      (attr) => `'${attr.name}': props.${attr.fieldName} ? '' : undefined`,
     ) || []
   );
 }
@@ -298,9 +300,9 @@ function getAttributeTemplates(attributes: MappedAttribute[]) {
       ?.filter((x) => !excludedProps.includes(x.name))
       .map(
         (attr) =>
-          `'${attr.originalName || attr?.name}': props.${attr?.propName} ${
-            attr.name.includes("-") ? `|| props['${attr.name}']` : ""
-          }`,
+          `'${attr.originalName || attr?.name}': props.${
+            attr.fieldName
+          } ${attr.name.includes("-") ? `|| props['${attr.name}']` : ""}`,
       ) || []
   );
 }
@@ -350,7 +352,11 @@ function getReactComponentTemplate(
 
     export const ${component.name} = forwardRef((props, forwardedRef) => {
       ${useEffect ? `const ref = useRef(null);` : ""}
-      ${has(unusedProps) ? `const { ${unusedProps.join(", ")}, ...filteredProps } = props;` : ""}
+      ${
+        has(unusedProps)
+          ? `const { ${unusedProps.join(", ")}, ...filteredProps } = props;`
+          : ""
+      }
       ${config.scopedTags ? "const scope = useContext(ScopeContext);" : ""}
 
       ${
@@ -483,7 +489,7 @@ function getUnusedProps(
   return [
     "className",
     ...[...(booleanAttributes || []), ...(attributes || [])].map(
-      (x) => x.propName,
+      (x) => x.fieldName,
     ),
     ...(properties || []).map((x) => x.name),
   ]?.filter(
@@ -520,7 +526,7 @@ function getBooleanPropsTemplate(booleanAttributes: MappedAttribute[]) {
     booleanAttributes?.map(
       (attr) => `
       /** ${attr.description} */
-      ${attr?.propName}?: ${attr?.type?.text || "boolean"};
+      ${attr?.fieldName}?: ${attr?.type?.text || "boolean"};
     `,
     ) || []
   );
@@ -531,16 +537,16 @@ function getAttributePropsTemplate(
   componentName: string,
 ) {
   return (
-    (attributes || []).map(
-      (attr) => `
+    (attributes || []).map((attr) => {
+      return `
       /** ${attr.description} */
-      ${attr.propName}?: ${
-        MAPPED_PROPS.some((base) => base.propName === attr.propName)
+      ${attr.fieldName}?: ${
+        MAPPED_PROPS.some((base) => base.propName === attr.fieldName)
           ? attr.type?.text || "string"
-          : `${componentName}Element['${attr.originalName || attr.propName}']`
+          : `${componentName}Element['${attr.fieldName}']`
       };
-    `,
-    ) || []
+    `;
+    }) || []
   );
 }
 

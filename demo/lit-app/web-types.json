@@ -271,9 +271,44 @@
           "name": "my-button",
           "description": "\nA basic button element\n---\n",
           "doc-url": "",
-          "attributes": [],
+          "attributes": [
+            {
+              "name": "formaction",
+              "description": "Used to override the form owner's `action` attribute.",
+              "value": { "type": "string | undefined" }
+            },
+            {
+              "name": "formmethod",
+              "description": "Used to override the form owner's `method` attribute.",
+              "value": { "type": "\"post\" | \"get\" | undefined" }
+            },
+            {
+              "name": "formnovalidate",
+              "description": "Used to override the form owner's `novalidate` attribute.",
+              "value": { "type": "boolean | undefined" }
+            }
+          ],
           "events": [],
-          "js": { "properties": [], "events": [] }
+          "js": {
+            "properties": [
+              {
+                "name": "formAction",
+                "description": "Used to override the form owner's `action` attribute.",
+                "type": "string | undefined"
+              },
+              {
+                "name": "formMethod",
+                "description": "Used to override the form owner's `method` attribute.",
+                "type": "\"post\" | \"get\" | undefined"
+              },
+              {
+                "name": "formNoValidate",
+                "description": "Used to override the form owner's `novalidate` attribute.",
+                "type": "boolean | undefined"
+              }
+            ],
+            "events": []
+          }
         }
       ]
     },

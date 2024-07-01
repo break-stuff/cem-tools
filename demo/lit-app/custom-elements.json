@@ -708,7 +708,65 @@
           "kind": "class",
           "description": "\nA basic button element",
           "name": "MyButton",
-          "members": [],
+          "members": [
+            {
+              "kind": "field",
+              "name": "formAction",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Used to override the form owner's `action` attribute.",
+              "attribute": "formaction"
+            },
+            {
+              "kind": "field",
+              "name": "formMethod",
+              "type": {
+                "text": "\"post\" | \"get\" | undefined"
+              },
+              "description": "Used to override the form owner's `method` attribute.",
+              "attribute": "formmethod"
+            },
+            {
+              "kind": "field",
+              "name": "formNoValidate",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Used to override the form owner's `novalidate` attribute.",
+              "attribute": "formnovalidate",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "formaction",
+              "type": {
+                "text": "string | undefined"
+              },
+              "description": "Used to override the form owner's `action` attribute.",
+              "fieldName": "formAction",
+              "propName": "formaction"
+            },
+            {
+              "name": "formmethod",
+              "type": {
+                "text": "\"post\" | \"get\" | undefined"
+              },
+              "description": "Used to override the form owner's `method` attribute.",
+              "fieldName": "formMethod",
+              "propName": "formmethod"
+            },
+            {
+              "name": "formnovalidate",
+              "type": {
+                "text": "boolean | undefined"
+              },
+              "description": "Used to override the form owner's `novalidate` attribute.",
+              "fieldName": "formNoValidate",
+              "propName": "formnovalidate"
+            }
+          ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"

@@ -86,6 +86,10 @@ export const rules = {
       tag: "radio-button",
       attr: "disabled",
     },
+    {
+      tag: "my-button",
+      attr: "formnovalidate",
+    },
   ],
 
   "@html-eslint/no-duplicate-attrs": "off",
