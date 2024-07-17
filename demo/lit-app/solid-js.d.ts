@@ -67,7 +67,9 @@ type BaseProps = {
   title?: string;
   /** Passing 'no' excludes the element content from being translated. */
   translate?: "yes" | "no";
-};
+} & JSX.DirectiveAttributes &
+  JSX.PropAttributes &
+  JSX.AttrAttributes;
 
 type BaseEvents = {};
 
@@ -104,7 +106,9 @@ type RadioGroupProps = {
   "on:typed-event"?: (e: CustomEvent<HTMLInputElement>) => void;
   /** (@deprecated) some description for typed-custom-event */
   "on:typed-custom-event"?: (e: CustomEvent<InterfaceEventType>) => void;
-};
+} & JSX.DirectiveFunctionAttributes<RadioGroup> &
+  JSX.OnAttributes<RadioGroup> &
+  JSX.OnCaptureAttributes<RadioGroup>;
 
 type RadioButtonProps = {
   /** The value assigned to the radio button. This will reflect in the radio group when clicked. */
@@ -117,9 +121,14 @@ type RadioButtonProps = {
   for?: RadioButton["for"];
   /** Enum example */
   position?: RadioButton["position"];
-};
+} & JSX.DirectiveFunctionAttributes<RadioButton> &
+  JSX.OnAttributes<RadioButton> &
+  JSX.OnCaptureAttributes<RadioButton>;
 
-type DeprecatedElementProps = {};
+type DeprecatedElementProps =
+  {} & JSX.DirectiveFunctionAttributes<DeprecatedElement> &
+    JSX.OnAttributes<DeprecatedElement> &
+    JSX.OnCaptureAttributes<DeprecatedElement>;
 
 type MyButtonProps = {
   /** Used to override the form owner's `action` attribute. */
@@ -128,7 +137,9 @@ type MyButtonProps = {
   formmethod?: MyButton["formMethod"];
   /** Used to override the form owner's `novalidate` attribute. */
   formnovalidate?: MyButton["formNoValidate"];
-};
+} & JSX.DirectiveFunctionAttributes<MyButton> &
+  JSX.OnAttributes<MyButton> &
+  JSX.OnCaptureAttributes<MyButton>;
 
 export type CustomElements = {
   /**

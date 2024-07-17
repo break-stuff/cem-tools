@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.8.0
+
+- Added support for [custom directives](https://docs.solidjs.com/configuration/typescript#custom-directives)
+
 ## 1.7.0
 
 - Added the ability to hide logs
