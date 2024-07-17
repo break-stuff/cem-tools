@@ -148,7 +148,7 @@ type BaseProps = {
   title?: string;
   /** Passing 'no' excludes the element content from being translated. */
   translate?: "yes" | "no";
-};
+} & JSX.DirectiveAttributes & JSX.PropAttributes & JSX.AttrAttributes;
 
 type BaseEvents = {${
     Object.hasOwn(options, "globalEvents") ? options.globalEvents : ""
@@ -202,7 +202,7 @@ ${
     })
     .join("\n") || ""
 }
-}`;
+} & JSX.DirectiveFunctionAttributes<${component.name}> & JSX.OnAttributes<${component.name}> & JSX.OnCaptureAttributes<${component.name}>`;
   })
   .join("\n")}
 
