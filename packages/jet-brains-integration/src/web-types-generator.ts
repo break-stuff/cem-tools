@@ -128,13 +128,13 @@ export function generateJetBrainsWebTypes(
   customElementsManifest: CEM,
   options: Options,
 ) {
-  if (options.skip) {
+  if (options?.skip) {
     logYellow("[jet-brains-web-type-generator] - Skipped", options.hideLogs);
     return;
   }
   log(
     "[jet-brains-web-type-generator] - Updating Custom Elements Manifest...",
-    options.hideLogs,
+    options?.hideLogs,
   );
 
   options = getOptions(options);
@@ -163,6 +163,20 @@ export function generateJetBrainsWebTypes(
     options,
   );
   logGreen(`[jet-brains-web-type-generator] - Generated "${outputPath}".`);
+}
+
+export function getWebTypesData(customElementsManifest: CEM, options: Options) {
+  options = getOptions(options);
+  const components = getComponents(
+    customElementsManifest,
+    options.exclude,
+  ).filter((x) => x.tagName);
+
+  const elements = getTagList(components, options);
+  const cssProperties = getCssPropertyList(components);
+  const cssParts = getCssPartList(components);
+
+  return getWebTypesFileContents(elements, cssProperties, cssParts, options);
 }
 
 export function getOptions(options: Options) {

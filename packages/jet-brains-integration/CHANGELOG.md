@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.0
+
+- Added the ability to generate your own web-types file
+
 ## 1.5.0
 
 - Added the ability to hide logs
