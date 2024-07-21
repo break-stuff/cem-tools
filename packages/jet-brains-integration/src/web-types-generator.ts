@@ -37,11 +37,10 @@ const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
 export function getTagList(
   components: Component[],
   options: Options,
-  referenceTemplate?: (name: string, tag?: string) => Reference,
 ): WebTypeElement[] {
   return components.map((component: Component) => {
-    const reference = referenceTemplate
-      ? referenceTemplate(component.name, component.tagName)
+    const reference = options.referenceTemplate
+      ? options.referenceTemplate(component.name, component.tagName)
       : undefined;
 
     return {

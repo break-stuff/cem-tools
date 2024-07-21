@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.1
+
+- Fixed `referenceTemplate` mapping
+
 ## 1.6.0
 
 - Added the ability to generate your own web-types file
