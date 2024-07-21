@@ -450,3 +450,7 @@ If you are generating a custom types property on your CEM component object and y
 ## Scoping Tags
 
 If your project is scoping components using prefixes or suffixes in the tag name, you can generate a custom data config file using your scoping using the `prefix` or `suffix` option (`prefix: "test_"` => `test_my-element`).
+
+## Generate Your Own Files
+
+If you need to be able tp generate your own file, you can use the `getVsCodeHtmlCustomData(manifest, options)` and `getVsCodeCssCustomData(manifest, options)` methods. These methods will return the HTML and CSS config data and you can choose where and how the file gets written.

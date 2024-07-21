@@ -8,7 +8,7 @@
       "elements": [
         {
           "name": "radio-group",
-          "description": "\nRadio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).\n\nUse it like this:\n```html\n<radio-group value=\"2\" size=\"3\">\n  <span slot=\"label\">My Label</span>\n  <radio-button value=\"1\">Option 1</radio-button>\n  <radio-button value=\"2\">Option 2</radio-button>\n  <radio-button value=\"3\">Option 3</radio-button>\n</radio-group>\n```\n---\n\n\n### **Events:**\n - **custom-event** - some description for custom-event\n- **typed-event** - some description for typed-event\n- **typed-custom-event** - (@deprecated) some description for typed-custom-event\n\n### **Methods:**\n - **validate()** - Validated the radio inputs\n- **checkStatus(value: _string_, message: _string_): _string_** - This is a test method with parameters\n\n\n### **Slots:**\n - _default_ - add radio buttons to the `default` slot to create options to your radio group\n- **label** - placeholder for the radio group label\n\n### **CSS Properties:**\n - **--radio-border-radius** - Controls the border radius of the radio buttons _(default: undefined)_\n- **--radio-background-color** - Controls the color of bar _(default: red)_\n\n### **CSS Parts:**\n - **radio-label** - Applies custom styles the radio group label",
+          "description": "\nRadio groups are used to group multiple radios or radio buttons, so they function as a single form control. Here is its [documentation](https://github.com/microsoft/vscode-custom-data/blob/master/samples/webcomponents/src/components/my-component/docs.md).\n\nUse it like this:\n```html\n<radio-group value=\"2\" size=\"3\">\n  <span slot=\"label\">My Label</span>\n  <radio-button value=\"1\">Option 1</radio-button>\n  <radio-button value=\"2\">Option 2</radio-button>\n  <radio-button value=\"3\">Option 3</radio-button>\n</radio-group>\n```\n---\n\n\n### **Events:**\n - **custom-event** - some description for custom-event\n- **typed-event** - some description for typed-event\n- **typed-custom-event**\n\n### **Methods:**\n - **validate()** - Validated the radio inputs\n- **checkStatus(value: _string_, message: _string_): _string_** - This is a test method with parameters\n\n\n### **Slots:**\n - _default_ - add radio buttons to the `default` slot to create options to your radio group\n- **label** - placeholder for the radio group label\n\n### **CSS Properties:**\n - **--radio-border-radius** - Controls the border radius of the radio buttons _(default: undefined)_\n- **--radio-background-color** - Controls the color of bar _(default: red)_\n\n### **CSS Parts:**\n - **radio-label** - Applies custom styles the radio group label",
           "doc-url": "",
           "attributes": [
             {
@@ -32,45 +32,30 @@
             {
               "name": "variants",
               "description": "This is a test for internal options",
-              "value": {
-                "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'",
-                "default": "\"primary\""
-              }
+              "value": { "type": "Variants", "default": "\"primary\"" }
             },
             {
               "name": "external",
-              "value": {
-                "type": "'value1' | 'value2' | 'value3'",
-                "default": "\"value1\""
-              }
+              "value": { "type": "Test", "default": "\"value1\"" }
             },
             {
               "name": "deprecated-attribute",
-              "value": {
-                "type": "'value1' | 'value2' | 'value3'",
-                "default": "\"value1\""
-              }
+              "value": { "type": "Test", "default": "\"value1\"" }
             },
             {
               "name": "external2",
               "description": "This is a test for external .ts options",
-              "value": {
-                "type": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'",
-                "default": "\"value4\""
-              }
+              "value": { "type": "Example", "default": "\"value4\"" }
             },
             {
               "name": "external3",
               "description": "This is a test for external .ts options",
-              "value": {
-                "type": "'value7' | 'value8' | 'value9'",
-                "default": "\"value8\""
-              }
+              "value": { "type": "Test3", "default": "\"value8\"" }
             },
             {
               "name": "complex",
               "description": "This is a test for options from an object",
-              "value": { "type": "'single' | 'multi'", "default": "\"single\"" }
+              "value": { "type": "ComplexObjectType", "default": "\"single\"" }
             },
             {
               "name": "my-attribute",
@@ -80,9 +65,7 @@
             {
               "name": "complex-union",
               "description": "This is a test for options from an object",
-              "value": {
-                "type": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
-              }
+              "value": { "type": "ChildSize | undefined" }
             }
           ],
           "slots": [
@@ -108,7 +91,7 @@
             {
               "name": "typed-custom-event",
               "type": "InterfaceEventType",
-              "description": "(@deprecated) some description for typed-custom-event"
+              "description": ""
             }
           ],
           "js": {
@@ -131,27 +114,24 @@
               {
                 "name": "variants",
                 "description": "This is a test for internal options",
-                "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
+                "type": "Variants"
               },
-              { "name": "external", "type": "'value1' | 'value2' | 'value3'" },
-              {
-                "name": "deprecatedAttribute",
-                "type": "'value1' | 'value2' | 'value3'"
-              },
+              { "name": "external", "type": "Test" },
+              { "name": "deprecatedAttribute", "type": "Test" },
               {
                 "name": "external2",
                 "description": "This is a test for external .ts options",
-                "type": "'value4' | 'value5' | 'value6' | 'valueA' | 'valueB'"
+                "type": "Example"
               },
               {
                 "name": "external3",
                 "description": "This is a test for external .ts options",
-                "type": "'value7' | 'value8' | 'value9'"
+                "type": "Test3"
               },
               {
                 "name": "complex",
                 "description": "This is a test for options from an object",
-                "type": "'single' | 'multi'"
+                "type": "ComplexObjectType"
               },
               {
                 "name": "myAttribute",
@@ -161,12 +141,12 @@
               {
                 "name": "data",
                 "description": "This is data object",
-                "type": "{\n    // The name.\n    name??: string;\n    /** The type. */\n    type?: string;\n    /** The value. */\n    value?: number;\n  } | undefined"
+                "type": "{\n    // The name.\n    name?: string;\n    /** The type. */\n    type?: string;\n    /** The value. */\n    value?: number;\n  } | undefined"
               },
               {
                 "name": "complexUnion",
                 "description": "This is a test for options from an object",
-                "type": "'small' | 'medium' | 'large' | 'extra-small' | undefined"
+                "type": "ChildSize | undefined"
               },
               { "name": "customTag" }
             ],
@@ -183,7 +163,7 @@
               {
                 "name": "typed-custom-event",
                 "type": "InterfaceEventType",
-                "description": "(@deprecated) some description for typed-custom-event"
+                "description": ""
               }
             ]
           }
@@ -206,9 +186,7 @@
             {
               "name": "target",
               "description": "A lookup type for example",
-              "value": {
-                "type": "'_blank' | '_self' | '_parent' | '_top' | undefined"
-              }
+              "value": { "type": "Target | undefined" }
             },
             {
               "name": "for",
@@ -243,7 +221,7 @@
               {
                 "name": "target",
                 "description": "A lookup type for example",
-                "type": "'_blank' | '_self' | '_parent' | '_top' | undefined"
+                "type": "Target | undefined"
               },
               {
                 "name": "for",

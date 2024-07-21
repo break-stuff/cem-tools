@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.4.0
+
+- Added the ability to generate your own files
+
 ## 1.3.0
 
 - Added the ability to hide logs

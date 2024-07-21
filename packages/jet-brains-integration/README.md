@@ -377,3 +377,7 @@ If your project is scoping components using prefixes or suffixes in the tag name
 ## Default Icon
 
 If you want to have your icon in the code completion select dialog. The entry is a relative path to the icon representing the symbol or actual SVG of the icon.
+
+## Generate Your Own File
+
+If you need to be able tp generate your own file, you can use the `getWebTypesData(manifest, options)` method. This method will return the web-types data and you can choose where and how the file gets written.
