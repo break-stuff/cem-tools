@@ -74,6 +74,8 @@ type RadioGroupProps = {
   "bind:customTag"?: RadioGroup["customTag"];
   /** some description for custom-event */
   "on:custom-event"?: (e: CustomEvent<never>) => void;
+  /** some description for camelCaseEvent */
+  "on:camelCaseEvent"?: (e: CustomEvent<never>) => void;
   /** some description for typed-event */
   "on:typed-event"?: (e: CustomEvent<HTMLInputElement>) => void;
   /** (@deprecated) some description for typed-custom-event */
@@ -123,6 +125,7 @@ export type CustomElements = {
    *
    * ### **Events:**
    *  - **custom-event** - some description for custom-event
+   * - **camelCaseEvent** - some description for camelCaseEvent
    * - **typed-event** - some description for typed-event
    * - **typed-custom-event** - (@deprecated) some description for typed-custom-event
    *

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.1
+
+- Fixed event name format for JSX types
+
 ## 1.3.0
 
 - Add tag name prefix and suffix support

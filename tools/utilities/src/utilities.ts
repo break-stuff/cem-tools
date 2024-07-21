@@ -29,7 +29,6 @@ export function toSentenceCase(value: string) {
 
 export function toPascalCase(value: string) {
   return value
-    .toLowerCase()
     .replace(new RegExp(/[-_]+/, "g"), " ")
     .replace(new RegExp(/[^\w\s]/, "g"), "")
     .replace(

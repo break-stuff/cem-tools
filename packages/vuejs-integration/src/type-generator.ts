@@ -131,7 +131,7 @@ ${
         event.description,
         event.deprecated,
       )} */
-  "on${toPascalCase(event.name)}"?: (e: CustomEvent<${
+  "on${event.name}"?: (e: CustomEvent<${
     event.type?.text || "never"
   }>) => void;`;
     })

@@ -68,6 +68,7 @@ export type Example = Test2 | "valueA" | "valueB";
  * @cssproperty [--radio-background-color=red] - Controls the color of bar
  *
  * @fires custom-event - some description for custom-event
+ * @fires camelCaseEvent - some description for camelCaseEvent
  * @fires {HTMLInputElement } typed-event - some description for typed-event
  * @event {InterfaceEventType} typed-custom-event - (@deprecated) some description for typed-custom-event
  *
