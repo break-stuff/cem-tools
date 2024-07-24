@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.2
+
+- Fixed async file output
+
 ## 1.5.1
 
 - Fixed event names

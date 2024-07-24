@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.1.1
+
+- Fixed async file output
+
 ## 1.1.0
 
 - Added the ability to hide logs

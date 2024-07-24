@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.4.1
+
+- Fixed async file output
+
 ## 1.4.0
 
 - Added the ability to generate your own files

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.6
+
+- Fixed async file output
+
 ## 1.6.5
 
 - Fixed casing for camel-case event names

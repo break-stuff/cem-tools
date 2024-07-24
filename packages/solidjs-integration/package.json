@@ -1,6 +1,6 @@
 {
   "name": "custom-element-solidjs-integration",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Tools for integrating custom elements into SolidJS",
   "main": "index.js",
   "module": "index.js",
@@ -32,7 +32,7 @@
     "tsup": "^7.1.0"
   },
   "dependencies": {
-    "prettier": "^2.7.1"
+    "@prettier/sync": "^0.5.2"
   },
   "keywords": [
     "custom-elements",

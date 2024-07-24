@@ -101,9 +101,10 @@ export function customJSDocTagsPlugin(
           component[propName] = cemTag;
         }
       });
-
+    },
+    packageLinkPhase: () => {
       logGreen(
-        "[custom-jsdoc-tags] - Custom Elements Manifest updated.",
+        "[cem-expanded-types] - Custom Elements Manifest updated.",
         options.hideLogs,
       );
     },

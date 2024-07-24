@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.2
+
+- Removed duplicate logs
+
 ## 1.3.1
 
 - Fixed build error for "path" import

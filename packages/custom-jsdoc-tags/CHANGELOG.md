@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2
+
+- Removed duplicate logs
+
 ## 1.1.1
 
 - Fixed issue with "path" import
