@@ -1,6 +1,6 @@
 {
   "name": "custom-element-eslint-rule-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A tool for generating eslint rules for your custom elements.",
   "main": "index.js",
   "module": "index.js",
@@ -29,7 +29,7 @@
     "tsup": "^7.1.0"
   },
   "dependencies": {
-    "prettier": "^2.7.1"
+    "@prettier/sync": "^0.5.2"
   },
   "repository": {
     "type": "git",

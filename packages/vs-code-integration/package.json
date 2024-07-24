@@ -1,6 +1,6 @@
 {
   "name": "custom-element-vs-code-integration",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Tools for integrating web components/custom elements into VS Code",
   "main": "index.js",
   "module": "index.js",
@@ -34,7 +34,7 @@
     "tsup": "^7.1.0"
   },
   "dependencies": {
-    "prettier": "^2.7.1"
+    "@prettier/sync": "^0.5.2"
   },
   "keywords": [
     "custom-elements",

@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.8.1
+
+- Fixed async file output
+
 ## 1.8.0
 
 - Added support for [custom directives](https://docs.solidjs.com/configuration/typescript#custom-directives)

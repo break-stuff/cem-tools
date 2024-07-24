@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import prettier from "prettier";
+import prettier from "@prettier/sync";
 
 export function createOutDir(outDir: string) {
   if (outDir !== "./" && !fs.existsSync(outDir)) {
@@ -8,7 +8,7 @@ export function createOutDir(outDir: string) {
   }
 }
 
-export async function saveFile(
+export function saveFile(
   outDir: string,
   fileName: string,
   contents: string,
@@ -19,7 +19,7 @@ export async function saveFile(
 
   fs.writeFileSync(
     outputPath,
-    await prettier.format(contents, { parser, printWidth }),
+    prettier.format(contents, { parser, printWidth }),
   );
 
   return outputPath;

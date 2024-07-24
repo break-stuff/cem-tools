@@ -67,6 +67,12 @@ export function expandTypesPlugin(
     name: "expand-types-plugin",
     collectPhase,
     analyzePhase,
+    packageLinkPhase: () => {
+      logGreen(
+        "[cem-expanded-types] - Custom Elements Manifest updated.",
+        options.hideLogs,
+      );
+    },
   };
 }
 
@@ -254,10 +260,6 @@ function analyzePhase({ ts, node, moduleDoc, context }: any) {
   }
 
   updateExpandedTypes(component, context);
-  logGreen(
-    "[cem-expanded-types] - Custom Elements Manifest updated.",
-    options.hideLogs,
-  );
 }
 
 function getComponent(node: any, moduleDoc: any) {

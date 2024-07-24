@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.2
+
+- Fixed async file output
+
 ## 1.3.1
 
 - Fixed event name format for JSX types

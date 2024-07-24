@@ -1,6 +1,6 @@
 {
   "name": "custom-element-react-wrappers",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "description": "A tool for generating react-compatible wrappers for custom elements",
   "main": "index.js",
   "module": "index.js",
@@ -30,7 +30,7 @@
     "tsup": "^7.1.0"
   },
   "dependencies": {
-    "prettier": "^2.7.1"
+    "@prettier/sync": "^0.5.2"
   },
   "keywords": [
     "custom-elements",
