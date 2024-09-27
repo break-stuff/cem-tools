@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/break-stuff/cem-tools/blob/main/packages/deprecator/README.md",
   "dependencies": {
-    "prettier": "^2.8.0"
+    "@prettier/sync": "^0.5.2"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.3",
