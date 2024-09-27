@@ -210,7 +210,7 @@ ${components
     */
     "${options.prefix}${component.tagName}${options.suffix}": Partial<${
       component.name
-    }Props | BaseProps | BaseEvents>;`;
+    }Props & BaseProps & BaseEvents>;`;
   })
   .join("\n")}
   }
