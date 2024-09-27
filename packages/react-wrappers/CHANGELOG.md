@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.6.7
+
+- Fixed binding for custom event listener
+- Updated types to use intersection types to prevent compiler errors
+
 ## 1.6.6
 
 - Fixed async file output

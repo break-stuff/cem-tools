@@ -2,7 +2,6 @@ import fs from "fs";
 import type {
   JsProperties,
   Options,
-  Reference,
   WebTypeCssProperty,
   WebTypeElement,
   WebTypeEvent,

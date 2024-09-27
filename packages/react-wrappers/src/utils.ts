@@ -110,7 +110,11 @@ ${ssrSafe ? `const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? u
 
 export function useProperties(targetElement, propName, value) {
   useEffect(() => {
-    if (value !== undefined && targetElement.current[propName] !== value) {
+    if (
+      value !== undefined &&
+      targetElement.current &&
+      targetElement.current[propName] !== value
+    ) {
       // add try catch to avoid errors when setting read-only properties
       try {
         targetElement.current[propName] = value;
@@ -118,7 +122,7 @@ export function useProperties(targetElement, propName, value) {
         console.warn(e);
       }
     }
-  }, [value]);
+  }, [value, targetElement.current]);
 }
 
 export function useEventListener(targetElement, eventName, eventHandler) {
@@ -134,7 +138,7 @@ export function useEventListener(targetElement, eventName, eventHandler) {
 
       targetElement?.current?.removeEventListener(eventName, eventHandler);
     };
-  }, [eventName, eventHandler, targetElement]);
+  }, [eventName, eventHandler, targetElement.current]);
 }
 
 `;
