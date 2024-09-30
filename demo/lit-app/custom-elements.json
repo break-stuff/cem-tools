@@ -103,7 +103,7 @@
               "type": {
                 "text": "{ [key: string]: any }"
               },
-              "default": "{ foo: 'bar' }"
+              "default": "{ foo: \"bar\" }"
             },
             {
               "kind": "field",
