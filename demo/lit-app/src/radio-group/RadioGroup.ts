@@ -99,6 +99,9 @@ export class RadioGroup extends LitElement {
   @property({ type: String })
   variants: Variants = "primary";
 
+  @property({ attribute: false, type: Object })
+  foobar: { [key: string]: any } = { foo: "bar" };
+
   /** @deprecated This is a test for external d.ts options */
   @property({ type: String })
   external: Test = "value1";

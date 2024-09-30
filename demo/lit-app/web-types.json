@@ -137,6 +137,7 @@
                 "description": "This is a test for internal options",
                 "type": "'default' | 'primary' | 'success' | 'neutral' | 'warning' | 'danger' | 'text'"
               },
+              { "name": "foobar", "type": "{ [key: string]: any }" },
               { "name": "external", "type": "'value1' | 'value2' | 'value3'" },
               {
                 "name": "deprecatedAttribute",
@@ -165,7 +166,7 @@
               {
                 "name": "data",
                 "description": "This is data object",
-                "type": "{\n    // The name.\n    name??: string;\n    /** The type. */\n    type?: string;\n    /** The value. */\n    value?: number;\n  } | undefined"
+                "type": "{\n    // The name.\n    name?: string;\n    /** The type. */\n    type?: string;\n    /** The value. */\n    value?: number;\n  } | undefined"
               },
               {
                 "name": "complexUnion",
