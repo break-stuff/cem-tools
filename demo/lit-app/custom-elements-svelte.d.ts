@@ -68,6 +68,8 @@ type RadioGroupProps = {
   "my-attribute"?: RadioGroup["myAttribute"];
   /** This is a test for options from an object */
   "complex-union"?: RadioGroup["complexUnion"];
+  /**  */
+  "bind:foobar"?: RadioGroup["foobar"];
   /** This is data object */
   "bind:data"?: RadioGroup["data"];
   /**  */

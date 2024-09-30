@@ -152,10 +152,7 @@ function getObjectTypes(fileName: string, typeName: string) {
   ];
   parts.forEach((part) => {
     // remove comments from object
-    const cleanPart = part.replace(
-      /\/\*[\s\S]*?\*\/|(?<=[^:])\/\/.*|^\/\/.*/g,
-      "",
-    );
+    const cleanPart = part.replace(/\/\/.*|\/\*[\s\S]*?\*\//g, "");
     typeName = typeName.replace(
       new RegExp(cleanPart, "g"),
       getExpandedType(fileName, cleanPart),
