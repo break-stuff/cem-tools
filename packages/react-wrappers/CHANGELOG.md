@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.6.8
+
+- Updated to import `React` in types
+
 ## 1.6.7
 
 - Fixed binding for custom event listener

@@ -423,6 +423,7 @@ function getTypeDefinitionTemplate(
   const eventTypes = getCustomEventTypes(component);
 
   return `
+    import React from "react";
     import { 
       ${config.defaultExport ? "default" : component.name} as ${
         component.name

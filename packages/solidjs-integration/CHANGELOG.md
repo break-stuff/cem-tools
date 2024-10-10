@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.8.2
+
+- Updated to use intersection types rather than union types
+
 ## 1.8.1
 
 - Fixed async file output
