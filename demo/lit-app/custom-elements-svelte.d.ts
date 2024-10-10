@@ -147,7 +147,7 @@ export type CustomElements = {
    * ### **CSS Parts:**
    *  - **radio-label** - Applies custom styles the radio group label
    */
-  "radio-group": Partial<RadioGroupProps | BaseProps | BaseEvents>;
+  "radio-group": Partial<RadioGroupProps & BaseProps & BaseEvents>;
 
   /**
    * Radio buttons allow users to select a single option from a group. Here is its [documentation](https://my-site.com/documentation).
@@ -162,7 +162,7 @@ export type CustomElements = {
    * ### **Slots:**
    *  - _default_ - add text here to label your radio button
    */
-  "radio-button": Partial<RadioButtonProps | BaseProps | BaseEvents>;
+  "radio-button": Partial<RadioButtonProps & BaseProps & BaseEvents>;
 
   /**
    * @deprecated An example of a deprecated element
@@ -172,7 +172,7 @@ export type CustomElements = {
    *
    */
   "deprecated-element": Partial<
-    DeprecatedElementProps | BaseProps | BaseEvents
+    DeprecatedElementProps & BaseProps & BaseEvents
   >;
 
   /**
@@ -181,7 +181,7 @@ export type CustomElements = {
    * ---
    *
    */
-  "my-button": Partial<MyButtonProps | BaseProps | BaseEvents>;
+  "my-button": Partial<MyButtonProps & BaseProps & BaseEvents>;
 };
 
 declare namespace svelteHTML {
