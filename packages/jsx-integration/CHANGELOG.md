@@ -1,8 +1,12 @@
 # CHANGELOG
 
-## 1.5.3
+## 1.5.4
 
 - Updated messaging in `README.md` for react wrappers
+
+## 1.5.3
+
+- Updated to use intersection types rather than union types
 
 ## 1.5.2
 
