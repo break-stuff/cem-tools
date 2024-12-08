@@ -2,7 +2,7 @@
 
 This package is designed to generate types for your custom elements in a project using [JSX](https://www.typescriptlang.org/docs/handbook/jsx.html). These types will generate inline documentation, autocomplete, and type-safe validation for your custom elements in non-react frameworks that use JSX like [Preact](https://preactjs.com/) and [StencilJS](https://stenciljs.com/).
 
-> **_NOTE:_** THIS IS FOR NON-REACT PROJECTS THAT USE JSX/TSX TEMPLATES
+> **_NOTE:_** If you are using react 18 or below, check out our [react wrappers](https://www.npmjs.com/package/custom-element-react-wrappers).
 
 ![demo of autocomplete features for custom elements in a solidjs project](https://github.com/break-stuff/cem-tools/blob/main/demo/images/solid-js-integration/solid-js-integration.gif?raw=true)
 

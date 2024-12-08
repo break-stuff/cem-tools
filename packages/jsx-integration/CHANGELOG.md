@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.5.3
+
+- Updated messaging in `README.md` for react wrappers
+
 ## 1.5.2
 
 - Fixed async file output
