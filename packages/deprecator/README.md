@@ -106,7 +106,7 @@ Ensure the following steps have been taken in your component library prior to us
 ```js
 // custom-elements-manifest.config.js
 
-import { cemInheritancePlugin } from "custom-elements-manifest-deprecator";
+import { cemDeprecatorPlugin } from "custom-elements-manifest-deprecator";
 
 const options = {
   /* add options here */

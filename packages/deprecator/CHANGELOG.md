@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.2
+
+- Fixed imported function name in `README.md`
+
 ## 1.1.1
 
 - Prevent overriding CEM when Analyzer is used
