@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.4.0
+
+- Fixed exports for projects that have the `type` of "module"
+- Added `cjs` exports
+
 ## 1.3.1
 
 - Fixed async file output

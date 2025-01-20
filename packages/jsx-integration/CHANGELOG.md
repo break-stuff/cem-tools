@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.6.0
+
+- Fixed exports for projects that have the `type` of "module"
+- Added `cjs` exports
+
 ## 1.5.4
 
 - Updated messaging in `README.md` for react wrappers

@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.2.0
+
+- Fixed exports for projects that have the `type` of "module"
+- Added `cjs` exports
+
 ## 1.1.2
 
 - Updated to use intersection types rather than union types

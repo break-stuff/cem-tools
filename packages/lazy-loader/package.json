@@ -1,11 +1,18 @@
 {
   "name": "custom-element-lazy-loader",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "A tool for generating an entry point for lazy-loading custom elements/web components.",
-  "main": "index.js",
-  "module": "index.js",
-  "types": "index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "files": [
     "index.js",
     "index.d.ts",
