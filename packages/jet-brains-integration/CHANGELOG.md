@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.7.0
+
+- Fixed exports for projects that have the `type` of "module"
+- Added `cjs` exports
+
 ## 1.6.2
 
 - Fixed async file output

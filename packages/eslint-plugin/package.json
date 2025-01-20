@@ -1,11 +1,18 @@
 {
   "name": "eslint-plugin-custom-element",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "This plugin creates rules specific for validating custom element implementation in HTML",
-  "main": "index.js",
-  "module": "index.js",
-  "types": "index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "type": "module",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "files": [
     "index.js",
     "index.d.ts",
