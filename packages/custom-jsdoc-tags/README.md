@@ -1,3 +1,5 @@
+> This package has been moved to [@wc-toolkit/jsdoc-tags](https://www.npmjs.com/package/@wc-toolkit/jsdoc-tags).
+
 # CEM Analyzer Custom JSDoc Plugin
 
 This is a plugin maps custom JSDoc tags on your component classes to properties in Custom Elements Manifest using the [Custom Element Manifest Analyzer](https://custom-elements-manifest.open-wc.org/).
