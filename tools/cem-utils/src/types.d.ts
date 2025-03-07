@@ -11,6 +11,7 @@ export interface CssProperty extends schema.CssCustomProperty {
 }
 
 export interface Component extends schema.CustomElementDeclaration {
+  modulePath?: string;
   cssProperties?: CssProperty[];
   members?: Array<schema.ClassMember>;
   superclass?: {

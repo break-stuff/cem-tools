@@ -53,15 +53,17 @@ export function getComponents(
   exclude?: string[],
 ): Component[] {
   return (
-    customElementsManifest.modules?.map(
-      (mod) =>
+    customElementsManifest.modules?.map((mod) => {
+      const comp =
         mod?.declarations?.filter(
           (dec) =>
-            !exclude?.includes(dec.name) &&
-            ((dec as Component).customElement || (dec as Component).tagName),
-        ) || [],
-    ) || []
-  ).flat() as Component[];
+            !exclude?.includes(dec.name) && (dec.customElement || dec.tagName),
+        ) || [];
+
+      if (comp.length <= 0) return [];
+      return [Object.assign({ modulePath: mod.path }, ...comp)];
+    }) || []
+  ).flat();
 }
 /**
  * Gets a list of public properties from a CEM component
