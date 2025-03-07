@@ -1,8 +1,9 @@
-import path from "path";
 import fs from "fs";
+import path from "path";
+import { Component } from "../../../tools/cem-utils/index.js";
 import { saveFile } from "../../../tools/integrations/index.js";
 import { toPascalCase } from "../../../tools/utilities/index.js";
-import { Component } from "../../../tools/cem-utils/index.js";
+import type { Options } from "./types.js";
 
 export function getPackageJson(): any {
   const packageJsonPath = path.join(process.cwd(), "package.json");
@@ -10,7 +11,7 @@ export function getPackageJson(): any {
 }
 
 export function getModulePath(
-  modulePath: ((className: string, tagName: string) => string) | undefined,
+  modulePath: Options["modulePath"] | undefined,
   component: Component,
   outdir: string,
   packageJson: any,
