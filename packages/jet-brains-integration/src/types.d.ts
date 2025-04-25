@@ -22,6 +22,8 @@ export interface Options extends BaseOptions {
   referenceTemplate?: (name: string, tag?: string) => Reference;
   /** Adds an icon link to the webtypes.json  **/
   defaultIcon?: string;
+  /** Used to amend the modules paths to actual source (when outdir is a subdirectory for instance) */
+  modulePathTemplate?: (name: string, modulePath: string) => string;
 }
 
 export interface Params {
@@ -31,6 +33,7 @@ export interface Params {
 export interface WebTypeElement {
   name: string;
   description: string;
+  source?: WebTypeSourceSymbol;
   ["doc-url"]?: string;
   attributes: WebTypeAttribute[];
   js?: JsProperties;
@@ -82,4 +85,9 @@ export interface WebTypeCssProperty {
 export interface Reference {
   name: string;
   url: string;
+}
+
+export interface WebTypeSourceSymbol {
+  module?: string;
+  symbol: string;
 }
