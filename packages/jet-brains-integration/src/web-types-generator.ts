@@ -7,6 +7,7 @@ import type {
   WebTypeEvent,
   WebTypeJsProperty,
   WebTypePseudoElement,
+  WebTypeSourceSymbol,
 } from "./types";
 import {
   getComponents,
@@ -35,11 +36,16 @@ const packageJson = JSON.parse(fs.readFileSync("package.json", "utf8"));
 
 export function getTagList(
   components: Component[],
+  sourceSymbols: Map<string, WebTypeSourceSymbol>,
   options: Options,
 ): WebTypeElement[] {
   return components.map((component: Component) => {
     const reference = options.referenceTemplate
       ? options.referenceTemplate(component.name, component.tagName)
+      : undefined;
+
+    const symbol = component.tagName
+      ? sourceSymbols.get(component.tagName)
       : undefined;
 
     return {
@@ -57,8 +63,38 @@ export function getTagList(
       }),
       events: getWebTypeEvents(component),
       js: getJsProperties(component, options.typesSrc),
+      source: symbol,
     };
   });
+}
+
+export function getComponentsExportsMap(
+  customElementsManifest: CEM,
+  options: Options,
+): Map<string, WebTypeSourceSymbol> {
+  return new Map(
+    customElementsManifest.modules
+      ?.map((mod) =>
+        mod.exports
+          ?.filter(
+            (e) =>
+              e.kind === "custom-element-definition" && e.declaration.module,
+          )
+          .map((e) => [
+            e.name,
+            {
+              symbol: e.declaration.name,
+              module: options.modulePathTemplate
+                ? options.modulePathTemplate(
+                    e.declaration.name,
+                    e.declaration.module!,
+                  )
+                : e.declaration.module,
+            } as WebTypeSourceSymbol,
+          ]),
+      )
+      .flat() as Array<[string, WebTypeSourceSymbol]>,
+  );
 }
 
 function getJsProperties(
@@ -147,9 +183,10 @@ export function generateJetBrainsWebTypes(
     );
     return;
   }
+  const exports = getComponentsExportsMap(customElementsManifest, options);
 
   const elements = options.webTypesFileName
-    ? getTagList(components, options)
+    ? getTagList(components, exports, options)
     : [];
   const cssProperties = getCssPropertyList(components);
   const cssParts = getCssPartList(components);
@@ -170,7 +207,8 @@ export function getWebTypesData(customElementsManifest: CEM, options: Options) {
     options.exclude,
   ).filter((x) => x.tagName);
 
-  const elements = getTagList(components, options);
+  const exports = getComponentsExportsMap(customElementsManifest, options);
+  const elements = getTagList(components, exports, options);
   const cssProperties = getCssPropertyList(components);
   const cssParts = getCssPartList(components);
 
