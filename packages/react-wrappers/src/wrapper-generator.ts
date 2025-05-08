@@ -332,14 +332,14 @@ function getReactComponentTemplate(
 
   return `
     ${config.ssrSafe ? '"use client"' : ""}
-    import React, { forwardRef, useImperativeHandle ${
+    import React, { forwardRef ${
       useEffect ? ", useRef, useEffect" : ""
     } ${config.scopedTags ? ", useContext" : ""} } from "react";
     ${!config.ssrSafe ? `import '${modulePath}';` : ""}
     ${
       has(eventTemplates) || has(propTemplates)
-        ? `import { 
-      ${has(eventTemplates) ? "useEventListener," : ""} 
+        ? `import {
+      ${has(eventTemplates) ? "useEventListener," : ""}
       ${has(propTemplates) ? "useProperties" : ""}
     } from './react-utils.js';`
         : ""
@@ -370,7 +370,6 @@ function getReactComponentTemplate(
           : ""
       }
 
-
       ${has(eventTemplates) ? "/** Event listeners - run once */" : ""}
       ${eventTemplates?.join("") || ""}
 
@@ -381,19 +380,21 @@ function getReactComponentTemplate(
       }
       ${propTemplates?.join("") || ""}
 
-      ${
-        has(methods)
-          ? "/** Methods - uses `useImperativeHandle` hook to pass ref to component */"
-          : ""
-      }
-      useImperativeHandle(forwardedRef, () => ({
-        ${getPublicMethodsForRef(methods)}
-      }));
-
       return React.createElement(
         ${getTagName(component)},
-        { 
-          ${useEffect ? "ref," : ""} 
+        {
+          ${
+            useEffect
+              ? `ref: (node) => {
+            ref.current = node;
+            if (typeof forwardedRef === "function") {
+              forwardedRef(node);
+            } else if (forwardedRef) {
+              forwardedRef.current = node;
+            }
+          },`
+              : ""
+          }
           ${has(unusedProps) ? "...filteredProps" : "...props"},
           ${[...attrTemplates, ...booleanAttrTemplates].join(",")},
           style: {...props.style},
@@ -401,7 +402,7 @@ function getReactComponentTemplate(
         },
         props.children
       );
-    });
+     });
   `;
 }
 
@@ -424,20 +425,20 @@ function getTypeDefinitionTemplate(
 
   return `
     import React from "react";
-    import { 
+    import {
       ${config.defaultExport ? "default" : component.name} as ${
         component.name
       }Element
       ${eventTypes?.length ? `, ${eventTypes}` : ""}
     } from '${modulePath}';
 
-    export type { 
-      ${component.name}Element 
-      ${eventTypes?.length ? `, ${eventTypes}` : ""}  
+    export type {
+      ${component.name}Element
+      ${eventTypes?.length ? `, ${eventTypes}` : ""}
     };
-    
-    export interface ${component.name}Props ${getExtendedProps()} { 
-      ${props} 
+
+    export interface ${component.name}Props ${getExtendedProps()} {
+      ${props}
     }
 
     /**
@@ -458,12 +459,6 @@ function getExtendedProps() {
       ]
         .map((x) => `'${x}'`)
         .join(" | ")}>`;
-}
-
-function getMethodParameters(parameters?: Parameter[]) {
-  return parameters
-    ? "(" + parameters.map((x) => `${x.name}`).join(", ") + ")"
-    : "()";
 }
 
 function getPropsInterface(
@@ -506,21 +501,6 @@ function getTagName(component: Component) {
   return config.scopedTags
     ? `\`\${scope?.prefix || ''}${component.tagName}\${scope?.suffix || ''}\``
     : `"${component.tagName}"`;
-}
-
-function getPublicMethodsForRef(methods: ClassMethod[]) {
-  return (
-    methods
-      ?.map(
-        (method) =>
-          `${method.name}: ${getMethodParameters(
-            method.parameters,
-          )} => ref.current.${method.name}${getMethodParameters(
-            method.parameters,
-          )}`,
-      )
-      .join(",\n") || ""
-  );
 }
 
 function getBooleanPropsTemplate(booleanAttributes: MappedAttribute[]) {
