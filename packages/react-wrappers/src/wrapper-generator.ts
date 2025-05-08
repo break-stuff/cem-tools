@@ -329,17 +329,18 @@ function getReactComponentTemplate(
   const unusedProps = getUnusedProps(attributes, booleanAttributes, properties);
 
   const useEffect = has(eventTemplates) || has(propTemplates) || config.ssrSafe;
+  const isImperative = config.withImperativeHandle ?? true;
 
   return `
     ${config.ssrSafe ? '"use client"' : ""}
-    import React, { forwardRef, useImperativeHandle ${
+    import React, { forwardRef ${isImperative ? ", useImperativeHandle" : ""} ${
       useEffect ? ", useRef, useEffect" : ""
     } ${config.scopedTags ? ", useContext" : ""} } from "react";
     ${!config.ssrSafe ? `import '${modulePath}';` : ""}
     ${
       has(eventTemplates) || has(propTemplates)
-        ? `import { 
-      ${has(eventTemplates) ? "useEventListener," : ""} 
+        ? `import {
+      ${has(eventTemplates) ? "useEventListener," : ""}
       ${has(propTemplates) ? "useProperties" : ""}
     } from './react-utils.js';`
         : ""
@@ -382,18 +383,33 @@ function getReactComponentTemplate(
       ${propTemplates?.join("") || ""}
 
       ${
-        has(methods)
+        isImperative
           ? "/** Methods - uses `useImperativeHandle` hook to pass ref to component */"
           : ""
       }
-      useImperativeHandle(forwardedRef, () => ({
-        ${getPublicMethodsForRef(methods)}
+      ${
+        isImperative
+          ? `useImperativeHandle(forwardedRef, () => ({
+        ${has(methods) ? `${getPublicMethodsForRef(methods)},` : ""}
+        customElement: ref.current
       }));
+      `
+          : ""
+      }
+
+      const refCallback = (node) => {
+        ref.current = node;
+        if (typeof forwardedRef === 'function') {
+          forwardedRef(node);
+        } else if (forwardedRef !== null) {
+          forwardedRef.current = node;
+        }
+      };
 
       return React.createElement(
         ${getTagName(component)},
-        { 
-          ${useEffect ? "ref," : ""} 
+        {
+          ${useEffect ? `ref: React.useCallback( refCallback, [forwardedRef] ),` : ""}
           ${has(unusedProps) ? "...filteredProps" : "...props"},
           ${[...attrTemplates, ...booleanAttrTemplates].join(",")},
           style: {...props.style},
@@ -401,7 +417,7 @@ function getReactComponentTemplate(
         },
         props.children
       );
-    });
+     });
   `;
 }
 
@@ -424,20 +440,20 @@ function getTypeDefinitionTemplate(
 
   return `
     import React from "react";
-    import { 
+    import {
       ${config.defaultExport ? "default" : component.name} as ${
         component.name
       }Element
       ${eventTypes?.length ? `, ${eventTypes}` : ""}
     } from '${modulePath}';
 
-    export type { 
-      ${component.name}Element 
-      ${eventTypes?.length ? `, ${eventTypes}` : ""}  
+    export type {
+      ${component.name}Element
+      ${eventTypes?.length ? `, ${eventTypes}` : ""}
     };
-    
-    export interface ${component.name}Props ${getExtendedProps()} { 
-      ${props} 
+
+    export interface ${component.name}Props ${getExtendedProps()} {
+      ${props}
     }
 
     /**
