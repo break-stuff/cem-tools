@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.7.1
+
+- Fixed `ref` mapping
+
 ## 1.7.0
 
 - Fixed exports for projects that have the `type` of "module"
