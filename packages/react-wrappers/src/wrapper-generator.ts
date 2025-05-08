@@ -329,11 +329,10 @@ function getReactComponentTemplate(
   const unusedProps = getUnusedProps(attributes, booleanAttributes, properties);
 
   const useEffect = has(eventTemplates) || has(propTemplates) || config.ssrSafe;
-  const isImperative = config.withImperativeHandle ?? true;
 
   return `
     ${config.ssrSafe ? '"use client"' : ""}
-    import React, { forwardRef ${isImperative ? ", useImperativeHandle" : ""} ${
+    import React, { forwardRef ${
       useEffect ? ", useRef, useEffect" : ""
     } ${config.scopedTags ? ", useContext" : ""} } from "react";
     ${!config.ssrSafe ? `import '${modulePath}';` : ""}
@@ -371,7 +370,6 @@ function getReactComponentTemplate(
           : ""
       }
 
-
       ${has(eventTemplates) ? "/** Event listeners - run once */" : ""}
       ${eventTemplates?.join("") || ""}
 
@@ -382,34 +380,21 @@ function getReactComponentTemplate(
       }
       ${propTemplates?.join("") || ""}
 
-      ${
-        isImperative
-          ? "/** Methods - uses `useImperativeHandle` hook to pass ref to component */"
-          : ""
-      }
-      ${
-        isImperative
-          ? `useImperativeHandle(forwardedRef, () => ({
-        ${has(methods) ? `${getPublicMethodsForRef(methods)},` : ""}
-        customElement: ref.current
-      }));
-      `
-          : ""
-      }
-
-      const refCallback = (node) => {
-        ref.current = node;
-        if (typeof forwardedRef === 'function') {
-          forwardedRef(node);
-        } else if (forwardedRef !== null) {
-          forwardedRef.current = node;
-        }
-      };
-
       return React.createElement(
         ${getTagName(component)},
         {
-          ${useEffect ? `ref: React.useCallback( refCallback, [forwardedRef] ),` : ""}
+          ${
+            useEffect
+              ? `ref: (node) => {
+            ref.current = node;
+            if (typeof forwardedRef === "function") {
+              forwardedRef(node);
+            } else if (forwardedRef) {
+              forwardedRef.current = node;
+            }
+          },`
+              : ""
+          }
           ${has(unusedProps) ? "...filteredProps" : "...props"},
           ${[...attrTemplates, ...booleanAttrTemplates].join(",")},
           style: {...props.style},
@@ -476,12 +461,6 @@ function getExtendedProps() {
         .join(" | ")}>`;
 }
 
-function getMethodParameters(parameters?: Parameter[]) {
-  return parameters
-    ? "(" + parameters.map((x) => `${x.name}`).join(", ") + ")"
-    : "()";
-}
-
 function getPropsInterface(
   componentName: string,
   booleanAttributes: MappedAttribute[],
@@ -522,21 +501,6 @@ function getTagName(component: Component) {
   return config.scopedTags
     ? `\`\${scope?.prefix || ''}${component.tagName}\${scope?.suffix || ''}\``
     : `"${component.tagName}"`;
-}
-
-function getPublicMethodsForRef(methods: ClassMethod[]) {
-  return (
-    methods
-      ?.map(
-        (method) =>
-          `${method.name}: ${getMethodParameters(
-            method.parameters,
-          )} => ref.current.${method.name}${getMethodParameters(
-            method.parameters,
-          )}`,
-      )
-      .join(",\n") || ""
-  );
 }
 
 function getBooleanPropsTemplate(booleanAttributes: MappedAttribute[]) {

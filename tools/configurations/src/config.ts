@@ -25,8 +25,6 @@ export interface BaseOptions {
   hideLogs?: boolean;
   /** Prevents plugin from executing */
   skip?: boolean;
-  /** Toggle the use of `useImperativeHandle` which alters the `ref` so we can access methods from the custom element. */
-  withImperativeHandle?: boolean;
 }
 
 export interface DescriptionLabels {
@@ -53,7 +51,6 @@ export const baseConfig: BaseOptions = {
     cssParts: "CSS Parts",
     methods: "Methods",
   },
-  withImperativeHandle: undefined,
 };
 
 type ExtendedConfiguration = BaseOptions & { [key: string]: any };
