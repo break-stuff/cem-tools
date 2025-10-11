@@ -288,7 +288,7 @@ function getEventTemplates(eventNames: EventName[]) {
 function getBooleanAttributeTemplates(booleanAttributes: MappedAttribute[]) {
   return (
     booleanAttributes?.map(
-      (attr) => `'${attr.name}': props.${attr.fieldName} ? '' : undefined`,
+      (attr) => `'${attr.name}': props.${attr.fieldName} ? true : undefined`,
     ) || []
   );
 }
