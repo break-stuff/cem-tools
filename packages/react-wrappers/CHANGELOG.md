@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.7.3
+
+- Fixed boolean mapping for SSR
+
 ## 1.7.1
 
 - Fixed `ref` mapping
