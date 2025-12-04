@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.7.4
+
+- Fixed kebab case attribute string mapping fallback
+
 ## 1.7.3
 
 - Fixed boolean mapping for SSR

@@ -302,7 +302,7 @@ function getAttributeTemplates(attributes: MappedAttribute[]) {
         (attr) =>
           `'${attr.originalName || attr?.name}': props.${
             attr.fieldName
-          } ${attr.name.includes("-") ? `|| props['${attr.name}']` : ""}`,
+          } ${attr.name.includes("-") ? `?? props['${attr.name}']` : ""}`,
       ) || []
   );
 }
