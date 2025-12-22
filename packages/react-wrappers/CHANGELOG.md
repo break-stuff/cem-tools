@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.7.5
+
+- Simplified `ref` handling
+- Fixed duplicate event handlers
+
 ## 1.7.4
 
 - Fixed kebab case attribute string mapping fallback
