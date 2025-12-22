@@ -337,10 +337,11 @@ function getReactComponentTemplate(
     } ${config.scopedTags ? ", useContext" : ""} } from "react";
     ${!config.ssrSafe ? `import '${modulePath}';` : ""}
     ${
-      has(eventTemplates) || has(propTemplates)
+      useEffect
         ? `import {
       ${has(eventTemplates) ? "useEventListener," : ""}
-      ${has(propTemplates) ? "useProperties" : ""}
+      ${has(propTemplates) ? "useProperties," : ""}
+      createForwardedRefHandler
     } from './react-utils.js';`
         : ""
     }
@@ -385,14 +386,7 @@ function getReactComponentTemplate(
         {
           ${
             useEffect
-              ? `ref: (node) => {
-            ref.current = node;
-            if (typeof forwardedRef === "function") {
-              forwardedRef(node);
-            } else if (forwardedRef) {
-              forwardedRef.current = node;
-            }
-          },`
+              ? `ref: createForwardedRefHandler(ref, forwardedRef),`
               : ""
           }
           ${has(unusedProps) ? "...filteredProps" : "...props"},

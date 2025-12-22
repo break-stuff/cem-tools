@@ -108,6 +108,25 @@ import { useEffect, useLayoutEffect, useRef } from "react";
 
 ${ssrSafe ? `const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect` : ""}
 
+export function mergeRefs(target, forwardedRef) {
+  if (!forwardedRef) {
+    return;
+  }
+
+  if (typeof forwardedRef === "function") {
+    forwardedRef(target);
+  } else {
+    forwardedRef.current = target;
+  }
+}
+
+export function createForwardedRefHandler(localRef, forwardedRef) {
+  return (node) => {
+    localRef.current = node;
+    mergeRefs(node, forwardedRef);
+  };
+}
+
 export function useProperties(targetElement, propName, value) {
   useEffect(() => {
     if (
