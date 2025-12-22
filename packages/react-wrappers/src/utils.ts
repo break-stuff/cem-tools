@@ -104,9 +104,28 @@ export const RESERVED_WORDS = [
 
 export function saveReactUtils(outdir: string, ssrSafe?: boolean) {
   const reactUtils = `
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 ${ssrSafe ? `const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect` : ""}
+
+export function mergeRefs(target, forwardedRef) {
+  if (!forwardedRef) {
+    return;
+  }
+
+  if (typeof forwardedRef === "function") {
+    forwardedRef(target);
+  } else {
+    forwardedRef.current = target;
+  }
+}
+
+export function createForwardedRefHandler(localRef, forwardedRef) {
+  return (node) => {
+    localRef.current = node;
+    mergeRefs(node, forwardedRef);
+  };
+}
 
 export function useProperties(targetElement, propName, value) {
   useEffect(() => {
@@ -126,19 +145,36 @@ export function useProperties(targetElement, propName, value) {
 }
 
 export function useEventListener(targetElement, eventName, eventHandler) {
+  // keep a ref to the latest handler so we don't need to re-register the event listener
+  // whenever the handler changes (avoids duplicate listeners on re-renders)
+  const handlerRef = useRef(eventHandler);
+  handlerRef.current = eventHandler;
+
   ${ssrSafe ? "useIsomorphicLayoutEffect" : "useLayoutEffect"}(() => {
-    if (eventHandler !== undefined) {
-      targetElement?.current?.addEventListener(eventName, eventHandler);
+    const element = targetElement?.current;
+    if (!element || eventName === undefined) {
+      return;
     }
 
+    // capture the handler at the time the listener is attached so we can call cancel on it
+    const attachedHandler = handlerRef.current;
+
+    const eventListener = (event) => {
+      if (handlerRef.current) {
+        handlerRef.current(event);
+      }
+    };
+
+    element.addEventListener(eventName, eventListener);
+
     return () => {
-      if (eventHandler?.cancel) {
-        eventHandler.cancel();
+      if (attachedHandler?.cancel) {
+        attachedHandler.cancel();
       }
 
-      targetElement?.current?.removeEventListener(eventName, eventHandler);
+      element.removeEventListener(eventName, eventListener);
     };
-  }, [eventName, eventHandler, targetElement.current]);
+  }, [eventName, targetElement?.current]);
 }
 
 `;
@@ -163,17 +199,17 @@ export function ScopeProvider({ prefix, suffix, children }) {
 `;
 
   const scopeProviderTypes = `
-export type ScopeProps = { 
+export type ScopeProps = {
   /** Adds a prefix to the custom element tag name */
-  prefix?: string, 
+  prefix?: string,
   /** Adds a prefix to the custom element tag name */
-  suffix?: string, 
-  children?: React.ReactNode 
+  suffix?: string,
+  children?: React.ReactNode
 };
 
-/** 
- * Provides a mechanism to add a custom prefix or suffix to to child components. 
- * This prevents tag name collisions with components from different versions of the same library. 
+/**
+ * Provides a mechanism to add a custom prefix or suffix to to child components.
+ * This prevents tag name collisions with components from different versions of the same library.
  */
 export function ScopeProvider(props: ScopeProps): JSX.Element;
 `;
