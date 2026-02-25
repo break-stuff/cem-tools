@@ -47,7 +47,7 @@ export function getTagList(
         component.tagName || toKebabCase(component.name)
       }${options.suffix}`,
       description: getComponentDetailsTemplate(component, options),
-      ["doc-url"]: reference?.url || "",
+      ...(reference?.url && { "doc-url": reference.url }),
       attributes: getComponentAttributes(component, options.typesSrc),
       slots: component.slots?.map((slot) => {
         return {
