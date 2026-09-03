@@ -118,6 +118,8 @@ export interface Options {
   hideLogs?: boolean;
   /** Prevents plugin from executing */
   skip?: boolean;
+  /** Used to amend the modules paths to actual source (when outdir is a subdirectory for instance) */
+  modulePathTemplate?: (name: string, modulePath: string) => string;
 }
 ```
 

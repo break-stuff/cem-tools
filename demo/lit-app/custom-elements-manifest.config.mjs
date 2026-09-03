@@ -36,7 +36,12 @@ export default {
   plugins: [
     expandTypesPlugin(),
     customElementVsCodePlugin({ typesSrc: "expandedType" }),
-    customElementJetBrainsPlugin({ typesSrc: "expandedType" }),
+    customElementJetBrainsPlugin({
+      typesSrc: "expandedType",
+      modulePathTemplate: (name, module) => {
+        return module;
+      }
+    }),
     customElementSolidJsPlugin({
       // globalTypePath: "./types"
       componentTypePath: (name, tag) => `./dist/${tag}/${name}.d.ts`,
