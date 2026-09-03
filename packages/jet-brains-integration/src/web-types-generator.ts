@@ -72,6 +72,10 @@ export function getComponentsExportsMap(
   customElementsManifest: CEM,
   options: Options,
 ): Map<string, WebTypeSourceSymbol> {
+  if (!options.modulePathTemplate) {
+    return new Map();
+  }
+
   return new Map(
     customElementsManifest.modules
       ?.map((mod) =>
@@ -84,12 +88,10 @@ export function getComponentsExportsMap(
             e.name,
             {
               symbol: e.declaration.name,
-              module: options.modulePathTemplate
-                ? options.modulePathTemplate(
+              module: options.modulePathTemplate?.(
                     e.declaration.name,
                     e.declaration.module!,
                   )
-                : e.declaration.module,
             } as WebTypeSourceSymbol,
           ]),
       )
