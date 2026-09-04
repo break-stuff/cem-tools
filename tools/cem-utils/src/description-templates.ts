@@ -38,7 +38,7 @@ export function getComponentDetailsTemplate(
 
   let description =
     getComponentDescription(component, options?.descriptionSrc as string) +
-    "\n---\n" +
+    "\n\n---\n" +
     events +
     methods +
     slots +
