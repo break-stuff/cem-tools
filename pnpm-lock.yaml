@@ -412,9 +412,9 @@ importers:
 
   packages/cem-inheritance:
     dependencies:
-      prettier:
-        specifier: ^2.8.0
-        version: 2.8.8
+      '@prettier/sync':
+        specifier: ^0.5.2
+        version: 0.5.5(prettier@3.3.2)
     devDependencies:
       '@custom-elements-manifest/analyzer':
         specifier: ^0.6.3
